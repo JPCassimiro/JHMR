@@ -1,0 +1,7 @@
+deployment
+pysidedeploy.spec
+JHMR.exe
+JHRM.spec
+build
+dist
+logs

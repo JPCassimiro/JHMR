@@ -22,6 +22,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
+        Form.resize(450, 227)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -30,11 +31,11 @@ class Ui_Form(object):
         Form.setMinimumSize(QSize(450, 227))
         self.logWindow = QPlainTextEdit(Form)
         self.logWindow.setObjectName(u"logWindow")
-        self.logWindow.setGeometry(QRect(20, 10, 261, 201))
+        self.logWindow.setGeometry(QRect(170, 10, 261, 201))
         self.logWindow.setReadOnly(True)
         self.layoutWidget = QWidget(Form)
         self.layoutWidget.setObjectName(u"layoutWidget")
-        self.layoutWidget.setGeometry(QRect(290, 10, 139, 56))
+        self.layoutWidget.setGeometry(QRect(10, 10, 151, 121))
         self.verticalLayout = QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -57,7 +58,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.logWindow.setPlainText("")
-        self.findButton.setText(QCoreApplication.translate("Form", u"Encontrar dispositovos", None))
+        self.findButton.setText(QCoreApplication.translate("Form", u"Encontrar dispositivos", None))
         self.onOffButton.setText(QCoreApplication.translate("Form", u"Ligar/Desligar Bluetooth", None))
     # retranslateUi
 

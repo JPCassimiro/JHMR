@@ -1,8 +1,6 @@
-import bluetooth
 import asyncio
-from winrt.windows.devices.radios import Radio, RadioState
 import PySide6.QtBluetooth
-from PySide6.QtBluetooth import QBluetoothDeviceInfo
+from PySide6.QtBluetooth import QBluetoothDeviceInfo, QBluetoothLocalDevice
 from PySide6.QtCore import Slot, QObject, Signal
 
 class BluetoothCommClass(QObject):
@@ -13,6 +11,7 @@ class BluetoothCommClass(QObject):
         super().__init__(parent)
         self.discovery_agent = PySide6.QtBluetooth.QBluetoothDeviceDiscoveryAgent()
         self.devices = []
+        self.local_device = QBluetoothLocalDevice()
 
         self.discovery_agent.deviceDiscovered.connect(self.device_discovered)
         self.discovery_agent.finished.connect(self.end_discovery)
@@ -23,22 +22,14 @@ class BluetoothCommClass(QObject):
         self.devices.append(device)
 
     async def start_discovery(self):
-        radios = await Radio.get_radios_async()
-        b_radio = None
 
-        for radio in radios:
-            if radio.name == "Bluetooth":
-                b_radio = radio
-                break
-        
-        if not b_radio:
-            self.end_discovery()
+        if not self.local_device:
             self.errorMessage.emit("Adaptador Bluetooth não encontrado")
-            return
+
+        device_mode = self.local_device.hostMode() 
         
-        if b_radio.state == RadioState.OFF:
-            self.errorMessage.emit("Adaptador Bluetooth desligado")
-            self.end_discovery()
+        if device_mode != QBluetoothLocalDevice.HostMode.HostConnectable:
+            self.errorMessage.emit("Adaptador Bluetooth esta desligado")
         else:
             self.devices.clear()
             self.discovery_agent.start()
@@ -53,54 +44,46 @@ class BluetoothCommClass(QObject):
         print(str(error))
 
     async def toggle_bluetooth(self):
-        radios = await Radio.get_radios_async()
-        b_radio = None
-
-        for radio in radios:
-            if radio.name == "Bluetooth":
-                b_radio = radio
-                break
-        
-        if not b_radio:
+        if not self.local_device:
             return "Adaptador Bluetooth não encontrado"
-            
-        if b_radio.state == RadioState.ON:
-            await  b_radio.set_state_async(RadioState.OFF)
+
+        device_mode = self.local_device.hostMode() 
+        
+        if device_mode == QBluetoothLocalDevice.HostMode.HostConnectable:
+            self.local_device.setHostMode(QBluetoothLocalDevice.HostMode.HostPoweredOff)
             return "Adaptador Bluetooth desligado"
-        else:
-            await  b_radio.set_state_async(RadioState.ON)
+            
+        elif device_mode == QBluetoothLocalDevice.HostMode.HostPoweredOff:
+            self.local_device.setHostMode(QBluetoothLocalDevice.HostMode.HostConnectable)
             return "Adaptador Bluetooth ligado"
+            
 
+
+
+
+
+
+
+
+
+
+
+
+#implementação antiga
+        # radios = await Radio.get_radios_async()
+        # b_radio = None
+
+        # for radio in radios:
+        #     if radio.name == "Bluetooth":
+        #         b_radio = radio
+        #         break
         
-        
-
-# def find_devices():
-#     nearby_devices = bluetooth.discover_devices(duration=8, lookup_names=True,
-#                                         flush_cache=True, lookup_class=False)
-#     # print("Found {} devices".format(len(nearby_devices)))
-#     return nearby_devices
-
-
-        
-        
-        
-    #     self.discovery_agent.deviceDiscovered.connect(self.on_device_discovered)
-    #     self.discovery_agent.deviceDiscovered.connect(self.on_error)
-    #     self.discovery_agent.deviceDiscovered.connect(self.on_scan_finished)
-
-    # @Slot()
-    # def start_scan(self):
-    #     self.devices.clear()
-    #     self.discovery_agent.start()
-
-    # @Slot()
-    # def on_device_discovered(self, device):
-    #     self.devices.append(device)
-
-    # @Slot()
-    # def on_error(self,error):
-    #     print("\nErro ao procurar dispositivos" + error)
-
-    # @Slot()
-    # def on_scan_finished(self):
-    #     self.finished.emit()
+        # if not b_radio:
+        #     return "Adaptador Bluetooth não encontrado"
+            
+        # if b_radio.state == RadioState.ON:
+        #     await  b_radio.set_state_async(RadioState.OFF)
+        #     return "Adaptador Bluetooth desligado"
+        # else:
+        #     await  b_radio.set_state_async(RadioState.ON)
+        #     return "Adaptador Bluetooth ligado"
