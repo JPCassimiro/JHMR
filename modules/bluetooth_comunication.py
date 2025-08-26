@@ -3,6 +3,8 @@ import PySide6.QtBluetooth
 from PySide6.QtBluetooth import QBluetoothDeviceInfo, QBluetoothLocalDevice
 from PySide6.QtCore import Slot, QObject, Signal
 
+target_device_name = "Redmi Note 8"
+
 class BluetoothCommClass(QObject):
     complete = Signal(list)
     errorMessage = Signal(str)
@@ -12,17 +14,16 @@ class BluetoothCommClass(QObject):
         self.discovery_agent = PySide6.QtBluetooth.QBluetoothDeviceDiscoveryAgent()
         self.devices = []
         self.local_device = QBluetoothLocalDevice()
+        self.desired_device = PySide6.QtBluetooth
 
         self.discovery_agent.deviceDiscovered.connect(self.device_discovered)
         self.discovery_agent.finished.connect(self.end_discovery)
         self.discovery_agent.errorOccurred.connect(self.discovery_error)
         
-        
-    def device_discovered(self,device: QBluetoothDeviceInfo):
+    def device_discovered(self, device: QBluetoothDeviceInfo):
         self.devices.append(device)
 
     async def start_discovery(self):
-
         if not self.local_device:
             self.errorMessage.emit("Adaptador Bluetooth não encontrado")
 
@@ -39,6 +40,7 @@ class BluetoothCommClass(QObject):
             
     def end_discovery(self):
         self.complete.emit(self.devices)
+        self.get_device_from_list()
         
     def discovery_error(self, error):
         print(str(error))
@@ -57,33 +59,22 @@ class BluetoothCommClass(QObject):
             self.local_device.setHostMode(QBluetoothLocalDevice.HostMode.HostConnectable)
             return "Adaptador Bluetooth ligado"
             
+    def get_device_from_list(self):
+        self.desired_device = QBluetoothDeviceInfo()
+        for device in self.devices:
+            if device.name() == target_device_name:
+                self.desired_device = device
+                break
 
-
-
-
-
-
-
-
-
-
-
-
-#implementação antiga
-        # radios = await Radio.get_radios_async()
-        # b_radio = None
-
-        # for radio in radios:
-        #     if radio.name == "Bluetooth":
-        #         b_radio = radio
-        #         break
+        if not self.desired_device:
+            self.errorMessage.emit("Dispositivo não encontrado")
+            return
         
-        # if not b_radio:
-        #     return "Adaptador Bluetooth não encontrado"
-            
-        # if b_radio.state == RadioState.ON:
-        #     await  b_radio.set_state_async(RadioState.OFF)
-        #     return "Adaptador Bluetooth desligado"
-        # else:
-        #     await  b_radio.set_state_async(RadioState.ON)
-        #     return "Adaptador Bluetooth ligado"
+        print(self.desired_device)
+
+    async def pair_device(self):
+        addr = self.desired_device.address()
+        print(addr.toString())
+        self.local_device.requestPairing(addr, QBluetoothLocalDevice.Pairing.Unpaired)
+        print(self.local_device.pairingStatus(addr))
+    

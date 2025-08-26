@@ -35,9 +35,33 @@
  }
 
 QPushButton:pressed{
-    background-color: #F89E59;
+   background-color: #F89E59;
 }
 
 QPushButton:disabled{
    background-color: #8a8a8a;
+}
+
+QPushButton#placeholderButton,
+QPushButton#connectionMenuButton{
+   background: none;
+   border: none;
+   margin: 0;
+   padding: 0;
+   color: white;
+   text-decoration: underline;
+}
+
+QPushButton#placeholderButton:disabled,
+QPushButton#connectionMenuButton:disabled{
+   color: #CB834B
+}
+
+QWidget#sideMenu_2{
+   background-color: #1D1B19;
+   border-color: #D5D5D4
+}
+
+QPushButton#pairButton{
+   
 }

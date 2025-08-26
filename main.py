@@ -1,7 +1,8 @@
 import sys
 from pathlib import Path
 from PySide6.QtWidgets import QApplication
-from ui import log_screen
+# from ui import log_screen
+from ui import main_menu
 import qasync
 import asyncio
 from modules import log_class
@@ -11,7 +12,7 @@ def main():
         app = QApplication(sys.argv)
         loop = qasync.QEventLoop(app)
         asyncio.set_event_loop(loop)
-        window = log_screen.Loggerwindow()
+        window = main_menu.MainMenuWindow()
         window.show()
 
         main_qss_path = Path(__file__).parent / "ui" / "qss" / "main.qss"

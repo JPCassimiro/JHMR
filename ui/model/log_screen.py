@@ -1,50 +1,32 @@
 import asyncio
 import datetime
 from modules import bluetooth_comunication
-from PySide6.QtWidgets import QMainWindow, QWidget
+from PySide6.QtWidgets import QMainWindow, QWidget, QPushButton
 from ui.views.logger_ui import Ui_Form
 from modules import log_class
 
-class Loggerwindow(QMainWindow):
+class LoggerWindow(QWidget):
     def __init__(self):
         super().__init__()
 
-        #ler arquivo
-        # ui_path = Path().joinpath(Path.__base__,"/ui_files/logger.ui")  
-        # ui_path = Path(__file__).resolve().parent / "ui_files" / "logger.ui"
-        # ui_path = "D:/utfpr_atual/THEEND/SourceProject/JHMR/ui/ui_files/logger.ui" #isso deve ser alterado, quando o método acima é utilizado, funciona no terminal, mas não funciona no deploy
-        # ui_file = QFile(str(ui_path))
-        # ui_file.open(QFile.ReadOnly)
-        
-        # if not ui_file.open(QFile.ReadOnly):
-        #     print(f"Não consegue abrir {ui_file}: {ui_file.errorString}")
-
-        # loader = QUiLoader()
-        # self.centralWidget = loader.load(ui_file)
-        # ui_file.close()
-
-        # if not self.centralWidget:
-        #     print(loader.errorString())
-        #     sys.exit(-1)
-
         #achar janela
         self.ui = Ui_Form()
-        self.centralWidget = QWidget()
 
-        self.ui.setupUi(self.centralWidget)
-        self.setCentralWidget(self.centralWidget)
-
-        self.setWindowTitle("JHMR")
+        self.ui.setupUi(self)
 
         #achar elementos da janela
         self.logWindow = self.ui.logWindow
         self.findButton = self.ui.findButton
         self.onOffButton = self.ui.onOffButton
+        self.pairButton = self.ui.pairButton
         
         #connect nas funções
         self.findButton.clicked.connect(self.find_button_handler)
         self.onOffButton.clicked.connect(self.onOff_button_handler)
+        self.pairButton.clicked.connect(self.pair_button_handler)
         
+        self.pairButton.hide()
+
         #logica descoberta de dispositivos
         self.bluetoothHandleclass = bluetooth_comunication.BluetoothCommClass()
         self.bluetoothHandleclass.complete.connect(self.end_discovery_handler)
@@ -55,25 +37,21 @@ class Loggerwindow(QMainWindow):
         self.logWindow.appendPlainText(currentDate + '\n' + message + '\n')
 
     def handle_error_message(self, message):
-        self.onOffButton.setEnabled(True)
-        self.findButton.setEnabled(True)
+        self.button_state_toggle()
         self.append_log(message)
 
     #chama findDevices e manda mensagem
     def find_button_handler(self):
-        self.findButton.setEnabled(False)
-        self.onOffButton.setEnabled(False)
+        self.button_state_toggle()
         self.append_log("Procurando dispositivos...")
         self.bluetoothHandleclass.start_discovery_task_handler()
 
     async def async_toggle_bluetooth(self):
         try:
-            self.onOffButton.setEnabled(False)
-            self.findButton.setEnabled(False)
+            self.button_state_toggle()
             result = await self.bluetoothHandleclass.toggle_bluetooth()
             self.append_log(result)
-            self.onOffButton.setEnabled(True)
-            self.findButton.setEnabled(True)
+            self.button_state_toggle()
         except Exception as e:
             log_class.logger.exception(f"Erro ao alterar estado do Bluetooth\nErro: {e}")
         finally:
@@ -88,9 +66,20 @@ class Loggerwindow(QMainWindow):
             for device in devices:
                 device_names += (device.name() + '\n')
             self.append_log("Dispositivos encontrados: \n" + str(device_names))
-            self.onOffButton.setEnabled(True)
-            self.findButton.setEnabled(True)
+            self.button_state_toggle()
         except Exception as e:
             log_class.logger.exception(f"Erro ao encontrar dispositivos\nErro: {e}")
         finally:
             log_class.logger.debug(f"Sucesso na operação de descoberta, observe a janela do software")
+
+    def button_state_toggle(self):
+        for button in self.findChildren(QPushButton):
+            button.setEnabled(not button.isEnabled())
+        
+    def pair_button_handler(self):
+        asyncio.create_task(self.async_pair_device())
+        
+    async def async_pair_device(self):
+        self.button_state_toggle()
+        await self.bluetoothHandleclass.pair_device()
+        self.button_state_toggle()
