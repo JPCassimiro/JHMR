@@ -2,7 +2,7 @@ import asyncio
 import datetime
 from modules import bluetooth_comunication
 from PySide6.QtWidgets import QMainWindow, QWidget, QPushButton
-from ui.views.logger_ui import Ui_Form
+from ui.views.logger_ui import Ui_loggerForm
 from modules import log_class
 
 class LoggerWindow(QWidget):
@@ -10,7 +10,7 @@ class LoggerWindow(QWidget):
         super().__init__()
 
         #achar janela
-        self.ui = Ui_Form()
+        self.ui = Ui_loggerForm()
 
         self.ui.setupUi(self)
 

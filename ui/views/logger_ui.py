@@ -18,39 +18,37 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QGridLayout, QPlainTextEdit, QPushButton,
     QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        if not Form.objectName():
-            Form.setObjectName(u"Form")
-        Form.resize(450, 246)
+class Ui_loggerForm(object):
+    def setupUi(self, loggerForm):
+        if not loggerForm.objectName():
+            loggerForm.setObjectName(u"loggerForm")
+        loggerForm.resize(648, 445)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(Form.sizePolicy().hasHeightForWidth())
-        Form.setSizePolicy(sizePolicy)
-        Form.setMinimumSize(QSize(450, 227))
-        self.gridLayout = QGridLayout(Form)
+        sizePolicy.setHeightForWidth(loggerForm.sizePolicy().hasHeightForWidth())
+        loggerForm.setSizePolicy(sizePolicy)
+        loggerForm.setMinimumSize(QSize(0, 0))
+        self.gridLayout = QGridLayout(loggerForm)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.logWindow = QPlainTextEdit(Form)
-        self.logWindow.setObjectName(u"logWindow")
-        self.logWindow.setReadOnly(True)
-
-        self.gridLayout.addWidget(self.logWindow, 0, 1, 1, 1)
-
+        self.windowContainer = QWidget(loggerForm)
+        self.windowContainer.setObjectName(u"windowContainer")
+        self.gridLayout_2 = QGridLayout(self.windowContainer)
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setSpacing(6)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.onOffButton = QPushButton(Form)
+        self.onOffButton = QPushButton(self.windowContainer)
         self.onOffButton.setObjectName(u"onOffButton")
 
         self.verticalLayout.addWidget(self.onOffButton)
 
-        self.findButton = QPushButton(Form)
+        self.findButton = QPushButton(self.windowContainer)
         self.findButton.setObjectName(u"findButton")
 
         self.verticalLayout.addWidget(self.findButton)
 
-        self.pairButton = QPushButton(Form)
+        self.pairButton = QPushButton(self.windowContainer)
         self.pairButton.setObjectName(u"pairButton")
 
         self.verticalLayout.addWidget(self.pairButton)
@@ -60,19 +58,28 @@ class Ui_Form(object):
         self.verticalLayout.addItem(self.verticalSpacer)
 
 
-        self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
+        self.gridLayout_2.addLayout(self.verticalLayout, 0, 0, 1, 1)
+
+        self.logWindow = QPlainTextEdit(self.windowContainer)
+        self.logWindow.setObjectName(u"logWindow")
+        self.logWindow.setReadOnly(True)
+
+        self.gridLayout_2.addWidget(self.logWindow, 0, 1, 1, 1)
 
 
-        self.retranslateUi(Form)
+        self.gridLayout.addWidget(self.windowContainer, 0, 2, 1, 1)
 
-        QMetaObject.connectSlotsByName(Form)
+
+        self.retranslateUi(loggerForm)
+
+        QMetaObject.connectSlotsByName(loggerForm)
     # setupUi
 
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
+    def retranslateUi(self, loggerForm):
+        loggerForm.setWindowTitle(QCoreApplication.translate("loggerForm", u"Form", None))
+        self.onOffButton.setText(QCoreApplication.translate("loggerForm", u"Ligar/Desligar Bluetooth", None))
+        self.findButton.setText(QCoreApplication.translate("loggerForm", u"Encontrar dispositivos", None))
+        self.pairButton.setText(QCoreApplication.translate("loggerForm", u"Emparelhar dispositivo", None))
         self.logWindow.setPlainText("")
-        self.onOffButton.setText(QCoreApplication.translate("Form", u"Ligar/Desligar Bluetooth", None))
-        self.findButton.setText(QCoreApplication.translate("Form", u"Encontrar dispositivos", None))
-        self.pairButton.setText(QCoreApplication.translate("Form", u"Emparelhar dispositivo", None))
     # retranslateUi
 

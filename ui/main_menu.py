@@ -3,6 +3,8 @@ from PySide6.QtWidgets import QMainWindow, QWidget, QPushButton, QStackedLayout
 from ui.model.log_screen import LoggerWindow
 from ui.views.main_window_ui import Ui_MainWindow
 from ui.model.placeholder_screen import PlaceholderWindow
+from ui.model.patient_info import PatientWidget
+from ui.model.title import TitleWidget
 
 class MainMenuWindow(QMainWindow):
     def __init__(self):
@@ -16,13 +18,23 @@ class MainMenuWindow(QMainWindow):
         #get stackabledWidget
         self.stackedWidget = self.ui.stackedWidget
         
+        #get container widgets
+        self.patinetWidgetContainer = self.ui.patientWidget
+        self.titletWidgetContainer = self.ui.titleWidget
+        
         #get widgets
         self.logger_window = LoggerWindow()
         self.placeholder_window = PlaceholderWindow()
+        self.patient_widget = PatientWidget()
+        self.title_widget = TitleWidget()
         
         #setup stackedWidget
         self.stackedWidget.insertWidget(0, self.logger_window)
         self.stackedWidget.insertWidget(1, self.placeholder_window)
+        
+        #setups widgets on their containers
+        self.patinetWidgetContainer.layout().addWidget(self.patient_widget)
+        self.titletWidgetContainer.layout().addWidget(self.title_widget)
 
         self.current_selected_widget = 0
 

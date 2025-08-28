@@ -22,23 +22,87 @@
     <height>600</height>
    </size>
   </property>
+  <property name="font">
+   <font>
+    <family>Lato</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="1">
-     <widget class="QStackedWidget" name="stackedWidget">
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="connectionMenu"/>
-      <widget class="QWidget" name="placeholderMenu"/>
+   <layout class="QGridLayout" name="gridLayout" rowstretch="1,0,8,1" columnstretch="0,0">
+    <property name="topMargin">
+     <number>8</number>
+    </property>
+    <property name="rightMargin">
+     <number>8</number>
+    </property>
+    <property name="bottomMargin">
+     <number>8</number>
+    </property>
+    <property name="spacing">
+     <number>2</number>
+    </property>
+    <item row="0" column="1">
+     <widget class="QWidget" name="titleWidget" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout_2"/>
      </widget>
     </item>
-    <item row="2" column="0">
+    <item row="2" column="1">
+     <widget class="QWidget" name="stackedWidgetContainer" native="true">
+      <property name="sizeIncrement">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <property name="leftMargin">
+        <number>1</number>
+       </property>
+       <property name="topMargin">
+        <number>1</number>
+       </property>
+       <property name="rightMargin">
+        <number>1</number>
+       </property>
+       <property name="bottomMargin">
+        <number>1</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QStackedWidget" name="stackedWidget">
+         <widget class="QWidget" name="widget_2"/>
+         <widget class="QWidget" name="widget_3"/>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QWidget" name="patientWidget" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout"/>
+     </widget>
+    </item>
+    <item row="0" column="0" rowspan="4">
      <widget class="QWidget" name="sideMenu_2" native="true">
       <layout class="QVBoxLayout" name="sideMenu">
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Policy::Minimum</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item>
         <widget class="QPushButton" name="connectionMenuButton">
          <property name="text">
@@ -50,6 +114,29 @@
         <widget class="QPushButton" name="placeholderButton">
          <property name="text">
           <string>Placeholder Screen</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="Line" name="sideMenuLine">
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
          </property>
         </widget>
        </item>
@@ -77,7 +164,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>18</height>
     </rect>
    </property>
   </widget>

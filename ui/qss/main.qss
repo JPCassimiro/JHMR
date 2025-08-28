@@ -15,9 +15,15 @@
         #FFFFFF
  */
 
- QMainWindow{
-    background-color: #FFFFFF;
+ QMainWindow {
+   font-family: Roboto;
+   font-size: 47pt;
+   background-color: #1D1B19;
  }
+
+ QWidget{
+   font: "Rockwell Nova" 16pt;
+}
 
  #logWindow{
     background-color:#F5F5F5;
@@ -46,22 +52,61 @@ QPushButton#placeholderButton,
 QPushButton#connectionMenuButton{
    background: none;
    border: none;
-   margin: 0;
-   padding: 0;
+   margin: 1px;
+   padding: 1px;
    color: white;
-   text-decoration: underline;
 }
 
 QPushButton#placeholderButton:disabled,
 QPushButton#connectionMenuButton:disabled{
+   text-decoration: underline;
    color: #CB834B
 }
 
 QWidget#sideMenu_2{
    background-color: #1D1B19;
-   border-color: #D5D5D4
+   border-color: #D5D5D4;
 }
 
-QPushButton#pairButton{
-   
+QWidget#windowContainer{
+   background-color:  #F5F5F5;
+}
+
+QWidget#patientWidget{
+   border: 1px solid black;
+   border-radius: 25px; 
+   background-color: #F5F5F5;
+}
+
+QWidget#titleWidget{
+   border: 1px solid black;
+   background-color: #F5F5F5;
+}
+
+QWidget#centralwidget{
+   background-color: white;
+}
+
+QWidget#stackedWidgetContainer{
+   border: 1px solid black;
+   border-radius: 25px; 
+}
+
+QWidget#stackedWidget{
+   border-radius: 25px; 
+   background-color: #F5F5F5;
+}
+
+QWidget#sideMenuLine{
+   color: #494847
+}
+
+QWidget#terapistImageContainer{
+   border: 1px solid black;
+   border-radius: 28px;
+}
+
+QWidget#patientImageContainer{
+   border: 1px solid black;
+   border-radius: 25px;
 }
