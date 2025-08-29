@@ -22,9 +22,10 @@ class Ui_titleWindowContainer(object):
     def setupUi(self, titleWindowContainer):
         if not titleWindowContainer.objectName():
             titleWindowContainer.setObjectName(u"titleWindowContainer")
-        titleWindowContainer.resize(846, 119)
+        titleWindowContainer.resize(846, 116)
         self.gridLayout = QGridLayout(titleWindowContainer)
         self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.softwareTitleContainer = QWidget(titleWindowContainer)
         self.softwareTitleContainer.setObjectName(u"softwareTitleContainer")
         self.gridLayout_3 = QGridLayout(self.softwareTitleContainer)
@@ -33,7 +34,7 @@ class Ui_titleWindowContainer(object):
         self.softwateTitle.setObjectName(u"softwateTitle")
         font = QFont()
         font.setFamilies([u"Franklin Gothic"])
-        font.setPointSize(14)
+        font.setPointSize(22)
         font.setBold(False)
         self.softwateTitle.setFont(font)
         self.softwateTitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -64,7 +65,7 @@ class Ui_titleWindowContainer(object):
         self.terapistImage = QLabel(self.terapistImageContainer)
         self.terapistImage.setObjectName(u"terapistImage")
         self.terapistImage.setMaximumSize(QSize(40, 40))
-        self.terapistImage.setPixmap(QPixmap(u"../JHMR/resources/imgs/placeholder_profile.png"))
+        self.terapistImage.setPixmap(QPixmap(u"./resources/imgs/placeholder_profile.png"))
         self.terapistImage.setScaledContents(True)
 
         self.horizontalLayout.addWidget(self.terapistImage)

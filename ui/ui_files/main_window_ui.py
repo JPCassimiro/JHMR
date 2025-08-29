@@ -16,9 +16,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
-    QLabel, QMainWindow, QMenuBar, QPushButton,
-    QSizePolicy, QSpacerItem, QStackedWidget, QStatusBar,
-    QVBoxLayout, QWidget)
+    QLabel, QLayout, QMainWindow, QMenuBar,
+    QPushButton, QSizePolicy, QSpacerItem, QStackedWidget,
+    QStatusBar, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -48,7 +48,9 @@ class Ui_MainWindow(object):
         sizePolicy1.setHeightForWidth(self.titleWidget.sizePolicy().hasHeightForWidth())
         self.titleWidget.setSizePolicy(sizePolicy1)
         self.verticalLayout_2 = QVBoxLayout(self.titleWidget)
+        self.verticalLayout_2.setSpacing(6)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setSizeConstraint(QLayout.SizeConstraint.SetDefaultConstraint)
         self.verticalLayout_2.setContentsMargins(0, 3, 0, 3)
 
         self.gridLayout.addWidget(self.titleWidget, 0, 1, 1, 1)
