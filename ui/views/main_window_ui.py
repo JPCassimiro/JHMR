@@ -123,7 +123,7 @@ class Ui_MainWindow(object):
         self.connectionMenuButton.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.connectionMenuButton.setAutoFillBackground(False)
         icon = QIcon()
-        icon.addFile(u"./resources/icons/knob_orange.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
+        icon.addFile(u"_internal/resources/icons/knob_orange.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
         self.connectionMenuButton.setIcon(icon)
         self.connectionMenuButton.setIconSize(QSize(32, 32))
 
@@ -136,7 +136,7 @@ class Ui_MainWindow(object):
         self.placeholderButton.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.placeholderButton.setAutoFillBackground(False)
         icon1 = QIcon()
-        icon1.addFile(u"./resources/icons/resilience_orange.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
+        icon1.addFile(u"_internal/resources/icons/resilience_orange.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
         self.placeholderButton.setIcon(icon1)
         self.placeholderButton.setIconSize(QSize(32, 32))
         self.placeholderButton.setCheckable(False)

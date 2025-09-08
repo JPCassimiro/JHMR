@@ -1,7 +1,7 @@
 import subprocess
 import pathlib
 from .log_class import logger
-from PySide6.QtCore import QProcess, Signal, QObject
+from PySide6.QtCore import QProcess, Signal, QObject, QProcessEnvironment
 
 class ProcessRunnerClass(QObject):
     processFinished = Signal()
@@ -14,12 +14,20 @@ class ProcessRunnerClass(QObject):
 
         #connecting funtions to signals
         self.p.finished.connect(self.process_finish_handler)
-        self.p.errorOccurred.connect(lambda error: logger.debug(error))
+        self.p.errorOccurred.connect(self.process_error_handler)
         self.p.readyReadStandardError.connect(self.read_handler)
         self.p.readyReadStandardError.connect(self.read_handler)
 
-    def run(self):
-        self.p.start('btpair -p -n"ESP32"')
+    def run(self,argStr = None):
+        try:
+            if(argStr == None):
+                self.processFinished.emit("Erro ao receber argumento")
+                logger.error("Erro ao receber um argumento")
+            else:
+                logger.debug("QProcess iniciado")
+                self.p.start(argStr[0],argStr[1])
+        except Exception as e:
+            logger.error(f"Erro ao rodar um QProcess\nErr: {e}\nArgStr: {argStr}")
 
     #read process stream
     def read_handler(self):
@@ -30,4 +38,11 @@ class ProcessRunnerClass(QObject):
     #emits finish message
     def process_finish_handler(self):
         self.processFinished.emit()
-        logger.debug("Processo de pareamento finalizado")
+        logger.debug("QProcess finalizado")
+
+        
+    def process_error_handler(self, error):
+        self.processFinished.emit()
+        logger.error(f"Erro no Qprocess\nErr: {error}")
+
+        

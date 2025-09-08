@@ -65,7 +65,7 @@ class Ui_titleWindowContainer(object):
         self.terapistImage = QLabel(self.terapistImageContainer)
         self.terapistImage.setObjectName(u"terapistImage")
         self.terapistImage.setMaximumSize(QSize(40, 40))
-        self.terapistImage.setPixmap(QPixmap(u"./resources/imgs/placeholder_profile.png"))
+        self.terapistImage.setPixmap(QPixmap(u"_internal/resources/imgs/placeholder_profile.png"))
         self.terapistImage.setScaledContents(True)
 
         self.horizontalLayout.addWidget(self.terapistImage)
@@ -86,8 +86,8 @@ class Ui_titleWindowContainer(object):
     def retranslateUi(self, titleWindowContainer):
         titleWindowContainer.setWindowTitle(QCoreApplication.translate("titleWindowContainer", u"Form", None))
         self.softwateTitle.setText(QCoreApplication.translate("titleWindowContainer", u"Joystick for hand motor rehabilitation", None))
-        self.terapistName.setText(QCoreApplication.translate("titleWindowContainer", u"TerapistName", None))
-        self.terapistRole.setText(QCoreApplication.translate("titleWindowContainer", u"TerapistFuntion", None))
+        self.terapistName.setText(QCoreApplication.translate("titleWindowContainer", u"TherapistName", None))
+        self.terapistRole.setText(QCoreApplication.translate("titleWindowContainer", u"TherapistFuntion", None))
         self.terapistImage.setText("")
     # retranslateUi
 

@@ -63,7 +63,7 @@ class Ui_patientWindowContainer(object):
         self.patientImage.setMinimumSize(QSize(0, 0))
         self.patientImage.setMaximumSize(QSize(65, 65))
         self.patientImage.setTextFormat(Qt.TextFormat.RichText)
-        self.patientImage.setPixmap(QPixmap(u"./resources/imgs/placeholder_profile.png"))
+        self.patientImage.setPixmap(QPixmap(u"_internal/resources/imgs/placeholder_profile.png"))
         self.patientImage.setScaledContents(True)
 
         self.gridLayout_2.addWidget(self.patientImage, 0, 0, 1, 1)

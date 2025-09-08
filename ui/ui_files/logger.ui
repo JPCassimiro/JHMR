@@ -49,6 +49,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="unpairButton">
+          <property name="text">
+           <string>Desemparelhar dispositvo</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="pairButton">
           <property name="text">
            <string>Emparelhar dispositivo</string>

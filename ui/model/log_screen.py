@@ -18,11 +18,15 @@ class LoggerWindow(QWidget):
         self.findButton = self.ui.findButton
         self.onOffButton = self.ui.onOffButton
         self.pairButton = self.ui.pairButton
+        self.unpairButton = self.ui.unpairButton
+        
+        self.findButton.hide()
         
         #connect nas funções
         self.findButton.clicked.connect(self.find_button_handler)
         self.onOffButton.clicked.connect(self.onOff_button_handler)
         self.pairButton.clicked.connect(self.pair_button_handler)
+        self.unpairButton.clicked.connect(self.unapir_button_handler)
         
         #logica descoberta de dispositivos
         self.bluetoothHandleclass = bluetooth_comunication.BluetoothCommClass()
@@ -62,7 +66,7 @@ class LoggerWindow(QWidget):
         try:
             device_names = ''
             for service in services:
-                device_names += (service.device().name() + '\n')
+                device_names += (service.name() + '\n')
             self.append_log("Dispositivos encontrados: \n" + str(device_names))
             self.button_state_toggle()
         except Exception as e:
@@ -76,5 +80,10 @@ class LoggerWindow(QWidget):
         
     def pair_button_handler(self):
         self.button_state_toggle()
-        self.append_log("Iniciando processo de emprelhamento, pode demorar...")
+        self.append_log("Iniciando processo de emprelhamento, este processo pode demorar. Uma notificação do Windows vai aparecer, clique na mesma e aceite")
         self.bluetoothHandleclass.pair_device()
+
+    def unapir_button_handler(self):
+        self.button_state_toggle()
+        self.append_log("Iniciando processo de desemprelhamento, este processo pode demorar...")
+        self.bluetoothHandleclass.unpair_device()

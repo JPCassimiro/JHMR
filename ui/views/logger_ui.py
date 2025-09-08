@@ -48,6 +48,11 @@ class Ui_loggerForm(object):
 
         self.verticalLayout.addWidget(self.findButton)
 
+        self.unpairButton = QPushButton(self.windowContainer)
+        self.unpairButton.setObjectName(u"unpairButton")
+
+        self.verticalLayout.addWidget(self.unpairButton)
+
         self.pairButton = QPushButton(self.windowContainer)
         self.pairButton.setObjectName(u"pairButton")
 
@@ -79,6 +84,7 @@ class Ui_loggerForm(object):
         loggerForm.setWindowTitle(QCoreApplication.translate("loggerForm", u"Form", None))
         self.onOffButton.setText(QCoreApplication.translate("loggerForm", u"Ligar/Desligar Bluetooth", None))
         self.findButton.setText(QCoreApplication.translate("loggerForm", u"Encontrar dispositivos", None))
+        self.unpairButton.setText(QCoreApplication.translate("loggerForm", u"Desemparelhar dispositvo", None))
         self.pairButton.setText(QCoreApplication.translate("loggerForm", u"Emparelhar dispositivo", None))
         self.logWindow.setPlainText("")
     # retranslateUi
