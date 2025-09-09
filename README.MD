@@ -6,10 +6,15 @@ Atualmente em produção.
 
 Sendo desenvolvido em Python utilizando a biblioteca PySide6.
 
-Utilização:
+## Utilização:
 
 Acesse a aba de releases, localizada na parte direita da pagina.
 
 Faça download do arquivo "JHMR.zip" e descompacte-o.
 
 Execute o arquivo "main.exe"
+
+## Dependências
+- Bluetooth Command Line Tools
+https://bluetoothinstaller.com/bluetooth-command-line-tools
+
