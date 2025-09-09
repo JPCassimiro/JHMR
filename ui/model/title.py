@@ -1,5 +1,5 @@
 from ui.views.title_widget_ui import Ui_titleWindowContainer
-from PySide6.QtWidgets import QMainWindow, QWidget, QPushButton
+from PySide6.QtWidgets import QWidget
 
 
 class TitleWidget(QWidget):

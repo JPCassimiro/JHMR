@@ -1,7 +1,5 @@
-import subprocess
-import pathlib
 from .log_class import logger
-from PySide6.QtCore import QProcess, Signal, QObject, QProcessEnvironment
+from PySide6.QtCore import QProcess, Signal, QObject
 
 class ProcessRunnerClass(QObject):
     processFinished = Signal()

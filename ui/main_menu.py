@@ -1,10 +1,10 @@
-import asyncio
-from PySide6.QtWidgets import QMainWindow, QWidget, QPushButton, QStackedLayout
+from PySide6.QtWidgets import QMainWindow
 from ui.model.log_screen import LoggerWindow
 from ui.views.main_window_ui import Ui_MainWindow
 from ui.model.placeholder_screen import PlaceholderWindow
 from ui.model.patient_info import PatientWidget
 from ui.model.title import TitleWidget
+from PySide6.QtWidgets import QPushButton
 
 class MainMenuWindow(QMainWindow):
     def __init__(self):
@@ -27,6 +27,7 @@ class MainMenuWindow(QMainWindow):
         self.placeholder_window = PlaceholderWindow()
         self.patient_widget = PatientWidget()
         self.title_widget = TitleWidget()
+        self.side_menu = self.ui.sideMenu_2
         
         #setup stackedWidget
         self.stackedWidget.insertWidget(0, self.logger_window)
@@ -36,8 +37,6 @@ class MainMenuWindow(QMainWindow):
         self.patinetWidgetContainer.layout().addWidget(self.patient_widget)
         self.titletWidgetContainer.layout().addWidget(self.title_widget)
 
-        self.current_selected_widget = 0
-
         #get buttons
         self.connectionMenuButton = self.ui.connectionMenuButton
         self.placeholderButton =  self.ui.placeholderButton
@@ -45,20 +44,22 @@ class MainMenuWindow(QMainWindow):
         #setup button connections
         self.connectionMenuButton.clicked.connect(self.connection_menu_button_handler)
         self.placeholderButton.clicked.connect(self.placeholder_menu_button_handler)
-        
 
         self.stackedWidget.setCurrentIndex(0)
     
     def connection_menu_button_handler(self):
-        self.connectionMenuButton.setDisabled(True)
-        self.placeholderButton.setDisabled(False)
+        self.side_menu_button_toggler(self.connectionMenuButton)
         self.stackedWidget.setCurrentIndex(0)
 
     def placeholder_menu_button_handler(self):
-        self.connectionMenuButton.setDisabled(False)
-        self.placeholderButton.setDisabled(True)
+        self.side_menu_button_toggler(self.placeholderButton)
         self.stackedWidget.setCurrentIndex(1)
         
-    
-        
+    # toggles side menu buttons accordingly
+    def side_menu_button_toggler(self, clicked_button):
+        for button in self.side_menu.findChildren(QPushButton):
+            if button != clicked_button:
+                button.setEnabled(True)
+            else:
+                clicked_button.setEnabled(False)
         

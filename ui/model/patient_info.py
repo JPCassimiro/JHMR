@@ -1,5 +1,5 @@
 from ui.views.patient_widget_ui import Ui_patientWindowContainer
-from PySide6.QtWidgets import QMainWindow, QWidget, QPushButton
+from PySide6.QtWidgets import QWidget
 
 
 class PatientWidget(QWidget):
