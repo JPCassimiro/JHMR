@@ -19,19 +19,11 @@
 /* ############################## Menu principal ##############################*/
 /* ############################## Menu principal ##############################*/
 
-
- QMainWindow {
-   font-family: Roboto;
-   font-size: 47pt;
-   background-color: #1D1B19;
- }
-
 /*
    Botões só de texto, menu principal
  */
 
-QPushButton#placeholderButton,
-QPushButton#connectionMenuButton{
+QWidget#sideMenu_2>QPushButton{
    background: none;
    border: none;
    margin: 1px;
@@ -39,15 +31,15 @@ QPushButton#connectionMenuButton{
    text-decoration: underline;
    font-size: 14pt;
    color: #CB834B;
+   icon-size: 32px;
+   text-align: left;
 }
 
-QPushButton#placeholderButton:disabled,
-QPushButton#connectionMenuButton:disabled{
+QWidget#sideMenu_2>QPushButton:disabled{
    color: #797878;
 }
 
-QPushButton#placeholderButton:hover,
-QPushButton#connectionMenuButton:hover{
+QWidget#sideMenu_2>QPushButton:hover{
    color: #fda969;
 }
 

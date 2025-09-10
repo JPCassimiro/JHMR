@@ -1,15 +1,14 @@
-import PySide6.QtBluetooth
-from PySide6.QtBluetooth import QBluetoothDeviceInfo, QBluetoothLocalDevice, QBluetoothServiceDiscoveryAgent, QBluetoothServiceInfo, QBluetoothSocket
+from PySide6.QtBluetooth import QBluetoothLocalDevice, QBluetoothServiceDiscoveryAgent, QBluetoothServiceInfo
 from PySide6.QtCore import QObject, Signal
 from modules.process_class import ProcessRunnerClass
 from modules.log_class import logger
 
 target_device_name = "ESP32"
-target_service_device_name = "ESP32SPP"
+target_service_device_name = "esp32spp"
 target_service = "RFCOMM"
 
 class BluetoothCommClass(QObject):
-    taskFinished = Signal(object)
+    taskFinished = Signal(object)#generic error and task finished signals, used in every function
     taskError = Signal(str)
     
     def __init__(self, parent=None):
@@ -22,18 +21,10 @@ class BluetoothCommClass(QObject):
         
         #local bluetooth device setup
         self.local_device = QBluetoothLocalDevice()
-        self.discovery_agent = PySide6.QtBluetooth.QBluetoothDeviceDiscoveryAgent()
-        self.devices = []
-        self.desired_device = PySide6.QtBluetooth
 
         #service discovery setup
         self.service_discovery = QBluetoothServiceDiscoveryAgent()
-        self.services = []
         self.desired_service = QBluetoothServiceInfo
-
-        self.discovery_agent.deviceDiscovered.connect(self.device_discovered)
-        self.discovery_agent.finished.connect(self.end_discovery)
-        self.discovery_agent.errorOccurred.connect(self.discovery_error)
         
         self.service_discovery.serviceDiscovered.connect(self.on_service_found)
         self.service_discovery.finished.connect(self.end_discovery)
@@ -41,13 +32,10 @@ class BluetoothCommClass(QObject):
         
         self.runner.processFinished.connect(self.process_run_finish)
         
-    def device_discovered(self, device: QBluetoothDeviceInfo):
-        self.devices.append(device)
-
     #tries to get the desired service
     def on_service_found(self, service: QBluetoothServiceInfo):
-        self.services.append(service)
-        if("rfcomm" in str(service.socketProtocol()).lower()):#!mudar isso para if name = ESP32SPP
+        print("on_service_found")
+        if(target_service_device_name in str(service.serviceName()).lower()):
             self.desired_service = service
             
     def start_discovery(self):
@@ -61,17 +49,16 @@ class BluetoothCommClass(QObject):
                 self.emit_error("Adaptador Bluetooth esta desligado")
             else:
                 logger.debug("Começar descoberta por dispositvos")
-                self.devices.clear()
-                self.services.clear()
-                self.discovery_agent.start()
-                # self.service_discovery.start()
+                self.service_discovery.start()
         except Exception as e:
             logger.error(f"Erro ao começar descorberta por dispositivos e serviços bluetooth\nErr: {e}")
             
     def end_discovery(self):
-        self.emit_result(self.devices)
-        # self.get_device_from_list()
+        print(self.on_result)
+        addr = self.desired_service.device().address().toString().replace(":","").lower()
+        self.emit_result(addr)
         
+
     def discovery_error(self, error):
         self.emit_error("Erro na descorberta por dispositivos bluetooth")
         logger.error("Erro na descorberta por dispositivos bluetooth\nErr: " + error)
@@ -110,8 +97,8 @@ class BluetoothCommClass(QObject):
             argStr = ["_internal/resources/bin/btpair.exe",argumentList]
             self.runner.run(argStr=argStr)
         
-    def process_run_finish(self):
-        self.emit_result("Processo finalizado")
+    def process_run_finish(self, object):
+        self.emit_result(f"Processo finalizado: {object}")
 
     def unpair_device(self):
         if not self.local_device:
@@ -144,15 +131,3 @@ class BluetoothCommClass(QObject):
         if self.on_error:
             self.on_error(error)
         self.taskError.emit(error)
-
-    # def get_device_from_list(self):
-    #     self.desired_device = QBluetoothDeviceInfo()
-    #     for device in self.devices:
-    #         if device.name() == target_device_name:
-    #             self.desired_device = device
-    #             break
-
-    #     if not self.desired_device:
-    #         self.emit_error("Dispositivo não encontrado")
-    #         return
-

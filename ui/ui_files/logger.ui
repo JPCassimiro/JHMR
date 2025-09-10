@@ -42,13 +42,6 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="findButton">
-          <property name="text">
-           <string>Encontrar dispositivos</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="unpairButton">
           <property name="text">
            <string>Desemparelhar dispositvo</string>

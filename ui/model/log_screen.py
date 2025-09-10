@@ -3,6 +3,7 @@ from modules import bluetooth_comunication
 from PySide6.QtWidgets import QWidget, QPushButton
 from ui.views.logger_ui import Ui_loggerForm
 from modules import log_class
+from modules.serial_communication import SerialCommClass
 
 class LoggerWindow(QWidget):
     def __init__(self):
@@ -15,21 +16,20 @@ class LoggerWindow(QWidget):
 
         #find elements from the widget
         self.logWindow = self.ui.logWindow
-        self.findButton = self.ui.findButton
         self.onOffButton = self.ui.onOffButton
         self.pairButton = self.ui.pairButton
         self.unpairButton = self.ui.unpairButton
         
-        self.findButton.hide()
-        
         #connect buttons to functions
-        self.findButton.clicked.connect(self.find_button_handler)
         self.onOffButton.clicked.connect(self.onOff_button_handler)
         self.pairButton.clicked.connect(self.pair_button_handler)
         self.unpairButton.clicked.connect(self.unapir_button_handler)
         
         #bluetooth comm class instance
         self.bluetoothHandleclass = bluetooth_comunication.BluetoothCommClass()
+
+        self.serialHandleClass = SerialCommClass()
+        self.serialHandleClass.portSignal.connect(self.port_signal_handler)
 
     #adds text to widget
     def append_log(self, message):
@@ -42,10 +42,7 @@ class LoggerWindow(QWidget):
         self.append_log(message)
 
     #calls findDevices and sets callbacks for signals
-    def find_button_handler(self):
-        self.button_state_toggle()
-        self.append_log("Procurando dispositivos...")
-        
+    def find_device_handler(self):
         def on_error(message):
             self.handle_error_message(message)
             
@@ -54,7 +51,7 @@ class LoggerWindow(QWidget):
             
         self.bluetoothHandleclass.set_callback(on_result=on_result,on_error=on_error)
         self.bluetoothHandleclass.start_discovery()
-
+        
     #alter bluetooth state
     def onOff_button_handler(self):
         self.button_state_toggle()
@@ -69,12 +66,11 @@ class LoggerWindow(QWidget):
         self.bluetoothHandleclass.set_callback(on_error=handle_toggle_error,on_result=handle_toggle_result)
         self.bluetoothHandleclass.toggle_bluetooth()
        
-    #puts all devices on a list and appends them o screen             
-    def end_discovery_handler(self,services):
+    #gets device addr            
+    def end_discovery_handler(self,addr):
         try:
-            device_names = "\n".join([s.name() for s in services])
-            self.append_log("Dispositivos encontrados: \n" + str(device_names))
-            self.button_state_toggle()
+            self.serialHandleClass.device_mac_addr = addr
+            self.serialHandleClass.find_port()
         except Exception as e:
             log_class.logger.exception(f"Erro ao encontrar dispositivos\nErro: {e}")
         finally:
@@ -89,9 +85,14 @@ class LoggerWindow(QWidget):
             self.handle_error_message(message)
             
         def on_result(message):
-            self.button_state_toggle()
             self.append_log(message)
-
+            print(message)
+            if "Erro" in message:#!possibly change this logic as to not use string matching 
+                self.button_state_toggle()#if a error message appears, break process
+            else:
+                self.append_log("Encontrando o endereço MAC e porta serial do dispositivo, aguarde...")
+                self.find_device_handler()
+            
         self.bluetoothHandleclass.set_callback(on_result=on_result,on_error=on_error)
         self.bluetoothHandleclass.pair_device()
 
@@ -104,13 +105,20 @@ class LoggerWindow(QWidget):
             self.handle_error_message(message)
             
         def on_result(message):
+            self.serialHandleClass.device_mac_addr = None#clear device info from serialHandleClass
+            self.serialHandleClass.ser.port = ''
             self.button_state_toggle()
             self.append_log(message)
 
         self.bluetoothHandleclass.set_callback(on_result=on_result,on_error=on_error)
         self.bluetoothHandleclass.unpair_device()
         
+    def port_signal_handler(self,message):
+        self.append_log(message)    
+        self.button_state_toggle()
+    
     #blocks/unblocks all buttons from this widget    
     def button_state_toggle(self):
         for button in self.findChildren(QPushButton):
             button.setEnabled(not button.isEnabled())
+            

@@ -2,7 +2,7 @@ from .log_class import logger
 from PySide6.QtCore import QProcess, Signal, QObject
 
 class ProcessRunnerClass(QObject):
-    processFinished = Signal()
+    processFinished = Signal(str)
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -14,9 +14,11 @@ class ProcessRunnerClass(QObject):
         self.p.finished.connect(self.process_finish_handler)
         self.p.errorOccurred.connect(self.process_error_handler)
         self.p.readyReadStandardError.connect(self.read_handler)
-        self.p.readyReadStandardError.connect(self.read_handler)
+        
+        self.error_flag = False#flag for errors, gets reset on run
 
     def run(self,argStr = None):
+        self.error_flag = False
         try:
             if(argStr == None):
                 self.processFinished.emit("Erro ao receber argumento")
@@ -32,15 +34,20 @@ class ProcessRunnerClass(QObject):
         data = self.p.readAllStandardError()
         stderr = bytes(data).decode("utf8")
         logger.debug(stderr)
+        if 'not found' in str(stderr):#!possibly alter logic, string matching is bad
+            self.error_flag = True
+            self.p.kill()
     
     #emits finish message
     def process_finish_handler(self):
-        self.processFinished.emit()
-        logger.debug("QProcess finalizado")
+        if self.error_flag == False:
+            self.processFinished.emit("Sucesso")
+            logger.debug("QProcess finalizado")
+        # else:
+        #     self.processFinished.emit(f"Erro, verifique seu Joystick. Não encontrado.")
 
-        
     def process_error_handler(self, error):
-        self.processFinished.emit()
+        self.processFinished.emit(f"Erro, verifique seu Joystick. \nQProcess error: {error}")
         logger.error(f"Erro no Qprocess\nErr: {error}")
 
         
