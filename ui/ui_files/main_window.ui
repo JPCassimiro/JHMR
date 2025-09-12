@@ -141,7 +141,7 @@
     </item>
     <item row="0" column="0" rowspan="3">
      <widget class="QWidget" name="sideMenu_2" native="true">
-      <layout class="QVBoxLayout" name="sideMenu" stretch="0,0,1,0,0,0,0,0">
+      <layout class="QVBoxLayout" name="sideMenu" stretch="0,0,1,0,0,0,0,0,0">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -197,11 +197,6 @@
          <property name="text">
           <string>Conexão com joystick</string>
          </property>
-         <property name="icon">
-          <iconset>
-           <normalon>../../_internal/resources/icons/knob_orange.png</normalon>
-          </iconset>
-         </property>
          <property name="iconSize">
           <size>
            <width>32</width>
@@ -211,14 +206,16 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="configButton">
+         <property name="text">
+          <string>Configuração de botões</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="calibrationButton">
          <property name="text">
           <string>Calibração</string>
-         </property>
-         <property name="icon">
-          <iconset>
-           <normalon>../../_internal/resources/icons/resilience_orange.png</normalon>
-          </iconset>
          </property>
         </widget>
        </item>

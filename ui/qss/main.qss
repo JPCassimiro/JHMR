@@ -43,6 +43,22 @@ QWidget#sideMenu_2>QPushButton:hover{
    color: #fda969;
 }
 
+QAbstractButton#connectionMenuButton{
+   qproperty-icon: url("_internal/resources/icons/no-connection._orange.png")
+}
+
+QAbstractButton#calibrationButton{
+   qproperty-icon: url("_internal/resources/icons/resilience_orange.png")
+}
+
+QAbstractButton#configButton{
+   qproperty-icon: url("_internal/resources/icons/knob_orange.png")
+}
+
+QAbstractButton#placeholderButton{
+   
+}
+
 QWidget#sideMenu_2{
    background-color: #1D1B19;
    border-color: #D5D5D4;

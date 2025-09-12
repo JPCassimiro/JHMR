@@ -1,12 +1,12 @@
 import datetime
 from modules import bluetooth_comunication
 from PySide6.QtWidgets import QWidget, QPushButton
-from ui.views.logger_ui import Ui_loggerForm
+from ui.views.logger_widget_ui import Ui_loggerForm
 from modules import log_class
 from modules.serial_communication import SerialCommClass
 
-class LoggerWindow(QWidget):
-    def __init__(self):
+class LoggerWidgetModel(QWidget):
+    def __init__(self,serialHandleClass):#both ConfigWidgetModel and LoggerWidgetModel share the SAME INSTANCE of serialHandleClass
         super().__init__()
 
         #achar janela
@@ -28,7 +28,8 @@ class LoggerWindow(QWidget):
         #bluetooth comm class instance
         self.bluetoothHandleclass = bluetooth_comunication.BluetoothCommClass()
 
-        self.serialHandleClass = SerialCommClass()
+        #serial comm class shared instance 
+        self.serialHandleClass = serialHandleClass
         self.serialHandleClass.portSignal.connect(self.port_signal_handler)
 
     #adds text to widget
@@ -84,10 +85,9 @@ class LoggerWindow(QWidget):
         def on_error(message):
             self.handle_error_message(message)
             
-        def on_result(message):
-            self.append_log(message)
-            print(message)
-            if "Erro" in message:#!possibly change this logic as to not use string matching 
+        def on_result(processDict):
+            self.append_log(processDict["message"])
+            if processDict["status"] == False:
                 self.button_state_toggle()#if a error message appears, break process
             else:
                 self.append_log("Encontrando o endereço MAC e porta serial do dispositivo, aguarde...")

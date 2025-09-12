@@ -122,18 +122,17 @@ class Ui_MainWindow(object):
         self.connectionMenuButton.setFont(font1)
         self.connectionMenuButton.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.connectionMenuButton.setAutoFillBackground(False)
-        icon = QIcon()
-        icon.addFile(u"../../_internal/resources/icons/knob_orange.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.connectionMenuButton.setIcon(icon)
         self.connectionMenuButton.setIconSize(QSize(32, 32))
 
         self.sideMenu.addWidget(self.connectionMenuButton, 0, Qt.AlignmentFlag.AlignLeft)
 
+        self.configButton = QPushButton(self.sideMenu_2)
+        self.configButton.setObjectName(u"configButton")
+
+        self.sideMenu.addWidget(self.configButton)
+
         self.calibrationButton = QPushButton(self.sideMenu_2)
         self.calibrationButton.setObjectName(u"calibrationButton")
-        icon1 = QIcon()
-        icon1.addFile(u"../../_internal/resources/icons/resilience_orange.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.calibrationButton.setIcon(icon1)
 
         self.sideMenu.addWidget(self.calibrationButton)
 
@@ -143,9 +142,9 @@ class Ui_MainWindow(object):
         self.placeholderButton.setFont(font1)
         self.placeholderButton.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.placeholderButton.setAutoFillBackground(False)
-        icon2 = QIcon()
-        icon2.addFile(u"../../resources/icons/resilience_orange.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.placeholderButton.setIcon(icon2)
+        icon = QIcon()
+        icon.addFile(u"../../resources/icons/resilience_orange.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
+        self.placeholderButton.setIcon(icon)
         self.placeholderButton.setIconSize(QSize(32, 32))
         self.placeholderButton.setCheckable(False)
         self.placeholderButton.setChecked(False)
@@ -195,6 +194,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.logoLabel.setText(QCoreApplication.translate("MainWindow", u"JHMR", None))
         self.connectionMenuButton.setText(QCoreApplication.translate("MainWindow", u"Conex\u00e3o com joystick", None))
+        self.configButton.setText(QCoreApplication.translate("MainWindow", u"Configura\u00e7\u00e3o de bot\u00f5es", None))
         self.calibrationButton.setText(QCoreApplication.translate("MainWindow", u"Calibra\u00e7\u00e3o", None))
         self.placeholderButton.setText(QCoreApplication.translate("MainWindow", u"Placeholder Screen", None))
     # retranslateUi

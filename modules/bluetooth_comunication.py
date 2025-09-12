@@ -34,7 +34,6 @@ class BluetoothCommClass(QObject):
         
     #tries to get the desired service
     def on_service_found(self, service: QBluetoothServiceInfo):
-        print("on_service_found")
         if(target_service_device_name in str(service.serviceName()).lower()):
             self.desired_service = service
             
@@ -51,17 +50,16 @@ class BluetoothCommClass(QObject):
                 logger.debug("Começar descoberta por dispositvos")
                 self.service_discovery.start()
         except Exception as e:
-            logger.error(f"Erro ao começar descorberta por dispositivos e serviços bluetooth\nErr: {e}")
+            logger.error(f"Erro ao começar descoberta por dispositivos e serviços bluetooth\nErr: {e}")
             
     def end_discovery(self):
-        print(self.on_result)
         addr = self.desired_service.device().address().toString().replace(":","").lower()
         self.emit_result(addr)
         
 
     def discovery_error(self, error):
-        self.emit_error("Erro na descorberta por dispositivos bluetooth")
-        logger.error("Erro na descorberta por dispositivos bluetooth\nErr: " + error)
+        self.emit_error("Erro na descoberta por dispositivos bluetooth")
+        logger.error("Erro na descoberta por dispositivos bluetooth\nErr: " + error)
 
     def toggle_bluetooth(self):
         try:
@@ -98,7 +96,7 @@ class BluetoothCommClass(QObject):
             self.runner.run(argStr=argStr)
         
     def process_run_finish(self, object):
-        self.emit_result(f"Processo finalizado: {object}")
+        self.emit_result(object)
 
     def unpair_device(self):
         if not self.local_device:

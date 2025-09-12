@@ -2,7 +2,7 @@ from .log_class import logger
 from PySide6.QtCore import QProcess, Signal, QObject
 
 class ProcessRunnerClass(QObject):
-    processFinished = Signal(str)
+    processFinished = Signal(dict)
     
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -41,13 +41,11 @@ class ProcessRunnerClass(QObject):
     #emits finish message
     def process_finish_handler(self):
         if self.error_flag == False:
-            self.processFinished.emit("Sucesso")
+            self.processFinished.emit({"message":"Sucesso","status":True})
             logger.debug("QProcess finalizado")
-        # else:
-        #     self.processFinished.emit(f"Erro, verifique seu Joystick. Não encontrado.")
 
     def process_error_handler(self, error):
-        self.processFinished.emit(f"Erro, verifique seu Joystick. \nQProcess error: {error}")
+        self.processFinished.emit({"message":f"Erro, verifique seu Joystick. \nQProcess error: {error}","status":False})
         logger.error(f"Erro no Qprocess\nErr: {error}")
 
         

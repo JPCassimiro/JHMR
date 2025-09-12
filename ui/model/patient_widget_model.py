@@ -1,8 +1,7 @@
 from ui.views.patient_widget_ui import Ui_patientWindowContainer
 from PySide6.QtWidgets import QWidget
 
-
-class PatientWidget(QWidget):
+class PatientWidgetModel(QWidget):
     def __init__(self):
         super().__init__()
 
