@@ -14,6 +14,8 @@ Faça download do arquivo "JHMR.zip" e descompacte-o.
 
 Execute o arquivo "main.exe"
 
+É necessario parear o dispositivo através da interface do software mesmo que o dispositivo já esteja pareado.
+
 ## Dependências
 - Bluetooth Command Line Tools
 https://bluetoothinstaller.com/bluetooth-command-line-tools
