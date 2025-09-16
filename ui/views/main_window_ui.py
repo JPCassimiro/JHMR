@@ -136,22 +136,6 @@ class Ui_MainWindow(object):
 
         self.sideMenu.addWidget(self.calibrationButton)
 
-        self.placeholderButton = QPushButton(self.sideMenu_2)
-        self.placeholderButton.setObjectName(u"placeholderButton")
-        self.placeholderButton.setEnabled(True)
-        self.placeholderButton.setFont(font1)
-        self.placeholderButton.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
-        self.placeholderButton.setAutoFillBackground(False)
-        icon = QIcon()
-        icon.addFile(u"../../resources/icons/resilience_orange.png", QSize(), QIcon.Mode.Normal, QIcon.State.On)
-        self.placeholderButton.setIcon(icon)
-        self.placeholderButton.setIconSize(QSize(32, 32))
-        self.placeholderButton.setCheckable(False)
-        self.placeholderButton.setChecked(False)
-        self.placeholderButton.setFlat(False)
-
-        self.sideMenu.addWidget(self.placeholderButton, 0, Qt.AlignmentFlag.AlignLeft)
-
         self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.sideMenu.addItem(self.verticalSpacer_3)
@@ -196,6 +180,5 @@ class Ui_MainWindow(object):
         self.connectionMenuButton.setText(QCoreApplication.translate("MainWindow", u"Conex\u00e3o com joystick", None))
         self.configButton.setText(QCoreApplication.translate("MainWindow", u"Configura\u00e7\u00e3o de bot\u00f5es", None))
         self.calibrationButton.setText(QCoreApplication.translate("MainWindow", u"Calibra\u00e7\u00e3o", None))
-        self.placeholderButton.setText(QCoreApplication.translate("MainWindow", u"Placeholder Screen", None))
     # retranslateUi
 

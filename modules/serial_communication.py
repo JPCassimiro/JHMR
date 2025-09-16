@@ -34,10 +34,6 @@ class SerialCommClass(QObject):
         self.ser.readyRead.connect(self.recieve_message)
         self.ser.errorOccurred.connect(self.handle_serial_error)
 
-    # def get_device_addr(self,addr):
-    #     self.device_mac_addr = addr
-    #     self.find_port()
-
     #toggles port state
     def alter_port_state(self):
         if self.ser.isOpen():
@@ -66,7 +62,7 @@ class SerialCommClass(QObject):
     def handle_serial_error(self,err):
         logger.error(err)        
         
-    #ports that are >=10 must be inputed this way due to a windows quick of finding ports, Qt does not automatically deals with this like pyserial
+    #ports that are >=10 must be inputed this way due to a windows quirk of finding ports, Qt does not automatically deals with this like pyserial
     def port_name_normalization(self,portName):
         portNumber = int(portName[3:])
         if portNumber >= 10:

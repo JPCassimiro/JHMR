@@ -3,7 +3,6 @@ from modules import bluetooth_comunication
 from PySide6.QtWidgets import QWidget, QPushButton
 from ui.views.logger_widget_ui import Ui_loggerForm
 from modules import log_class
-from modules.serial_communication import SerialCommClass
 
 class LoggerWidgetModel(QWidget):
     def __init__(self,serialHandleClass):#both ConfigWidgetModel and LoggerWidgetModel share the SAME INSTANCE of serialHandleClass
@@ -19,11 +18,15 @@ class LoggerWidgetModel(QWidget):
         self.onOffButton = self.ui.onOffButton
         self.pairButton = self.ui.pairButton
         self.unpairButton = self.ui.unpairButton
+        self.pairHidButton = self.ui.pairHidButton
+        self.unpairHidButton = self.ui.unpairHidButton
         
         #connect buttons to functions
         self.onOffButton.clicked.connect(self.onOff_button_handler)
         self.pairButton.clicked.connect(self.pair_button_handler)
         self.unpairButton.clicked.connect(self.unapir_button_handler)
+        self.unpairHidButton.clicked.connect(self.unpair_hid_handler)
+        self.pairHidButton.clicked.connect(self.pair_hid_handler)
         
         #bluetooth comm class instance
         self.bluetoothHandleclass = bluetooth_comunication.BluetoothCommClass()
@@ -35,7 +38,7 @@ class LoggerWidgetModel(QWidget):
     #adds text to widget
     def append_log(self, message):
         currentDate = datetime.datetime.now().strftime("%c")
-        self.logWindow.appendPlainText(currentDate + '\n' + message + '\n')
+        self.logWindow.appendPlainText(f"{currentDate}\n{message}\n")
 
     #simple end task on error
     def handle_error_message(self, message):
@@ -113,6 +116,36 @@ class LoggerWidgetModel(QWidget):
         self.bluetoothHandleclass.set_callback(on_result=on_result,on_error=on_error)
         self.bluetoothHandleclass.unpair_device()
         
+    #pair hid(keyboard) device handler
+    def pair_hid_handler(self):
+        self.button_state_toggle()    
+        self.append_log("Iniciando processo de emparelhamento do dispositivo HID, este processo pode demorar...")
+
+        def on_error(message):
+            self.handle_error_message(message)
+        
+        def on_result(message):
+            self.append_log(message)
+            self.button_state_toggle()
+
+        self.bluetoothHandleclass.set_callback(on_error=on_error,on_result=on_result)
+        self.bluetoothHandleclass.hid_device_discovery()
+
+    #unpair hid(keyboard) device handler
+    def unpair_hid_handler(self):
+        self.button_state_toggle()    
+        self.append_log("Iniciando processo de desemparelhamento do dispositivo HID, este processo pode demorar...")
+
+        def on_error(message):
+            self.handle_error_message(message)
+        
+        def on_result(message):
+            self.append_log(message)
+            self.button_state_toggle()
+
+        self.bluetoothHandleclass.set_callback(on_error=on_error,on_result=on_result)
+        self.bluetoothHandleclass.hid_device_unpair()
+    
     def port_signal_handler(self,message):
         self.append_log(message)    
         self.button_state_toggle()

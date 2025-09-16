@@ -42,16 +42,30 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="unpairButton">
+         <widget class="QPushButton" name="pairButton">
           <property name="text">
-           <string>Desemparelhar dispositvo</string>
+           <string>Emparelhar serviço SPP</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pairButton">
+         <widget class="QPushButton" name="unpairButton">
           <property name="text">
-           <string>Emparelhar dispositivo</string>
+           <string>Desemparelhar serviço SPP</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pairHidButton">
+          <property name="text">
+           <string>Emparelhar dispositivo HID</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="unpairHidButton">
+          <property name="text">
+           <string>Desemparelhar dispositivo HID</string>
           </property>
          </widget>
         </item>

@@ -43,15 +43,25 @@ class Ui_loggerForm(object):
 
         self.verticalLayout.addWidget(self.onOffButton)
 
+        self.pairButton = QPushButton(self.windowContainer)
+        self.pairButton.setObjectName(u"pairButton")
+
+        self.verticalLayout.addWidget(self.pairButton)
+
         self.unpairButton = QPushButton(self.windowContainer)
         self.unpairButton.setObjectName(u"unpairButton")
 
         self.verticalLayout.addWidget(self.unpairButton)
 
-        self.pairButton = QPushButton(self.windowContainer)
-        self.pairButton.setObjectName(u"pairButton")
+        self.pairHidButton = QPushButton(self.windowContainer)
+        self.pairHidButton.setObjectName(u"pairHidButton")
 
-        self.verticalLayout.addWidget(self.pairButton)
+        self.verticalLayout.addWidget(self.pairHidButton)
+
+        self.unpairHidButton = QPushButton(self.windowContainer)
+        self.unpairHidButton.setObjectName(u"unpairHidButton")
+
+        self.verticalLayout.addWidget(self.unpairHidButton)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -78,8 +88,10 @@ class Ui_loggerForm(object):
     def retranslateUi(self, loggerForm):
         loggerForm.setWindowTitle(QCoreApplication.translate("loggerForm", u"Form", None))
         self.onOffButton.setText(QCoreApplication.translate("loggerForm", u"Ligar/Desligar Bluetooth", None))
-        self.unpairButton.setText(QCoreApplication.translate("loggerForm", u"Desemparelhar dispositvo", None))
-        self.pairButton.setText(QCoreApplication.translate("loggerForm", u"Emparelhar dispositivo", None))
+        self.pairButton.setText(QCoreApplication.translate("loggerForm", u"Emparelhar servi\u00e7o SPP", None))
+        self.unpairButton.setText(QCoreApplication.translate("loggerForm", u"Desemparelhar servi\u00e7o SPP", None))
+        self.pairHidButton.setText(QCoreApplication.translate("loggerForm", u"Emparelhar dispositivo HID", None))
+        self.unpairHidButton.setText(QCoreApplication.translate("loggerForm", u"Desemparelhar dispositivo HID", None))
         self.logWindow.setPlainText("")
     # retranslateUi
 
