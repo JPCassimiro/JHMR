@@ -68,13 +68,6 @@ class Ui_configForm(object):
 
         self.horizontalLayout_2.addWidget(self.verticalSliderIndex)
 
-        self.verticalSliderThumb = QSlider(self.slidersContainer)
-        self.verticalSliderThumb.setObjectName(u"verticalSliderThumb")
-        self.verticalSliderThumb.setMaximum(200)
-        self.verticalSliderThumb.setOrientation(Qt.Orientation.Vertical)
-
-        self.horizontalLayout_2.addWidget(self.verticalSliderThumb)
-
 
         self.verticalLayout_3.addWidget(self.slidersContainer)
 
@@ -120,12 +113,6 @@ class Ui_configForm(object):
         self.radioButtonIndex.setObjectName(u"radioButtonIndex")
 
         self.fingerButtonContainer.addWidget(self.radioButtonIndex)
-
-        self.radioButtonThumb = QRadioButton(self.fingerButtonContainer_2)
-        self.fingerButtonGroup.addButton(self.radioButtonThumb)
-        self.radioButtonThumb.setObjectName(u"radioButtonThumb")
-
-        self.fingerButtonContainer.addWidget(self.radioButtonThumb)
 
 
         self.verticalLayout_3.addWidget(self.fingerButtonContainer_2)
@@ -248,7 +235,6 @@ class Ui_configForm(object):
         self.radioButtonRing.setText(QCoreApplication.translate("configForm", u"Anelar", None))
         self.radioButtonMiddle.setText(QCoreApplication.translate("configForm", u"Meio", None))
         self.radioButtonIndex.setText(QCoreApplication.translate("configForm", u"Indicador", None))
-        self.radioButtonThumb.setText(QCoreApplication.translate("configForm", u"Ded\u00e3o", None))
         self.repeatButtonLabel.setText(QCoreApplication.translate("configForm", u"Repetir", None))
         self.repeatOnButton.setText(QCoreApplication.translate("configForm", u"Ligado", None))
         self.repeatOffButton.setText(QCoreApplication.translate("configForm", u"Desligado", None))

@@ -38,14 +38,12 @@ class ConfigWidgetModel(QWidget):
         self.radioButtonRing = self.ui.radioButtonRing
         self.radioButtonMiddle = self.ui.radioButtonMiddle
         self.radioButtonIndex = self.ui.radioButtonIndex
-        self.radioButtonThumb = self.ui.radioButtonThumb
 
         #hand sliders
         self.verticalSliderLittle = self.ui.verticalSliderLittle
         self.verticalSliderRing = self.ui.verticalSliderRing
         self.verticalSliderMiddle = self.ui.verticalSliderMiddle
         self.verticalSliderIndex = self.ui.verticalSliderIndex
-        self.verticalSliderThumb = self.ui.verticalSliderThumb
 
         #optionsContainer elements
         self.repeatOffButton = self.ui.repeatOffButton
@@ -65,13 +63,11 @@ class ConfigWidgetModel(QWidget):
         self.radioButtonRing.setProperty("index",1)
         self.radioButtonMiddle.setProperty("index",2)
         self.radioButtonIndex.setProperty("index",3)
-        self.radioButtonThumb.setProperty("index",4)
 
         self.verticalSliderLittle.setProperty("index",0)
         self.verticalSliderRing.setProperty("index",1)
         self.verticalSliderMiddle.setProperty("index",2)
         self.verticalSliderIndex.setProperty("index",3)
-        self.verticalSliderThumb.setProperty("index",4)
 
         #connections
         for slider in self.ui.slidersContainer.findChildren(QSlider):
