@@ -1,12 +1,16 @@
 import wmi
 from modules.log_class import logger
 from PySide6.QtCore import Signal, QObject
-from PySide6.QtSerialPort import QSerialPort, QSerialPortInfo
+from PySide6.QtSerialPort import QSerialPort
 from PySide6.QtCore import QIODevice
 
 buffer_len = 255
 baud_rate = 600
 timeout = 1000
+
+#! port opening needs to be revised 
+#! device listner would help solve this
+
 class SerialCommClass(QObject):
     
     portSignal = Signal(str)

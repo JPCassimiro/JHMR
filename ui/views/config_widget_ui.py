@@ -23,7 +23,7 @@ class Ui_configForm(object):
     def setupUi(self, configForm):
         if not configForm.objectName():
             configForm.setObjectName(u"configForm")
-        configForm.resize(849, 539)
+        configForm.resize(697, 539)
         self.gridLayout = QGridLayout(configForm)
         self.gridLayout.setObjectName(u"gridLayout")
         self.configContainer = QWidget(configForm)
@@ -36,52 +36,18 @@ class Ui_configForm(object):
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.slidersContainer = QWidget(self.pressureFingerContainer)
         self.slidersContainer.setObjectName(u"slidersContainer")
-        self.horizontalLayout_2 = QHBoxLayout(self.slidersContainer)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.verticalSliderLittle = QSlider(self.slidersContainer)
-        self.verticalSliderLittle.setObjectName(u"verticalSliderLittle")
-        self.verticalSliderLittle.setMaximum(200)
-        self.verticalSliderLittle.setOrientation(Qt.Orientation.Vertical)
-        self.verticalSliderLittle.setTickPosition(QSlider.TickPosition.NoTicks)
-        self.verticalSliderLittle.setTickInterval(0)
-
-        self.horizontalLayout_2.addWidget(self.verticalSliderLittle)
-
-        self.verticalSliderRing = QSlider(self.slidersContainer)
-        self.verticalSliderRing.setObjectName(u"verticalSliderRing")
-        self.verticalSliderRing.setMaximum(200)
-        self.verticalSliderRing.setOrientation(Qt.Orientation.Vertical)
-
-        self.horizontalLayout_2.addWidget(self.verticalSliderRing)
-
-        self.verticalSliderMiddle = QSlider(self.slidersContainer)
-        self.verticalSliderMiddle.setObjectName(u"verticalSliderMiddle")
-        self.verticalSliderMiddle.setMaximum(200)
-        self.verticalSliderMiddle.setOrientation(Qt.Orientation.Vertical)
-
-        self.horizontalLayout_2.addWidget(self.verticalSliderMiddle)
-
-        self.verticalSliderIndex = QSlider(self.slidersContainer)
-        self.verticalSliderIndex.setObjectName(u"verticalSliderIndex")
-        self.verticalSliderIndex.setMaximum(200)
-        self.verticalSliderIndex.setOrientation(Qt.Orientation.Vertical)
-
-        self.horizontalLayout_2.addWidget(self.verticalSliderIndex)
-
+        self.handImageLabel = QLabel(self.slidersContainer)
+        self.handImageLabel.setObjectName(u"handImageLabel")
+        self.handImageLabel.setGeometry(QRect(110, 150, 201, 151))
+        self.handImageLabel.setPixmap(QPixmap(u"_internal/resources/imgs/hand.png"))
+        self.handImageLabel.setScaledContents(True)
+        self.handImageLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.handImageLabel.setWordWrap(False)
+        self.massLabel = QLabel(self.slidersContainer)
+        self.massLabel.setObjectName(u"massLabel")
+        self.massLabel.setGeometry(QRect(280, 10, 71, 41))
 
         self.verticalLayout_3.addWidget(self.slidersContainer)
-
-        self.handImageContainer = QWidget(self.pressureFingerContainer)
-        self.handImageContainer.setObjectName(u"handImageContainer")
-        self.gridLayout_4 = QGridLayout(self.handImageContainer)
-        self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.handImageLabel = QLabel(self.handImageContainer)
-        self.handImageLabel.setObjectName(u"handImageLabel")
-
-        self.gridLayout_4.addWidget(self.handImageLabel, 0, 0, 1, 1)
-
-
-        self.verticalLayout_3.addWidget(self.handImageContainer)
 
         self.fingerButtonContainer_2 = QWidget(self.pressureFingerContainer)
         self.fingerButtonContainer_2.setObjectName(u"fingerButtonContainer_2")
@@ -117,6 +83,7 @@ class Ui_configForm(object):
 
         self.verticalLayout_3.addWidget(self.fingerButtonContainer_2)
 
+        self.verticalLayout_3.setStretch(0, 1)
 
         self.gridLayout_2.addWidget(self.pressureFingerContainer, 0, 0, 1, 1)
 
@@ -133,6 +100,7 @@ class Ui_configForm(object):
         self.repeatButtonContainer = QWidget(self.optionsContainer)
         self.repeatButtonContainer.setObjectName(u"repeatButtonContainer")
         self.horizontalLayout = QHBoxLayout(self.repeatButtonContainer)
+        self.horizontalLayout.setSpacing(10)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.repeatOnButton = QRadioButton(self.repeatButtonContainer)
         self.repeatButtonGroup = QButtonGroup(configForm)
@@ -230,11 +198,12 @@ class Ui_configForm(object):
 
     def retranslateUi(self, configForm):
         configForm.setWindowTitle(QCoreApplication.translate("configForm", u"Form", None))
-        self.handImageLabel.setText(QCoreApplication.translate("configForm", u"ImagemM\u00e3o", None))
+        self.handImageLabel.setText("")
+        self.massLabel.setText(QCoreApplication.translate("configForm", u"Massa em KG", None))
         self.radioButtonLittle.setText(QCoreApplication.translate("configForm", u"Mindinho", None))
         self.radioButtonRing.setText(QCoreApplication.translate("configForm", u"Anelar", None))
         self.radioButtonMiddle.setText(QCoreApplication.translate("configForm", u"Meio", None))
-        self.radioButtonIndex.setText(QCoreApplication.translate("configForm", u"Indicador", None))
+        self.radioButtonIndex.setText(QCoreApplication.translate("configForm", u"Indicador/Ded\u00e3o", None))
         self.repeatButtonLabel.setText(QCoreApplication.translate("configForm", u"Repetir", None))
         self.repeatOnButton.setText(QCoreApplication.translate("configForm", u"Ligado", None))
         self.repeatOffButton.setText(QCoreApplication.translate("configForm", u"Desligado", None))

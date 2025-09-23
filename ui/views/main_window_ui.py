@@ -30,7 +30,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QSize(800, 600))
+        MainWindow.setMinimumSize(QSize(900, 650))
         font = QFont()
         font.setFamilies([u"Lato"])
         MainWindow.setFont(font)

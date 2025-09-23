@@ -149,3 +149,72 @@ QWidget#patientImageContainer{
    border: 1px solid black;
    border-radius: 25px;
 }
+
+
+/* ############################## Config widget ##############################*/
+/* ############################## Config widget ##############################*/
+/* ############################## Config widget ##############################*/
+
+QRadioButton#radioButtonLittle{
+   background-color: #FFE05F;
+}
+QRadioButton#radioButtonRing{
+   background-color: #FFC15F;
+}
+QRadioButton#radioButtonMiddle{
+   background-color: #FF9653;
+}
+QRadioButton#radioButtonIndex{
+   background-color: #ff8153;
+}
+
+QWidget#fingerButtonContainer_2>QRadioButton{
+   border: 1px solid black;
+   border-radius: 9px;
+   padding: 5px;
+   margin: 2px;
+}
+
+
+QWidget#repeatButtonContainer>QRadioButton::indicator {
+   border: 1px solid black;
+   border-radius: 6px;
+}
+
+QWidget#repeatButtonContainer>QRadioButton::indicator:checked {
+   background-color: #F89E59;
+}
+
+QWidget#pressureFingerContainer{
+   border: 1px solid black;
+   border-radius: 25px;
+}
+
+QWidget#optionsContainer{
+   border: 1px solid black;
+   border-radius: 25px;
+   padding: 1px;
+   margin: 1px;
+}
+
+QWidget#slider>QSlider::groove{
+   border: 1px solid black;
+   border-radius: 8px;
+   margin: 0px;
+}
+
+QWidget#slider>QSlider::add-page{
+   background: black;
+   border-radius: 8px;
+   margin: 0px;
+}
+
+QWidget#slider > QSlider::handle:disabled {
+   background: transparent;
+   border: none;
+}
+/* 
+QWidget#slider{//testing pourposes
+   border: 1px solid purple;
+   background: red;
+} */
