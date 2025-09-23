@@ -15,8 +15,14 @@ class EndConfigModel(QDialog):
 
         self.finished.connect(self.finished_handler)
 
-    def append_end_message(self,message):
-        self.messageField.append(message)
+    def recieve_end_message(self,message):
+        if("N" in message):
+            self.messageField.append(f"Erro ao configurar atributo")
+        else:
+            self.messageField.append(f"Atributo configurado com sucesso")
+
+
+
 
     def finished_handler(self):
         self.messageField.clear()

@@ -14,7 +14,7 @@ class CustomSliderModel(QWidget):
         self.maxLabel = self.ui.maxLabel
         self.currentLabel = self.ui.currentLabel
         
-        self.setFixedWidth(39)#min
+        self.setFixedWidth(42)#min
         
-        self.maxLabel.setText(str(self.slider.maximum()))
-        self.currentLabel.setText(str(self.slider.value()))
+        self.maxLabel.setText(str(self.slider.maximum()/10))
+        self.currentLabel.setText(str(self.slider.value()/10))

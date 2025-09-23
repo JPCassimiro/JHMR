@@ -213,8 +213,7 @@ QWidget#slider > QSlider::handle:disabled {
    background: transparent;
    border: none;
 }
-/* 
-QWidget#slider{//testing pourposes
-   border: 1px solid purple;
-   background: red;
-} */
+
+QWidget#slider>QSlider::groove:disabled{
+   background: #EBEBE4;
+}

@@ -94,7 +94,7 @@ class ConfigWidgetModel(QWidget):
 
         #connections
         for slider in self.slider_array:
-            slider.slider.setEnabled(False)
+            slider.setEnabled(False)
             slider.slider.valueChanged.connect(self.pressure_slider_value_change)
         
         for radio in self.ui.fingerButtonContainer_2.findChildren(QRadioButton):
@@ -128,7 +128,7 @@ class ConfigWidgetModel(QWidget):
     def set_slider_max_value(self,value):
         for slider in self.slider_array:
             slider.slider.setMaximum(value)
-            slider.maxLabel.setText(str(value))
+            slider.maxLabel.setText(str(value/10))
 
     def duration_slider_value_change(self):
         print(f"slider: {self.sender().objectName()} - value: {self.sender().value()}")
@@ -176,16 +176,18 @@ class ConfigWidgetModel(QWidget):
     def pressure_slider_value_change(self):
         print(f"slider: {self.sender().objectName()} - value: {self.sender().value()} - index: {self.sender().property("index")}")
         self.p_value_array[self.sender().property("index")] = self.sender().value()
-        print(self.sender().parent().parent().parent().currentLabel.setText(str(self.sender().value())))#why 3 parents?
+        self.sender().parent().parent().parent().currentLabel.setText(str(self.sender().value()/10))#why 3 parents?
 
     def finger_radio_clicked(self):
         index = self.sender().property("index")
         self.selected_fingers = (index, self.sender().isChecked())
-        self.slider_array[index].slider.setEnabled(self._selected_fingers[index])
+        self.slider_array[index].setEnabled(self._selected_fingers[index])
+        if self._selected_fingers[index] == False:
+            self.slider_array[index].slider.setValue(0)
         print(self._selected_fingers)
 
     def message_received_handler(self,response):
-        self.end_modal.append_end_message(response)
+        self.end_modal.recieve_end_message(response)
         logger.debug(f"mensagem recebida: {response}")
 
     #resets info to be transmited via serial
@@ -210,9 +212,9 @@ class ConfigWidgetModel(QWidget):
         self.durationSlider.setValue(1)
         for radio in self.ui.fingerButtonContainer_2.findChildren(QRadioButton):
             radio.setChecked(False)
-        for slider in self.ui.slidersContainer.findChildren(QSlider):
+        for slider in self.slider_array:
             slider.setEnabled(False)
-            slider.setValue(0)
+            slider.slider.setValue(0)
 
     def send_serial_message(self,message):
         self.serialHandleClass.open_port()
@@ -244,16 +246,6 @@ class ConfigWidgetModel(QWidget):
         if self.nunchuck_info_dict["z_key"] != None: messages.append(f"*C{self.nunchuck_info_dict["z_key"]}")
         return  messages
     
-    #when sending the serial message, finger indexes start at 1
-    # def pressure_slider_message_generator(self,finger,value):
-    #     valueStr = value
-    #     if(value < 10):#value always needs to be sent in a 3 digit format 
-    #         valueStr = f"00{value}"
-    #     elif(value < 100):
-    #         valueStr = f"0{value}"
-    #     message = "*M{}{}".format(finger+1,valueStr)
-    #     return message
-
     def handle_modal_finish(self):#!beter logic maybe?
         key = self.key_select_modal.selected_key
         if self.key_select_modal.z_c_key_mode == 0:
