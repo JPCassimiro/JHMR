@@ -126,15 +126,15 @@ class Ui_MainWindow(object):
 
         self.sideMenu.addWidget(self.connectionMenuButton, 0, Qt.AlignmentFlag.AlignLeft)
 
-        self.configButton = QPushButton(self.sideMenu_2)
-        self.configButton.setObjectName(u"configButton")
-
-        self.sideMenu.addWidget(self.configButton)
-
         self.calibrationButton = QPushButton(self.sideMenu_2)
         self.calibrationButton.setObjectName(u"calibrationButton")
 
         self.sideMenu.addWidget(self.calibrationButton)
+
+        self.configButton = QPushButton(self.sideMenu_2)
+        self.configButton.setObjectName(u"configButton")
+
+        self.sideMenu.addWidget(self.configButton)
 
         self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -178,7 +178,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.logoLabel.setText(QCoreApplication.translate("MainWindow", u"JHMR", None))
         self.connectionMenuButton.setText(QCoreApplication.translate("MainWindow", u"Conex\u00e3o com joystick", None))
-        self.configButton.setText(QCoreApplication.translate("MainWindow", u"Configura\u00e7\u00e3o de bot\u00f5es", None))
         self.calibrationButton.setText(QCoreApplication.translate("MainWindow", u"Calibra\u00e7\u00e3o", None))
+        self.configButton.setText(QCoreApplication.translate("MainWindow", u"Configura\u00e7\u00e3o de bot\u00f5es", None))
     # retranslateUi
 

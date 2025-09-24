@@ -26,6 +26,7 @@ class SerialCommClass(QObject):
         #device mac addrs
         self.ser = QSerialPort()
         self.ser.setBaudRate(baud_rate)
+        self.message_buffer = ""
 
         self.device_mac_addr = ''
 
@@ -58,9 +59,21 @@ class SerialCommClass(QObject):
         
     #gets message, decodes, sends signal
     def recieve_message(self):
-        data = self.ser.readAll()
+        self.message_substrings = []#mesages to be sent
+        data = self.ser.readAll()#these messages can be recieved in any way at any time, so it can be split or concateneted
         dataStr = data.toStdString()
-        self.mesReceivedSignal.emit(dataStr)
+        self.message_buffer += dataStr
+        while "N" in self.message_buffer or "A" in self.message_buffer:
+            last_index = 0
+            for i, c in enumerate(self.message_buffer):#get the substring up to the limiter
+                if c == "A" or c == "N":
+                    self.message_substrings.append(self.message_buffer[:i+1])
+                    last_index = i
+                    break
+            self.message_buffer = self.message_buffer[last_index+1:]
+        for m in self.message_substrings:
+            self.mesReceivedSignal.emit(m)
+            logger.debug(f"Mensagem recebida: {m}")
              
     #logs error on serial
     def handle_serial_error(self,err):

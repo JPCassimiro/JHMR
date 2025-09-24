@@ -22,7 +22,5 @@ class EndConfigModel(QDialog):
             self.messageField.append(f"Atributo configurado com sucesso")
 
 
-
-
     def finished_handler(self):
         self.messageField.clear()

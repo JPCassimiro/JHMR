@@ -217,3 +217,9 @@ QWidget#slider > QSlider::handle:disabled {
 QWidget#slider>QSlider::groove:disabled{
    background: #EBEBE4;
 }
+
+
+/* ############################## Calibration widget ##############################*/
+/* ############################## Calibration widget ##############################*/
+/* ############################## Calibration widget ##############################*/
+

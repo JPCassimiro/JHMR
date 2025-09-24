@@ -53,7 +53,7 @@ class ConfigWidgetModel(QWidget):
             self.verticalSliderRing,
             self.verticalSliderMiddle,
             self.verticalSliderIndex
-            ]
+        ]
 
         #optionsContainer elements
         self.repeatOffButton = self.ui.repeatOffButton
@@ -90,7 +90,6 @@ class ConfigWidgetModel(QWidget):
         for i,v in enumerate(self.slider_array):
             v.setParent(self.ui.configContainer)
             v.setGeometry(self.slider_pos_array[i])
-
 
         #connections
         for slider in self.slider_array:

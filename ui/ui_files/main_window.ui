@@ -206,16 +206,16 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="configButton">
+        <widget class="QPushButton" name="calibrationButton">
          <property name="text">
-          <string>Configuração de botões</string>
+          <string>Calibração</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="calibrationButton">
+        <widget class="QPushButton" name="configButton">
          <property name="text">
-          <string>Calibração</string>
+          <string>Configuração de botões</string>
          </property>
         </widget>
        </item>
