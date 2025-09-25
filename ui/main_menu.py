@@ -55,6 +55,9 @@ class MainMenuWindow(QMainWindow):
         self.configButton.clicked.connect(self.config_menu_button_handler)
         self.calibrationButton.clicked.connect(self.calibration_menu_button_handler)
 
+        #setup signal connections
+        self.calibration_widget.pValuesSignal.connect(self.handle_pValues_signal)
+
         self.stackedWidget.setCurrentIndex(0)
     
     def connection_menu_button_handler(self):
@@ -68,6 +71,9 @@ class MainMenuWindow(QMainWindow):
     def calibration_menu_button_handler(self):
         self.side_menu_button_toggler(self.calibrationButton)
         self.stackedWidget.setCurrentIndex(2)        
+
+    def handle_pValues_signal(self,array):
+        self.config_widget.set_slider_max_value(array)
 
     # toggles side menu buttons accordingly
     def side_menu_button_toggler(self, clicked_button):

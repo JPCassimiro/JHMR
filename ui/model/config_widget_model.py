@@ -124,10 +124,10 @@ class ConfigWidgetModel(QWidget):
         self._selected_fingers[index] = value
         self.value_reset_watcher()
 
-    def set_slider_max_value(self,value):
-        for slider in self.slider_array:
-            slider.slider.setMaximum(value)
-            slider.maxLabel.setText(str(value/10))
+    def set_slider_max_value(self,arry):
+        for i,slider in enumerate(self.slider_array):
+            slider.slider.setMaximum(arry[i])
+            slider.maxLabel.setText(str(arry[i]/10))
 
     def duration_slider_value_change(self):
         print(f"slider: {self.sender().objectName()} - value: {self.sender().value()}")

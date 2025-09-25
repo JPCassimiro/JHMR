@@ -16,7 +16,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QLabel, QPushButton,
-    QSizePolicy, QWidget)
+    QSizePolicy, QSpacerItem, QWidget)
 
 class Ui_calibrationForm(object):
     def setupUi(self, calibrationForm):
@@ -37,20 +37,24 @@ class Ui_calibrationForm(object):
         self.buttonsContainer.setObjectName(u"buttonsContainer")
         self.gridLayout_5 = QGridLayout(self.buttonsContainer)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
-        self.startButton = QPushButton(self.buttonsContainer)
-        self.startButton.setObjectName(u"startButton")
+        self.restartButton = QPushButton(self.buttonsContainer)
+        self.restartButton.setObjectName(u"restartButton")
 
-        self.gridLayout_5.addWidget(self.startButton, 0, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.restartButton, 2, 0, 1, 1)
 
         self.cancelButton = QPushButton(self.buttonsContainer)
         self.cancelButton.setObjectName(u"cancelButton")
 
         self.gridLayout_5.addWidget(self.cancelButton, 1, 0, 1, 1)
 
-        self.restartButton = QPushButton(self.buttonsContainer)
-        self.restartButton.setObjectName(u"restartButton")
+        self.startButton = QPushButton(self.buttonsContainer)
+        self.startButton.setObjectName(u"startButton")
 
-        self.gridLayout_5.addWidget(self.restartButton, 2, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.startButton, 0, 0, 1, 1)
+
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout_5.addItem(self.horizontalSpacer, 1, 1, 1, 1)
 
 
         self.gridLayout_2.addWidget(self.buttonsContainer, 2, 0, 1, 1)
@@ -59,17 +63,17 @@ class Ui_calibrationForm(object):
         self.visualsContainer.setObjectName(u"visualsContainer")
         self.gridLayout_4 = QGridLayout(self.visualsContainer)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
+        self.imageLabel = QLabel(self.visualsContainer)
+        self.imageLabel.setObjectName(u"imageLabel")
+
+        self.gridLayout_4.addWidget(self.imageLabel, 0, 0, 1, 1)
+
         self.instructionLabel = QLabel(self.visualsContainer)
         self.instructionLabel.setObjectName(u"instructionLabel")
         self.instructionLabel.setTextFormat(Qt.TextFormat.PlainText)
         self.instructionLabel.setWordWrap(True)
 
         self.gridLayout_4.addWidget(self.instructionLabel, 0, 1, 1, 1)
-
-        self.imageLabel = QLabel(self.visualsContainer)
-        self.imageLabel.setObjectName(u"imageLabel")
-
-        self.gridLayout_4.addWidget(self.imageLabel, 0, 0, 1, 1)
 
 
         self.gridLayout_2.addWidget(self.visualsContainer, 0, 0, 1, 1)
@@ -86,10 +90,10 @@ class Ui_calibrationForm(object):
 
     def retranslateUi(self, calibrationForm):
         calibrationForm.setWindowTitle(QCoreApplication.translate("calibrationForm", u"Form", None))
-        self.startButton.setText(QCoreApplication.translate("calibrationForm", u"Iniciar", None))
-        self.cancelButton.setText(QCoreApplication.translate("calibrationForm", u"Cancelar", None))
         self.restartButton.setText(QCoreApplication.translate("calibrationForm", u"Reiniciar", None))
-        self.instructionLabel.setText(QCoreApplication.translate("calibrationForm", u"instructionLabel", None))
+        self.cancelButton.setText(QCoreApplication.translate("calibrationForm", u"Cancelar", None))
+        self.startButton.setText(QCoreApplication.translate("calibrationForm", u"Iniciar", None))
         self.imageLabel.setText(QCoreApplication.translate("calibrationForm", u"imageLabel", None))
+        self.instructionLabel.setText(QCoreApplication.translate("calibrationForm", u"instructionLabel", None))
     # retranslateUi
 

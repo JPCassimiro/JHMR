@@ -1,11 +1,13 @@
 from ui.views.calibration_widget_ui import Ui_calibrationForm
 from ui.model.calibration_result_model import CalibrationResultModel
 from PySide6.QtWidgets import QWidget
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap, QColor
 from modules.log_class import logger
-from PySide6.QtCore import QTimer
+from PySide6.QtCore import QTimer, Signal
+from PySide6.QtQuick import QQuickItem
 
 class CalibrationWidgetModel(QWidget):
+    pValuesSignal = Signal(list)
     def __init__(self,serialHandleClass):
         super().__init__()
         
@@ -16,7 +18,6 @@ class CalibrationWidgetModel(QWidget):
         #modules setup
         self.serialHandleClass = serialHandleClass
         self.timer = QTimer()
-        self.uiTimer = QTimer()
         
         #custom ui element setup
         self.resultModel = CalibrationResultModel()
@@ -120,6 +121,7 @@ class CalibrationWidgetModel(QWidget):
         self.instructionText.hide()
         self.ui.visualsContainer.layout().addWidget(self.resultModel)
         max_val_array = self.get_max_pressure_values()
+        self.pValuesSignal.emit(max_val_array)
         self.resultModel.set_pressure_values([max_val_array[3],max_val_array[2],max_val_array[1],max_val_array[0],max_val_array[4]])
         
     def get_max_pressure_values(self):
