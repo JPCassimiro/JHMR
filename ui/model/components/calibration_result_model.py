@@ -1,6 +1,6 @@
 from ui.views.calibration_result_widget_ui import Ui_calibrationResultWidget
 from PySide6.QtWidgets import QWidget
-from ui.model.custom_slider_model import CustomSliderModel
+from ui.model.custom_widgets.custom_slider_model import CustomSliderModel
 from PySide6.QtCore import QRect
 from modules.log_class import logger
 

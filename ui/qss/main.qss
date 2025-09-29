@@ -55,10 +55,6 @@ QAbstractButton#configButton{
    qproperty-icon: url("_internal/resources/icons/knob_orange.png")
 }
 
-QAbstractButton#placeholderButton{
-   
-}
-
 QWidget#sideMenu_2{
    background-color: #1D1B19;
    border-color: #D5D5D4;
@@ -135,19 +131,14 @@ QPushButton:disabled{
 /* ############################## Title widget ##############################*/
 /* ############################## Title widget ##############################*/
 /* ############################## Title widget ##############################*/
+/* ############################## Patient widget ##############################*/
+/* ############################## Patient widget ##############################*/
+/* ############################## Patient widget ##############################*/
 
-QWidget#terapistImageContainer{
+
+QWidget#patientImage,#terapistImage{
    border: 1px solid black;
-   border-radius: 28px;
-}
-
-/* ############################## Patient widget ##############################*/
-/* ############################## Patient widget ##############################*/
-/* ############################## Patient widget ##############################*/
-
-QWidget#patientImageContainer{
-   border: 1px solid black;
-   border-radius: 25px;
+   border-radius: 30px;
 }
 
 
@@ -222,3 +213,14 @@ QWidget#slider>QSlider::groove:disabled{
 /* ############################## Calibration widget ##############################*/
 /* ############################## Calibration widget ##############################*/
 /* ############################## Calibration widget ##############################*/
+
+
+
+/* ############################## UserActions widget ##############################*/
+/* ############################## UserActions widget ##############################*/
+/* ############################## UserActions widget ##############################*/
+
+QWidget#imageLabel{
+   border: 1px solid black;
+   border-radius: 50%;
+}

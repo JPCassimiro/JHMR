@@ -15,17 +15,58 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFormLayout, QGridLayout, QHBoxLayout,
-    QLabel, QSizePolicy, QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
+    QSizePolicy, QVBoxLayout, QWidget)
+
+from ui.model.custom_widgets.rounded_image_label import RoundedImageLabel
 
 class Ui_titleWindowContainer(object):
     def setupUi(self, titleWindowContainer):
         if not titleWindowContainer.objectName():
             titleWindowContainer.setObjectName(u"titleWindowContainer")
-        titleWindowContainer.resize(846, 116)
+        titleWindowContainer.resize(696, 96)
         self.gridLayout = QGridLayout(titleWindowContainer)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.therapistContainer = QWidget(titleWindowContainer)
+        self.therapistContainer.setObjectName(u"therapistContainer")
+        self.gridLayout_4 = QGridLayout(self.therapistContainer)
+        self.gridLayout_4.setObjectName(u"gridLayout_4")
+        self.terapistInfoContainer = QWidget(self.therapistContainer)
+        self.terapistInfoContainer.setObjectName(u"terapistInfoContainer")
+        self.verticalLayout = QVBoxLayout(self.terapistInfoContainer)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.therapistName = QLabel(self.terapistInfoContainer)
+        self.therapistName.setObjectName(u"therapistName")
+
+        self.verticalLayout.addWidget(self.therapistName)
+
+        self.therapistRole = QLabel(self.terapistInfoContainer)
+        self.therapistRole.setObjectName(u"therapistRole")
+
+        self.verticalLayout.addWidget(self.therapistRole)
+
+
+        self.gridLayout_4.addWidget(self.terapistInfoContainer, 0, 0, 1, 1)
+
+        self.terapistImageContainer = QWidget(self.therapistContainer)
+        self.terapistImageContainer.setObjectName(u"terapistImageContainer")
+        self.horizontalLayout = QHBoxLayout(self.terapistImageContainer)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.therapistImage = RoundedImageLabel(self.terapistImageContainer)
+        self.therapistImage.setObjectName(u"therapistImage")
+        self.therapistImage.setMaximumSize(QSize(60, 60))
+        self.therapistImage.setPixmap(QPixmap(u"_internal/resources/imgs/placeholder_profile.png"))
+        self.therapistImage.setScaledContents(True)
+
+        self.horizontalLayout.addWidget(self.therapistImage)
+
+
+        self.gridLayout_4.addWidget(self.terapistImageContainer, 0, 1, 1, 1)
+
+
+        self.gridLayout.addWidget(self.therapistContainer, 0, 1, 1, 1)
+
         self.softwareTitleContainer = QWidget(titleWindowContainer)
         self.softwareTitleContainer.setObjectName(u"softwareTitleContainer")
         self.gridLayout_3 = QGridLayout(self.softwareTitleContainer)
@@ -44,38 +85,6 @@ class Ui_titleWindowContainer(object):
 
         self.gridLayout.addWidget(self.softwareTitleContainer, 0, 0, 1, 1)
 
-        self.terapistInfoContainer = QWidget(titleWindowContainer)
-        self.terapistInfoContainer.setObjectName(u"terapistInfoContainer")
-        self.formLayout = QFormLayout(self.terapistInfoContainer)
-        self.formLayout.setObjectName(u"formLayout")
-        self.terapistName = QLabel(self.terapistInfoContainer)
-        self.terapistName.setObjectName(u"terapistName")
-
-        self.formLayout.setWidget(0, QFormLayout.ItemRole.LabelRole, self.terapistName)
-
-        self.terapistRole = QLabel(self.terapistInfoContainer)
-        self.terapistRole.setObjectName(u"terapistRole")
-
-        self.formLayout.setWidget(1, QFormLayout.ItemRole.LabelRole, self.terapistRole)
-
-        self.terapistImageContainer = QWidget(self.terapistInfoContainer)
-        self.terapistImageContainer.setObjectName(u"terapistImageContainer")
-        self.horizontalLayout = QHBoxLayout(self.terapistImageContainer)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.terapistImage = QLabel(self.terapistImageContainer)
-        self.terapistImage.setObjectName(u"terapistImage")
-        self.terapistImage.setMaximumSize(QSize(40, 40))
-        self.terapistImage.setPixmap(QPixmap(u"_internal/resources/imgs/placeholder_profile.png"))
-        self.terapistImage.setScaledContents(True)
-
-        self.horizontalLayout.addWidget(self.terapistImage)
-
-
-        self.formLayout.setWidget(0, QFormLayout.ItemRole.FieldRole, self.terapistImageContainer)
-
-
-        self.gridLayout.addWidget(self.terapistInfoContainer, 0, 1, 1, 1)
-
         self.gridLayout.setColumnStretch(0, 2)
 
         self.retranslateUi(titleWindowContainer)
@@ -85,9 +94,9 @@ class Ui_titleWindowContainer(object):
 
     def retranslateUi(self, titleWindowContainer):
         titleWindowContainer.setWindowTitle(QCoreApplication.translate("titleWindowContainer", u"Form", None))
+        self.therapistName.setText(QCoreApplication.translate("titleWindowContainer", u"TherapistName", None))
+        self.therapistRole.setText(QCoreApplication.translate("titleWindowContainer", u"TherapistFuntion", None))
+        self.therapistImage.setText("")
         self.softwateTitle.setText(QCoreApplication.translate("titleWindowContainer", u"Joystick for hand motor rehabilitation", None))
-        self.terapistName.setText(QCoreApplication.translate("titleWindowContainer", u"TherapistName", None))
-        self.terapistRole.setText(QCoreApplication.translate("titleWindowContainer", u"TherapistFuntion", None))
-        self.terapistImage.setText("")
     # retranslateUi
 

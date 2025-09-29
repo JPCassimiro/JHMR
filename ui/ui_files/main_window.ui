@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>900</width>
+    <width>920</width>
     <height>650</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>900</width>
+    <width>920</width>
     <height>650</height>
    </size>
   </property>
@@ -141,7 +141,7 @@
     </item>
     <item row="0" column="0" rowspan="3">
      <widget class="QWidget" name="sideMenu_2" native="true">
-      <layout class="QVBoxLayout" name="sideMenu" stretch="0,0,1,0,0,0,0,0">
+      <layout class="QVBoxLayout" name="sideMenu" stretch="0,0,1,0,0,0,0,0,0">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -220,6 +220,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="userActionsButton">
+         <property name="text">
+          <string>Ações de usuário</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer_3">
          <property name="orientation">
           <enum>Qt::Orientation::Vertical</enum>
@@ -280,7 +287,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>900</width>
+     <width>920</width>
      <height>18</height>
     </rect>
    </property>

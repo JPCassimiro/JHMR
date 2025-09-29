@@ -18,6 +18,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QGridLayout, QLabel, QSizePolicy,
     QVBoxLayout, QWidget)
 
+from ui.model.custom_widgets.rounded_image_label import RoundedImageLabel
+
 class Ui_patientWindowContainer(object):
     def setupUi(self, patientWindowContainer):
         if not patientWindowContainer.objectName():
@@ -52,7 +54,7 @@ class Ui_patientWindowContainer(object):
         self.patientImageContainer.setSizePolicy(sizePolicy)
         self.gridLayout_2 = QGridLayout(self.patientImageContainer)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.patientImage = QLabel(self.patientImageContainer)
+        self.patientImage = RoundedImageLabel(self.patientImageContainer)
         self.patientImage.setObjectName(u"patientImage")
         self.patientImage.setEnabled(True)
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
@@ -61,7 +63,7 @@ class Ui_patientWindowContainer(object):
         sizePolicy1.setHeightForWidth(self.patientImage.sizePolicy().hasHeightForWidth())
         self.patientImage.setSizePolicy(sizePolicy1)
         self.patientImage.setMinimumSize(QSize(0, 0))
-        self.patientImage.setMaximumSize(QSize(65, 65))
+        self.patientImage.setMaximumSize(QSize(60, 60))
         self.patientImage.setTextFormat(Qt.TextFormat.RichText)
         self.patientImage.setPixmap(QPixmap(u"_internal/resources/imgs/placeholder_profile.png"))
         self.patientImage.setScaledContents(True)

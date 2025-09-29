@@ -1,5 +1,5 @@
 from ui.views.calibration_widget_ui import Ui_calibrationForm
-from ui.model.calibration_result_model import CalibrationResultModel
+from ui.model.components.calibration_result_model import CalibrationResultModel
 from PySide6.QtWidgets import QWidget
 from PySide6.QtGui import QPixmap, QColor
 from modules.log_class import logger

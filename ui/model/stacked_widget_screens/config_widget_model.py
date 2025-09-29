@@ -1,9 +1,9 @@
 from PySide6.QtWidgets import QWidget, QSlider, QRadioButton, QLabel
 from ui.views.config_widget_ui import Ui_configForm
-from ui.model.key_select_model import KeySelectModel
-from ui.model.end_config_model import EndConfigModel
+from ui.model.dialogs.key_select_model import KeySelectModel
+from ui.model.components.end_config_model import EndConfigModel
 from modules.log_class import logger
-from ui.model.custom_slider_model import CustomSliderModel
+from ui.model.custom_widgets.custom_slider_model import CustomSliderModel
 from PySide6.QtCore import QRect
 
 finger_base_value = {

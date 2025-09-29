@@ -56,7 +56,7 @@
      </property>
      <layout class="QGridLayout" name="gridLayout_2" rowstretch="0">
       <item row="0" column="0">
-       <widget class="QLabel" name="patientImage">
+       <widget class="RoundedImageLabel" name="patientImage">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -74,8 +74,8 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>65</width>
-          <height>65</height>
+          <width>60</width>
+          <height>60</height>
          </size>
         </property>
         <property name="text">
@@ -85,7 +85,7 @@
          <enum>Qt::TextFormat::RichText</enum>
         </property>
         <property name="pixmap">
-         <pixmap>../../resources/imgs/placeholder_profile.png</pixmap>
+         <pixmap>../../_internal/resources/imgs/placeholder_profile.png</pixmap>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -97,6 +97,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RoundedImageLabel</class>
+   <extends>QLabel</extends>
+   <header>roundedimagelabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

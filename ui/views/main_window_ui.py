@@ -24,13 +24,13 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(900, 650)
+        MainWindow.resize(920, 650)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QSize(900, 650))
+        MainWindow.setMinimumSize(QSize(920, 650))
         font = QFont()
         font.setFamilies([u"Lato"])
         MainWindow.setFont(font)
@@ -136,6 +136,11 @@ class Ui_MainWindow(object):
 
         self.sideMenu.addWidget(self.configButton)
 
+        self.userActionsButton = QPushButton(self.sideMenu_2)
+        self.userActionsButton.setObjectName(u"userActionsButton")
+
+        self.sideMenu.addWidget(self.userActionsButton)
+
         self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.sideMenu.addItem(self.verticalSpacer_3)
@@ -166,7 +171,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 900, 18))
+        self.menubar.setGeometry(QRect(0, 0, 920, 18))
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
@@ -180,5 +185,6 @@ class Ui_MainWindow(object):
         self.connectionMenuButton.setText(QCoreApplication.translate("MainWindow", u"Conex\u00e3o com joystick", None))
         self.calibrationButton.setText(QCoreApplication.translate("MainWindow", u"Calibra\u00e7\u00e3o", None))
         self.configButton.setText(QCoreApplication.translate("MainWindow", u"Configura\u00e7\u00e3o de bot\u00f5es", None))
+        self.userActionsButton.setText(QCoreApplication.translate("MainWindow", u"A\u00e7\u00f5es de usu\u00e1rio", None))
     # retranslateUi
 
