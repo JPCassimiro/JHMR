@@ -91,7 +91,13 @@
        <widget class="QWidget" name="visualsContainer" native="true">
         <layout class="QGridLayout" name="gridLayout_4">
          <item row="0" column="0">
-          <widget class="QLabel" name="imageLabel">
+          <widget class="RoundedImageLabel" name="instructionImageLabel">
+           <property name="maximumSize">
+            <size>
+             <width>300</width>
+             <height>350</height>
+            </size>
+           </property>
            <property name="text">
             <string>imageLabel</string>
            </property>
@@ -118,6 +124,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RoundedImageLabel</class>
+   <extends>QLabel</extends>
+   <header>roundedimagelabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

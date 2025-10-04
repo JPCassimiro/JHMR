@@ -123,7 +123,7 @@ class Ui_usersWidgetForm(object):
 
         self.retranslateUi(usersWidgetForm)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(usersWidgetForm)
@@ -132,8 +132,8 @@ class Ui_usersWidgetForm(object):
     def retranslateUi(self, usersWidgetForm):
         usersWidgetForm.setWindowTitle(QCoreApplication.translate("usersWidgetForm", u"Form", None))
         self.toolButton1.setText(QCoreApplication.translate("usersWidgetForm", u"...", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.therapistTab), QCoreApplication.translate("usersWidgetForm", u"Tab 1", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.therapistTab), QCoreApplication.translate("usersWidgetForm", u"Terapeuta", None))
         self.toolButton2.setText(QCoreApplication.translate("usersWidgetForm", u"...", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.patientTab), QCoreApplication.translate("usersWidgetForm", u"Tab 2", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.patientTab), QCoreApplication.translate("usersWidgetForm", u"Paciente", None))
     # retranslateUi
 

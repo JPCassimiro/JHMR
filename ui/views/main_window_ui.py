@@ -18,7 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
     QLabel, QLayout, QMainWindow, QMenuBar,
     QPushButton, QSizePolicy, QSpacerItem, QStackedWidget,
-    QTabWidget, QVBoxLayout, QWidget)
+    QTabWidget, QToolButton, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -141,6 +141,11 @@ class Ui_MainWindow(object):
 
         self.sideMenu.addWidget(self.userActionsButton)
 
+        self.statsButton = QPushButton(self.sideMenu_2)
+        self.statsButton.setObjectName(u"statsButton")
+
+        self.sideMenu.addWidget(self.statsButton)
+
         self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.sideMenu.addItem(self.verticalSpacer_3)
@@ -164,6 +169,27 @@ class Ui_MainWindow(object):
 
         self.sideMenu.addItem(self.verticalSpacer)
 
+        self.toolButtonContainer = QWidget(self.sideMenu_2)
+        self.toolButtonContainer.setObjectName(u"toolButtonContainer")
+        self.horizontalLayout_2 = QHBoxLayout(self.toolButtonContainer)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.logModalButton = QToolButton(self.toolButtonContainer)
+        self.logModalButton.setObjectName(u"logModalButton")
+        icon = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.WindowNew))
+        self.logModalButton.setIcon(icon)
+
+        self.horizontalLayout_2.addWidget(self.logModalButton)
+
+        self.homeButton = QToolButton(self.toolButtonContainer)
+        self.homeButton.setObjectName(u"homeButton")
+        icon1 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.GoHome))
+        self.homeButton.setIcon(icon1)
+
+        self.horizontalLayout_2.addWidget(self.homeButton)
+
+
+        self.sideMenu.addWidget(self.toolButtonContainer)
+
         self.sideMenu.setStretch(2, 1)
 
         self.gridLayout.addWidget(self.sideMenu_2, 0, 0, 3, 1)
@@ -186,5 +212,8 @@ class Ui_MainWindow(object):
         self.calibrationButton.setText(QCoreApplication.translate("MainWindow", u"Calibra\u00e7\u00e3o", None))
         self.configButton.setText(QCoreApplication.translate("MainWindow", u"Configura\u00e7\u00e3o de bot\u00f5es", None))
         self.userActionsButton.setText(QCoreApplication.translate("MainWindow", u"A\u00e7\u00f5es de usu\u00e1rio", None))
+        self.statsButton.setText(QCoreApplication.translate("MainWindow", u"Estat\u00edsticas de uso", None))
+        self.logModalButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
+        self.homeButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
     # retranslateUi
 

@@ -38,11 +38,11 @@
          <enum>QTabWidget::TabShape::Triangular</enum>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="therapistTab">
          <attribute name="title">
-          <string>Tab 1</string>
+          <string>Terapeuta</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="0">
@@ -90,7 +90,7 @@
         </widget>
         <widget class="QWidget" name="patientTab">
          <attribute name="title">
-          <string>Tab 2</string>
+          <string>Paciente</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="0" column="0">

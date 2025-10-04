@@ -33,7 +33,7 @@
        <widget class="QWidget" name="imageContainer" native="true">
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="RoundedImageLabel" name="imageLabel">
+          <widget class="RoundedImageLabel" name="itemImageLabel">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
              <horstretch>0</horstretch>

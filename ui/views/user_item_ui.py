@@ -36,17 +36,17 @@ class Ui_userItemForm(object):
         self.imageContainer.setObjectName(u"imageContainer")
         self.verticalLayout_2 = QVBoxLayout(self.imageContainer)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.imageLabel = RoundedImageLabel(self.imageContainer)
-        self.imageLabel.setObjectName(u"imageLabel")
+        self.itemImageLabel = RoundedImageLabel(self.imageContainer)
+        self.itemImageLabel.setObjectName(u"itemImageLabel")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.imageLabel.sizePolicy().hasHeightForWidth())
-        self.imageLabel.setSizePolicy(sizePolicy)
-        self.imageLabel.setMaximumSize(QSize(100, 100))
-        self.imageLabel.setScaledContents(True)
+        sizePolicy.setHeightForWidth(self.itemImageLabel.sizePolicy().hasHeightForWidth())
+        self.itemImageLabel.setSizePolicy(sizePolicy)
+        self.itemImageLabel.setMaximumSize(QSize(100, 100))
+        self.itemImageLabel.setScaledContents(True)
 
-        self.verticalLayout_2.addWidget(self.imageLabel)
+        self.verticalLayout_2.addWidget(self.itemImageLabel)
 
 
         self.horizontalLayout_2.addWidget(self.imageContainer)
@@ -102,7 +102,7 @@ class Ui_userItemForm(object):
 
     def retranslateUi(self, userItemForm):
         userItemForm.setWindowTitle(QCoreApplication.translate("userItemForm", u"Form", None))
-        self.imageLabel.setText("")
+        self.itemImageLabel.setText("")
         self.nameLabel.setText(QCoreApplication.translate("userItemForm", u"TextLabel", None))
         self.functionLabel.setText(QCoreApplication.translate("userItemForm", u"TextLabel", None))
         self.editButton.setText(QCoreApplication.translate("userItemForm", u"...", None))

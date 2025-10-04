@@ -18,7 +18,7 @@ nunchuck_base_value = {
 }
 
 class ConfigWidgetModel(QWidget):
-    def __init__(self,serialHandleClass):
+    def __init__(self,serialHandleClass,LogModel):
         super().__init__()
 
         #ui setup
@@ -28,6 +28,7 @@ class ConfigWidgetModel(QWidget):
         self.key_select_modal = KeySelectModel()
         self.end_modal = EndConfigModel()
         self.serialHandleClass = serialHandleClass
+        self.logModel = LogModel
 
         #variables setup
         self._selected_fingers = [False,False,False,False]#radio buttons will populate this, 0 little - 3 index
@@ -109,8 +110,8 @@ class ConfigWidgetModel(QWidget):
         self.confirmButton.clicked.connect(self.confirm_button_handler)
 
         self.key_select_modal.accepted.connect(self.handle_modal_finish)
-
-        self.serialHandleClass.mesReceivedSignal.connect(self.message_received_handler)
+        
+        self.end_modal.finished.connect(lambda: self.serialHandleClass.mesReceivedSignal.disconnect(self.message_received_handler))
         
     #defines selected_finger getter
     @property
@@ -157,6 +158,7 @@ class ConfigWidgetModel(QWidget):
             self._selected_fingers = [False,False,False,False]#this is done this way as to not trigger reset value multiple times
             self.selected_fingers = (0,False)
             self.end_modal.open()
+            self.serialHandleClass.mesReceivedSignal.connect(self.message_received_handler)
             self.setEnabled(True)
 
     def pressure_button_handler(self):
@@ -186,6 +188,7 @@ class ConfigWidgetModel(QWidget):
         print(self._selected_fingers)
 
     def message_received_handler(self,response):
+        self.logModel.append_log(response)
         self.end_modal.recieve_end_message(response)
         logger.debug(f"mensagem recebida: {response}")
 

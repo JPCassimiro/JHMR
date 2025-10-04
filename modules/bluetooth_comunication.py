@@ -44,11 +44,10 @@ class BluetoothCommClass(QObject):
         #process class run finish signal
         self.runner.processFinished.connect(self.process_run_finish)
     
-    
-    
     ############################ discovery functions ###############################    
     #tries to get the desired service
     def on_service_found(self, service: QBluetoothServiceInfo):
+        print(f"service_found: {self.desired_device}")
         if(target_service_device_name in str(service.serviceName()).lower()):
             self.desired_service = service
             
@@ -87,7 +86,7 @@ class BluetoothCommClass(QObject):
             
             if device_mode == QBluetoothLocalDevice.HostMode.HostConnectable:
                 self.local_device.setHostMode(QBluetoothLocalDevice.HostMode.HostPoweredOff)
-                self.emit_result("Adaptador bluetooth ligado")
+                self.emit_result("Adaptador bluetooth desligado")
                 
             elif device_mode == QBluetoothLocalDevice.HostMode.HostPoweredOff:
                 self.local_device.setHostMode(QBluetoothLocalDevice.HostMode.HostConnectable)
@@ -185,7 +184,7 @@ class BluetoothCommClass(QObject):
             self.emit_error("Dispositivo não encontrado")
             
     #returns the proper message for when the device has been paired or unpaired
-    def hid_pairEvent_finish(self):#!chenge this logic
+    def hid_pairEvent_finish(self):#!change this logic
         if not self.local_device.pairingStatus(self.desired_device.address()) == self.local_device.Pairing.Paired:
             self.emit_result(f"Dispositivo HID {self.desired_device.name()} emparelhado")
         else:
@@ -193,12 +192,12 @@ class BluetoothCommClass(QObject):
             self.desired_device = None
         
     #check for currently paired device
-    def check_current_paired(self):
-        pairedDevices = self.local_device.connectedDevices()
-        for device in pairedDevices:
-            if device.name().lower() == target_device_name.lower():
-                self.desired_device = device
-                break
+    # def check_current_paired(self):
+    #     pairedDevices = self.local_device.connectedDevices()
+    #     for device in pairedDevices:
+    #         if device.name().lower() == target_device_name.lower():
+    #             self.desired_device = device
+    #             break
     
     #sets the functions that will be used as callback on the model class
     def set_callback(self, on_result, on_error):

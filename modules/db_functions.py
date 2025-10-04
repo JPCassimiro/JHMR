@@ -19,7 +19,6 @@ class DbClass():
         res = ''
         try:
             if q and values:
-                print(q,values)
                 self.cur.execute(q,values)
             elif q and values == None:
                 self.cur.execute(q)
@@ -57,32 +56,35 @@ class DbClass():
     def initialize_database(self):
         self.execute_single_query("""
             create table if not exists therapist (
-                id INTEGER primary key,
+                id integer primary key,
                 name text not null,
                 details text not null,
-                image_path text,
-                created_at timestamp default current_timestamp
+                image_path text
             );""")
         self.execute_single_query("""
             create table if not exists patient(
                 id integer primary key,
-                name TEXT NOT NULL,
-                details TEXT NOT NULL,
-                image_path TEXT,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                name text not null,
+                details text not null,
+                image_path text
             );""")
         self.execute_single_query("""
-            create TABLE use_statistics (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            patient_id INTEGER NOT NULL,
-            session TIMESTAMP NOT NULL default current_timestamp,
-            index_counter INTEGER,
-            middle_counter INTEGER,
-            ring_counter INTEGER,
-            little_counter INTEGER,
-            thumb_counter INTEGER,
-            average_pressure INTEGER,
-            max_pressure INTEGER,
-            average_time INTEGER,
-            FOREIGN KEY (patient_id) REFERENCES patient(id)
+            create table if not exists session (
+                id integer primary key,
+                patient_id integer not null,
+                session_date timestamp not null default current_timestamp,
+                foreign key (patient_id) references patient(id) on delete cascade
             );""")
+        self.execute_single_query("""
+            create table if not exists use_data (
+                id integer primary key,
+                session_id integer not null,
+                finger text check(finger in ('index','middle','ring','little')),
+                pressure integer not null,
+                timestamp datetime default current_timestamp,
+                foreign key (session_id) references session(id) on delete cascade
+            );""")
+        self.execute_single_query("""insert into patient (id, name, details, image_path)
+            values (1, 'paciente padrão', 'valor padrão', '_internal/resources/imgs/placeholder_profile.png');""")
+        self.execute_single_query("""insert into therapist (id, name, details, image_path)
+            values (1, 'terapeuta padrão', 'valor padrão', '_internal/resources/imgs/placeholder_profile.png');""")

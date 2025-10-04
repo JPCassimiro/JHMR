@@ -27,11 +27,11 @@ class Ui_calibrationResultWidget(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.resultContainer = QWidget(calibrationResultWidget)
         self.resultContainer.setObjectName(u"resultContainer")
-        self.imageLabel = QLabel(self.resultContainer)
-        self.imageLabel.setObjectName(u"imageLabel")
-        self.imageLabel.setGeometry(QRect(30, 130, 221, 181))
-        self.imageLabel.setPixmap(QPixmap(u"_internal/resources/imgs/hand.png"))
-        self.imageLabel.setScaledContents(True)
+        self.handImageLabel = QLabel(self.resultContainer)
+        self.handImageLabel.setObjectName(u"handImageLabel")
+        self.handImageLabel.setGeometry(QRect(30, 130, 221, 181))
+        self.handImageLabel.setPixmap(QPixmap(u"_internal/resources/imgs/hand.png"))
+        self.handImageLabel.setScaledContents(True)
 
         self.gridLayout.addWidget(self.resultContainer, 0, 0, 1, 1)
 
@@ -43,6 +43,6 @@ class Ui_calibrationResultWidget(object):
 
     def retranslateUi(self, calibrationResultWidget):
         calibrationResultWidget.setWindowTitle(QCoreApplication.translate("calibrationResultWidget", u"Form", None))
-        self.imageLabel.setText("")
+        self.handImageLabel.setText("")
     # retranslateUi
 

@@ -5,28 +5,32 @@ from ui.views.logger_widget_ui import Ui_loggerForm
 from modules import log_class
 
 class LoggerWidgetModel(QWidget):
-    def __init__(self,serialHandleClass):#both ConfigWidgetModel and LoggerWidgetModel share the SAME INSTANCE of serialHandleClass
+    def __init__(self,serialHandleClass,logModel):#both ConfigWidgetModel and LoggerWidgetModel share the SAME INSTANCE of serialHandleClass
         super().__init__()
 
         #achar janela
         self.ui = Ui_loggerForm()
 
         self.ui.setupUi(self)
+        
+        #shared log model
+        self.logModel = logModel
 
         #find elements from the widget
-        self.logWindow = self.ui.logWindow
         self.onOffButton = self.ui.onOffButton
         self.pairButton = self.ui.pairButton
         self.unpairButton = self.ui.unpairButton
         self.pairHidButton = self.ui.pairHidButton
         self.unpairHidButton = self.ui.unpairHidButton
+        self.fullPairButton = self.ui.fullPairButton
         
         #connect buttons to functions
         self.onOffButton.clicked.connect(self.onOff_button_handler)
         self.pairButton.clicked.connect(self.pair_button_handler)
-        self.unpairButton.clicked.connect(self.unapir_button_handler)
+        self.unpairButton.clicked.connect(self.unpair_button_handler)
         self.unpairHidButton.clicked.connect(self.unpair_hid_handler)
         self.pairHidButton.clicked.connect(self.pair_hid_handler)
+        self.fullPairButton.clicked.connect(self.full_pair_handler)
         
         #bluetooth comm class instance
         self.bluetoothHandleclass = bluetooth_comunication.BluetoothCommClass()
@@ -37,8 +41,7 @@ class LoggerWidgetModel(QWidget):
 
     #adds text to widget
     def append_log(self, message):
-        currentDate = datetime.datetime.now().strftime("%c")
-        self.logWindow.appendPlainText(f"{currentDate}\n{message}\n")
+        self.logModel.append_log(message)
 
     #simple end task on error
     def handle_error_message(self, message):
@@ -83,7 +86,7 @@ class LoggerWidgetModel(QWidget):
     #attemps to pair the esp32, also sets callbacks for the signals
     def pair_button_handler(self):
         self.button_state_toggle()
-        self.append_log("Iniciando processo de emprelhamento, este processo pode demorar. Uma notificação do Windows vai aparecer, clique na mesma e aceite")
+        self.append_log("Iniciando processo de emprelhamento, este processo pode demorar.\nMantenha o joystick ligado.\nUma notificação do Windows vai aparecer, clique na mesma e aceite")
 
         def on_error(message):
             self.handle_error_message(message)
@@ -100,7 +103,7 @@ class LoggerWidgetModel(QWidget):
         self.bluetoothHandleclass.pair_device()
 
     #same as above
-    def unapir_button_handler(self):
+    def unpair_button_handler(self):
         self.button_state_toggle()
         self.append_log("Iniciando processo de desemprelhamento, este processo pode demorar...")
 
@@ -145,7 +148,75 @@ class LoggerWidgetModel(QWidget):
 
         self.bluetoothHandleclass.set_callback(on_error=on_error,on_result=on_result)
         self.bluetoothHandleclass.hid_device_unpair()
-    
+        
+    def full_pair_handler(self):
+        self.button_state_toggle()
+        self.append_log("Processo de conexão com joystick iniciado, este processo pode demorar...")
+        self.append_log("Desemparelhando dispositivo HID.")
+
+        def on_error(message):
+            if message == "Dispositivo não encontrado":
+                message +=". Passando para o próximo passo"
+                self.append_log(message)
+                self.full_pair_step_2()
+            else:
+                self.handle_error_message(message)
+
+        def on_result(message):
+            self.append_log(message)
+            self.full_pair_step_2()
+            
+        self.bluetoothHandleclass.set_callback(on_error=on_error,on_result=on_result)
+        self.bluetoothHandleclass.hid_device_unpair()
+        
+    def full_pair_step_2(self):
+        self.append_log("Desemparelhando dispositivo SPP.")
+        def on_error(message):
+            if message == "Dispositivo não encontrado":
+                message +=". Passando para o próximo passo"
+                self.append_log(message)
+                self.full_pair_step_3()
+            else:
+                self.handle_error_message(message)
+
+        def on_result(message):
+            self.append_log(message["message"])
+            self.full_pair_step_3()
+            
+        self.bluetoothHandleclass.set_callback(on_error=on_error,on_result=on_result)
+        self.bluetoothHandleclass.unpair_device()
+        
+    def full_pair_step_3(self):
+        self.append_log("Iniciando processo de emprelhamento HID.\nMantenha o joystick ligado.\nEste processo pode demorar.")
+
+        def on_error(message):
+            self.handle_error_message(message)
+            
+        def on_result(message):
+            self.append_log(message)
+            self.full_pair_step_4()
+            
+        self.bluetoothHandleclass.set_callback(on_result=on_result,on_error=on_error)
+        self.bluetoothHandleclass.hid_device_discovery()
+
+    def full_pair_step_4(self):
+        self.append_log("Iniciando processo de emprelhamento.\nMantenha o joystick ligado.\nEste processo pode demorar.\nUma notificação do Windows vai aparecer, clique na mesma e aceite")
+
+        def on_error(message):
+            self.handle_error_message(message)
+            
+        def on_result(processDict):
+            self.append_log(processDict["message"])
+            if processDict["status"] == False:
+                self.button_state_toggle()#if a error message appears, break process
+            else:
+                self.append_log("Encontrando o endereço MAC e porta serial do dispositivo, aguarde...")
+                self.find_device_handler()
+            
+        self.bluetoothHandleclass.set_callback(on_result=on_result,on_error=on_error)
+        self.bluetoothHandleclass.pair_device()
+        
+        
     def port_signal_handler(self,message):
         self.append_log(message)    
         self.button_state_toggle()

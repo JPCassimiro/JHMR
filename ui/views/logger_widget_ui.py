@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QPlainTextEdit, QPushButton,
-    QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QPushButton, QSizePolicy,
+    QSpacerItem, QVBoxLayout, QWidget)
 
 class Ui_loggerForm(object):
     def setupUi(self, loggerForm):
@@ -38,6 +38,11 @@ class Ui_loggerForm(object):
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setSpacing(6)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.fullPairButton = QPushButton(self.windowContainer)
+        self.fullPairButton.setObjectName(u"fullPairButton")
+
+        self.verticalLayout.addWidget(self.fullPairButton)
+
         self.onOffButton = QPushButton(self.windowContainer)
         self.onOffButton.setObjectName(u"onOffButton")
 
@@ -70,11 +75,10 @@ class Ui_loggerForm(object):
 
         self.gridLayout_2.addLayout(self.verticalLayout, 0, 0, 1, 1)
 
-        self.logWindow = QPlainTextEdit(self.windowContainer)
-        self.logWindow.setObjectName(u"logWindow")
-        self.logWindow.setReadOnly(True)
+        self.espItemContainer = QWidget(self.windowContainer)
+        self.espItemContainer.setObjectName(u"espItemContainer")
 
-        self.gridLayout_2.addWidget(self.logWindow, 0, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.espItemContainer, 0, 1, 1, 1)
 
 
         self.gridLayout.addWidget(self.windowContainer, 0, 2, 1, 1)
@@ -87,11 +91,11 @@ class Ui_loggerForm(object):
 
     def retranslateUi(self, loggerForm):
         loggerForm.setWindowTitle(QCoreApplication.translate("loggerForm", u"Form", None))
+        self.fullPairButton.setText(QCoreApplication.translate("loggerForm", u"Emparelhamento completo", None))
         self.onOffButton.setText(QCoreApplication.translate("loggerForm", u"Ligar/Desligar Bluetooth", None))
         self.pairButton.setText(QCoreApplication.translate("loggerForm", u"Emparelhar servi\u00e7o SPP", None))
         self.unpairButton.setText(QCoreApplication.translate("loggerForm", u"Desemparelhar servi\u00e7o SPP", None))
         self.pairHidButton.setText(QCoreApplication.translate("loggerForm", u"Emparelhar dispositivo HID", None))
         self.unpairHidButton.setText(QCoreApplication.translate("loggerForm", u"Desemparelhar dispositivo HID", None))
-        self.logWindow.setPlainText("")
     # retranslateUi
 

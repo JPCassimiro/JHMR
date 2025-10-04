@@ -7,13 +7,10 @@ class RoundedImageLabel(QLabel):
         super().__init__()
         
         self.Antialiasing = antialiasing
-        self.setMaximumHeight(100)
-        self.setMaximumWidth(100)
         self.setMinimumHeight(0)
         self.setMinimumWidth(0)
         
         self.radius = self.width() // 2
-        
         
     def setPixmap(self, pixmap: QPixmap):
         self._raw_pixmap = pixmap

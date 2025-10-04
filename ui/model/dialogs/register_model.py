@@ -5,7 +5,7 @@ from PySide6.QtCore import Signal
 infoDictBase = {
     "name": None,
     "details": None,
-    "image_path": None
+    "image_path": "_internal/resources/imgs/placeholder_profile.png"
 }
 
 class RegisterModel(QDialog):
@@ -17,6 +17,8 @@ class RegisterModel(QDialog):
         self.ui.setupUi(self)
 
         self.infoDict = infoDictBase.copy()
+        
+        self.setWindowTitle("Cadastro")
         
         self.current_mode = 0 #0 = create, 1 = update
         self.current_table = ""
@@ -33,16 +35,13 @@ class RegisterModel(QDialog):
         self.descriptionEdit.textChanged.connect(self.description_changed_handler)
 
     def name_changed_handler(self, text):
-        print(f"{self.sender().objectName()} - {text}")
         self.infoDict.update({"name": text})
         
     def description_changed_handler(self, text):
-        print(f"{self.sender().objectName()} - {text}")
         self.infoDict.update({"details": text})
         
     def select_image_handler(self):
         fileName = QFileDialog.getOpenFileName(self, "Open Image", "./", "Image Files (*.png *.jpg *.bmp)")
-        print(f"{self.sender().objectName()} - {fileName[0]}")
         self.imageLineEdit.setText(f"{fileName[0]}")
         self.infoDict.update({"image_path": fileName[0]})
     

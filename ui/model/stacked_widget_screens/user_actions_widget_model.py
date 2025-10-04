@@ -42,6 +42,9 @@ class UserActionsModel(QWidget):
         self.listWidget1.setProperty("type",0)
         self.listWidget2.setProperty("type",1)
         
+        self.lineEdit1.hide()
+        self.lineEdit2.hide()
+
         #connections
         self.toolButton1.clicked.connect(self.add_button_handler)
         self.toolButton2.clicked.connect(self.add_button_handler)
@@ -51,6 +54,40 @@ class UserActionsModel(QWidget):
         self.listWidget2.doubleClicked.connect(self.get_user)
         
         self.populate_lists()
+
+        self.default_p_dict, self.default_t_dict = self.get_default_users()
+                
+    def assin_default_user(self):
+        signal_dict_p = self.default_p_dict.copy()
+        signal_dict_t = self.default_t_dict.copy()
+        self.patientSelected.emit(signal_dict_p)
+        self.therapistSelected.emit(signal_dict_t)
+
+    def get_default_users(self):
+        qPatient = f"select * from patient where id = 1;"
+        qTherapist = f"select * from therapist where id = 1;"
+        resP = self.dbHandleClass.execute_single_query(qPatient)
+        resT = self.dbHandleClass.execute_single_query(qTherapist)
+        p_dict = {}
+        t_dict = {}
+        if resP:
+            p_dict = {
+                "id": resP[0][0],
+                "name": resP[0][1],
+                "details": resP[0][2],
+                "image_path": resP[0][3],
+            }
+
+        if resT:
+            t_dict = {
+                "id": resT[0][0],
+                "name": resT[0][1],
+                "details": resT[0][2],
+                "image_path": resT[0][3],
+            }
+
+        return p_dict, t_dict
+        
 
     def add_button_handler(self):
         if self.sender().property("type") == 0:
@@ -73,31 +110,20 @@ class UserActionsModel(QWidget):
         self.populate_lists()
 
     def update_list_handler(self,itemId):
-        print("update_list_handler")
-        print(f"sender(): {self.sender().info_dict}")
         if itemId == self.current_patient:
             if self.sender().info_dict == None:
                 print("sender deleted")
-                signal_dict = {
-                    "name": "não selecionado",
-                    "details": "não selecionado",
-                    "image_path": "_internal/resources/imgs/placeholder_profile.png"
-                }
+                signal_dict = self.default_p_dict.copy()
             else:
                 signal_dict = self.sender().info_dict.copy()
             self.patientSelected.emit(signal_dict)
         elif itemId == self.current_therapist:
             if self.sender().info_dict == None:
-                signal_dict = {
-                    "name": "não selecionado",
-                    "details": "não selecionado",
-                    "image_path": "_internal/resources/imgs/placeholder_profile.png"
-                }
+                signal_dict = self.default_t_dict.copy()
             else:
                 signal_dict = self.sender().info_dict.copy()
             self.therapistSelected.emit(signal_dict)
         self.visually_update_list()
-            
             
     def get_user(self,index):
         item = self.sender().item(index.row())
@@ -117,34 +143,36 @@ class UserActionsModel(QWidget):
         res_therapist = self.dbHandleClass.execute_single_query(q_therapist)
         if res_therapist:
             for therapist in res_therapist:
-                infoDict = {
-                    "id": therapist[0],
-                    "name": therapist[1],
-                    "details": therapist[2],
-                    "image_path": therapist[3],
-                    "table": "therapist"
-                }
-                item = UserItemModel(infoDict,self.dbHandleClass)
-                item.updateList.connect(self.update_list_handler)
-                item_container = QListWidgetItem(self.listWidget1)
-                item_container.setSizeHint(item.sizeHint())                
-                self.listWidget1.addItem(item_container)
-                self.listWidget1.setItemWidget(item_container,item)
+                if therapist[0] != 1:
+                    infoDict = {
+                        "id": therapist[0],
+                        "name": therapist[1],
+                        "details": therapist[2],
+                        "image_path": therapist[3],
+                        "table": "therapist"
+                    }
+                    item = UserItemModel(infoDict,self.dbHandleClass)
+                    item.updateList.connect(self.update_list_handler)
+                    item_container = QListWidgetItem(self.listWidget1)
+                    item_container.setSizeHint(item.sizeHint())                
+                    self.listWidget1.addItem(item_container)
+                    self.listWidget1.setItemWidget(item_container,item)
         if res_patient: 
             for patient in res_patient:
-                infoDict = {
-                    "id": patient[0],
-                    "name": patient[1],
-                    "details": patient[2],
-                    "image_path": patient[3],
-                    "table": "patient"
-                }
-                item = UserItemModel(infoDict,self.dbHandleClass)
-                item.updateList.connect(self.update_list_handler)
-                item_container = QListWidgetItem(self.listWidget2)
-                item_container.setSizeHint(item.sizeHint())                
-                self.listWidget2.addItem(item_container)
-                self.listWidget2.setItemWidget(item_container,item)
+                if patient[0] != 1:
+                    infoDict = {
+                        "id": patient[0],
+                        "name": patient[1],
+                        "details": patient[2],
+                        "image_path": patient[3],
+                        "table": "patient"
+                    }
+                    item = UserItemModel(infoDict,self.dbHandleClass)
+                    item.updateList.connect(self.update_list_handler)
+                    item_container = QListWidgetItem(self.listWidget2)
+                    item_container.setSizeHint(item.sizeHint())                
+                    self.listWidget2.addItem(item_container)
+                    self.listWidget2.setItemWidget(item_container,item)
                 
     
         

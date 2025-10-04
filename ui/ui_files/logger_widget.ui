@@ -35,6 +35,13 @@
          <number>6</number>
         </property>
         <item>
+         <widget class="QPushButton" name="fullPairButton">
+          <property name="text">
+           <string>Emparelhamento completo</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="onOffButton">
           <property name="text">
            <string>Ligar/Desligar Bluetooth</string>
@@ -88,14 +95,7 @@
        </layout>
       </item>
       <item row="0" column="1">
-       <widget class="QPlainTextEdit" name="logWindow">
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-        <property name="plainText">
-         <string/>
-        </property>
-       </widget>
+       <widget class="QWidget" name="espItemContainer" native="true"/>
       </item>
      </layout>
     </widget>

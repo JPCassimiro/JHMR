@@ -18,6 +18,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QGridLayout, QLabel, QPushButton,
     QSizePolicy, QSpacerItem, QWidget)
 
+from ui.model.custom_widgets.rounded_image_label import RoundedImageLabel
+
 class Ui_calibrationForm(object):
     def setupUi(self, calibrationForm):
         if not calibrationForm.objectName():
@@ -63,10 +65,11 @@ class Ui_calibrationForm(object):
         self.visualsContainer.setObjectName(u"visualsContainer")
         self.gridLayout_4 = QGridLayout(self.visualsContainer)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.imageLabel = QLabel(self.visualsContainer)
-        self.imageLabel.setObjectName(u"imageLabel")
+        self.instructionImageLabel = RoundedImageLabel(self.visualsContainer)
+        self.instructionImageLabel.setObjectName(u"instructionImageLabel")
+        self.instructionImageLabel.setMaximumSize(QSize(300, 350))
 
-        self.gridLayout_4.addWidget(self.imageLabel, 0, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.instructionImageLabel, 0, 0, 1, 1)
 
         self.instructionLabel = QLabel(self.visualsContainer)
         self.instructionLabel.setObjectName(u"instructionLabel")
@@ -93,7 +96,7 @@ class Ui_calibrationForm(object):
         self.restartButton.setText(QCoreApplication.translate("calibrationForm", u"Reiniciar", None))
         self.cancelButton.setText(QCoreApplication.translate("calibrationForm", u"Cancelar", None))
         self.startButton.setText(QCoreApplication.translate("calibrationForm", u"Iniciar", None))
-        self.imageLabel.setText(QCoreApplication.translate("calibrationForm", u"imageLabel", None))
+        self.instructionImageLabel.setText(QCoreApplication.translate("calibrationForm", u"imageLabel", None))
         self.instructionLabel.setText(QCoreApplication.translate("calibrationForm", u"instructionLabel", None))
     # retranslateUi
 

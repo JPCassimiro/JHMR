@@ -11,7 +11,7 @@ class CalibrationResultModel(QWidget):
         self.ui = Ui_calibrationResultWidget()
         self.ui.setupUi(self)
 
-        self.handImage = self.ui.imageLabel
+        self.handImage = self.ui.handImageLabel
         
         #hand sliders
         self.verticalSliderLittle = CustomSliderModel()

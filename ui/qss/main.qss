@@ -23,6 +23,46 @@
    Botões só de texto, menu principal
  */
 
+*{
+   font-family: "Segoe UI";
+}
+
+QToolButton:disabled{
+   background-color:#797878;
+}
+
+QToolButton:hover{
+   background-color:#cccccc;
+}
+
+QToolButton{
+   padding: 1px;
+   border: 1px solid black;
+   background-color: #C3C3C3;
+   border-radius: 5%;
+   color: #000000;
+}
+
+QPushButton{
+   padding: 1px;
+   border: 1px solid black;
+   background-color: #C3C3C3;
+   border-radius: 4px;
+   color: #000000;
+}
+
+QPushButton:pressed{
+   background-color: #F89E59;
+}
+
+QPushButton:disabled{
+   background-color: #8a8a8a;
+}
+
+QPushButton:hover{
+   background-color: #cccccc;
+}
+
 QWidget#sideMenu_2>QPushButton{
    background: none;
    border: none;
@@ -53,6 +93,14 @@ QAbstractButton#calibrationButton{
 
 QAbstractButton#configButton{
    qproperty-icon: url("_internal/resources/icons/knob_orange.png")
+}
+
+QAbstractButton#userActionsButton{
+   qproperty-icon: url("_internal/resources/icons/group_orange.png")
+}
+
+QAbstractButton#statsButton{
+   qproperty-icon: url("_internal/resources/icons/pie-chart_orange.png")
 }
 
 QWidget#sideMenu_2{
@@ -112,22 +160,6 @@ QWidget#logoLabel{
    color: #000000;
  }
 
- QPushButton{
-   padding: 1px;
-   border: 1px solid black;
-   background-color: #C3C3C3;
-   border-radius: 4px;
-   color: #000000;
- }
-
-QPushButton:pressed{
-   background-color: #F89E59;
-}
-
-QPushButton:disabled{
-   background-color: #8a8a8a;
-}
-
 /* ############################## Title widget ##############################*/
 /* ############################## Title widget ##############################*/
 /* ############################## Title widget ##############################*/
@@ -136,7 +168,7 @@ QPushButton:disabled{
 /* ############################## Patient widget ##############################*/
 
 
-QWidget#patientImage,#terapistImage{
+QWidget#patientImage,#therapistImage{
    border: 1px solid black;
    border-radius: 30px;
 }
@@ -214,13 +246,35 @@ QWidget#slider>QSlider::groove:disabled{
 /* ############################## Calibration widget ##############################*/
 /* ############################## Calibration widget ##############################*/
 
-
-
-/* ############################## UserActions widget ##############################*/
-/* ############################## UserActions widget ##############################*/
-/* ############################## UserActions widget ##############################*/
-
-QWidget#imageLabel{
+QWidget#instructionImageLabel{
    border: 1px solid black;
    border-radius: 50%;
+}
+
+
+QWidget#instructionLabel{
+   font-size: 32pt;
+   text-align: center;
+}
+
+
+/* ############################## UserActions widget ##############################*/
+/* ############################## UserActions widget ##############################*/
+/* ############################## UserActions widget ##############################*/
+
+QWidget#tabWidget::pane {
+   border: 1px solid black;
+   border-radius: 10%;
+}
+
+QWidget#tabWidget::tab-bar {
+   left: 15px;
+}
+
+QListWidget{
+   border: None;
+}
+
+QListWidget::item::hover{
+   background-color: #68cccccc;
 }

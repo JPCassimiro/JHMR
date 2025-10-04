@@ -8,7 +8,7 @@ from PySide6.QtQuick import QQuickItem
 
 class CalibrationWidgetModel(QWidget):
     pValuesSignal = Signal(list)
-    def __init__(self,serialHandleClass):
+    def __init__(self,serialHandleClass,logModel):
         super().__init__()
         
         #setup ui
@@ -18,9 +18,12 @@ class CalibrationWidgetModel(QWidget):
         #modules setup
         self.serialHandleClass = serialHandleClass
         self.timer = QTimer()
+        self.logModel = logModel
         
         #custom ui element setup
         self.resultModel = CalibrationResultModel()
+        self.ui.visualsContainer.layout().addWidget(self.resultModel)
+        self.resultModel.hide()
 
         #variables
         self.recived_presure_array = [[],[],[],[]]
@@ -31,26 +34,32 @@ class CalibrationWidgetModel(QWidget):
         self.calibration_step = 0
 
         #get ui elements
-        self.instructionImage = self.ui.imageLabel
+        self.instructionImage = self.ui.instructionImageLabel
         self.startButton = self.ui.startButton
         self.instructionText = self.ui.instructionLabel
         self.cancelButton = self.ui.cancelButton
         self.restartButton = self.ui.restartButton
-
+        
         self.cancelButton.setEnabled(False)
 
-        self.instructionText.setText("Aperte todos os botões com toda sua força por 5 segundos")
-        self.set_instruction_image("_internal/resources/imgs/calibration_instruction_1.png")
+        self.image_data = [["_internal/resources/imgs/calibration_instruction_1.png",250,345,54],["_internal/resources/imgs/calibration_instruction_2.png",300,250,50]]
+
+        self.instructionText.setText("Aperte os botões com toda força por 5 segundos")
+        self.set_instruction_image(self.image_data[0][0],self.image_data[0][1],self.image_data[0][2],self.image_data[0][3])
 
         #connections
         self.startButton.clicked.connect(self.start_button_handler)
         self.timer.timeout.connect(self.timeout_handler)
         self.restartButton.clicked.connect(self.restart_calibration)
+        self.cancelButton.clicked.connect(self.cancel_button_handler)
         
-    def set_instruction_image(self,img_path):
+    def set_instruction_image(self,img_path,width,height,radius):
         try:
             img = QPixmap()
             if img.load(img_path):
+                self.instructionImage.setMaximumWidth(width)
+                self.instructionImage.setMaximumHeight(height)
+                self.instructionImage.radius = radius
                 self.instructionImage.setPixmap(img)
                 self.instructionImage.setScaledContents(True)
             else:
@@ -60,7 +69,6 @@ class CalibrationWidgetModel(QWidget):
         
     def cancel_button_handler(self):
         self.timer.stop()
-        self.setEnabled(True)
         self.timeout_counter = 0
         self.message_couter = 0
         self.ui_counter = 0        
@@ -68,7 +76,10 @@ class CalibrationWidgetModel(QWidget):
             self.recived_presure_array = [[],[],[],[]]
         else:
             self.thumb_pressure = []
+        self.send_serial_message("*L0")
         self.cancelButton.setEnabled(False)
+        self.restartButton.setEnabled(True)
+        self.startButton.setEnabled(True)
         
     #starts the timer
     #500ms timer for sending the messages
@@ -89,6 +100,7 @@ class CalibrationWidgetModel(QWidget):
     
     #messages will be recieved in the same order as they are sent, per serial rules
     def recieve_serial_message(self,recieved):
+        self.logModel.append_log(recieved)
         if self.message_couter > 3:
             self.message_couter = 0
         if self.calibration_step == 0:
@@ -110,26 +122,29 @@ class CalibrationWidgetModel(QWidget):
         self.calibration_step = 0
         
     def reset_screen(self):
-        self.instructionText.setText("Aperte todos os botões com toda sua força por 5 segundos")
-        self.set_instruction_image("_internal/resources/imgs/calibration_instruction_1.png")
+        self.instructionText.setText("Aperte os botões com toda força por 5 segundos")
+        self.set_instruction_image(self.image_data[0][0],self.image_data[0][1],self.image_data[0][2],self.image_data[0][3])
         self.resultModel.hide()
         self.instructionText.show()
         self.instructionImage.show()
+        self.startButton.setEnabled(True)
         
     def present_results(self):
         self.instructionImage.hide()
         self.instructionText.hide()
-        self.ui.visualsContainer.layout().addWidget(self.resultModel)
+        self.resultModel.show()
+        self.startButton.setDisabled(True)
         max_val_array = self.get_max_pressure_values()
         self.pValuesSignal.emit(max_val_array)
         self.resultModel.set_pressure_values([max_val_array[3],max_val_array[2],max_val_array[1],max_val_array[0],max_val_array[4]])
         
     def get_max_pressure_values(self):
         max_val_array = []
-        for array in self.recived_presure_array:
-            max_val_array.append(max(array))
-        max_val_array.append(max(self.thumb_pressure))
-        return max_val_array
+        if self.recived_presure_array:
+            for array in self.recived_presure_array:
+                max_val_array.append(max(array))
+            max_val_array.append(max(self.thumb_pressure))
+            return max_val_array
 
     #11 timeouts in total
     #so 5.5 seconds total duration
@@ -150,10 +165,11 @@ class CalibrationWidgetModel(QWidget):
                 self.startButton.setEnabled(True)
                 self.restartButton.setEnabled(True)
                 self.cancelButton.setEnabled(False)
-                self.set_instruction_image("_internal/resources/imgs/calibration_instruction_2.png")
-                self.instructionText.setText("Use seu dedão e indicador com toda sua força por 5 segundos")
+                self.set_instruction_image(self.image_data[1][0],self.image_data[1][1],self.image_data[1][2],self.image_data[1][3])
+                self.instructionText.setText("Use seu dedão e indicador com toda força por 5 segundos")
                 self.calibration_step = 1
                 self.timer.stop()
+                self.send_serial_message("*L0")
                 self.serialHandleClass.mesReceivedSignal.disconnect(self.recieve_serial_message)
                 return
         elif self.calibration_step == 1:
@@ -165,6 +181,7 @@ class CalibrationWidgetModel(QWidget):
                 self.timeout_counter = 0
                 self.calibration_step = 0
                 self.timer.stop()
+                self.send_serial_message("*L0")
                 self.serialHandleClass.mesReceivedSignal.disconnect(self.recieve_serial_message)
                 self.startButton.setEnabled(True)
                 self.restartButton.setEnabled(True)

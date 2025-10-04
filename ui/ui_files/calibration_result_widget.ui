@@ -16,7 +16,7 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QWidget" name="resultContainer" native="true">
-     <widget class="QLabel" name="imageLabel">
+     <widget class="QLabel" name="handImageLabel">
       <property name="geometry">
        <rect>
         <x>30</x>
