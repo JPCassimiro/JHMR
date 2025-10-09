@@ -7,7 +7,10 @@ from PySide6.QtCore import QTimer, Signal
 from PySide6.QtQuick import QQuickItem
 
 class CalibrationWidgetModel(QWidget):
+
     pValuesSignal = Signal(list)
+    sideMenuDisableSignal = Signal(bool)
+    
     def __init__(self,serialHandleClass,logModel):
         super().__init__()
         
@@ -80,6 +83,7 @@ class CalibrationWidgetModel(QWidget):
         self.cancelButton.setEnabled(False)
         self.restartButton.setEnabled(True)
         self.startButton.setEnabled(True)
+        self.sideMenuDisableSignal.emit(True)
         
     #starts the timer
     #500ms timer for sending the messages
@@ -91,6 +95,7 @@ class CalibrationWidgetModel(QWidget):
         self.serialHandleClass.mesReceivedSignal.connect(self.recieve_serial_message)
         self.cancelButton.setEnabled(True)
         self.timer.start(500)
+        self.sideMenuDisableSignal.emit(False)
         
     #messages are to be sent in *S1 to *S4 order
     def send_serial_message(self,message):
@@ -165,6 +170,7 @@ class CalibrationWidgetModel(QWidget):
                 self.startButton.setEnabled(True)
                 self.restartButton.setEnabled(True)
                 self.cancelButton.setEnabled(False)
+                self.sideMenuDisableSignal.emit(True)
                 self.set_instruction_image(self.image_data[1][0],self.image_data[1][1],self.image_data[1][2],self.image_data[1][3])
                 self.instructionText.setText("Use seu dedão e indicador com toda força por 5 segundos")
                 self.calibration_step = 1
@@ -186,5 +192,6 @@ class CalibrationWidgetModel(QWidget):
                 self.startButton.setEnabled(True)
                 self.restartButton.setEnabled(True)
                 self.cancelButton.setEnabled(False)
+                self.sideMenuDisableSignal.emit(True)
                 self.present_results()
                 return

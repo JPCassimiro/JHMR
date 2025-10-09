@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main_window.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.9.1
+## Created by: Qt User Interface Compiler version 6.9.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -24,13 +24,13 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(920, 650)
+        MainWindow.resize(1000, 700)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QSize(920, 650))
+        MainWindow.setMinimumSize(QSize(1000, 700))
         font = QFont()
         font.setFamilies([u"Lato"])
         MainWindow.setFont(font)
@@ -180,13 +180,6 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2.addWidget(self.logModalButton)
 
-        self.homeButton = QToolButton(self.toolButtonContainer)
-        self.homeButton.setObjectName(u"homeButton")
-        icon1 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.GoHome))
-        self.homeButton.setIcon(icon1)
-
-        self.horizontalLayout_2.addWidget(self.homeButton)
-
 
         self.sideMenu.addWidget(self.toolButtonContainer)
 
@@ -197,7 +190,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 920, 18))
+        self.menubar.setGeometry(QRect(0, 0, 1000, 18))
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
@@ -214,6 +207,5 @@ class Ui_MainWindow(object):
         self.userActionsButton.setText(QCoreApplication.translate("MainWindow", u"A\u00e7\u00f5es de usu\u00e1rio", None))
         self.statsButton.setText(QCoreApplication.translate("MainWindow", u"Estat\u00edsticas de uso", None))
         self.logModalButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
-        self.homeButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
     # retranslateUi
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>920</width>
-    <height>650</height>
+    <width>1000</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>920</width>
-    <height>650</height>
+    <width>1000</width>
+    <height>700</height>
    </size>
   </property>
   <property name="font">
@@ -297,16 +297,6 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QToolButton" name="homeButton">
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="icon">
-             <iconset theme="QIcon::ThemeIcon::GoHome"/>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </item>
@@ -320,7 +310,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>920</width>
+     <width>1000</width>
      <height>18</height>
     </rect>
    </property>

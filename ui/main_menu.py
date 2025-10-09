@@ -68,7 +68,6 @@ class MainMenuWindow(QMainWindow):
         self.calibrationButton = self.ui.calibrationButton
         self.userActionsButton = self.ui.userActionsButton
         self.statsButton = self.ui.statsButton
-        self.homeButton = self.ui.homeButton
         self.logModalButton = self.ui.logModalButton
         
         #setup button connections
@@ -77,10 +76,12 @@ class MainMenuWindow(QMainWindow):
         self.calibrationButton.clicked.connect(self.calibration_menu_button_handler)
         self.userActionsButton.clicked.connect(self.user_menu_button_handler)
         self.statsButton.clicked.connect(self.stats_menu_button_handler)
-        self.homeButton.clicked.connect(self.home_button_handler)
         self.logModalButton.clicked.connect(self.log_button_handler)
 
-
+        #button toggling connections
+        self.calibration_widget.sideMenuDisableSignal.connect(lambda state: self.side_menu_button_disabler(state, self.calibrationButton))
+        self.user_stats_widget.sideMenuDisableSignal.connect(lambda state: self.side_menu_button_disabler(state, self.statsButton))
+        self.logger_widget.sideMenuDisableSignal.connect(lambda state: self.side_menu_button_disabler(state, self.connectionMenuButton))
 
         self.stackedWidget.setCurrentIndex(0)
 
@@ -111,17 +112,14 @@ class MainMenuWindow(QMainWindow):
     def patient_select_handler(self,infoDict):
         self.patient_widget.info_dict = infoDict.copy()
         self.patient_widget.update_fields()
-        print(f"select_handler_alert :{infoDict}")
         if "id" in infoDict:
             self.user_stats_widget.assing_user(infoDict["id"])
+            self.config_widget.current_user = infoDict["id"]
         
     def stats_menu_button_handler(self):
         self.side_menu_button_toggler(self.statsButton)
         self.stackedWidget.setCurrentIndex(4)       
                                      
-    def home_button_handler(self):
-        print("home_button")
-
     def log_button_handler(self):
         self.logModel.open()
 
@@ -132,4 +130,11 @@ class MainMenuWindow(QMainWindow):
                 button.setEnabled(True)
             else:
                 clicked_button.setEnabled(False)
+                
+    def side_menu_button_disabler(self, state, clicked_button):
+        for button in self.side_menu.findChildren(QPushButton):
+            if button == clicked_button:
+                clicked_button.setEnabled(False)
+            else:
+                button.setEnabled(state)
         

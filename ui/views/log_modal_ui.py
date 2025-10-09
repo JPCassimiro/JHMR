@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'log_modal.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.9.1
+## Created by: Qt User Interface Compiler version 6.9.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -31,6 +31,7 @@ class Ui_logDialogForm(object):
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.logTextEdit = QPlainTextEdit(self.logEditContainer)
         self.logTextEdit.setObjectName(u"logTextEdit")
+        self.logTextEdit.setReadOnly(True)
 
         self.gridLayout_2.addWidget(self.logTextEdit, 0, 0, 1, 1)
 

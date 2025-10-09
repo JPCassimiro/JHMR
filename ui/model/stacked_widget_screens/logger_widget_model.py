@@ -1,10 +1,13 @@
-import datetime
 from modules import bluetooth_comunication
 from PySide6.QtWidgets import QWidget, QPushButton
 from ui.views.logger_widget_ui import Ui_loggerForm
+from PySide6.QtCore import Signal
 from modules import log_class
 
 class LoggerWidgetModel(QWidget):
+
+    sideMenuDisableSignal = Signal(bool)
+
     def __init__(self,serialHandleClass,logModel):#both ConfigWidgetModel and LoggerWidgetModel share the SAME INSTANCE of serialHandleClass
         super().__init__()
 
@@ -225,4 +228,8 @@ class LoggerWidgetModel(QWidget):
     def button_state_toggle(self):
         for button in self.findChildren(QPushButton):
             button.setEnabled(not button.isEnabled())
+        if self.pairButton.isEnabled():
+            self.sideMenuDisableSignal.emit(True)
+        else:
+            self.sideMenuDisableSignal.emit(False)                
             

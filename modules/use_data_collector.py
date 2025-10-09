@@ -42,7 +42,7 @@ class DataCollectorClass(QObject):
             self.serialHandleClass.mesReceivedSignal.disconnect(self.message_received_handler)
 
     def generate_query(self,index,middle,ring,little):
-        q = "insert into user_data (session_id,finger,pressure) values (?,?,?)"
+        q = "insert into user_data (session_id,finger,pressure) values (?,?,?);"
         if self.current_session_index:
             data = []
             #4 same size arrays with x items

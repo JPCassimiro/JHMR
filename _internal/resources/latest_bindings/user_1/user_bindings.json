@@ -1,0 +1,23 @@
+{
+    "user": 1,
+    "bindings": {
+        "1111": {
+            "duration": "1",
+            "key": "r",
+            "repeat": "False",
+            "pressure_1": "144",
+            "pressure_2": "189",
+            "pressure_3": "0",
+            "pressure_4": "46"
+        },
+        "0001": {
+            "duration": "2",
+            "key": "b",
+            "repeat": "True",
+            "pressure_1": "0",
+            "pressure_2": "0",
+            "pressure_3": "0",
+            "pressure_4": "137"
+        }
+    }
+}

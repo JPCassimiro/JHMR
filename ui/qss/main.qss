@@ -278,3 +278,16 @@ QListWidget{
 QListWidget::item::hover{
    background-color: #68cccccc;
 }
+
+/* ############################## UserStats widget ##############################*/
+/* ############################## UserStats widget ##############################*/
+/* ############################## UserStats widget ##############################*/
+
+QWidget#statsTabWidget::pane {
+   border: 1px solid black;
+   border-radius: 10%;
+}
+
+QWidget#statsTabWidget::tab-bar {
+   left: 15px;
+}
