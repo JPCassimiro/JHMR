@@ -1,17 +1,16 @@
-from PySide6.QtWidgets import QWidget, QRadioButton
+from PySide6.QtWidgets import QWidget, QRadioButton, QMessageBox
 from ui.views.config_widget_ui import Ui_configForm
 from ui.model.dialogs.key_select_model import KeySelectModel
 from ui.model.components.end_config_model import EndConfigModel
 from modules.log_class import logger
 from modules.json_writer import JsonWriterClass
 from ui.model.custom_widgets.custom_slider_model import CustomSliderModel
-from PySide6.QtCore import QRect
-from PySide6.QtCore import Signal
+from PySide6.QtCore import QRect, Qt
 
 finger_base_value = {
     "repeat_key":False,
     "key":None,
-    "duration":1
+    "duration":0
 }
 
 nunchuck_base_value = {
@@ -114,9 +113,12 @@ class ConfigWidgetModel(QWidget):
         self.confirmButton.clicked.connect(self.confirm_button_handler)
 
         self.key_select_modal.accepted.connect(self.handle_modal_finish)
+        self.key_select_modal.setWindowModality(Qt.ApplicationModal)
         
-        self.end_modal.finished.connect(lambda: self.serialHandleClass.mesReceivedSignal.disconnect(self.message_received_handler))
-        
+        self.ui.optionsContainer.setEnabled(False)
+
+        self.serialHandleClass.mesReceivedSignal.connect(self.message_received_handler)
+
     #defines selected_finger getter
     @property
     def selected_fingers(self):
@@ -142,17 +144,23 @@ class ConfigWidgetModel(QWidget):
     def zKey_button_handler(self):
         print(f"sender: {self.sender().objectName()} pressed!")
         self.key_select_modal.z_c_key_mode = 1
-        self.key_select_modal.open()
+        self.key_select_modal.exec()
     
     def cKey_button_handler(self):
         print(f"sender: {self.sender().objectName()} pressed!")
         self.key_select_modal.z_c_key_mode = 2
-        self.key_select_modal.open()
+        self.key_select_modal.exec()
 
     def confirm_button_handler(self):
         selection_check = any(self._selected_fingers)
         if (selection_check == False):
             logger.debug("Selecione uma combinação de dedos")
+        elif self.finger_info_dict["key"] == None:
+            warning = QMessageBox(self)
+            warning.setWindowTitle("Erro")
+            warning.setText("Escolha a tecla a ser emulada")
+            warning.setWindowModality(Qt.ApplicationModal)
+            warning.show()
         else:
             print(f"sender: {self.sender().objectName()} pressed!")
             self.setEnabled(False)
@@ -162,14 +170,13 @@ class ConfigWidgetModel(QWidget):
             self.jsonWriter.update_config_file(self.current_user, bindingDict)
             self._selected_fingers = [False,False,False,False]#this is done this way as to not trigger reset value multiple times
             self.selected_fingers = (0,False)
-            self.end_modal.open()
-            self.serialHandleClass.mesReceivedSignal.connect(self.message_received_handler)
+            self.end_modal.exec()
             self.setEnabled(True)
 
     def pressure_button_handler(self):
         print(f"sender: {self.sender().objectName()} pressed!")
         self.key_select_modal.z_c_key_mode = 0
-        self.key_select_modal.open()
+        self.key_select_modal.exec()
     
     def repeat_button_handler(self):
         print(f"radio: {self.sender().objectName} - state: {self.sender().isChecked()}")
@@ -193,13 +200,13 @@ class ConfigWidgetModel(QWidget):
         print(self._selected_fingers)
 
     def message_received_handler(self,response):
-        self.logModel.append_log(response)
         self.end_modal.recieve_end_message(response)
-        logger.debug(f"mensagem recebida: {response}")
 
     #resets info to be transmited via serial
     def value_reset_watcher(self):
         selection_check = any(self._selected_fingers)
+        if self.ui.optionsContainer.isEnabled() == False:
+            self.ui.optionsContainer.setEnabled(True)
         if selection_check == False:
             self.reset_variables()
             self.reset_screen()
@@ -211,12 +218,13 @@ class ConfigWidgetModel(QWidget):
         self.finger_info_dict = finger_base_value.copy()
         self.nunchuck_info_dict = nunchuck_base_value.copy()
         self.p_value_array = [0,0,0,0]
-        
+
     def reset_screen(self):
         self.repeatOffButton.setChecked(True)
         self.repeatOnButton.setChecked(False)
         self.pressureButton.setText("Clique para selecionar")
-        self.durationSlider.setValue(1)
+        self.durationSlider.setValue(finger_base_value["duration"])
+        self.ui.optionsContainer.setEnabled(False)
         for radio in self.ui.fingerButtonContainer_2.findChildren(QRadioButton):
             radio.setChecked(False)
         for slider in self.slider_array:
@@ -230,7 +238,7 @@ class ConfigWidgetModel(QWidget):
         
     def confirm_messages_generator(self):
         messages = []
-        for i, v in enumerate(self.p_value_array):#!p_values have to come first as to determin the finger combo
+        for i, v in enumerate(self.p_value_array):#!p_values has to come first as to determin the finger combo
             if v != 0:
                 valueStr = v
                 if(v < 10):#value always needs to be sent in a 3 digit format 
@@ -238,7 +246,7 @@ class ConfigWidgetModel(QWidget):
                 elif(v < 100):
                     valueStr = f"0{v}"
                 #when sending the serial message, finger indexes start at 1
-                messages.append("*M{}{}".format(i+1,v))
+                messages.append("*M{}{}".format(i+1,valueStr))
         pairs = [(k, v) for (k, v) in self.finger_info_dict.items()]
         for i, (k,v) in enumerate(pairs):
             if v != None:
@@ -250,7 +258,7 @@ class ConfigWidgetModel(QWidget):
                     case 2:
                         messages.append(f"*T{v}")
         if self.nunchuck_info_dict["c_key"] != None: messages.append(f"*C{self.nunchuck_info_dict["c_key"]}")
-        if self.nunchuck_info_dict["z_key"] != None: messages.append(f"*C{self.nunchuck_info_dict["z_key"]}")
+        if self.nunchuck_info_dict["z_key"] != None: messages.append(f"*Z{self.nunchuck_info_dict["z_key"]}")
         bindingDict = {
                 "combo": self._selected_fingers,
                 "duration": self.finger_info_dict["duration"],
@@ -265,17 +273,26 @@ class ConfigWidgetModel(QWidget):
     
     def handle_modal_finish(self):#!beter logic maybe?
         key = self.key_select_modal.selected_key
+        key_text = self.key_select_modal.selected_key
+        if key == "UP":
+            key_text = str("↑")
+        elif key == "DOWN":
+            key_text = str("↓")
+        elif key == "LEFT":
+            key_text = str("←")
+        elif key == "RIGHT":
+            key_text = str("→")
         if self.key_select_modal.z_c_key_mode == 0:
             self.finger_info_dict.update({"key":key})
-            self.pressureButton.setText(key)
+            self.pressureButton.setText(key_text)
             print(self.finger_info_dict)
         elif self.key_select_modal.z_c_key_mode == 1:
             self.nunchuck_info_dict.update({"z_key":key})
-            self.ZKeyButton.setText(key)
+            self.ZKeyButton.setText(key_text)
             print(self.nunchuck_info_dict)
         else:
             self.nunchuck_info_dict.update({"c_key":key})
-            self.CKeyButton.setText(key)
+            self.CKeyButton.setText(key_text)
             print(self.nunchuck_info_dict)
         self.key_select_modal.selected_key = None
         self.key_select_modal.z_c_key_mode = 0

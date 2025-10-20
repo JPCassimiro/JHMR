@@ -15,6 +15,7 @@ class ProcessRunnerClass(QObject):
         self.p.errorOccurred.connect(self.process_error_handler)
         self.p.readyReadStandardError.connect(self.read_handler)
         
+        
         self.error_flag = False#flag for errors, gets reset on run
 
     def run(self,argStr = None):
@@ -33,11 +34,10 @@ class ProcessRunnerClass(QObject):
     def read_handler(self):
         data = self.p.readAllStandardError()
         stderr = bytes(data).decode("utf8")
-        logger.debug(stderr)
-        if 'not found' in str(stderr):#!possibly alter logic, string matching is bad
-            self.error_flag = True
-            self.p.kill()
-    
+        logger.debug(f"read_handler: {stderr}")
+        self.error_flag = True
+        self.p.kill()
+
     #emits finish message
     def process_finish_handler(self):
         if self.error_flag == False:

@@ -1,6 +1,7 @@
 from ui.views.register_dialog_ui import Ui_registerDialog
 from PySide6.QtWidgets import QDialog, QFileDialog
-from PySide6.QtCore import Signal
+from PySide6.QtCore import Qt, QRegularExpression
+from PySide6.QtGui import QRegularExpressionValidator
 
 infoDictBase = {
     "name": None,
@@ -15,10 +16,14 @@ class RegisterModel(QDialog):
         #ui setup
         self.ui = Ui_registerDialog()
         self.ui.setupUi(self)
+        
+        validator = QRegularExpressionValidator()
+        validator.setRegularExpression(QRegularExpression("^\s*$"))
 
         self.infoDict = infoDictBase.copy()
         
         self.setWindowTitle("Cadastro")
+        self.setWindowModality(Qt.ApplicationModal)
         
         self.current_mode = 0 #0 = create, 1 = update
         self.current_table = ""
@@ -28,6 +33,9 @@ class RegisterModel(QDialog):
         self.imageLineEdit = self.ui.imageLineEdit
         self.descriptionEdit = self.ui.descriptionEdit
         self.imageSelectButton = self.ui.imageSelectButton
+
+        self.nameEdit.setValidator(validator)
+        self.descriptionEdit.setValidator(validator)
 
         #connections
         self.imageSelectButton.clicked.connect(self.select_image_handler)

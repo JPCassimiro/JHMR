@@ -1,4 +1,5 @@
 import wmi
+import re
 from modules.log_class import logger
 from PySide6.QtCore import Signal, QObject
 from PySide6.QtSerialPort import QSerialPort
@@ -14,7 +15,7 @@ timeout = 1000
 class SerialCommClass(QObject):
     
     portSignal = Signal(str)
-    mesReceivedSignal = Signal(str)
+    mesReceivedSignal = Signal(object)
     
     def __init__(self, parent=None):
         super().__init__()
@@ -27,8 +28,12 @@ class SerialCommClass(QObject):
         self.ser = QSerialPort()
         self.ser.setBaudRate(baud_rate)
         self.message_buffer = ""
-
+        self.use_data_buffer = ""
         self.device_mac_addr = ''
+
+        self.use_data_regex = r"\*I\d{12}"
+
+        self.c = wmi.WMI()
 
         #for testing
         # self.device_mac_addr = "d48afc9d936a"
@@ -59,22 +64,37 @@ class SerialCommClass(QObject):
         
     #gets message, decodes, sends signal
     def recieve_message(self):
-        self.message_substrings = []#mesages to be sent
+        message_substrings = []#mesages to be sent
         data = self.ser.readAll()#these messages can be recieved in any way at any time, so it can be split or concateneted
         dataStr = data.toStdString()
         self.message_buffer += dataStr
+        print(f"recive_message:{self.message_buffer}")
         while "N" in self.message_buffer or "A" in self.message_buffer:
             last_index = 0
             for i, c in enumerate(self.message_buffer):#get the substring up to the limiter
                 if c == "A" or c == "N":
-                    self.message_substrings.append(self.message_buffer[:i+1])
+                    message_substrings.append(self.message_buffer[:i+1])
                     last_index = i
                     break
             self.message_buffer = self.message_buffer[last_index+1:]
-        for m in self.message_substrings:
+        for m in message_substrings:
             self.mesReceivedSignal.emit(m)
             logger.debug(f"Mensagem recebida: {m}")
              
+    def recieve_use_data_message(self):
+        messages = []
+        data = self.ser.readAll()
+        dataStr = data.toStdString()
+        self.use_data_buffer += dataStr
+        matches = list(re.finditer(self.use_data_regex,self.use_data_buffer))
+        if matches:
+            last_match = matches[-1]
+            start, end = last_match.span()
+            self.use_data_buffer = self.message_buffer[end+1:]
+        for m in matches:
+            messages.append(m.group())
+            self.mesReceivedSignal.emit(messages)
+                
     #logs error on serial
     def handle_serial_error(self,err):
         logger.error(err)        
@@ -88,13 +108,20 @@ class SerialCommClass(QObject):
     
     def find_port(self):
         if self.device_mac_addr != "":
-            c = wmi.WMI()
-            for device in c.Win32_PnPEntity():
-                if device.Name and "COM" in device.Name:
-                    if self.device_mac_addr in str(device.deviceID).lower():#found com port 
-                        start =  str(device.Name).lower().find("(com")
-                        end =  str(device.Name).lower().find(")",start)
-                        self.ser.setPortName(self.port_name_normalization(str(device.Name[start+1:end]).lower()))
-                        self.portSignal.emit(f"Porta do ESP32: {self.ser.portName()}")
+            com_devices = self.c.query("SELECT * FROM Win32_PnPEntity WHERE Name LIKE '%(COM%'")
+            for com_device in com_devices:
+                if self.device_mac_addr in str(com_device.deviceID).lower():#found com port 
+                    start =  str(com_device.Name).lower().find("(com")
+                    end =  str(com_device.Name).lower().find(")",start)
+                    self.ser.setPortName(self.port_name_normalization(str(com_device.Name[start+1:end]).lower()))
+                    self.portSignal.emit(f"Porta do ESP32: {self.ser.portName()}")
         else:
             logger.error("Encontre o endereço do MAC primeiro")
+
+    def swap_message_listner(self,op = 0):
+        self.ser.readyRead.disconnect()
+        if op == 0:#default
+            self.ser.readyRead.connect(self.recieve_message)
+        elif op == 1:#use_data_collector
+            self.ser.readyRead.connect(self.recieve_use_data_message)
+            

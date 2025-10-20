@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'user_actions_widget.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.9.1
+## Created by: Qt User Interface Compiler version 6.9.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -16,8 +16,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLineEdit,
-    QListWidget, QListWidgetItem, QSizePolicy, QSpacerItem,
-    QTabWidget, QToolButton, QVBoxLayout, QWidget)
+    QListWidget, QListWidgetItem, QPushButton, QSizePolicy,
+    QSpacerItem, QTabWidget, QToolButton, QVBoxLayout,
+    QWidget)
 
 class Ui_usersWidgetForm(object):
     def setupUi(self, usersWidgetForm):
@@ -59,6 +60,11 @@ class Ui_usersWidgetForm(object):
 
         self.horizontalLayout_3.addWidget(self.toolButton1)
 
+        self.defautlTherapistButton = QPushButton(self.buttonContainer1)
+        self.defautlTherapistButton.setObjectName(u"defautlTherapistButton")
+
+        self.horizontalLayout_3.addWidget(self.defautlTherapistButton)
+
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer_2)
@@ -98,6 +104,11 @@ class Ui_usersWidgetForm(object):
 
         self.horizontalLayout_2.addWidget(self.toolButton2)
 
+        self.defaultPatientButton = QPushButton(self.buttonContainer2)
+        self.defaultPatientButton.setObjectName(u"defaultPatientButton")
+
+        self.horizontalLayout_2.addWidget(self.defaultPatientButton)
+
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
@@ -132,8 +143,10 @@ class Ui_usersWidgetForm(object):
     def retranslateUi(self, usersWidgetForm):
         usersWidgetForm.setWindowTitle(QCoreApplication.translate("usersWidgetForm", u"Form", None))
         self.toolButton1.setText(QCoreApplication.translate("usersWidgetForm", u"...", None))
+        self.defautlTherapistButton.setText(QCoreApplication.translate("usersWidgetForm", u"Terapeuta padr\u00e3o", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.therapistTab), QCoreApplication.translate("usersWidgetForm", u"Terapeuta", None))
         self.toolButton2.setText(QCoreApplication.translate("usersWidgetForm", u"...", None))
+        self.defaultPatientButton.setText(QCoreApplication.translate("usersWidgetForm", u"Paciente padr\u00e3o", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.patientTab), QCoreApplication.translate("usersWidgetForm", u"Paciente", None))
     # retranslateUi
 

@@ -78,4 +78,4 @@ class UserItemModel(QWidget):
     def edit_button_handler(self):
         self.register_modal.infoDict = self.info_dict.copy()
         self.register_modal.complete_fields()
-        self.register_modal.open()
+        self.register_modal.exec()

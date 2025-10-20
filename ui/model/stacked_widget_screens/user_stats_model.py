@@ -139,6 +139,7 @@ class UserStatsModel(QWidget):
     def stop_button_handler(self):
         self.dataCollectorHandler.stop_data_collection()
         self.button_toggler(self.stopListening)
+        self.update_session_chart_value()
         
     def start_button_handler(self):
         self.dataCollectorHandler.start_watch = True
@@ -153,8 +154,7 @@ class UserStatsModel(QWidget):
             self.populate_comboBox()
 
     def create_session(self):
-        q = f"""
-            insert into session (patient_id) select ? where not exists
+        q = f"""insert into session (patient_id) select ? where not exists
             (select id from session where date(session_date) = date('now') and patient_id = ?) 
             returning patient_id,id;"""
         res = self.dbHandleClass.execute_single_query(q,[self.current_user,self.current_user])
@@ -162,14 +162,12 @@ class UserStatsModel(QWidget):
             logger.debug(f"Seção criada para o usuário {res[0][0]}")
             return res[0][0]
         else:
-            q = f"""
-            select id from session where patient_id = (?);"""
+            q = f"""select id from session where patient_id = (?);"""
             res = self.dbHandleClass.execute_single_query(q,[self.current_user])
             return res[0][0]
 
     def get_summary_chart_value(self):
-        qAvg = f"""
-        SELECT 
+        qAvg = f"""SELECT 
             s.id AS session_id,
             u.finger,
             AVG(u.pressure) AS avg_pressure
@@ -185,8 +183,7 @@ class UserStatsModel(QWidget):
             s.session_date, u.finger
         ORDER BY 
             s.session_date;"""
-        qAvgTotal = f"""
-        SELECT 
+        qAvgTotal = f"""SELECT 
             u.finger,
             AVG(u.pressure) AS avg_pressure
         FROM 
@@ -201,8 +198,7 @@ class UserStatsModel(QWidget):
             u.finger
         ORDER BY 
             u.finger;"""
-        qTotalCount = f"""
-        SELECT 
+        qTotalCount = f"""SELECT 
             u.finger,
             COUNT(*) AS total_finger_uses
         FROM 
@@ -328,8 +324,7 @@ class UserStatsModel(QWidget):
         self.sessionComboBox.setEnabled(False)
         qCount = f"select finger, COUNT(*) AS count from use_data where session_id = ? GROUP BY finger;"
         qPres = f"SELECT finger, MAX(pressure) AS max_pressure, MIN(pressure) AS min_pressure, AVG(pressure) AS avg_pressure FROM use_data where session_id = ? group by finger;"
-        qTimelapse = f"""
-        SELECT 
+        qTimelapse = f"""SELECT 
             session_id,
             printf('%02d:%02d:%02d',
                 duration_seconds / 3600,

@@ -10,6 +10,7 @@ class LogModel(QDialog):
         self.ui = Ui_logDialogForm()
         self.ui.setupUi(self)
         
+        
         self.setWindowTitle("Logger")
         
         #get elements

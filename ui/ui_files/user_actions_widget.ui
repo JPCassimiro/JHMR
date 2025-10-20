@@ -65,6 +65,13 @@
                  </widget>
                 </item>
                 <item>
+                 <widget class="QPushButton" name="defautlTherapistButton">
+                  <property name="text">
+                   <string>Terapeuta padrão</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <spacer name="horizontalSpacer_2">
                   <property name="orientation">
                    <enum>Qt::Orientation::Horizontal</enum>
@@ -109,6 +116,13 @@
                   </property>
                   <property name="icon">
                    <iconset theme="QIcon::ThemeIcon::ListAdd"/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="defaultPatientButton">
+                  <property name="text">
+                   <string>Paciente padrão</string>
                   </property>
                  </widget>
                 </item>

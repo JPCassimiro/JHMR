@@ -36,7 +36,6 @@ class JsonWriterClass(QObject):
                     })
                     
                 else:
-                    print(f"no combo found: {data}")
                     data["bindings"][binding_translate] = {
                         "duration":f"{bindingDict["duration"]}",
                         "key": f"{bindingDict["key"]}",

@@ -67,7 +67,7 @@
       </item>
       <item row="0" column="2">
        <widget class="QWidget" name="keyDisplayContainer" native="true">
-        <layout class="QGridLayout" name="gridLayout_3">
+        <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0">
          <item row="0" column="0">
           <widget class="QTextEdit" name="keyDisplayer">
            <property name="font">

@@ -2,7 +2,7 @@ from ui.views.user_actions_widget_ui import Ui_usersWidgetForm
 from ui.model.dialogs.register_model import RegisterModel
 from ui.model.components.user_item_model import UserItemModel
 from PySide6.QtWidgets import QWidget, QListWidgetItem
-from PySide6.QtCore import Signal
+from PySide6.QtCore import Signal, Qt
 
 class UserActionsModel(QWidget):
     
@@ -34,6 +34,8 @@ class UserActionsModel(QWidget):
         self.listWidget2 = self.ui.listWidget2
         self.lineEdit2 = self.ui.lineEdit2
         self.toolButton2 = self.ui.toolButton2
+        self.defaultPatientButton = self.ui.defaultPatientButton
+        self.defautlTherapistButton = self.ui.defautlTherapistButton
         
         self.lineEdit1.setProperty("type",0)
         self.lineEdit2.setProperty("type",1)
@@ -49,6 +51,8 @@ class UserActionsModel(QWidget):
         self.toolButton1.clicked.connect(self.add_button_handler)
         self.toolButton2.clicked.connect(self.add_button_handler)
         self.register_modal.accepted.connect(self.register_user)
+        self.defautlTherapistButton.clicked.connect(self.select_default_therapist)
+        self.defaultPatientButton.clicked.connect(self.select_default_patient)
         
         self.listWidget1.doubleClicked.connect(self.get_user)
         self.listWidget2.doubleClicked.connect(self.get_user)
@@ -56,7 +60,17 @@ class UserActionsModel(QWidget):
         self.populate_lists()
 
         self.default_p_dict, self.default_t_dict = self.get_default_users()
-                
+
+        self.register_modal.setWindowModality(Qt.ApplicationModal)
+
+    def select_default_patient(self):
+        signal_dict_p = self.default_p_dict.copy()
+        self.patientSelected.emit(signal_dict_p)
+
+    def select_default_therapist(self):
+        signal_dict_t = self.default_t_dict.copy()
+        self.therapistSelected.emit(signal_dict_t)
+
     def assin_default_user(self):
         signal_dict_p = self.default_p_dict.copy()
         signal_dict_t = self.default_t_dict.copy()
@@ -94,7 +108,7 @@ class UserActionsModel(QWidget):
             self.register_modal.current_table = "therapist"
         else:
             self.register_modal.current_table = "patient"
-        self.register_modal.open()
+        self.register_modal.exec()
 
     def register_user(self):
         register_info = self.register_modal.infoDict.copy()
@@ -112,7 +126,6 @@ class UserActionsModel(QWidget):
     def update_list_handler(self,itemId):
         if itemId == self.current_patient:
             if self.sender().info_dict == None:
-                print("sender deleted")
                 signal_dict = self.default_p_dict.copy()
             else:
                 signal_dict = self.sender().info_dict.copy()

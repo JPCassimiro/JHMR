@@ -36,9 +36,11 @@ class DataCollectorClass(QObject):
     def start_checker(self):
         if self._start_watch != False:
             self.start_data_collection(2500)
+            self.serialHandleClass.swap_message_listner(1)
             self.serialHandleClass.mesReceivedSignal.connect(self.message_received_handler)
         else:
             self.timer.stop()
+            self.serialHandleClass.swap_message_listner(0)
             self.serialHandleClass.mesReceivedSignal.disconnect(self.message_received_handler)
 
     def generate_query(self,index,middle,ring,little):
@@ -60,7 +62,6 @@ class DataCollectorClass(QObject):
             logger.error(f"Não pode gerar um query para estatisticas de uso, paciente não selecionado")
             
     def start_data_collection(self,ms):
-        print("true")
         self.timer.start(ms)
         
     # start the process to send messages to the database
@@ -91,10 +92,13 @@ class DataCollectorClass(QObject):
     #splits message on each array
     #each message has 3 digits
     def message_received_handler(self,message):
-        logger.debug(f"mensagem recebida: {message}")
         self.logModel.append_log(message)
-        messages = [message[0:3],message[3:6],message[6:9],message[9:]] 
-        for i in enumerate(messages):
-            self.message_buffer[i].append(messages[i])
-            logger.debug(f"Mensagem adicionada ao buffer no indice {i}: {messages[i]}")
+        for m in message:
+            messages = [m[0:3],m[3:6],m[6:9],m[9:]] 
+            for i in enumerate(messages):
+                self.message_buffer[i].append(messages[i])
+                logger.debug(f"Mensagem adicionada ao buffer no indice {i}: {messages[i]}")
+
+
+
             

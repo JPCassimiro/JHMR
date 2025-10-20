@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'register_dialog.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.9.1
+## Created by: Qt User Interface Compiler version 6.9.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -23,7 +23,9 @@ class Ui_registerDialog(object):
     def setupUi(self, registerDialog):
         if not registerDialog.objectName():
             registerDialog.setObjectName(u"registerDialog")
-        registerDialog.resize(400, 300)
+        registerDialog.setWindowModality(Qt.WindowModality.ApplicationModal)
+        registerDialog.resize(393, 208)
+        registerDialog.setModal(True)
         self.gridLayout = QGridLayout(registerDialog)
         self.gridLayout.setObjectName(u"gridLayout")
         self.registerWidgetContainer = QWidget(registerDialog)
@@ -49,6 +51,7 @@ class Ui_registerDialog(object):
 
         self.nameEdit = QLineEdit(self.registerWidgetContainer)
         self.nameEdit.setObjectName(u"nameEdit")
+        self.nameEdit.setMaxLength(32)
 
         self.gridLayout_2.addWidget(self.nameEdit, 1, 1, 1, 1)
 
@@ -65,6 +68,7 @@ class Ui_registerDialog(object):
 
         self.descriptionEdit = QLineEdit(self.registerWidgetContainer)
         self.descriptionEdit.setObjectName(u"descriptionEdit")
+        self.descriptionEdit.setMaxLength(32)
 
         self.gridLayout_2.addWidget(self.descriptionEdit, 3, 1, 1, 1)
 
@@ -73,6 +77,7 @@ class Ui_registerDialog(object):
 
         self.buttonBox = QDialogButtonBox(registerDialog)
         self.buttonBox.setObjectName(u"buttonBox")
+        self.buttonBox.setLocale(QLocale(QLocale.Portuguese, QLocale.Brazil))
         self.buttonBox.setOrientation(Qt.Orientation.Horizontal)
         self.buttonBox.setStandardButtons(QDialogButtonBox.StandardButton.Cancel|QDialogButtonBox.StandardButton.Ok)
 
@@ -90,8 +95,8 @@ class Ui_registerDialog(object):
         registerDialog.setWindowTitle(QCoreApplication.translate("registerDialog", u"Dialog", None))
         self.imagePreview.setText(QCoreApplication.translate("registerDialog", u"Imagem de perfil", None))
         self.imageSelectButton.setText(QCoreApplication.translate("registerDialog", u"...", None))
-        self.nameLabel.setText(QCoreApplication.translate("registerDialog", u"Nome", None))
-        self.descriptionLabel.setText(QCoreApplication.translate("registerDialog", u"Descri\u00e7\u00e3o", None))
+        self.nameLabel.setText(QCoreApplication.translate("registerDialog", u"Nome (Obrigat\u00f3rio)", None))
+        self.descriptionLabel.setText(QCoreApplication.translate("registerDialog", u"Descri\u00e7\u00e3o (Obrigat\u00f3rio)", None))
         self.imageLineEdit.setPlaceholderText(QCoreApplication.translate("registerDialog", u"Selecione uma imagem", None))
     # retranslateUi
 

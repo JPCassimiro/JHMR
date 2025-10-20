@@ -2,16 +2,22 @@
 <ui version="4.0">
  <class>registerDialog</class>
  <widget class="QDialog" name="registerDialog">
+  <property name="windowModality">
+   <enum>Qt::WindowModality::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>393</width>
+    <height>208</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -37,17 +43,21 @@
       <item row="0" column="1">
        <widget class="QLabel" name="nameLabel">
         <property name="text">
-         <string>Nome</string>
+         <string>Nome (Obrigatório)</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="nameEdit"/>
+       <widget class="QLineEdit" name="nameEdit">
+        <property name="maxLength">
+         <number>32</number>
+        </property>
+       </widget>
       </item>
       <item row="2" column="1">
        <widget class="QLabel" name="descriptionLabel">
         <property name="text">
-         <string>Descrição</string>
+         <string>Descrição (Obrigatório)</string>
         </property>
        </widget>
       </item>
@@ -62,13 +72,20 @@
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QLineEdit" name="descriptionEdit"/>
+       <widget class="QLineEdit" name="descriptionEdit">
+        <property name="maxLength">
+         <number>32</number>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
    </item>
    <item row="1" column="0" alignment="Qt::AlignmentFlag::AlignLeft">
     <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="locale">
+      <locale language="Portuguese" country="Brazil"/>
+     </property>
      <property name="orientation">
       <enum>Qt::Orientation::Horizontal</enum>
      </property>

@@ -131,8 +131,12 @@ class LoggerWidgetModel(QWidget):
             self.handle_error_message(message)
         
         def on_result(message):
-            self.append_log(message)
-            self.button_state_toggle()
+            if message:
+                def f():
+                    self.append_log(message)
+                    self.button_state_toggle()
+                self.bluetoothHandleclass.set_callback(on_error=on_error,on_result = f)
+                self.bluetoothHandleclass.hid_device_pair()
 
         self.bluetoothHandleclass.set_callback(on_error=on_error,on_result=on_result)
         self.bluetoothHandleclass.hid_device_discovery()
@@ -196,14 +200,17 @@ class LoggerWidgetModel(QWidget):
             self.handle_error_message(message)
             
         def on_result(message):
-            self.append_log(message)
-            self.full_pair_step_4()
+            if message == True:
+                def f(message):
+                    self.full_pair_step_4()
+                self.bluetoothHandleclass.set_callback(on_error=on_error,on_result=f)
+                self.bluetoothHandleclass.hid_device_pair()
             
-        self.bluetoothHandleclass.set_callback(on_result=on_result,on_error=on_error)
+        self.bluetoothHandleclass.set_callback(on_error=on_error,on_result=on_result)
         self.bluetoothHandleclass.hid_device_discovery()
 
     def full_pair_step_4(self):
-        self.append_log("Iniciando processo de emprelhamento.\nMantenha o joystick ligado.\nEste processo pode demorar.\nUma notificação do Windows vai aparecer, clique na mesma e aceite")
+        self.append_log("Iniciando processo de emprelhamento SPP.\nMantenha o joystick ligado.\nEste processo pode demorar.\nUma notificação do Windows vai aparecer, clique na mesma e aceite")
 
         def on_error(message):
             self.handle_error_message(message)
@@ -216,7 +223,7 @@ class LoggerWidgetModel(QWidget):
                 self.append_log("Encontrando o endereço MAC e porta serial do dispositivo, aguarde...")
                 self.find_device_handler()
             
-        self.bluetoothHandleclass.set_callback(on_result=on_result,on_error=on_error)
+        self.bluetoothHandleclass.set_callback(on_error=on_error,on_result=on_result)
         self.bluetoothHandleclass.pair_device()
         
         

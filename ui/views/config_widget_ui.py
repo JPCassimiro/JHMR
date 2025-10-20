@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'config_widget.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.9.1
+## Created by: Qt User Interface Compiler version 6.9.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -131,17 +131,37 @@ class Ui_configForm(object):
 
         self.verticalLayout_2.addWidget(self.durationLabel)
 
-        self.durationSlider = QSlider(self.optionsButtonsContainer)
+        self.durationSliderContainer = QWidget(self.optionsButtonsContainer)
+        self.durationSliderContainer.setObjectName(u"durationSliderContainer")
+        self.horizontalLayout_2 = QHBoxLayout(self.durationSliderContainer)
+        self.horizontalLayout_2.setSpacing(3)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.zeroLabel = QLabel(self.durationSliderContainer)
+        self.zeroLabel.setObjectName(u"zeroLabel")
+
+        self.horizontalLayout_2.addWidget(self.zeroLabel)
+
+        self.durationSlider = QSlider(self.durationSliderContainer)
         self.durationSlider.setObjectName(u"durationSlider")
-        self.durationSlider.setMinimum(1)
+        self.durationSlider.setMinimum(0)
         self.durationSlider.setMaximum(9)
-        self.durationSlider.setValue(1)
-        self.durationSlider.setSliderPosition(1)
+        self.durationSlider.setValue(0)
+        self.durationSlider.setSliderPosition(0)
         self.durationSlider.setOrientation(Qt.Orientation.Horizontal)
         self.durationSlider.setTickPosition(QSlider.TickPosition.TicksAbove)
         self.durationSlider.setTickInterval(1)
 
-        self.verticalLayout_2.addWidget(self.durationSlider)
+        self.horizontalLayout_2.addWidget(self.durationSlider)
+
+        self.nineLabel = QLabel(self.durationSliderContainer)
+        self.nineLabel.setObjectName(u"nineLabel")
+
+        self.horizontalLayout_2.addWidget(self.nineLabel)
+
+        self.horizontalLayout_2.setStretch(1, 1)
+
+        self.verticalLayout_2.addWidget(self.durationSliderContainer)
 
         self.pressureLabel = QLabel(self.optionsButtonsContainer)
         self.pressureLabel.setObjectName(u"pressureLabel")
@@ -207,7 +227,9 @@ class Ui_configForm(object):
         self.repeatButtonLabel.setText(QCoreApplication.translate("configForm", u"Repetir", None))
         self.repeatOnButton.setText(QCoreApplication.translate("configForm", u"Ligado", None))
         self.repeatOffButton.setText(QCoreApplication.translate("configForm", u"Desligado", None))
-        self.durationLabel.setText(QCoreApplication.translate("configForm", u"Dura\u00e7\u00e3o", None))
+        self.durationLabel.setText(QCoreApplication.translate("configForm", u"Dura\u00e7\u00e3o (s)", None))
+        self.zeroLabel.setText(QCoreApplication.translate("configForm", u"0", None))
+        self.nineLabel.setText(QCoreApplication.translate("configForm", u"9", None))
         self.pressureLabel.setText(QCoreApplication.translate("configForm", u"Tecla", None))
         self.pressureButton.setText(QCoreApplication.translate("configForm", u"Clique para selecionar", None))
         self.CButtonlable.setText(QCoreApplication.translate("configForm", u"Bot\u00e3o C", None))
