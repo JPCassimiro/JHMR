@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QGridLayout, QHBoxLayout,
-    QLabel, QPushButton, QSizePolicy, QSpacerItem,
-    QTabWidget, QWidget)
+from PySide6.QtWidgets import (QApplication, QButtonGroup, QComboBox, QGridLayout,
+    QHBoxLayout, QLabel, QPushButton, QRadioButton,
+    QSizePolicy, QSpacerItem, QTabWidget, QWidget)
 
 class Ui_useStatisticsForm(object):
     def setupUi(self, useStatisticsForm):
@@ -163,6 +163,33 @@ class Ui_useStatisticsForm(object):
 
         self.gridLayout.addWidget(self.useStatisticsWidgetContianer, 0, 0, 1, 1)
 
+        self.handSelectorContainer = QWidget(useStatisticsForm)
+        self.handSelectorContainer.setObjectName(u"handSelectorContainer")
+        self.horizontalLayout_3 = QHBoxLayout(self.handSelectorContainer)
+        self.horizontalLayout_3.setSpacing(0)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.rightHandButton = QRadioButton(self.handSelectorContainer)
+        self.handButtonGroup = QButtonGroup(useStatisticsForm)
+        self.handButtonGroup.setObjectName(u"handButtonGroup")
+        self.handButtonGroup.addButton(self.rightHandButton)
+        self.rightHandButton.setObjectName(u"rightHandButton")
+
+        self.horizontalLayout_3.addWidget(self.rightHandButton)
+
+        self.leftHandButton = QRadioButton(self.handSelectorContainer)
+        self.handButtonGroup.addButton(self.leftHandButton)
+        self.leftHandButton.setObjectName(u"leftHandButton")
+
+        self.horizontalLayout_3.addWidget(self.leftHandButton)
+
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_3.addItem(self.horizontalSpacer_2)
+
+
+        self.gridLayout.addWidget(self.handSelectorContainer, 1, 0, 1, 1)
+
 
         self.retranslateUi(useStatisticsForm)
 
@@ -185,5 +212,7 @@ class Ui_useStatisticsForm(object):
         self.countSessionLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Total de se\u00e7\u00f5es", None))
         self.countSession.setText(QCoreApplication.translate("useStatisticsForm", u"TextLabel", None))
         self.statsTabWidget.setTabText(self.statsTabWidget.indexOf(self.summaryTab), QCoreApplication.translate("useStatisticsForm", u"Resumo", None))
+        self.rightHandButton.setText(QCoreApplication.translate("useStatisticsForm", u"M\u00e3o direita", None))
+        self.leftHandButton.setText(QCoreApplication.translate("useStatisticsForm", u"M\u00e3o esquerda", None))
     # retranslateUi
 

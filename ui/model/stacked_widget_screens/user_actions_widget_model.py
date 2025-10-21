@@ -1,8 +1,9 @@
 from ui.views.user_actions_widget_ui import Ui_usersWidgetForm
 from ui.model.dialogs.register_model import RegisterModel
 from ui.model.components.user_item_model import UserItemModel
-from PySide6.QtWidgets import QWidget, QListWidgetItem
+from PySide6.QtWidgets import QWidget, QListWidgetItem, QMessageBox
 from PySide6.QtCore import Signal, Qt
+import re
 
 class UserActionsModel(QWidget):
     
@@ -112,11 +113,23 @@ class UserActionsModel(QWidget):
 
     def register_user(self):
         register_info = self.register_modal.infoDict.copy()
-        q = ""
-        q = f"insert into {self.register_modal.current_table} (name,details,image_path) values (?,?,?);"
-        self.dbHandleClass.execute_single_query(q,[register_info["name"],register_info["details"],register_info["image_path"]])
-        self.register_modal.reset_values()
-        self.visually_update_list()
+        rgx1 = True
+        rgx2 = True
+        if register_info["name"] != None: rgx1 = re.search("^\s*$",register_info["name"])
+        if register_info["details"] != None: rgx2 = re.search("^\s*$",register_info["details"])
+        if rgx1 == None and rgx2 == None:
+            q = ""
+            q = f"insert into {self.register_modal.current_table} (name,details,image_path) values (?,?,?);"
+            self.dbHandleClass.execute_single_query(q,[register_info["name"],register_info["details"],register_info["image_path"]])
+            self.register_modal.reset_values()
+            self.visually_update_list()
+        else:
+            warning = QMessageBox(self)
+            warning.setWindowTitle("Erro")
+            warning.setText("Preencha todos os campos origatórrios")
+            warning.setWindowModality(Qt.ApplicationModal)
+            warning.show()
+            self.register_modal.reset_values()
         
     def visually_update_list(self):
         self.listWidget1.clear()

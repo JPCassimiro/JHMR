@@ -81,6 +81,7 @@ class DbClass():
                 session_id integer not null,
                 finger text check(finger in ('index','middle','ring','little')),
                 pressure integer not null,
+                hand integer not null,
                 timestamp datetime default current_timestamp,
                 foreign key (session_id) references session(id) on delete cascade
             );""")

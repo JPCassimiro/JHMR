@@ -22,6 +22,7 @@ class UserStatsModel(QWidget):
         
         #variables setup
         self.current_user = False
+        self.selected_hand = 0
 
         #get ui elements
         self.startListening = self.ui.startListening
@@ -31,6 +32,8 @@ class UserStatsModel(QWidget):
         self.statsTabWidget = self.ui.statsTabWidget
         self.countSession = self.ui.countSession
         self.avgSessionTime = self.ui.avgSessionTime
+        self.leftHandButton = self.ui.leftHandButton
+        self.rightHandButton = self.ui.rightHandButton
         
         
         self.timelapse = "00:00:00"
@@ -40,6 +43,8 @@ class UserStatsModel(QWidget):
         self.countSession.setText(self.sessionCount)
         self.avgSessionTime.setText(self.avgTimelapse)
         
+        self.rightHandButton.toggle()
+        
         self.stopListening.setEnabled(False)
         
         #connections setup
@@ -47,6 +52,8 @@ class UserStatsModel(QWidget):
         self.stopListening.clicked.connect(self.stop_button_handler)
         self.sessionComboBox.currentIndexChanged.connect(self.update_session_chart_value)
         self.statsTabWidget.tabBarClicked.connect(self.update_summary_charts)
+        self.leftHandButton.toggled.connect(self.hand_selector)
+        self.rightHandButton.toggled.connect(self.hand_selector)
 
         #session chart widget        
         pg.setConfigOption('background', '#F5F5F5')
@@ -178,7 +185,7 @@ class UserStatsModel(QWidget):
         JOIN 
             patient p ON s.patient_id = p.id
         WHERE 
-            p.id = ?
+            p.id = ? and u.hand = ?
         GROUP BY 
             s.session_date, u.finger
         ORDER BY 
@@ -193,7 +200,7 @@ class UserStatsModel(QWidget):
         JOIN 
             patient p ON s.patient_id = p.id
         WHERE 
-            p.id = ?
+            p.id = ? and u.hand = ?
         GROUP BY 
             u.finger
         ORDER BY 
@@ -208,7 +215,7 @@ class UserStatsModel(QWidget):
         JOIN 
             patient p ON s.patient_id = p.id
         WHERE 
-            p.id = ?
+            p.id = ? and u.hand = ?
         GROUP BY 
             u.finger
         ORDER BY 
@@ -232,13 +239,14 @@ class UserStatsModel(QWidget):
             GROUP BY
                 session.id
         );"""
-        resAvg = self.dbHandleClass.execute_single_query(qAvg,[self.current_user])
-        resAvgTotal = self.dbHandleClass.execute_single_query(qAvgTotal,[self.current_user])
-        resTotalCount = self.dbHandleClass.execute_single_query(qTotalCount,[self.current_user])
+        resAvg = self.dbHandleClass.execute_single_query(qAvg,[self.current_user, self.selected_hand])
+        resAvgTotal = self.dbHandleClass.execute_single_query(qAvgTotal,[self.current_user, self.selected_hand])
+        resTotalCount = self.dbHandleClass.execute_single_query(qTotalCount,[self.current_user, self.selected_hand])
         resSessionCount = self.dbHandleClass.execute_single_query(qSessionCount,[self.current_user])
         resAvgTimelapse = self.dbHandleClass.execute_single_query(qAvgTimelapse,[self.current_user])
         
         if resAvg and resAvgTotal and resTotalCount and resSessionCount and resAvgTimelapse:
+            # print(f"resAvg:{resAvg}\nresAvgTotal:{resAvgTotal}\nresSessionCount:{resSessionCount}\nresAvgTimelapse:{resAvgTimelapse}")
             index_array = [[],[]]
             little_array = [[],[]]
             middle_array = [[],[]]
@@ -286,7 +294,7 @@ class UserStatsModel(QWidget):
             return index_array, little_array, middle_array, ring_array, total_count, avg_total, sessionCount, avgTimelapse
         
         else:
-            return False,False,False,False,False,False          
+            return False,False,False,False,False,False,False,False          
                 
     def update_summary_charts(self):
         index_array, little_array, middle_array, ring_array, total_count, avg_total, sessionCount, avgTimelapse = self.get_summary_chart_value()
@@ -322,8 +330,8 @@ class UserStatsModel(QWidget):
     
     def get_session_chart_value(self):
         self.sessionComboBox.setEnabled(False)
-        qCount = f"select finger, COUNT(*) AS count from use_data where session_id = ? GROUP BY finger;"
-        qPres = f"SELECT finger, MAX(pressure) AS max_pressure, MIN(pressure) AS min_pressure, AVG(pressure) AS avg_pressure FROM use_data where session_id = ? group by finger;"
+        qCount = f"select finger, COUNT(*) AS count from use_data where session_id = ? and hand = ? GROUP BY finger;"
+        qPres = f"SELECT finger, MAX(pressure) AS max_pressure, MIN(pressure) AS min_pressure, AVG(pressure) AS avg_pressure FROM use_data where session_id = ? and hand = ? group by finger;"
         qTimelapse = f"""SELECT 
             session_id,
             printf('%02d:%02d:%02d',
@@ -336,11 +344,11 @@ class UserStatsModel(QWidget):
                 session_id,
                 CAST((strftime('%s', MAX(timestamp)) - strftime('%s', MIN(timestamp))) AS INTEGER) AS duration_seconds
             FROM use_data
-            where session_id = ?
+            where session_id = ? and hand = ?
         );"""
-        presRes = self.dbHandleClass.execute_single_query(qPres,[self.sessionComboBox.currentData()])
-        countRes = self.dbHandleClass.execute_single_query(qCount,[self.sessionComboBox.currentData()])
-        timelapseRes = self.dbHandleClass.execute_single_query(qTimelapse,[self.sessionComboBox.currentData()])
+        presRes = self.dbHandleClass.execute_single_query(qPres,[self.sessionComboBox.currentData(),self.selected_hand])
+        countRes = self.dbHandleClass.execute_single_query(qCount,[self.sessionComboBox.currentData(),self.selected_hand])
+        timelapseRes = self.dbHandleClass.execute_single_query(qTimelapse,[self.sessionComboBox.currentData(),self.selected_hand])
         if presRes and countRes and timelapseRes:
             max_press_array = [None,None,None,None]
             min_press_array = [None,None,None,None]
@@ -400,6 +408,19 @@ class UserStatsModel(QWidget):
         self.times_used_chart.setOpts(height = self.times_pressed)
         self.timelapseLabel.setText(self.timelapse)
         
+    def hand_selector(self):
+        if self.sender().objectName() == "rightHandButton":
+            self.selected_hand = 0
+            self.dataCollectorHandler.selected_hand = 0
+        else:
+            self.selected_hand = 1
+            self.dataCollectorHandler.selected_hand = 1
+        if self.statsTabWidget.currentIndex() == 0:
+            self.update_session_chart_value()
+        else:
+            self.update_summary_charts()
+            
+                    
     def button_toggler(self, clicked_button):
         for button in self.ui.buttonsContainer.findChildren(QPushButton):
             if button != clicked_button:
@@ -423,6 +444,8 @@ class UserStatsModel(QWidget):
         sessions = self.get_sessions()
         if sessions:
             for s in sessions:
-                self.sessionComboBox.addItem(str(s[2]),s[0])
+                text = str(s[2])
+                text = text.split()
+                self.sessionComboBox.addItem(text[0],s[0])
             self.sessionComboBox.setCurrentIndex(self.sessionComboBox.count()-1)
                 

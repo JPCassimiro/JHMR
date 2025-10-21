@@ -10,6 +10,7 @@ class DataCollectorClass(QObject):
         self.message_buffer = [[],[],[],[]]
         self.current_user_index = None
         self.current_session_index = None
+        self.selected_hand = 0
         
         self.logModel = logModel
         
@@ -44,19 +45,19 @@ class DataCollectorClass(QObject):
             self.serialHandleClass.mesReceivedSignal.disconnect(self.message_received_handler)
 
     def generate_query(self,index,middle,ring,little):
-        q = "insert into user_data (session_id,finger,pressure) values (?,?,?);"
+        q = "insert into user_data (session_id,finger,pressure,hand) values (?,?,?,?);"
         if self.current_session_index:
             data = []
             #4 same size arrays with x items
             for i in range(len(index)):
                 if int(index[i]) > 0:
-                    data.append(({self.current_session_index},'index',int(index[i])))
+                    data.append(({self.current_session_index}, 'index', int(index[i]), self.selected_hand))
                 if int(middle[i]) > 0:
-                    data.append(({self.current_session_index},'middle',int(middle[i])))
+                    data.append(({self.current_session_index}, 'middle', int(middle[i]), self.selected_hand))
                 if int(ring[i]) > 0:
-                    data.append(({self.current_session_index},'ring',int(ring[i])))
+                    data.append(({self.current_session_index}, 'ring', int(ring[i]), self.selected_hand))
                 if int(little[i]) > 0:
-                    data.append(({self.current_session_index},'little',int(little[i])))
+                    data.append(({self.current_session_index}, 'little', int(little[i]), self.selected_hand))
             return q,data
         else:
             logger.error(f"Não pode gerar um query para estatisticas de uso, paciente não selecionado")

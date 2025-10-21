@@ -1,9 +1,10 @@
 from ui.views.user_item_ui import Ui_userItemForm
 from ui.model.dialogs.register_model import RegisterModel
 from modules.log_class import logger
-from PySide6.QtWidgets import QWidget
+from PySide6.QtWidgets import QWidget, QMessageBox
 from PySide6.QtGui import QPixmap
-from PySide6.QtCore import Signal
+from PySide6.QtCore import Signal, Qt
+import re
 
 class UserItemModel(QWidget):
     
@@ -68,12 +69,24 @@ class UserItemModel(QWidget):
         
     def edit_user(self):
         update_info = self.register_modal.infoDict.copy()
-        q = f"update {self.item_table} set name = ?, details = ?, image_path = ? where id = ? returning id;"
-        res = self.dbHandleClass.execute_single_query(q,[update_info["name"],update_info["details"],update_info["image_path"],self.item_id])
-        if res:
-            self.info_dict = update_info.copy()
-            logger.debug(f"info do id {res[0][0]} da tabela {self.item_table} foi atualizado")
-            self.updateList.emit(self.item_id)
+        rgx1 = True
+        rgx2 = True
+        if update_info["name"] != None: rgx1 = re.search("^\s*$",update_info["name"])
+        if update_info["details"] != None: rgx2 = re.search("^\s*$",update_info["details"])
+        if rgx1 == None and rgx2 == None:
+            q = f"update {self.item_table} set name = ?, details = ?, image_path = ? where id = ? returning id;"
+            res = self.dbHandleClass.execute_single_query(q,[update_info["name"],update_info["details"],update_info["image_path"],self.item_id])
+            if res:
+                self.info_dict = update_info.copy()
+                logger.debug(f"info do id {res[0][0]} da tabela {self.item_table} foi atualizado")
+                self.updateList.emit(self.item_id)
+        else:
+            warning = QMessageBox(self)
+            warning.setWindowTitle("Erro")
+            warning.setText("Preencha todos os campos origatórrios")
+            warning.setWindowModality(Qt.ApplicationModal)
+            warning.show()
+            self.register_modal.reset_values()
     
     def edit_button_handler(self):
         self.register_modal.infoDict = self.info_dict.copy()

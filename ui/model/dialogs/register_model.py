@@ -1,7 +1,6 @@
 from ui.views.register_dialog_ui import Ui_registerDialog
 from PySide6.QtWidgets import QDialog, QFileDialog
-from PySide6.QtCore import Qt, QRegularExpression
-from PySide6.QtGui import QRegularExpressionValidator
+from PySide6.QtCore import Qt
 
 infoDictBase = {
     "name": None,
@@ -16,9 +15,6 @@ class RegisterModel(QDialog):
         #ui setup
         self.ui = Ui_registerDialog()
         self.ui.setupUi(self)
-        
-        validator = QRegularExpressionValidator()
-        validator.setRegularExpression(QRegularExpression("^\s*$"))
 
         self.infoDict = infoDictBase.copy()
         
@@ -34,13 +30,18 @@ class RegisterModel(QDialog):
         self.descriptionEdit = self.ui.descriptionEdit
         self.imageSelectButton = self.ui.imageSelectButton
 
-        self.nameEdit.setValidator(validator)
-        self.descriptionEdit.setValidator(validator)
-
         #connections
         self.imageSelectButton.clicked.connect(self.select_image_handler)
         self.nameEdit.textChanged.connect(self.name_changed_handler)
         self.descriptionEdit.textChanged.connect(self.description_changed_handler)
+        
+        self.finished.connect(self.text_normalization)
+
+    def text_normalization(self):
+        if self.infoDict["name"] != None and self.infoDict["details"] != None:
+            name = self.infoDict["name"].strip()
+            details = self.infoDict["details"].strip()
+            self.infoDict.update({"name":name,"details":details})
 
     def name_changed_handler(self, text):
         self.infoDict.update({"name": text})
