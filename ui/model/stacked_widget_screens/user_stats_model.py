@@ -23,6 +23,7 @@ class UserStatsModel(QWidget):
         #variables setup
         self.current_user = False
         self.selected_hand = 0
+        self.latest_session = False
 
         #get ui elements
         self.startListening = self.ui.startListening
@@ -34,8 +35,9 @@ class UserStatsModel(QWidget):
         self.avgSessionTime = self.ui.avgSessionTime
         self.leftHandButton = self.ui.leftHandButton
         self.rightHandButton = self.ui.rightHandButton
-        
-        
+        self.newSessionButton = self.ui.newSessionButton
+
+        #ui element setup
         self.timelapse = "00:00:00"
         self.sessionCount = "0"
         self.avgTimelapse = "00:00:00"
@@ -45,15 +47,17 @@ class UserStatsModel(QWidget):
         
         self.rightHandButton.toggle()
         
+        self.startListening.setEnabled(False)
         self.stopListening.setEnabled(False)
         
         #connections setup
         self.startListening.clicked.connect(self.start_button_handler)
         self.stopListening.clicked.connect(self.stop_button_handler)
-        self.sessionComboBox.currentIndexChanged.connect(self.update_session_chart_value)
+        self.sessionComboBox.currentIndexChanged.connect(self.comboBox_change_handler)
         self.statsTabWidget.tabBarClicked.connect(self.update_summary_charts)
         self.leftHandButton.toggled.connect(self.hand_selector)
         self.rightHandButton.toggled.connect(self.hand_selector)
+        self.newSessionButton.clicked.connect(self.new_session_button_handler)
 
         #session chart widget        
         pg.setConfigOption('background', '#F5F5F5')
@@ -88,19 +92,21 @@ class UserStatsModel(QWidget):
         self.plot_item_pressure.addItem(self.max_chart)
         self.plot_item_pressure.getAxis('bottom').setTicks([self.finger_name_labels])
         self.plot_item_pressure.getAxis('left').setLabel(text="Média de pressão por dedo", units = "KG")
+        
+        #legend pressure chart session
         self.legendSessionPressure = self.plot_item_pressure.addLegend()
         self.legendSessionPressure.anchor(itemPos=(1,0), parentPos=(1,0), offset=(0,-11))
         self.legendSessionPressure.addItem(self.avg_chart,"Média")
         self.legendSessionPressure.addItem(self.max_chart,"Maxima")
         self.legendSessionPressure.addItem(self.min_chart,"Minima")
         
+        #finger use times session
         self.plot_item_times_used = self.session_chart_layout_widget.addPlot()
         self.plot_item_times_used.setMouseEnabled(x=False,y=False)
         self.plot_item_times_used.addItem(self.times_used_chart)
         self.plot_item_times_used.getAxis('bottom').setTicks([self.finger_name_labels])
         self.plot_item_times_used.getAxis('left').setLabel(text="Uso de dedos")
         self.plot_item_times_used.getAxis('left').setStyle(maxTickLevel=0)
-        
         
         #sumarry chart widget
         self.summary_chart_layout_widget =  pg.GraphicsLayoutWidget()
@@ -142,36 +148,42 @@ class UserStatsModel(QWidget):
         self.plot_item_total_uses.getAxis('left').setLabel(text="Total de uso por dedo")
         self.plot_item_total_uses.setMouseEnabled(x=False,y=False)
         
-        
     def stop_button_handler(self):
         self.dataCollectorHandler.stop_data_collection()
         self.button_toggler(self.stopListening)
         self.update_session_chart_value()
         
+    def comboBox_change_handler(self):
+        current_index = self.sessionComboBox.currentData()
+        print(f"comboBox_change_handler current_index:{current_index} - latest:{self.latest_session}")
+        if (current_index != self.latest_session):
+            self.startListening.setEnabled(False)
+        else:
+            self.startListening.setEnabled(True)
+        self.update_session_chart_value()    
+    
     def start_button_handler(self):
         self.dataCollectorHandler.start_watch = True
         self.button_toggler(self.startListening)
+        
+    def new_session_button_handler(self):
+        session_id = self.create_session()
+        if session_id:
+            self.populate_comboBox()
 
     def assing_user(self,user_index):
         self.current_user = user_index
         self.dataCollectorHandler.current_user_index = self.current_user
-        session_id = self.create_session()
-        if session_id:
-            self.dataCollectorHandler.current_session_index = session_id
-            self.populate_comboBox()
+        self.populate_comboBox()
 
     def create_session(self):
-        q = f"""insert into session (patient_id) select ? where not exists
-            (select id from session where date(session_date) = date('now') and patient_id = ?) 
-            returning patient_id,id;"""
-        res = self.dbHandleClass.execute_single_query(q,[self.current_user,self.current_user])
+        q = f"""insert into session (patient_id, session_date) values (?,datetime(current_timestamp,'localtime')) returning patient_id,id;"""
+        res = self.dbHandleClass.execute_single_query(q,[self.current_user])
         if res:
             logger.debug(f"Seção criada para o usuário {res[0][0]}")
-            return res[0][0]
+            return res[0][1]
         else:
-            q = f"""select id from session where patient_id = (?);"""
-            res = self.dbHandleClass.execute_single_query(q,[self.current_user])
-            return res[0][0]
+            return False
 
     def get_summary_chart_value(self):
         qAvg = f"""SELECT 
@@ -445,7 +457,13 @@ class UserStatsModel(QWidget):
         if sessions:
             for s in sessions:
                 text = str(s[2])
-                text = text.split()
-                self.sessionComboBox.addItem(text[0],s[0])
+                latest_session = s[0]
+                self.assing_latest_session(latest_session)
+                self.sessionComboBox.addItem(text[:len(text)-3],s[0])
             self.sessionComboBox.setCurrentIndex(self.sessionComboBox.count()-1)
-                
+            
+    def assing_latest_session(self,latest_session):
+        print(f"assing_latest_session:{latest_session}")
+        self.latest_session = latest_session
+        self.dataCollectorHandler.current_session_index = latest_session
+            

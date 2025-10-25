@@ -16,14 +16,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QButtonGroup, QComboBox, QGridLayout,
-    QHBoxLayout, QLabel, QPushButton, QRadioButton,
-    QSizePolicy, QSpacerItem, QTabWidget, QWidget)
+    QHBoxLayout, QLabel, QLayout, QPushButton,
+    QRadioButton, QSizePolicy, QSpacerItem, QTabWidget,
+    QVBoxLayout, QWidget)
 
 class Ui_useStatisticsForm(object):
     def setupUi(self, useStatisticsForm):
         if not useStatisticsForm.objectName():
             useStatisticsForm.setObjectName(u"useStatisticsForm")
-        useStatisticsForm.resize(795, 575)
+        useStatisticsForm.resize(776, 575)
         self.gridLayout = QGridLayout(useStatisticsForm)
         self.gridLayout.setObjectName(u"gridLayout")
         self.useStatisticsWidgetContianer = QWidget(useStatisticsForm)
@@ -51,16 +52,18 @@ class Ui_useStatisticsForm(object):
         self.buttonsContainer = QWidget(self.sessionTab)
         self.buttonsContainer.setObjectName(u"buttonsContainer")
         self.horizontalLayout = QHBoxLayout(self.buttonsContainer)
+        self.horizontalLayout.setSpacing(6)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.stopListening = QPushButton(self.buttonsContainer)
-        self.stopListening.setObjectName(u"stopListening")
-
-        self.horizontalLayout.addWidget(self.stopListening)
-
+        self.horizontalLayout.setSizeConstraint(QLayout.SizeConstraint.SetDefaultConstraint)
         self.startListening = QPushButton(self.buttonsContainer)
         self.startListening.setObjectName(u"startListening")
 
         self.horizontalLayout.addWidget(self.startListening)
+
+        self.stopListening = QPushButton(self.buttonsContainer)
+        self.stopListening.setObjectName(u"stopListening")
+
+        self.horizontalLayout.addWidget(self.stopListening)
 
         self.timelapseContainer = QWidget(self.buttonsContainer)
         self.timelapseContainer.setObjectName(u"timelapseContainer")
@@ -83,23 +86,33 @@ class Ui_useStatisticsForm(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
+        self.newSessionButton = QPushButton(self.buttonsContainer)
+        self.newSessionButton.setObjectName(u"newSessionButton")
+
+        self.horizontalLayout.addWidget(self.newSessionButton)
+
         self.sessionSelectorContainer = QWidget(self.buttonsContainer)
         self.sessionSelectorContainer.setObjectName(u"sessionSelectorContainer")
-        self.gridLayout_5 = QGridLayout(self.sessionSelectorContainer)
-        self.gridLayout_5.setObjectName(u"gridLayout_5")
-        self.sessionComboBox = QComboBox(self.sessionSelectorContainer)
-        self.sessionComboBox.setObjectName(u"sessionComboBox")
-
-        self.gridLayout_5.addWidget(self.sessionComboBox, 1, 0, 1, 1)
-
+        self.verticalLayout = QVBoxLayout(self.sessionSelectorContainer)
+        self.verticalLayout.setSpacing(0)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.sessionSelectorLabel = QLabel(self.sessionSelectorContainer)
         self.sessionSelectorLabel.setObjectName(u"sessionSelectorLabel")
 
-        self.gridLayout_5.addWidget(self.sessionSelectorLabel, 0, 0, 1, 1)
+        self.verticalLayout.addWidget(self.sessionSelectorLabel)
+
+        self.sessionComboBox = QComboBox(self.sessionSelectorContainer)
+        self.sessionComboBox.setObjectName(u"sessionComboBox")
+        self.sessionComboBox.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
+
+        self.verticalLayout.addWidget(self.sessionComboBox)
 
 
         self.horizontalLayout.addWidget(self.sessionSelectorContainer)
 
+        self.horizontalLayout.setStretch(3, 3)
+        self.horizontalLayout.setStretch(5, 2)
 
         self.gridLayout_3.addWidget(self.buttonsContainer, 1, 0, 1, 1)
 
@@ -201,10 +214,11 @@ class Ui_useStatisticsForm(object):
 
     def retranslateUi(self, useStatisticsForm):
         useStatisticsForm.setWindowTitle(QCoreApplication.translate("useStatisticsForm", u"Form", None))
-        self.stopListening.setText(QCoreApplication.translate("useStatisticsForm", u"Interromper coleta", None))
         self.startListening.setText(QCoreApplication.translate("useStatisticsForm", u"Come\u00e7ar coleta", None))
+        self.stopListening.setText(QCoreApplication.translate("useStatisticsForm", u"Interromper coleta", None))
         self.timelapseLabel.setText(QCoreApplication.translate("useStatisticsForm", u"00:00:00", None))
         self.timelapseDescriptionLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Dura\u00e7\u00e3o", None))
+        self.newSessionButton.setText(QCoreApplication.translate("useStatisticsForm", u"Nova sess\u00e3o", None))
         self.sessionSelectorLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Sess\u00e3o", None))
         self.statsTabWidget.setTabText(self.statsTabWidget.indexOf(self.sessionTab), QCoreApplication.translate("useStatisticsForm", u"Sess\u00f5es", None))
         self.sessionTimeLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Tempo m\u00e9dio de ses\u00f5es", None))

@@ -111,6 +111,7 @@ class UserActionsModel(QWidget):
             self.register_modal.current_table = "patient"
         self.register_modal.exec()
 
+    #also creates a session on the current timestamp so the user_stats widget dosent break
     def register_user(self):
         register_info = self.register_modal.infoDict.copy()
         rgx1 = True
@@ -119,10 +120,12 @@ class UserActionsModel(QWidget):
         if register_info["details"] != None: rgx2 = re.search("^\s*$",register_info["details"])
         if rgx1 == None and rgx2 == None:
             q = ""
-            q = f"insert into {self.register_modal.current_table} (name,details,image_path) values (?,?,?);"
-            self.dbHandleClass.execute_single_query(q,[register_info["name"],register_info["details"],register_info["image_path"]])
-            self.register_modal.reset_values()
-            self.visually_update_list()
+            q = f"insert into {self.register_modal.current_table} (name,details,image_path) values (?,?,?) returning id;"
+            res = self.dbHandleClass.execute_single_query(q,[register_info["name"],register_info["details"],register_info["image_path"]])
+            if res: 
+                self.register_modal.reset_values()
+                self.visually_update_list()
+  
         else:
             warning = QMessageBox(self)
             warning.setWindowTitle("Erro")

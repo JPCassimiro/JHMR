@@ -291,3 +291,13 @@ QWidget#statsTabWidget::pane {
 QWidget#statsTabWidget::tab-bar {
    left: 15px;
 }
+
+
+QWidget#handSelectorContainer>QRadioButton::indicator {
+   border: 1px solid black;
+   border-radius: 6px;
+}
+
+QWidget#handSelectorContainer>QRadioButton::indicator:checked {
+   background-color: #F89E59;
+}

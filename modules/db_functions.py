@@ -7,6 +7,7 @@ class DbClass():
 
         #variable setup
         self.conn = sqlite3.connect("jhmr.db")
+        self.conn.execute("PRAGMA foreign_keys = ON;")#why do foreign keys need to be enabled?
         self.cur = self.conn.cursor()
         
         self.initialize_database()

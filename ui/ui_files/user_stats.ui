@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>795</width>
+    <width>776</width>
     <height>575</height>
    </rect>
   </property>
@@ -67,18 +67,24 @@
           </item>
           <item row="1" column="0">
            <widget class="QWidget" name="buttonsContainer" native="true">
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QPushButton" name="stopListening">
-               <property name="text">
-                <string>Interromper coleta</string>
-               </property>
-              </widget>
-             </item>
+            <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,3,0,2">
+             <property name="spacing">
+              <number>6</number>
+             </property>
+             <property name="sizeConstraint">
+              <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+             </property>
              <item>
               <widget class="QPushButton" name="startListening">
                <property name="text">
                 <string>Começar coleta</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="stopListening">
+               <property name="text">
+                <string>Interromper coleta</string>
                </property>
               </widget>
              </item>
@@ -116,15 +122,41 @@
               </spacer>
              </item>
              <item>
+              <widget class="QPushButton" name="newSessionButton">
+               <property name="text">
+                <string>Nova sessão</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QWidget" name="sessionSelectorContainer" native="true">
-               <layout class="QGridLayout" name="gridLayout_5">
-                <item row="1" column="0">
-                 <widget class="QComboBox" name="sessionComboBox"/>
-                </item>
-                <item row="0" column="0">
+               <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
                  <widget class="QLabel" name="sessionSelectorLabel">
                   <property name="text">
                    <string>Sessão</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="sessionComboBox">
+                  <property name="sizeAdjustPolicy">
+                   <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
                   </property>
                  </widget>
                 </item>

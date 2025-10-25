@@ -116,7 +116,7 @@ class SerialCommClass(QObject):
                     self.ser.setPortName(self.port_name_normalization(str(com_device.Name[start+1:end]).lower()))
                     self.portSignal.emit(f"Porta do ESP32: {self.ser.portName()}")
         else:
-            logger.error("Encontre o endereço do MAC primeiro")
+            logger.error("Encontre o endereço MAC primeiro")
 
     def swap_message_listner(self,op = 0):
         self.ser.readyRead.disconnect()
