@@ -32,7 +32,7 @@ class CalibrationResultModel(QWidget):
         self.verticalSliderRing.slider.setProperty("index",1)
         self.verticalSliderMiddle.slider.setProperty("index",2)
         self.verticalSliderIndex.slider.setProperty("index",3)
-        self.verticalSliderIndex.slider.setProperty("index",4)
+        self.verticalSliderThumb.slider.setProperty("index",4)
         
         #add slider on layout
         self.slider_pos_array = [
@@ -53,10 +53,12 @@ class CalibrationResultModel(QWidget):
     def set_pressure_values(self, value_array=None):
         try:
             if value_array:
+                logger.debug(f"Valores de pressão recebidos, mínimo até polegar: ")
                 for i,slider in enumerate(self.slider_array):
                     slider.slider.setValue(value_array[i])
                     slider.currentLabel.setText(str(value_array[i]/10))
                     slider.maxLabel.setText(str(slider.slider.maximum()/10))
+                    logger.debug(f"{value_array[i]/10} KG")
             else:
                 logger.error(f"Valores de pressão não foram recebidos na tela de resultados - value_array: {value_array}")
         except Exception as e:

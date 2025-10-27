@@ -99,6 +99,8 @@ class DataCollectorClass(QObject):
             for i in enumerate(messages):
                 self.message_buffer[i].append(messages[i])
                 logger.debug(f"Mensagem adicionada ao buffer no indice {i}: {messages[i]}")
+                logger.debug(f"Pressões recebidas - Indicador/Polegar: {messages[0]/10} KG - Médio: {messages[1]/10} KG - Anelar: {messages[2]/10} KG - Mínimo: {messages[3]/10} KG")
+                
 
 
 

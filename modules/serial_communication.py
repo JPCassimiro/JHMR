@@ -94,6 +94,7 @@ class SerialCommClass(QObject):
         for m in matches:
             messages.append(m.group())
             self.mesReceivedSignal.emit(messages)
+            logger.debug(f"Mensagem recebida: {m}")
                 
     #logs error on serial
     def handle_serial_error(self,err):

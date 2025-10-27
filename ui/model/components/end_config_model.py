@@ -1,4 +1,5 @@
 from ui.views.end_config_modal_ui import Ui_endConfigModalDialog
+from modules.log_class import logger
 # from PySide6.QtCore 
 from PySide6.QtWidgets import QDialog
 
@@ -18,8 +19,10 @@ class EndConfigModel(QDialog):
     def recieve_end_message(self,message):
         if("N" in message):
             self.messageField.append(f"Erro ao configurar atributo")
+            logger.debug(f"Erro ao configurar atributo")
         else:
             self.messageField.append(f"Atributo configurado com sucesso")
+            logger.debug(f"Atributo configurado com sucesso")
 
 
     def finished_handler(self):
