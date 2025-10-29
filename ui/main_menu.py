@@ -139,6 +139,7 @@ class MainMenuWindow(QMainWindow):
     def closeEvent(self, event):
         modal_list = []
         modal_list.append(QApplication.activeModalWidget())
-        for m in modal_list:
-            m.close()
+        if any(modal_list):
+            for m in modal_list:
+                m.close()
         return super().closeEvent(event)
