@@ -8,8 +8,7 @@ from ui.model.stacked_widget_screens.user_actions_widget_model import UserAction
 from ui.model.stacked_widget_screens.user_stats_model import UserStatsModel
 from ui.model.dialogs.log_model import LogModel
 
-from PySide6.QtWidgets import QPushButton
-from PySide6.QtWidgets import QMainWindow
+from PySide6.QtWidgets import QPushButton, QMainWindow, QApplication
 
 from modules.serial_communication import SerialCommClass
 from modules.db_functions import DbClass
@@ -85,7 +84,6 @@ class MainMenuWindow(QMainWindow):
 
         self.stackedWidget.setCurrentIndex(0)
 
-    
     def connection_menu_button_handler(self):
         self.side_menu_button_toggler(self.connectionMenuButton)
         self.stackedWidget.setCurrentIndex(0)
@@ -138,3 +136,9 @@ class MainMenuWindow(QMainWindow):
             else:
                 button.setEnabled(state)
         
+    def closeEvent(self, event):
+        modal_list = []
+        modal_list.append(QApplication.activeModalWidget())
+        for m in modal_list:
+            m.close()
+        return super().closeEvent(event)

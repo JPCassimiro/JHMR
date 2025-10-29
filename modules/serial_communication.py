@@ -37,7 +37,7 @@ class SerialCommClass(QObject):
 
         #for testing
         # self.device_mac_addr = "d48afc9d936a"
-        # self.ser.setPortName(r"\\.\COM20")
+        self.ser.setPortName(r"\\.\COM20")
 
         
         #when a new char message is ready to be read on the serial port
@@ -87,14 +87,17 @@ class SerialCommClass(QObject):
         dataStr = data.toStdString()
         self.use_data_buffer += dataStr
         matches = list(re.finditer(self.use_data_regex,self.use_data_buffer))
+        print(f"recieve_use_data_message self.use_data_buffer:{self.use_data_buffer}\ndataStr:{dataStr}\nmatches:{matches}")
         if matches:
             last_match = matches[-1]
             start, end = last_match.span()
             self.use_data_buffer = self.message_buffer[end+1:]
         for m in matches:
             messages.append(m.group())
+            logger.debug(f"Mensagem recebida: {m.group()}")
+        if messages:
             self.mesReceivedSignal.emit(messages)
-            logger.debug(f"Mensagem recebida: {m}")
+            
                 
     #logs error on serial
     def handle_serial_error(self,err):

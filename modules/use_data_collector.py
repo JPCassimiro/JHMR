@@ -1,6 +1,6 @@
 from PySide6.QtCore import QObject, QTimer
 from modules.log_class import logger
-
+import time
 class DataCollectorClass(QObject):
     def __init__(self, dbHandleClass, SerialCommClass,logModel):
         super().__init__()
@@ -37,27 +37,31 @@ class DataCollectorClass(QObject):
     def start_checker(self):
         if self._start_watch != False:
             self.start_data_collection(2500)
+            self.send_serial_message("*L1")
+            time.sleep(0.5)#attemps to garantee that the response from L1 will be handled on the regular message listner
             self.serialHandleClass.swap_message_listner(1)
             self.serialHandleClass.mesReceivedSignal.connect(self.message_received_handler)
         else:
             self.timer.stop()
             self.serialHandleClass.swap_message_listner(0)
             self.serialHandleClass.mesReceivedSignal.disconnect(self.message_received_handler)
+            self.send_serial_message("*L0")
 
-    def generate_query(self,index,middle,ring,little):
-        q = "insert into user_data (session_id,finger,pressure,hand) values (?,?,?,?);"
+    def generate_query(self,little,ring,middle,index):
+        print(f"generate_query index: {index}")
+        q = "insert into use_data (session_id,finger,pressure,hand) values (?,?,?,?);"
         if self.current_session_index:
             data = []
             #4 same size arrays with x items
-            for i in range(len(index)):
+            for i,v in enumerate(index):
                 if int(index[i]) > 0:
-                    data.append(({self.current_session_index}, 'index', int(index[i]), self.selected_hand))
+                    data.append((self.current_session_index, 'index', int(index[i]), self.selected_hand))
                 if int(middle[i]) > 0:
-                    data.append(({self.current_session_index}, 'middle', int(middle[i]), self.selected_hand))
+                    data.append((self.current_session_index, 'middle', int(middle[i]), self.selected_hand))
                 if int(ring[i]) > 0:
-                    data.append(({self.current_session_index}, 'ring', int(ring[i]), self.selected_hand))
+                    data.append((self.current_session_index, 'ring', int(ring[i]), self.selected_hand))
                 if int(little[i]) > 0:
-                    data.append(({self.current_session_index}, 'little', int(little[i]), self.selected_hand))
+                    data.append((self.current_session_index, 'little', int(little[i]), self.selected_hand))
             return q,data
         else:
             logger.error(f"Não pode gerar um query para estatisticas de uso, paciente não selecionado")
@@ -67,12 +71,12 @@ class DataCollectorClass(QObject):
         
     # start the process to send messages to the database
     def timeout_handle(self):
-        if self.message_buffer:
-            index_array = self.message_buffer[0]
-            middle_array = self.message_buffer[1]
-            ring_array = self.message_buffer[2]
-            little_array = self.message_buffer[3]
-            q,data = self.generate_query(index_array,middle_array,ring_array,little_array)
+        if any(self.message_buffer):
+            little_array = self.message_buffer[0]
+            ring_array = self.message_buffer[1]
+            middle_array = self.message_buffer[2]
+            index_array = self.message_buffer[3]
+            q,data = self.generate_query(little_array,ring_array,middle_array,index_array)
             if q != "":
                 self.insert_data(q,data)
                 self.message_buffer = [[],[],[],[]]
@@ -95,13 +99,16 @@ class DataCollectorClass(QObject):
     def message_received_handler(self,message):
         self.logModel.append_log(message)
         for m in message:
-            messages = [m[0:3],m[3:6],m[6:9],m[9:]] 
-            for i in enumerate(messages):
+            messages = [m[2:5],m[5:8],m[8:11],m[11:]] 
+            for i, msg in enumerate(messages):
                 self.message_buffer[i].append(messages[i])
                 logger.debug(f"Mensagem adicionada ao buffer no indice {i}: {messages[i]}")
-                logger.debug(f"Pressões recebidas - Indicador/Polegar: {messages[0]/10} KG - Médio: {messages[1]/10} KG - Anelar: {messages[2]/10} KG - Mínimo: {messages[3]/10} KG")
+                logger.debug(f"Pressões recebidas - Mínimo: {int(messages[0])/10} - Anelar: {int(messages[1])/10} KG - Médio: {int(messages[2])/10} KG - KG Indicador/Polegar: {int(messages[3])/10} KG")
                 
-
+    def send_serial_message(self,message):
+        self.serialHandleClass.open_port()
+        logger.debug(f"mensagem enviada: {message}")
+        self.serialHandleClass.send_message(message)
 
 
             

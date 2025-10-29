@@ -36,7 +36,7 @@ class ConfigWidgetModel(QWidget):
         self._selected_fingers = [False,False,False,False]#radio buttons will populate this, 0 little - 3 index
         self.finger_info_dict = finger_base_value.copy()
         self.nunchuck_info_dict = nunchuck_base_value.copy()
-        self.p_value_array = [0,0,0,0,0]
+        self.p_value_array = [0,0,0,0]
         self.current_user = None
         
         #get ui elements
@@ -238,8 +238,9 @@ class ConfigWidgetModel(QWidget):
         
     def confirm_messages_generator(self):
         messages = []
-        for i, v in enumerate(self.p_value_array):#!p_values has to come first as to determin the finger combo
-            if v != 0:
+        for i, v in enumerate(self.p_value_array):#!p_values has to come first as to determine the finger combo
+            print(f"confirm_messages_generator i: {i}")
+            if self._selected_fingers[i] == True:
                 valueStr = v
                 if(v < 10):#value always needs to be sent in a 3 digit format 
                     valueStr = f"00{v}"

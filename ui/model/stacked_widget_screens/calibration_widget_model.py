@@ -29,8 +29,8 @@ class CalibrationWidgetModel(QWidget):
         self.resultModel.hide()
 
         #variables
-        self.recived_presure_array = [[],[],[],[]]
-        self.thumb_pressure = []
+        self.recived_presure_array = [[0],[0],[0],[0]]
+        self.thumb_pressure = [0]
         self.message_couter = 0
         self.timeout_counter = 0
         self.serial_messages = ["*S1","*S2","*S3","*S4"]
@@ -79,7 +79,6 @@ class CalibrationWidgetModel(QWidget):
             self.recived_presure_array = [[],[],[],[]]
         else:
             self.thumb_pressure = []
-        self.send_serial_message("*L0")
         self.cancelButton.setEnabled(False)
         self.restartButton.setEnabled(True)
         self.startButton.setEnabled(True)
@@ -91,7 +90,6 @@ class CalibrationWidgetModel(QWidget):
         print(self.serialHandleClass.ser.portName())
         self.startButton.setEnabled(False)
         self.restartButton.setEnabled(False)
-        self.send_serial_message("*L1")
         self.serialHandleClass.mesReceivedSignal.connect(self.recieve_serial_message)
         self.cancelButton.setEnabled(True)
         self.timer.start(500)
@@ -106,9 +104,9 @@ class CalibrationWidgetModel(QWidget):
     #messages will be recieved in the same order as they are sent, per serial rules
     def recieve_serial_message(self,recieved):
         self.logModel.append_log(recieved)
-        if self.message_couter > 3:
-            self.message_couter = 0
         if self.calibration_step == 0:
+            if self.message_couter > 3:
+                self.message_couter = 0
             self.recived_presure_array[self.message_couter].append(int(recieved[:3]))
         else:
             self.thumb_pressure.append(int(recieved[:3]))
@@ -120,8 +118,8 @@ class CalibrationWidgetModel(QWidget):
         self.reset_variables()
         
     def reset_variables(self):
-        self.recived_presure_array = [[],[],[],[]]
-        self.thumb_pressure = []
+        self.recived_presure_array = [[0],[0],[0],[0]]
+        self.thumb_pressure = [0]
         self.message_couter = 0
         self.timeout_counter = 0
         self.calibration_step = 0
@@ -140,8 +138,8 @@ class CalibrationWidgetModel(QWidget):
         self.resultModel.show()
         self.startButton.setDisabled(True)
         max_val_array = self.get_max_pressure_values()
-        self.pValuesSignal.emit(max_val_array)
-        self.resultModel.set_pressure_values([max_val_array[3],max_val_array[2],max_val_array[1],max_val_array[0],max_val_array[4]])
+        #self.pValuesSignal.emit(max_val_array)
+        self.resultModel.set_pressure_values([max_val_array[0],max_val_array[1],max_val_array[2],max_val_array[3],max_val_array[4]])
         
     def get_max_pressure_values(self):
         max_val_array = []
@@ -157,7 +155,7 @@ class CalibrationWidgetModel(QWidget):
     #starting from the second timer, or first timeout
         #sends 4 mesages
     #on final timeout
-        #reenable screen    
+        #reenable screen
     def timeout_handler(self):
         if self.calibration_step == 0:
             if self.timeout_counter < 10:
@@ -175,7 +173,6 @@ class CalibrationWidgetModel(QWidget):
                 self.instructionText.setText("Use seu dedão e indicador com toda força por 5 segundos")
                 self.calibration_step = 1
                 self.timer.stop()
-                self.send_serial_message("*L0")
                 self.serialHandleClass.mesReceivedSignal.disconnect(self.recieve_serial_message)
                 return
         elif self.calibration_step == 1:
@@ -187,7 +184,6 @@ class CalibrationWidgetModel(QWidget):
                 self.timeout_counter = 0
                 self.calibration_step = 0
                 self.timer.stop()
-                self.send_serial_message("*L0")
                 self.serialHandleClass.mesReceivedSignal.disconnect(self.recieve_serial_message)
                 self.startButton.setEnabled(True)
                 self.restartButton.setEnabled(True)

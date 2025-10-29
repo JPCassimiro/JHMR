@@ -1,10 +1,11 @@
 from ui.views.user_stats_ui import Ui_useStatisticsForm
 from modules.use_data_collector import DataCollectorClass
-from PySide6.QtWidgets import QWidget, QPushButton
+from PySide6.QtWidgets import QWidget, QPushButton, QRadioButton
 from modules.log_class import logger
 from PySide6.QtCore import Signal
 import pyqtgraph as pg
 import numpy as np
+
 class UserStatsModel(QWidget):
 
     sideMenuDisableSignal = Signal(bool)
@@ -427,10 +428,9 @@ class UserStatsModel(QWidget):
         else:
             self.selected_hand = 1
             self.dataCollectorHandler.selected_hand = 1
-        if self.statsTabWidget.currentIndex() == 0:
-            self.update_session_chart_value()
-        else:
-            self.update_summary_charts()
+        self.update_session_chart_value()
+        self.update_summary_charts()
+
             
                     
     def button_toggler(self, clicked_button):
@@ -441,8 +441,14 @@ class UserStatsModel(QWidget):
                 clicked_button.setEnabled(False)
         self.sessionComboBox.setEnabled(not self.sessionComboBox.isEnabled())
         if self.startListening.isEnabled():
+            self.newSessionButton.setDisabled(False)
+            for radio in self.ui.handSelectorContainer.findChildren(QRadioButton):
+                radio.setDisabled(False)
             self.sideMenuDisableSignal.emit(True)
         else:
+            self.newSessionButton.setDisabled(True)
+            for radio in self.ui.handSelectorContainer.findChildren(QRadioButton):
+                radio.setDisabled(True)
             self.sideMenuDisableSignal.emit(False)                
             
     def get_sessions(self):
