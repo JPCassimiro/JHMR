@@ -76,9 +76,9 @@ class CalibrationWidgetModel(QWidget):
         self.message_couter = 0
         self.ui_counter = 0        
         if self.calibration_step == 0:
-            self.recived_presure_array = [[],[],[],[]]
+            self.recived_presure_array = [[0],[0],[0],[0]]
         else:
-            self.thumb_pressure = []
+            self.thumb_pressure = [0]
         self.cancelButton.setEnabled(False)
         self.restartButton.setEnabled(True)
         self.startButton.setEnabled(True)
@@ -177,7 +177,7 @@ class CalibrationWidgetModel(QWidget):
                 return
         elif self.calibration_step == 1:
             if self.timeout_counter < 10:
-                self.send_serial_message("*S1")
+                self.send_serial_message("*S4")
                 self.timeout_counter += 1
                 return
             else:

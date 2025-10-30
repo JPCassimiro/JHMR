@@ -37,7 +37,7 @@ class SerialCommClass(QObject):
 
         #for testing
         # self.device_mac_addr = "d48afc9d936a"
-        # self.ser.setPortName(r"\\.\COM20")
+        # self.ser.setPortName(r"\\.\COM19")
 
         
         #when a new char message is ready to be read on the serial port
