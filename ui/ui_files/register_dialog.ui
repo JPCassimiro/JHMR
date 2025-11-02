@@ -23,10 +23,10 @@
    <item row="0" column="0">
     <widget class="QWidget" name="registerWidgetContainer" native="true">
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="4" column="1">
-       <widget class="QLabel" name="imagePreview">
+      <item row="0" column="1">
+       <widget class="QLabel" name="nameLabel">
         <property name="text">
-         <string>Imagem de perfil</string>
+         <string>Nome (obrigatório)</string>
         </property>
        </widget>
       </item>
@@ -40,24 +40,10 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="nameLabel">
-        <property name="text">
-         <string>Nome (Obrigatório)</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="1">
        <widget class="QLineEdit" name="nameEdit">
         <property name="maxLength">
          <number>32</number>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLabel" name="descriptionLabel">
-        <property name="text">
-         <string>Descrição (Obrigatório)</string>
         </property>
        </widget>
       </item>
@@ -71,6 +57,20 @@
         </property>
        </widget>
       </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="imagePreview">
+        <property name="text">
+         <string>Imagem de perfil</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="descriptionLabel">
+        <property name="text">
+         <string>Descrição (obrigatório)</string>
+        </property>
+       </widget>
+      </item>
       <item row="3" column="1">
        <widget class="QLineEdit" name="descriptionEdit">
         <property name="maxLength">
@@ -78,20 +78,23 @@
         </property>
        </widget>
       </item>
+      <item row="6" column="1">
+       <widget class="QDialogButtonBox" name="buttonBox">
+        <property name="locale">
+         <locale language="Portuguese" country="Brazil"/>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="standardButtons">
+         <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
+        </property>
+        <property name="centerButtons">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
-    </widget>
-   </item>
-   <item row="1" column="0" alignment="Qt::AlignmentFlag::AlignLeft">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="locale">
-      <locale language="Portuguese" country="Brazil"/>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Orientation::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok</set>
-     </property>
     </widget>
    </item>
   </layout>

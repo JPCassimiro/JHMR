@@ -83,7 +83,7 @@ class UserItemModel(QWidget):
         else:
             warning = QMessageBox(self)
             warning.setWindowTitle("Erro")
-            warning.setText("Preencha todos os campos origatórrios")
+            warning.setText("Preencha todos os campos obrigatórios")
             warning.setWindowModality(Qt.ApplicationModal)
             warning.show()
             self.register_modal.reset_values()

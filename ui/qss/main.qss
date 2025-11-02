@@ -220,27 +220,27 @@ QWidget#optionsContainer{
    margin: 1px;
 }
 
+
 QWidget#slider>QSlider::groove{
    border: 1px solid black;
-   border-radius: 8px;
+   border-radius: 6px;
    margin: 0px;
 }
 
 QWidget#slider>QSlider::add-page{
    background: black;
-   border-radius: 8px;
+   border-radius: 6px;
    margin: 0px;
+}
+
+QWidget#slider>QSlider::groove:disabled{
+   background: #EBEBE4; 
 }
 
 QWidget#slider > QSlider::handle:disabled {
    background: transparent;
    border: none;
 }
-
-QWidget#slider>QSlider::groove:disabled{
-   background: #EBEBE4;
-}
-
 
 /* ############################## Calibration widget ##############################*/
 /* ############################## Calibration widget ##############################*/

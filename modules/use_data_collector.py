@@ -45,6 +45,7 @@ class DataCollectorClass(QObject):
             self.timer.stop()
             self.serialHandleClass.swap_message_listner(0)
             self.serialHandleClass.mesReceivedSignal.disconnect(self.message_received_handler)
+            self.timeout_handle()
             self.send_serial_message("*L0")
 
     def generate_query(self,little,ring,middle,index):
@@ -56,12 +57,20 @@ class DataCollectorClass(QObject):
             for i,v in enumerate(index):
                 if int(index[i]) > 0:
                     data.append((self.current_session_index, 'index', int(index[i]), self.selected_hand))
+                else:
+                    del index[i]
                 if int(middle[i]) > 0:
                     data.append((self.current_session_index, 'middle', int(middle[i]), self.selected_hand))
+                else:
+                    del middle[i]
                 if int(ring[i]) > 0:
                     data.append((self.current_session_index, 'ring', int(ring[i]), self.selected_hand))
+                else:
+                    del ring[i]
                 if int(little[i]) > 0:
                     data.append((self.current_session_index, 'little', int(little[i]), self.selected_hand))
+                else:
+                    del little[i]
             return q,data
         else:
             logger.error(f"Não pode gerar um query para estatisticas de uso, paciente não selecionado")
@@ -77,7 +86,7 @@ class DataCollectorClass(QObject):
             middle_array = self.message_buffer[2]
             index_array = self.message_buffer[3]
             q,data = self.generate_query(little_array,ring_array,middle_array,index_array)
-            if q != "":
+            if q != "" and data:
                 self.insert_data(q,data)
                 self.message_buffer = [[],[],[],[]]
         else:

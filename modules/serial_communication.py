@@ -1,13 +1,11 @@
 import wmi
 import re
 from modules.log_class import logger
-from PySide6.QtCore import Signal, QObject
+from PySide6.QtCore import Signal, QObject, QTimer
 from PySide6.QtSerialPort import QSerialPort
 from PySide6.QtCore import QIODevice
 
-buffer_len = 255
 baud_rate = 600
-timeout = 1000
 
 #! port opening needs to be revised 
 #! device listner would help solve this
@@ -34,15 +32,19 @@ class SerialCommClass(QObject):
         self.use_data_regex = r"\*I\d{12}"
 
         self.c = wmi.WMI()
+        
+        
+        self.timer = QTimer()
+        self.pause_var = False
 
         #for testing
         # self.device_mac_addr = "d48afc9d936a"
-        # self.ser.setPortName(r"\\.\COM19")
+        self.ser.setPortName(r"\\.\COM19")
 
-        
         #when a new char message is ready to be read on the serial port
         self.ser.readyRead.connect(self.recieve_message)
         self.ser.errorOccurred.connect(self.handle_serial_error)
+        self.timer.timeout.connect(self.handle_timeout)
 
     #toggles port state
     def alter_port_state(self):
@@ -82,23 +84,24 @@ class SerialCommClass(QObject):
             logger.debug(f"Mensagem recebida: {m}")
              
     def recieve_use_data_message(self):
-        messages = []
-        data = self.ser.readAll()
-        dataStr = data.toStdString()
-        self.use_data_buffer += dataStr
-        matches = list(re.finditer(self.use_data_regex,self.use_data_buffer))
-        print(f"recieve_use_data_message self.use_data_buffer:{self.use_data_buffer}\ndataStr:{dataStr}\nmatches:{matches}")
-        if matches:
-            last_match = matches[-1]
-            start, end = last_match.span()
-            self.use_data_buffer = self.message_buffer[end+1:]
-        for m in matches:
-            messages.append(m.group())
-            logger.debug(f"Mensagem recebida: {m.group()}")
-        if messages:
-            self.mesReceivedSignal.emit(messages)
-            
-                
+        if self.pause_var != True:
+            messages = []
+            data = self.ser.readAll()
+            dataStr = data.toStdString()
+            self.use_data_buffer += dataStr
+            matches = list(re.finditer(self.use_data_regex,self.use_data_buffer))
+            print(f"recieve_use_data_message self.use_data_buffer:{self.use_data_buffer}\ndataStr:{dataStr}\nmatches:{matches}")
+            if matches:
+                last_match = matches[-1]
+                start, end = last_match.span()
+                self.use_data_buffer = self.message_buffer[end+1:]
+                self.start_timer()
+            for m in matches:
+                messages.append(m.group())
+                logger.debug(f"Mensagem recebida: {m.group()}")
+            if messages:
+                self.mesReceivedSignal.emit(messages)
+                    
     #logs error on serial
     def handle_serial_error(self,err):
         logger.error(err)        
@@ -129,3 +132,11 @@ class SerialCommClass(QObject):
         elif op == 1:#use_data_collector
             self.ser.readyRead.connect(self.recieve_use_data_message)
             
+
+    def start_timer(self):
+        self.timer.start(1000)
+        self.pause_var = True
+        
+    def handle_timeout(self):
+        self.pause_var = False
+        self.ser.clear(QSerialPort.Input)

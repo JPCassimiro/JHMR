@@ -15,10 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QButtonGroup, QComboBox, QGridLayout,
-    QHBoxLayout, QLabel, QLayout, QPushButton,
-    QRadioButton, QSizePolicy, QSpacerItem, QTabWidget,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QButtonGroup, QComboBox, QFrame,
+    QGridLayout, QHBoxLayout, QLabel, QLayout,
+    QPushButton, QRadioButton, QSizePolicy, QSpacerItem,
+    QTabWidget, QToolButton, QVBoxLayout, QWidget)
 
 class Ui_useStatisticsForm(object):
     def setupUi(self, useStatisticsForm):
@@ -55,15 +55,22 @@ class Ui_useStatisticsForm(object):
         self.horizontalLayout.setSpacing(6)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setSizeConstraint(QLayout.SizeConstraint.SetDefaultConstraint)
-        self.startListening = QPushButton(self.buttonsContainer)
+        self.listeningButtonContainer = QWidget(self.buttonsContainer)
+        self.listeningButtonContainer.setObjectName(u"listeningButtonContainer")
+        self.verticalLayout = QVBoxLayout(self.listeningButtonContainer)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.startListening = QPushButton(self.listeningButtonContainer)
         self.startListening.setObjectName(u"startListening")
 
-        self.horizontalLayout.addWidget(self.startListening)
+        self.verticalLayout.addWidget(self.startListening)
 
-        self.stopListening = QPushButton(self.buttonsContainer)
+        self.stopListening = QPushButton(self.listeningButtonContainer)
         self.stopListening.setObjectName(u"stopListening")
 
-        self.horizontalLayout.addWidget(self.stopListening)
+        self.verticalLayout.addWidget(self.stopListening)
+
+
+        self.horizontalLayout.addWidget(self.listeningButtonContainer)
 
         self.timelapseContainer = QWidget(self.buttonsContainer)
         self.timelapseContainer.setObjectName(u"timelapseContainer")
@@ -86,33 +93,42 @@ class Ui_useStatisticsForm(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.newSessionButton = QPushButton(self.buttonsContainer)
-        self.newSessionButton.setObjectName(u"newSessionButton")
+        self.label = QLabel(self.buttonsContainer)
+        self.label.setObjectName(u"label")
+        self.label.setFrameShape(QFrame.Shape.NoFrame)
+        self.label.setTextFormat(Qt.TextFormat.RichText)
+        self.label.setWordWrap(True)
 
-        self.horizontalLayout.addWidget(self.newSessionButton)
+        self.horizontalLayout.addWidget(self.label)
 
         self.sessionSelectorContainer = QWidget(self.buttonsContainer)
         self.sessionSelectorContainer.setObjectName(u"sessionSelectorContainer")
-        self.verticalLayout = QVBoxLayout(self.sessionSelectorContainer)
-        self.verticalLayout.setSpacing(0)
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.sessionSelectorLabel = QLabel(self.sessionSelectorContainer)
-        self.sessionSelectorLabel.setObjectName(u"sessionSelectorLabel")
-
-        self.verticalLayout.addWidget(self.sessionSelectorLabel)
-
+        self.gridLayout_5 = QGridLayout(self.sessionSelectorContainer)
+        self.gridLayout_5.setObjectName(u"gridLayout_5")
+        self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
         self.sessionComboBox = QComboBox(self.sessionSelectorContainer)
         self.sessionComboBox.setObjectName(u"sessionComboBox")
         self.sessionComboBox.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
 
-        self.verticalLayout.addWidget(self.sessionComboBox)
+        self.gridLayout_5.addWidget(self.sessionComboBox, 3, 0, 1, 1)
+
+        self.newSessionButton = QPushButton(self.sessionSelectorContainer)
+        self.newSessionButton.setObjectName(u"newSessionButton")
+
+        self.gridLayout_5.addWidget(self.newSessionButton, 1, 0, 1, 1)
+
+        self.deleteSessionButton = QToolButton(self.sessionSelectorContainer)
+        self.deleteSessionButton.setObjectName(u"deleteSessionButton")
+        icon = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.EditDelete))
+        self.deleteSessionButton.setIcon(icon)
+
+        self.gridLayout_5.addWidget(self.deleteSessionButton, 3, 1, 1, 1)
 
 
         self.horizontalLayout.addWidget(self.sessionSelectorContainer)
 
-        self.horizontalLayout.setStretch(3, 3)
-        self.horizontalLayout.setStretch(5, 2)
+        self.horizontalLayout.setStretch(2, 3)
+        self.horizontalLayout.setStretch(4, 2)
 
         self.gridLayout_3.addWidget(self.buttonsContainer, 1, 0, 1, 1)
 
@@ -218,8 +234,9 @@ class Ui_useStatisticsForm(object):
         self.stopListening.setText(QCoreApplication.translate("useStatisticsForm", u"Interromper coleta", None))
         self.timelapseLabel.setText(QCoreApplication.translate("useStatisticsForm", u"00:00:00", None))
         self.timelapseDescriptionLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Dura\u00e7\u00e3o", None))
+        self.label.setText(QCoreApplication.translate("useStatisticsForm", u"Use o bot\u00e3o direito do mouse nos gr\u00e1ficos para exportar dados", None))
         self.newSessionButton.setText(QCoreApplication.translate("useStatisticsForm", u"Nova sess\u00e3o", None))
-        self.sessionSelectorLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Sess\u00e3o", None))
+        self.deleteSessionButton.setText(QCoreApplication.translate("useStatisticsForm", u"...", None))
         self.statsTabWidget.setTabText(self.statsTabWidget.indexOf(self.sessionTab), QCoreApplication.translate("useStatisticsForm", u"Sess\u00f5es", None))
         self.sessionTimeLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Tempo m\u00e9dio de ses\u00f5es", None))
         self.avgSessionTime.setText(QCoreApplication.translate("useStatisticsForm", u"TextLabel", None))

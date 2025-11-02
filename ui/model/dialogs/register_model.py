@@ -1,5 +1,5 @@
 from ui.views.register_dialog_ui import Ui_registerDialog
-from PySide6.QtWidgets import QDialog, QFileDialog
+from PySide6.QtWidgets import QDialog, QFileDialog, QDialogButtonBox
 from PySide6.QtCore import Qt
 
 infoDictBase = {
@@ -29,6 +29,10 @@ class RegisterModel(QDialog):
         self.imageLineEdit = self.ui.imageLineEdit
         self.descriptionEdit = self.ui.descriptionEdit
         self.imageSelectButton = self.ui.imageSelectButton
+
+        #edit ok and cancel button names
+        self.ui.buttonBox.button(QDialogButtonBox.Ok).setText("Confirmar")
+        self.ui.buttonBox.button(QDialogButtonBox.Cancel).setText("Cancelar")
 
         #connections
         self.imageSelectButton.clicked.connect(self.select_image_handler)

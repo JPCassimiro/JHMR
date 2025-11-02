@@ -1,10 +1,9 @@
 from ui.views.calibration_widget_ui import Ui_calibrationForm
 from ui.model.components.calibration_result_model import CalibrationResultModel
 from PySide6.QtWidgets import QWidget
-from PySide6.QtGui import QPixmap, QColor
+from PySide6.QtGui import QPixmap
 from modules.log_class import logger
 from PySide6.QtCore import QTimer, Signal
-from PySide6.QtQuick import QQuickItem
 
 class CalibrationWidgetModel(QWidget):
 
@@ -110,7 +109,6 @@ class CalibrationWidgetModel(QWidget):
             self.recived_presure_array[self.message_couter].append(int(recieved[:3]))
         else:
             self.thumb_pressure.append(int(recieved[:3]))
-        print(f"recived_presure_array[{self.message_couter}]: {self.recived_presure_array[self.message_couter]}")
         self.message_couter += 1
         
     def restart_calibration(self):

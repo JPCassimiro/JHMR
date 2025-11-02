@@ -68,7 +68,7 @@
             <item>
              <widget class="QRadioButton" name="radioButtonLittle">
               <property name="text">
-               <string>Mindinho</string>
+               <string>Mínimo</string>
               </property>
               <attribute name="buttonGroup">
                <string notr="true">fingerButtonGroup</string>
@@ -88,7 +88,7 @@
             <item>
              <widget class="QRadioButton" name="radioButtonMiddle">
               <property name="text">
-               <string>Meio</string>
+               <string>Médio</string>
               </property>
               <attribute name="buttonGroup">
                <string notr="true">fingerButtonGroup</string>
@@ -98,7 +98,7 @@
             <item>
              <widget class="QRadioButton" name="radioButtonIndex">
               <property name="text">
-               <string>Indicador/Dedão</string>
+               <string>Indicador/Polegar</string>
               </property>
               <attribute name="buttonGroup">
                <string notr="true">fingerButtonGroup</string>

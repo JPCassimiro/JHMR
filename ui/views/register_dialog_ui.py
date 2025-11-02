@@ -32,10 +32,10 @@ class Ui_registerDialog(object):
         self.registerWidgetContainer.setObjectName(u"registerWidgetContainer")
         self.gridLayout_2 = QGridLayout(self.registerWidgetContainer)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.imagePreview = QLabel(self.registerWidgetContainer)
-        self.imagePreview.setObjectName(u"imagePreview")
+        self.nameLabel = QLabel(self.registerWidgetContainer)
+        self.nameLabel.setObjectName(u"nameLabel")
 
-        self.gridLayout_2.addWidget(self.imagePreview, 4, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.nameLabel, 0, 1, 1, 1)
 
         self.imageSelectButton = QToolButton(self.registerWidgetContainer)
         self.imageSelectButton.setObjectName(u"imageSelectButton")
@@ -44,21 +44,11 @@ class Ui_registerDialog(object):
 
         self.gridLayout_2.addWidget(self.imageSelectButton, 5, 2, 1, 1)
 
-        self.nameLabel = QLabel(self.registerWidgetContainer)
-        self.nameLabel.setObjectName(u"nameLabel")
-
-        self.gridLayout_2.addWidget(self.nameLabel, 0, 1, 1, 1)
-
         self.nameEdit = QLineEdit(self.registerWidgetContainer)
         self.nameEdit.setObjectName(u"nameEdit")
         self.nameEdit.setMaxLength(32)
 
         self.gridLayout_2.addWidget(self.nameEdit, 1, 1, 1, 1)
-
-        self.descriptionLabel = QLabel(self.registerWidgetContainer)
-        self.descriptionLabel.setObjectName(u"descriptionLabel")
-
-        self.gridLayout_2.addWidget(self.descriptionLabel, 2, 1, 1, 1)
 
         self.imageLineEdit = QLineEdit(self.registerWidgetContainer)
         self.imageLineEdit.setObjectName(u"imageLineEdit")
@@ -66,22 +56,33 @@ class Ui_registerDialog(object):
 
         self.gridLayout_2.addWidget(self.imageLineEdit, 5, 1, 1, 1)
 
+        self.imagePreview = QLabel(self.registerWidgetContainer)
+        self.imagePreview.setObjectName(u"imagePreview")
+
+        self.gridLayout_2.addWidget(self.imagePreview, 4, 1, 1, 1)
+
+        self.descriptionLabel = QLabel(self.registerWidgetContainer)
+        self.descriptionLabel.setObjectName(u"descriptionLabel")
+
+        self.gridLayout_2.addWidget(self.descriptionLabel, 2, 1, 1, 1)
+
         self.descriptionEdit = QLineEdit(self.registerWidgetContainer)
         self.descriptionEdit.setObjectName(u"descriptionEdit")
         self.descriptionEdit.setMaxLength(32)
 
         self.gridLayout_2.addWidget(self.descriptionEdit, 3, 1, 1, 1)
 
-
-        self.gridLayout.addWidget(self.registerWidgetContainer, 0, 0, 1, 1)
-
-        self.buttonBox = QDialogButtonBox(registerDialog)
+        self.buttonBox = QDialogButtonBox(self.registerWidgetContainer)
         self.buttonBox.setObjectName(u"buttonBox")
         self.buttonBox.setLocale(QLocale(QLocale.Portuguese, QLocale.Brazil))
         self.buttonBox.setOrientation(Qt.Orientation.Horizontal)
         self.buttonBox.setStandardButtons(QDialogButtonBox.StandardButton.Cancel|QDialogButtonBox.StandardButton.Ok)
+        self.buttonBox.setCenterButtons(True)
 
-        self.gridLayout.addWidget(self.buttonBox, 1, 0, 1, 1, Qt.AlignmentFlag.AlignLeft)
+        self.gridLayout_2.addWidget(self.buttonBox, 6, 1, 1, 1)
+
+
+        self.gridLayout.addWidget(self.registerWidgetContainer, 0, 0, 1, 1)
 
 
         self.retranslateUi(registerDialog)
@@ -93,10 +94,10 @@ class Ui_registerDialog(object):
 
     def retranslateUi(self, registerDialog):
         registerDialog.setWindowTitle(QCoreApplication.translate("registerDialog", u"Dialog", None))
-        self.imagePreview.setText(QCoreApplication.translate("registerDialog", u"Imagem de perfil", None))
+        self.nameLabel.setText(QCoreApplication.translate("registerDialog", u"Nome (obrigat\u00f3rio)", None))
         self.imageSelectButton.setText(QCoreApplication.translate("registerDialog", u"...", None))
-        self.nameLabel.setText(QCoreApplication.translate("registerDialog", u"Nome (Obrigat\u00f3rio)", None))
-        self.descriptionLabel.setText(QCoreApplication.translate("registerDialog", u"Descri\u00e7\u00e3o (Obrigat\u00f3rio)", None))
         self.imageLineEdit.setPlaceholderText(QCoreApplication.translate("registerDialog", u"Selecione uma imagem", None))
+        self.imagePreview.setText(QCoreApplication.translate("registerDialog", u"Imagem de perfil", None))
+        self.descriptionLabel.setText(QCoreApplication.translate("registerDialog", u"Descri\u00e7\u00e3o (obrigat\u00f3rio)", None))
     # retranslateUi
 

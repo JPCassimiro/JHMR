@@ -96,7 +96,7 @@
             <string>...</string>
            </property>
            <property name="icon">
-            <iconset theme="QIcon::ThemeIcon::ListRemove"/>
+            <iconset theme="QIcon::ThemeIcon::EditDelete"/>
            </property>
           </widget>
          </item>

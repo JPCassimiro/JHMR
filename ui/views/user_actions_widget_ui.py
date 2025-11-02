@@ -134,7 +134,7 @@ class Ui_usersWidgetForm(object):
 
         self.retranslateUi(usersWidgetForm)
 
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(usersWidgetForm)
