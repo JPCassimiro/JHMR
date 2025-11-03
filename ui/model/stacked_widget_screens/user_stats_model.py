@@ -297,19 +297,25 @@ class UserStatsModel(QWidget):
             sessionCount = False
             avgTimelapse = False
             
+            ocurance_counter = [1,1,1,1]
+            
             for i,t in enumerate(resAvg):
                 if t[1] == "index":#i,t[2]/10
-                    index_array[0].append(i+1)
+                    index_array[0].append(ocurance_counter[0])
                     index_array[1].append(t[2]/10)
+                    ocurance_counter[0] = ocurance_counter[0]+1
                 if t[1] == "little":
-                    little_array[0].append(i+1)
+                    little_array[0].append(ocurance_counter[1])
                     little_array[1].append(t[2]/10)
+                    ocurance_counter[1] = ocurance_counter[1]+1
                 if t[1] == "middle":
-                    middle_array[0].append(i+1)
+                    middle_array[0].append(ocurance_counter[2])
                     middle_array[1].append(t[2]/10)
+                    ocurance_counter[2] = ocurance_counter[2]+1
                 if t[1] == "ring":
-                    ring_array[0].append(i+1)
+                    ring_array[0].append(ocurance_counter[3])
                     ring_array[1].append(t[2]/10)
+                    ocurance_counter[3] = ocurance_counter[3]+1
 
             for t in resAvgTotal:
                 if t[0] == 'index':
@@ -475,11 +481,13 @@ class UserStatsModel(QWidget):
         self.sessionComboBox.setEnabled(not self.sessionComboBox.isEnabled())
         if self.startListening.isEnabled():
             self.newSessionButton.setDisabled(False)
+            self.deleteSessionButton.setDisabled(False)
             for radio in self.ui.handSelectorContainer.findChildren(QRadioButton):
                 radio.setDisabled(False)
             self.sideMenuDisableSignal.emit(True)
         else:
             self.newSessionButton.setDisabled(True)
+            self.deleteSessionButton.setDisabled(True)
             for radio in self.ui.handSelectorContainer.findChildren(QRadioButton):
                 radio.setDisabled(True)
             self.sideMenuDisableSignal.emit(False)                
