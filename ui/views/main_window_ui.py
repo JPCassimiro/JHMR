@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main_window.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.9.3
+## Created by: Qt User Interface Compiler version 6.10.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -180,6 +180,13 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2.addWidget(self.logModalButton)
 
+        self.appConfigButton = QToolButton(self.toolButtonContainer)
+        self.appConfigButton.setObjectName(u"appConfigButton")
+        icon1 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.DocumentProperties))
+        self.appConfigButton.setIcon(icon1)
+
+        self.horizontalLayout_2.addWidget(self.appConfigButton)
+
 
         self.sideMenu.addWidget(self.toolButtonContainer)
 
@@ -207,5 +214,6 @@ class Ui_MainWindow(object):
         self.userActionsButton.setText(QCoreApplication.translate("MainWindow", u"A\u00e7\u00f5es de usu\u00e1rio", None))
         self.statsButton.setText(QCoreApplication.translate("MainWindow", u"Estat\u00edsticas de uso", None))
         self.logModalButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
+        self.appConfigButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
     # retranslateUi
 

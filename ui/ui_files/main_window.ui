@@ -297,6 +297,16 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QToolButton" name="appConfigButton">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset theme="QIcon::ThemeIcon::DocumentProperties"/>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>

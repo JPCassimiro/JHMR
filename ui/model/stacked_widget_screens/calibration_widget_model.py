@@ -3,7 +3,7 @@ from ui.model.components.calibration_result_model import CalibrationResultModel
 from PySide6.QtWidgets import QWidget
 from PySide6.QtGui import QPixmap
 from modules.log_class import logger
-from PySide6.QtCore import QTimer, Signal
+from PySide6.QtCore import QTimer, Signal, QCoreApplication
 
 class CalibrationWidgetModel(QWidget):
 
@@ -12,6 +12,11 @@ class CalibrationWidgetModel(QWidget):
     
     def __init__(self,serialHandleClass,logModel):
         super().__init__()
+        
+        self.string_list_instruction = [
+            QCoreApplication.translate("InstructionText","Aperte os botões com toda força por 5 segundos"),
+            QCoreApplication.translate("InstructionText","Use seu dedão e indicador com toda força por 5 segundos")
+        ]
         
         #setup ui
         self.ui = Ui_calibrationForm()
@@ -46,7 +51,7 @@ class CalibrationWidgetModel(QWidget):
 
         self.image_data = [["_internal/resources/imgs/calibration_instruction_1.png",250,345,54],["_internal/resources/imgs/calibration_instruction_2.png",300,250,50]]
 
-        self.instructionText.setText("Aperte os botões com toda força por 5 segundos")
+        self.instructionText.setText(self.string_list_instruction[0])
         self.set_instruction_image(self.image_data[0][0],self.image_data[0][1],self.image_data[0][2],self.image_data[0][3])
 
         #connections
@@ -123,7 +128,7 @@ class CalibrationWidgetModel(QWidget):
         self.calibration_step = 0
         
     def reset_screen(self):
-        self.instructionText.setText("Aperte os botões com toda força por 5 segundos")
+        self.instructionText.setText(self.string_list_instruction[1])
         self.set_instruction_image(self.image_data[0][0],self.image_data[0][1],self.image_data[0][2],self.image_data[0][3])
         self.resultModel.hide()
         self.instructionText.show()
@@ -168,7 +173,7 @@ class CalibrationWidgetModel(QWidget):
                 self.cancelButton.setEnabled(False)
                 self.sideMenuDisableSignal.emit(True)
                 self.set_instruction_image(self.image_data[1][0],self.image_data[1][1],self.image_data[1][2],self.image_data[1][3])
-                self.instructionText.setText("Use seu dedão e indicador com toda força por 5 segundos")
+                self.instructionText.setText(self.string_list_instruction[1])
                 self.calibration_step = 1
                 self.timer.stop()
                 self.serialHandleClass.mesReceivedSignal.disconnect(self.recieve_serial_message)

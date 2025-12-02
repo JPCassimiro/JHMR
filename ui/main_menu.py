@@ -7,6 +7,7 @@ from ui.model.stacked_widget_screens.calibration_widget_model import Calibration
 from ui.model.stacked_widget_screens.user_actions_widget_model import UserActionsModel
 from ui.model.stacked_widget_screens.user_stats_model import UserStatsModel
 from ui.model.dialogs.log_model import LogModel
+from ui.model.dialogs.app_config_dialog_model import AppConfigModel
 
 from PySide6.QtWidgets import QPushButton, QMainWindow, QApplication
 
@@ -43,6 +44,9 @@ class MainMenuWindow(QMainWindow):
         self.user_actions_widget = UserActionsModel(self.dbHandleClass)
         self.user_stats_widget = UserStatsModel(self.dbHandleClass,self.serialHandleClass,self.logModel)
         self.side_menu = self.ui.sideMenu_2
+
+        #setup config modal
+        self.appConfigModal = AppConfigModel()
         
         #setup signal connections
         self.calibration_widget.pValuesSignal.connect(self.handle_pValues_signal)
@@ -68,6 +72,7 @@ class MainMenuWindow(QMainWindow):
         self.userActionsButton = self.ui.userActionsButton
         self.statsButton = self.ui.statsButton
         self.logModalButton = self.ui.logModalButton
+        self.appConfigButton = self.ui.appConfigButton
         
         #setup button connections
         self.connectionMenuButton.clicked.connect(self.connection_menu_button_handler)
@@ -76,6 +81,7 @@ class MainMenuWindow(QMainWindow):
         self.userActionsButton.clicked.connect(self.user_menu_button_handler)
         self.statsButton.clicked.connect(self.stats_menu_button_handler)
         self.logModalButton.clicked.connect(self.log_button_handler)
+        self.appConfigButton.clicked.connect(self.app_config_button_handler)
 
         #button toggling connections
         self.calibration_widget.sideMenuDisableSignal.connect(lambda state: self.side_menu_button_disabler(state, self.calibrationButton))
@@ -143,3 +149,6 @@ class MainMenuWindow(QMainWindow):
             for m in modal_list:
                 m.close()
         return super().closeEvent(event)
+
+    def app_config_button_handler(self):
+        self.appConfigModal.show()

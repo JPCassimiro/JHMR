@@ -1,11 +1,13 @@
-from PySide6.QtWidgets import QWidget, QRadioButton, QMessageBox
 from ui.views.config_widget_ui import Ui_configForm
 from ui.model.dialogs.key_select_model import KeySelectModel
 from ui.model.components.end_config_model import EndConfigModel
+from ui.model.custom_widgets.custom_slider_model import CustomSliderModel
+
 from modules.log_class import logger
 from modules.json_writer import JsonWriterClass
-from ui.model.custom_widgets.custom_slider_model import CustomSliderModel
-from PySide6.QtCore import QRect, Qt
+
+from PySide6.QtWidgets import QWidget, QRadioButton, QMessageBox
+from PySide6.QtCore import QRect, Qt, QCoreApplication
 
 finger_base_value = {
     "repeat_key":False,
@@ -21,6 +23,15 @@ nunchuck_base_value = {
 class ConfigWidgetModel(QWidget):
     def __init__(self,serialHandleClass,LogModel):
         super().__init__()
+
+        self.string_list_dialog = [
+            QCoreApplication.translate("ConfigJoystickDialogText","Erro"),   
+            QCoreApplication.translate("ConfigJoystickDialogText","Escolha a tecla a ser emulada")            
+        ]        
+
+        self.string_list_components = [
+            QCoreApplication.translate("ConfigJoystickComponents","Clique para selecionar")   
+        ]        
 
         #ui setup
         self.ui = Ui_configForm()
@@ -157,8 +168,8 @@ class ConfigWidgetModel(QWidget):
             logger.debug("Selecione uma combinação de dedos")
         elif self.finger_info_dict["key"] == None:
             warning = QMessageBox(self)
-            warning.setWindowTitle("Erro")
-            warning.setText("Escolha a tecla a ser emulada")
+            warning.setWindowTitle(self.string_list_dialog[0])
+            warning.setText(self.string_list_dialog[1])
             warning.setWindowModality(Qt.ApplicationModal)
             warning.show()
         else:
@@ -222,7 +233,7 @@ class ConfigWidgetModel(QWidget):
     def reset_screen(self):
         self.repeatOffButton.setChecked(True)
         self.repeatOnButton.setChecked(False)
-        self.pressureButton.setText("Clique para selecionar")
+        self.pressureButton.setText(self.string_list_components[0])
         self.durationSlider.setValue(finger_base_value["duration"])
         self.ui.optionsContainer.setEnabled(False)
         for radio in self.ui.fingerButtonContainer_2.findChildren(QRadioButton):

@@ -1,6 +1,6 @@
 from ui.views.key_select_modal_ui import Ui_keySelectModalDialog
 from PySide6.QtWidgets import QDialog
-from PySide6.QtCore import QObject, QEvent, Qt
+from PySide6.QtCore import QObject, QEvent, Qt, QCoreApplication
 
 key_map = {
     Qt.Key_Up: "UP",
@@ -38,7 +38,7 @@ class KeySelectModel(QDialog):
         self.ui = Ui_keySelectModalDialog()
         self.ui.setupUi(self)
 
-        self.setWindowTitle("Use o teclado para selecionar")
+        self.setWindowTitle(QCoreApplication.translate("KeySelectText","Use o teclado para selecionar"))
         self.setWindowModality(Qt.ApplicationModal)
 
         self.selected_key = None

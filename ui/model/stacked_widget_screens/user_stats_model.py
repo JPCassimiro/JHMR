@@ -3,7 +3,7 @@ from modules.use_data_collector import DataCollectorClass
 
 from PySide6.QtWidgets import QWidget, QPushButton, QRadioButton, QMessageBox
 from modules.log_class import logger
-from PySide6.QtCore import Signal, Qt
+from PySide6.QtCore import Signal, Qt, QCoreApplication
 
 import pyqtgraph as pg
 from pyqtgraph.GraphicsScene import exportDialog
@@ -15,6 +15,35 @@ class UserStatsModel(QWidget):
 
     def __init__(self, dbHandleClass, SerialCommClass, LogModel):
         super().__init__()
+
+        #setup text to be translated
+        
+        #graph text
+        self.string_list_graphs = [
+            QCoreApplication.translate("GraphText","Mínimo"),
+            QCoreApplication.translate("GraphText","Anelar"),
+            QCoreApplication.translate("GraphText","Médio"),
+            QCoreApplication.translate("GraphText","Indicador"),
+            QCoreApplication.translate("GraphText","Estatisticas de pressão"),
+            QCoreApplication.translate("GraphText","Média de pressão por dedo"),
+            QCoreApplication.translate("GraphText","Média"),
+            QCoreApplication.translate("GraphText","Maxima"),
+            QCoreApplication.translate("GraphText","Mínima"),
+            QCoreApplication.translate("GraphText","Uso por dedo"),
+            QCoreApplication.translate("GraphText","Uso de dedos"),
+            QCoreApplication.translate("GraphText","Sessão"),
+            QCoreApplication.translate("GraphText","Total de uso por dedo")
+        ]
+
+        #dialog text
+        self.string_list_dialog = [
+            QCoreApplication.translate("UserStatsDialogText","Confirmar"),
+            QCoreApplication.translate("UserStatsDialogText","Cancelar"),
+            QCoreApplication.translate("UserStatsDialogText","Deseja excluir a sessão selecionada?"),
+            QCoreApplication.translate("UserStatsDialogText","Aviso"),
+            QCoreApplication.translate("UserStatsDialogText","Sucesso"),
+            QCoreApplication.translate("UserStatsDialogText","Sessão de id {id}, do usuário {user} removida")
+        ]
 
         #ui setup
         self.ui = Ui_useStatisticsForm()
@@ -71,7 +100,7 @@ class UserStatsModel(QWidget):
         self.session_chart_layout_widget =  pg.GraphicsLayoutWidget()
         self.ui.sessionChartContainer.layout().addWidget(self.session_chart_layout_widget)
         x_range = np.array([0,1,2,3])
-        self.finger_name_labels = [(x_range[0],"Mínimo"),(x_range[1],"Anelar"),(x_range[2],"Médio"),(x_range[3],"Indicador")]
+        self.finger_name_labels = [(x_range[0],self.string_list_graphs[0]),(x_range[1],self.string_list_graphs[1]),(x_range[2],self.string_list_graphs[2]),(x_range[3],self.string_list_graphs[3])]
 
         #create charts
         #avarage pressure by finger chart
@@ -91,27 +120,27 @@ class UserStatsModel(QWidget):
         self.times_used_chart = pg.BarGraphItem(x= x_range,height=self.times_pressed,width = 0.3,brush="#F89E59")
 
         #add charts to layout
-        self.plot_item_pressure = self.session_chart_layout_widget.addPlot(title = "Estatisticas de pressão")
+        self.plot_item_pressure = self.session_chart_layout_widget.addPlot(title = self.string_list_graphs[4])
         self.plot_item_pressure.setMouseEnabled(x=False,y=False)
         self.plot_item_pressure.addItem(self.avg_chart)
         self.plot_item_pressure.addItem(self.min_chart)
         self.plot_item_pressure.addItem(self.max_chart)
         self.plot_item_pressure.getAxis('bottom').setTicks([self.finger_name_labels])
-        self.plot_item_pressure.getAxis('left').setLabel(text="Média de pressão por dedo", units = "G")
+        self.plot_item_pressure.getAxis('left').setLabel(text = self.string_list_graphs[5], units = "G")
         
         #legend pressure chart session
         self.legendSessionPressure = self.plot_item_pressure.addLegend()
         self.legendSessionPressure.anchor(itemPos=(1,0), parentPos=(1,0), offset=(0,-10))
-        self.legendSessionPressure.addItem(self.avg_chart,"Média")
-        self.legendSessionPressure.addItem(self.max_chart,"Maxima")
-        self.legendSessionPressure.addItem(self.min_chart,"Minima")
+        self.legendSessionPressure.addItem(self.avg_chart,self.string_list_graphs[6])
+        self.legendSessionPressure.addItem(self.max_chart,self.string_list_graphs[7])
+        self.legendSessionPressure.addItem(self.min_chart,self.string_list_graphs[8])
         
         #finger use times session
-        self.plot_item_times_used = self.session_chart_layout_widget.addPlot(title = "Uso por dedo")
+        self.plot_item_times_used = self.session_chart_layout_widget.addPlot(title = self.string_list_graphs[9])
         self.plot_item_times_used.setMouseEnabled(x=False,y=False)
         self.plot_item_times_used.addItem(self.times_used_chart)
         self.plot_item_times_used.getAxis('bottom').setTicks([self.finger_name_labels])
-        self.plot_item_times_used.getAxis('left').setLabel(text="Uso de dedos")
+        self.plot_item_times_used.getAxis('left').setLabel(text=self.string_list_graphs[10])
         self.plot_item_times_used.getAxis('left').setStyle(maxTickLevel=0)
         
         #summary chart widget
@@ -125,16 +154,16 @@ class UserStatsModel(QWidget):
         self.index_info_array = [[1,2],[1,2]]
 
         self.plot_item_avg_line = self.summary_chart_layout_widget.addPlot()
-        self.plot_item_avg_line.getAxis('bottom').setLabel("Sessão")
-        self.plot_item_avg_line.getAxis('left').setLabel("Média de pressão por dedo", units = "G")
+        self.plot_item_avg_line.getAxis('bottom').setLabel(self.string_list_graphs[11])
+        self.plot_item_avg_line.getAxis('left').setLabel(self.string_list_graphs[5], units = "G")
         self.plot_item_avg_line.showGrid(y = True,x = True)
         self.avg_line_legend = self.plot_item_avg_line.addLegend()
         self.avg_line_legend.anchor(itemPos=(1,0), parentPos=(1,0), offset=(0,-10))
 
-        self.plot_item_avg_line.plot(self.little_info_array[0],self.little_info_array[1],pen ='r',name="Mínimo")
-        self.plot_item_avg_line.plot(self.ring_info_array[0],self.ring_info_array[1],pen ='g',name="Anelar")
-        self.plot_item_avg_line.plot(self.middle_info_array[0],self.middle_info_array[1],pen ='b',name="Médio")
-        self.plot_item_avg_line.plot(self.index_info_array[0],self.index_info_array[1],pen ='purple',name="Indicador")
+        self.plot_item_avg_line.plot(self.little_info_array[0],self.little_info_array[1],pen ='r',name=self.string_list_graphs[0])
+        self.plot_item_avg_line.plot(self.ring_info_array[0],self.ring_info_array[1],pen ='g',name=self.string_list_graphs[1])
+        self.plot_item_avg_line.plot(self.middle_info_array[0],self.middle_info_array[1],pen ='b',name=self.string_list_graphs[2])
+        self.plot_item_avg_line.plot(self.index_info_array[0],self.index_info_array[1],pen ='purple',name=self.string_list_graphs[3])
             
         #avg bar chart 
         self.plot_item_avg_bar = self.summary_chart_layout_widget.addPlot()
@@ -142,8 +171,8 @@ class UserStatsModel(QWidget):
         self.avg_chart_summary = pg.BarGraphItem(x= x_range,height=self.avg_pressure_summary,width = 0.2,brush="#F89E59")
         self.plot_item_avg_bar.addItem(self.avg_chart_summary)
         self.plot_item_avg_bar.getAxis('bottom').setTicks([self.finger_name_labels])
-        self.plot_item_avg_bar.getAxis('left').setLabel(text="Média de pressão por dedo", units = "G")
-        self.plot_item_avg_bar.setMouseEnabled(x=False,y=False)
+        self.plot_item_avg_bar.getAxis('left').setLabel(text=self.string_list_graphs[6], units = "G")
+        self.plot_item_avg_bar.setMouseEnabled(x=False, y=False)
         
         #total times used chart
         self.plot_item_total_uses = self.summary_chart_layout_widget.addPlot()
@@ -151,8 +180,8 @@ class UserStatsModel(QWidget):
         self.uses_chart_summary = pg.BarGraphItem(x= x_range,height=self.total_uses_summary,width = 0.2,brush="#F89E59")
         self.plot_item_total_uses.addItem(self.uses_chart_summary)
         self.plot_item_total_uses.getAxis('bottom').setTicks([self.finger_name_labels])
-        self.plot_item_total_uses.getAxis('left').setLabel(text="Total de uso por dedo")
-        self.plot_item_total_uses.setMouseEnabled(x=False,y=False)
+        self.plot_item_total_uses.getAxis('left').setLabel(text=self.string_list_graphs[11])
+        self.plot_item_total_uses.setMouseEnabled(x=False, y=False)
         
     def delete_session_handler(self):
         def on_accept():
@@ -162,20 +191,22 @@ class UserStatsModel(QWidget):
             self.populate_comboBox()
             if res:
                 deletionMessage = QMessageBox(self)
-                deletionMessage.setWindowTitle("Sucesso")
-                deletionMessage.setText(f"Sessão de id {res[0][0]}, do usuário {self.current_user} removida")
+                deletionMessage.setWindowTitle(self.string_list_dialog[4])
+                message = self.string_list_dialog[5]
+                message.format(id = res[0][0], user = self.current_user)
+                deletionMessage.setText()
                 deletionMessage.setWindowModality(Qt.ApplicationModal)
                 deletionMessage.show()
 
         deletionDialog = QMessageBox(self)
-        deletionDialog.setWindowTitle("Aviso")
-        deletionDialog.setText("Deseja excluir a sessão selecionada?")
+        deletionDialog.setWindowTitle(no_button.setText(self.string_list_dialog[2]))
+        deletionDialog.setText(self.string_list_dialog[3])
         deletionDialog.setWindowModality(Qt.ApplicationModal)
         deletionDialog.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
         yes_button = deletionDialog.button(QMessageBox.Yes)
         no_button = deletionDialog.button(QMessageBox.No)
-        yes_button.setText("Confirmar")
-        no_button.setText("Cancelar")
+        yes_button.setText(self.string_list_dialog[0])
+        no_button.setText(self.string_list_dialog[1])
         deletionDialog.buttonClicked.connect(lambda btn: on_accept() if btn == yes_button else None)
         deletionDialog.show()
     
@@ -367,10 +398,10 @@ class UserStatsModel(QWidget):
         self.avg_chart_summary.setOpts(height = self.avg_pressure_summary) 
         self.uses_chart_summary.setOpts(height = self.total_uses_summary)
         self.plot_item_avg_line.clear()
-        self.plot_item_avg_line.plot(self.little_info_array[0],self.little_info_array[1],pen ='r',name="Mínimo")
-        self.plot_item_avg_line.plot(self.ring_info_array[0],self.ring_info_array[1],pen ='g',name="Anelar")
-        self.plot_item_avg_line.plot(self.middle_info_array[0],self.middle_info_array[1],pen ='b',name="Médio")
-        self.plot_item_avg_line.plot(self.index_info_array[0],self.index_info_array[1],pen ='purple',name="Indicador")
+        self.plot_item_avg_line.plot(self.little_info_array[0],self.little_info_array[1],pen ='r',name=self.string_list_graphs[0])
+        self.plot_item_avg_line.plot(self.ring_info_array[0],self.ring_info_array[1],pen ='g',name=self.string_list_graphs[1])
+        self.plot_item_avg_line.plot(self.middle_info_array[0],self.middle_info_array[1],pen ='b',name=self.string_list_graphs[2])
+        self.plot_item_avg_line.plot(self.index_info_array[0],self.index_info_array[1],pen ='purple',name=self.string_list_graphs[3])
         self.countSession.setText(str(self.sessionCount))
         self.avgSessionTime.setText(self.avgTimelapse)
         

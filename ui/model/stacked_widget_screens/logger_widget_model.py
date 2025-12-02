@@ -175,6 +175,7 @@ class LoggerWidgetModel(QWidget):
             
         self.bluetoothHandleclass.set_callback(on_error=on_error,on_result=on_result)
         self.bluetoothHandleclass.hid_device_unpair()
+        log_class.logger.debug(f"full_pair_handler iniciado")
         
     def full_pair_step_2(self):
         self.append_log("Desemparelhando dispositivo SPP.")
@@ -228,8 +229,9 @@ class LoggerWidgetModel(QWidget):
         
         
     def port_signal_handler(self,message):
-        self.append_log(message)    
+        self.append_log(message)
         self.button_state_toggle()
+        log_class.logger.debug(f"{message}")
     
     #blocks/unblocks all buttons from this widget    
     def button_state_toggle(self):

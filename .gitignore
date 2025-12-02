@@ -5,3 +5,7 @@ JHRM.spec
 build
 dist
 logs
+line.txt
+_internal/resources/latest_bindings
+_internal/resources/config
+jhmr.db

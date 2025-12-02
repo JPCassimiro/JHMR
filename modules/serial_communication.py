@@ -1,6 +1,8 @@
 import wmi
 import re
+
 from modules.log_class import logger
+
 from PySide6.QtCore import Signal, QObject, QTimer
 from PySide6.QtSerialPort import QSerialPort
 from PySide6.QtCore import QIODevice
@@ -39,7 +41,7 @@ class SerialCommClass(QObject):
 
         #for testing
         # self.device_mac_addr = "d48afc9d936a"
-        self.ser.setPortName(r"\\.\COM19")
+        # self.ser.setPortName(r"\\.\COM19")
 
         #when a new char message is ready to be read on the serial port
         self.ser.readyRead.connect(self.recieve_message)

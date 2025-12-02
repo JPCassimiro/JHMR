@@ -1,6 +1,8 @@
 from ui.views.register_dialog_ui import Ui_registerDialog
+
 from PySide6.QtWidgets import QDialog, QFileDialog, QDialogButtonBox
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QCoreApplication
+
 
 infoDictBase = {
     "name": None,
@@ -12,13 +14,19 @@ class RegisterModel(QDialog):
     def __init__(self):
         super().__init__()
         
+        self.string_list_components = [
+            QCoreApplication.translate("RegisterDialogText","Cadastro"),
+            QCoreApplication.translate("RegisterDialogText","Confirmar"),
+            QCoreApplication.translate("RegisterDialogText","Cancelar")
+        ]
+
         #ui setup
         self.ui = Ui_registerDialog()
         self.ui.setupUi(self)
 
         self.infoDict = infoDictBase.copy()
         
-        self.setWindowTitle("Cadastro")
+        self.setWindowTitle(self.string_list_components[0])
         self.setWindowModality(Qt.ApplicationModal)
         
         self.current_mode = 0 #0 = create, 1 = update
@@ -31,8 +39,8 @@ class RegisterModel(QDialog):
         self.imageSelectButton = self.ui.imageSelectButton
 
         #edit ok and cancel button names
-        self.ui.buttonBox.button(QDialogButtonBox.Ok).setText("Confirmar")
-        self.ui.buttonBox.button(QDialogButtonBox.Cancel).setText("Cancelar")
+        self.ui.buttonBox.button(QDialogButtonBox.Ok).setText(self.string_list_components[1])
+        self.ui.buttonBox.button(QDialogButtonBox.Cancel).setText(self.string_list_components[2])
 
         #connections
         self.imageSelectButton.clicked.connect(self.select_image_handler)
