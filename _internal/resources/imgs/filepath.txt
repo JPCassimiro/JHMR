@@ -1,1 +1,0 @@
-        self.patientImage.setPixmap(QPixmap(u"../JHMR/resources/imgs/placeholder_profile.png"))
