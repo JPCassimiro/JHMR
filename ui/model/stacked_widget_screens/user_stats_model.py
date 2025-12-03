@@ -193,14 +193,14 @@ class UserStatsModel(QWidget):
                 deletionMessage = QMessageBox(self)
                 deletionMessage.setWindowTitle(self.string_list_dialog[4])
                 message = self.string_list_dialog[5]
-                message.format(id = res[0][0], user = self.current_user)
-                deletionMessage.setText()
+                message = message.format(id = res[0][0], user = self.current_user)
+                deletionMessage.setText(message)
                 deletionMessage.setWindowModality(Qt.ApplicationModal)
                 deletionMessage.show()
 
         deletionDialog = QMessageBox(self)
-        deletionDialog.setWindowTitle(no_button.setText(self.string_list_dialog[2]))
-        deletionDialog.setText(self.string_list_dialog[3])
+        deletionDialog.setWindowTitle(self.string_list_dialog[3])
+        deletionDialog.setText(self.string_list_dialog[2])
         deletionDialog.setWindowModality(Qt.ApplicationModal)
         deletionDialog.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
         yes_button = deletionDialog.button(QMessageBox.Yes)
