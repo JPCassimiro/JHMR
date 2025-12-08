@@ -28,7 +28,7 @@ Execute o arquivo "main.exe"
 - [Bluetooth Command Line Tools](https://bluetoothinstaller.com/bluetooth-command-line-tools) (já incluso)</br>
 
 
-## Creditos
+## Créditos
 ### Imagens
 [Avatar placeholder](https://pixabay.com/vectors/man-male-avatar-anonymous-shadow-303792/) - Pixabay</br>
 
