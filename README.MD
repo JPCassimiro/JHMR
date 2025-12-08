@@ -1,8 +1,18 @@
 # JHMR - Joystick for Hand Motor Rehabilitation Software
 
-Este é o repositório para o TCC "SOFTWARE PARA CONFIGURAÇÃO DE UM JOYSTICK PARA EXERCÍCIOS DE MÃOS E DEDOS"
+Este é o repositório para o TCC "SOFTWARE PARA CONFIGURAÇÃO DE UM JOYSTICK PARA EXERCÍCIOS DE MÃOS E DEDOS"</br>
+O objetivo da ferramenta é apoiar um joystick baseado em pressão desenvolvido por pesquisadores da UTFPR - CP na terefa de reabilitação de mãos e dedos, permitindo que o joystick seja configurado e que estatiscas de uso do mesmo sejam observadas.</br>
 
-Desenvolvido em Python utilizando a biblioteca PySide6.
+## Techstack
+
+### Tecnologias
+- Python
+- SQLite
+
+### Principais bibliotecas
+- Qt
+- PyQtGraph
+- WMI
 
 ## Utilização
 
@@ -15,8 +25,8 @@ Execute o arquivo "main.exe"
 É necessario parear o dispositivo através da interface do software mesmo que o dispositivo já esteja pareado.
 
 ## Dependências
-- Bluetooth Command Line Tools (já incluso)
-https://bluetoothinstaller.com/bluetooth-command-line-tools
+- [Bluetooth Command Line Tools](https://bluetoothinstaller.com/bluetooth-command-line-tools) (já incluso)</br>
+
 
 ## Creditos
 ### Imagens
