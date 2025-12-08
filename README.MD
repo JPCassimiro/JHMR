@@ -4,7 +4,7 @@ Este é o repositório para o TCC "SOFTWARE PARA CONFIGURAÇÃO DE UM JOYSTICK P
 
 Desenvolvido em Python utilizando a biblioteca PySide6.
 
-## Utilização:
+## Utilização
 
 Acesse a aba de releases, localizada na parte direita da pagina.
 
