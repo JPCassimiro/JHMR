@@ -1,7 +1,7 @@
 from ui.views.register_dialog_ui import Ui_registerDialog
 
 from PySide6.QtWidgets import QDialog, QFileDialog, QDialogButtonBox
-from PySide6.QtCore import Qt, QCoreApplication
+from PySide6.QtCore import Qt, QCoreApplication, QEvent
 
 
 infoDictBase = {
@@ -76,3 +76,9 @@ class RegisterModel(QDialog):
         self.nameEdit.setText(self.infoDict["name"])
         self.descriptionEdit.setText(self.infoDict["details"])
         self.imageLineEdit.setText(self.infoDict["image_path"])
+
+    def changeEvent(self, event):
+        if event.type() == QEvent.Type.LanguageChange:
+            self.ui.retranslateUi(self)
+        return super().changeEvent(event)
+        

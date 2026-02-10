@@ -6,12 +6,12 @@
     <message>
         <location filename="../ui/ui_files/app_config_modal.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>App configuration</translation>
     </message>
     <message>
         <location filename="../ui/ui_files/app_config_modal.ui" line="23"/>
-        <source>Lingua (Language)</source>
-        <translation></translation>
+        <source>Lingua</source>
+        <translation>Language</translation>
     </message>
 </context>
 <context>

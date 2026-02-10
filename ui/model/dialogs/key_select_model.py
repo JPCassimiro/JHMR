@@ -132,3 +132,9 @@ class KeyPressHandler(QObject):
         key_code = key_event.key()
         if key_code in key_map:
             return key_map[key_code]
+
+    def changeEvent(self, event):
+        if event.type() == QEvent.Type.LanguageChange:
+            self.ui.retranslateUi(self)
+        return super().changeEvent(event)
+        

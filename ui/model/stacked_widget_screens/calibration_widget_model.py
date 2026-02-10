@@ -1,10 +1,10 @@
 from ui.views.calibration_widget_ui import Ui_calibrationForm
 from ui.model.components.calibration_result_model import CalibrationResultModel
+from modules.log_class import logger
+
 from PySide6.QtWidgets import QWidget
 from PySide6.QtGui import QPixmap
-from modules.log_class import logger
-from PySide6.QtCore import QTimer, Signal, QCoreApplication
-
+from PySide6.QtCore import QTimer, Signal, QCoreApplication, QEvent
 class CalibrationWidgetModel(QWidget):
 
     pValuesSignal = Signal(list)
@@ -14,8 +14,8 @@ class CalibrationWidgetModel(QWidget):
         super().__init__()
         
         self.string_list_instruction = [
-            QCoreApplication.translate("InstructionText","Aperte os botões com toda força por 5 segundos"),
-            QCoreApplication.translate("InstructionText","Use seu dedão e indicador com toda força por 5 segundos")
+            "Aperte os botões com toda força por 5 segundos",
+            "Use seu dedão e indicador com toda força por 5 segundos"
         ]
         
         #setup ui
@@ -51,8 +51,9 @@ class CalibrationWidgetModel(QWidget):
 
         self.image_data = [["_internal/resources/imgs/calibration_instruction_1.png",250,345,54],["_internal/resources/imgs/calibration_instruction_2.png",300,250,50]]
 
-        self.instructionText.setText(self.string_list_instruction[0])
-        self.set_instruction_image(self.image_data[0][0],self.image_data[0][1],self.image_data[0][2],self.image_data[0][3])
+        # self.instructionText.setText(QCoreApplication.translate("InstructionText",self.string_list_instruction[0]))
+        # self.set_instruction_image(self.image_data[0][0],self.image_data[0][1],self.image_data[0][2],self.image_data[0][3])
+        self.update_instruction_ui()
 
         #connections
         self.startButton.clicked.connect(self.start_button_handler)
@@ -67,8 +68,18 @@ class CalibrationWidgetModel(QWidget):
                 self.instructionImage.setMaximumWidth(width)
                 self.instructionImage.setMaximumHeight(height)
                 self.instructionImage.radius = radius
+                # self.instructionImage.updateGeometry()
+                # scaled_img = img.scaled(
+                #     width,
+                #     height,
+                #     Qt.AspectRatioMode.KeepAspectRatio,
+                #     Qt.TransformationMode.SmoothTransformation
+                # )
                 self.instructionImage.setPixmap(img)
                 self.instructionImage.setScaledContents(True)
+                self.instructionImage.setSizePolicy()
+                # self.instructionImage.adjustSize()
+
             else:
                 logger.error(f"Erro ao cerregar imagem no caminho: {img_path}")
         except Exception as e:
@@ -117,8 +128,8 @@ class CalibrationWidgetModel(QWidget):
         self.message_couter += 1
         
     def restart_calibration(self):
-        self.reset_screen()
         self.reset_variables()
+        self.reset_screen()
         
     def reset_variables(self):
         self.recived_presure_array = [[0],[0],[0],[0]]
@@ -128,12 +139,14 @@ class CalibrationWidgetModel(QWidget):
         self.calibration_step = 0
         
     def reset_screen(self):
-        self.instructionText.setText(self.string_list_instruction[1])
-        self.set_instruction_image(self.image_data[0][0],self.image_data[0][1],self.image_data[0][2],self.image_data[0][3])
+        # self.instructionText.setText(QCoreApplication.translate("InstructionText",self.string_list_instruction[1]))
+        # self.set_instruction_image(self.image_data[0][0],self.image_data[0][1],self.image_data[0][2],self.image_data[0][3])
         self.resultModel.hide()
         self.instructionText.show()
         self.instructionImage.show()
+        self.update_instruction_ui()
         self.startButton.setEnabled(True)
+
         
     def present_results(self):
         self.instructionImage.hide()
@@ -172,9 +185,10 @@ class CalibrationWidgetModel(QWidget):
                 self.restartButton.setEnabled(True)
                 self.cancelButton.setEnabled(False)
                 self.sideMenuDisableSignal.emit(True)
-                self.set_instruction_image(self.image_data[1][0],self.image_data[1][1],self.image_data[1][2],self.image_data[1][3])
-                self.instructionText.setText(self.string_list_instruction[1])
+                # self.set_instruction_image(self.image_data[1][0],self.image_data[1][1],self.image_data[1][2],self.image_data[1][3])
+                # self.instructionText.setText(QCoreApplication.translate("InstructionText",self.string_list_instruction[1]))
                 self.calibration_step = 1
+                self.update_instruction_ui()
                 self.timer.stop()
                 self.serialHandleClass.mesReceivedSignal.disconnect(self.recieve_serial_message)
                 return
@@ -194,3 +208,18 @@ class CalibrationWidgetModel(QWidget):
                 self.sideMenuDisableSignal.emit(True)
                 self.present_results()
                 return
+
+    def update_instruction_ui(self):
+        if self.calibration_step == 0:
+            self.instructionText.setText(QCoreApplication.translate("InstructionText",self.string_list_instruction[0]))
+            self.set_instruction_image(self.image_data[0][0],self.image_data[0][1],self.image_data[0][2],self.image_data[0][3])
+        elif self.calibration_step == 1:
+            self.instructionText.setText(QCoreApplication.translate("InstructionText",self.string_list_instruction[1]))
+            self.set_instruction_image(self.image_data[1][0],self.image_data[1][1],self.image_data[1][2],self.image_data[1][3])
+
+    def changeEvent(self, event):
+        if event.type() == QEvent.Type.LanguageChange:
+            self.ui.retranslateUi(self)
+            self.update_instruction_ui()
+        return super().changeEvent(event)
+        

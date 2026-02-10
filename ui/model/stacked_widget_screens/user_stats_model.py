@@ -3,7 +3,7 @@ from modules.use_data_collector import DataCollectorClass
 
 from PySide6.QtWidgets import QWidget, QPushButton, QRadioButton, QMessageBox
 from modules.log_class import logger
-from PySide6.QtCore import Signal, Qt, QCoreApplication
+from PySide6.QtCore import Signal, Qt, QCoreApplication, QEvent
 
 import pyqtgraph as pg
 from pyqtgraph.GraphicsScene import exportDialog
@@ -15,35 +15,6 @@ class UserStatsModel(QWidget):
 
     def __init__(self, dbHandleClass, SerialCommClass, LogModel):
         super().__init__()
-
-        #setup text to be translated
-        
-        #graph text
-        self.string_list_graphs = [
-            QCoreApplication.translate("GraphText","Mínimo"),
-            QCoreApplication.translate("GraphText","Anelar"),
-            QCoreApplication.translate("GraphText","Médio"),
-            QCoreApplication.translate("GraphText","Indicador"),
-            QCoreApplication.translate("GraphText","Estatisticas de pressão"),
-            QCoreApplication.translate("GraphText","Média de pressão por dedo"),
-            QCoreApplication.translate("GraphText","Média"),
-            QCoreApplication.translate("GraphText","Maxima"),
-            QCoreApplication.translate("GraphText","Mínima"),
-            QCoreApplication.translate("GraphText","Uso por dedo"),
-            QCoreApplication.translate("GraphText","Uso de dedos"),
-            QCoreApplication.translate("GraphText","Sessão"),
-            QCoreApplication.translate("GraphText","Total de uso por dedo")
-        ]
-
-        #dialog text
-        self.string_list_dialog = [
-            QCoreApplication.translate("UserStatsDialogText","Confirmar"),
-            QCoreApplication.translate("UserStatsDialogText","Cancelar"),
-            QCoreApplication.translate("UserStatsDialogText","Deseja excluir a sessão selecionada?"),
-            QCoreApplication.translate("UserStatsDialogText","Aviso"),
-            QCoreApplication.translate("UserStatsDialogText","Sucesso"),
-            QCoreApplication.translate("UserStatsDialogText","Sessão de id {id}, do usuário {user} removida")
-        ]
 
         #ui setup
         self.ui = Ui_useStatisticsForm()
@@ -94,6 +65,40 @@ class UserStatsModel(QWidget):
         self.newSessionButton.clicked.connect(self.new_session_button_handler)
         self.deleteSessionButton.clicked.connect(self.delete_session_handler)
 
+        #create charts
+        self.session_chart_layout_widget = None
+        self.summary_chart_layout_widget = None
+        self.create_charts()
+        
+    def create_charts(self):
+        #setup text to be translated
+        
+        #graph text
+        self.string_list_graphs = [
+            QCoreApplication.translate("GraphText","Mínimo"),
+            QCoreApplication.translate("GraphText","Anelar"),
+            QCoreApplication.translate("GraphText","Médio"),
+            QCoreApplication.translate("GraphText","Indicador"),
+            QCoreApplication.translate("GraphText","Estatisticas de pressão"),
+            QCoreApplication.translate("GraphText","Média de pressão por dedo"),
+            QCoreApplication.translate("GraphText","Média"),
+            QCoreApplication.translate("GraphText","Maxima"),
+            QCoreApplication.translate("GraphText","Mínima"),
+            QCoreApplication.translate("GraphText","Uso por dedo"),
+            QCoreApplication.translate("GraphText","Uso de dedos"),
+            QCoreApplication.translate("GraphText","Sessão"),
+            QCoreApplication.translate("GraphText","Total de uso por dedo")
+        ]
+
+        #dialog text
+        self.string_list_dialog = [
+            QCoreApplication.translate("UserStatsDialogText","Confirmar"),
+            QCoreApplication.translate("UserStatsDialogText","Cancelar"),
+            QCoreApplication.translate("UserStatsDialogText","Deseja excluir a sessão selecionada?"),
+            QCoreApplication.translate("UserStatsDialogText","Aviso"),
+            QCoreApplication.translate("UserStatsDialogText","Sucesso"),
+            QCoreApplication.translate("UserStatsDialogText","Sessão de id {id}, do usuário {user} removida")
+        ]
         #session chart widget        
         pg.setConfigOption('background', '#F5F5F5')
         pg.setConfigOption('foreground', 'black')
@@ -102,7 +107,6 @@ class UserStatsModel(QWidget):
         x_range = np.array([0,1,2,3])
         self.finger_name_labels = [(x_range[0],self.string_list_graphs[0]),(x_range[1],self.string_list_graphs[1]),(x_range[2],self.string_list_graphs[2]),(x_range[3],self.string_list_graphs[3])]
 
-        #create charts
         #avarage pressure by finger chart
         self.avg_pressure = [0,0,0,0]
         self.avg_chart = pg.BarGraphItem(x= x_range,height=self.avg_pressure,width = 0.2,brush="#F89E59")
@@ -144,7 +148,7 @@ class UserStatsModel(QWidget):
         self.plot_item_times_used.getAxis('left').setStyle(maxTickLevel=0)
         
         #summary chart widget
-        self.summary_chart_layout_widget =  pg.GraphicsLayoutWidget()
+        self.summary_chart_layout_widget = pg.GraphicsLayoutWidget()
         self.ui.summaryChartContainer.layout().addWidget(self.summary_chart_layout_widget)
         
         #create line charts
@@ -182,6 +186,13 @@ class UserStatsModel(QWidget):
         self.plot_item_total_uses.getAxis('bottom').setTicks([self.finger_name_labels])
         self.plot_item_total_uses.getAxis('left').setLabel(text=self.string_list_graphs[11])
         self.plot_item_total_uses.setMouseEnabled(x=False, y=False)
+        
+    def delete_charts(self):
+        self.summary_chart_layout_widget.deleteLater()
+        self.session_chart_layout_widget.deleteLater()
+        # self.ui.sessionChartContainer.layout().removeWidget(self.session_chart_layout_widget)
+        # self.ui.summaryChartContainer.layout().removeWidget(self.summary_chart_layout_widget)
+            
         
     def delete_session_handler(self):
         def on_accept():
@@ -544,4 +555,11 @@ class UserStatsModel(QWidget):
         print(f"assing_latest_session:{latest_session}")
         self.latest_session = latest_session
         self.dataCollectorHandler.current_session_index = latest_session
-            
+
+    def changeEvent(self, event):
+        if event.type() == QEvent.Type.LanguageChange:
+            self.ui.retranslateUi(self)
+            self.delete_charts()
+            self.create_charts()
+        return super().changeEvent(event)
+        

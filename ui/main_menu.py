@@ -9,7 +9,8 @@ from ui.model.stacked_widget_screens.user_stats_model import UserStatsModel
 from ui.model.dialogs.log_model import LogModel
 from ui.model.dialogs.app_config_dialog_model import AppConfigModel
 
-from PySide6.QtWidgets import QPushButton, QMainWindow, QApplication
+from PySide6.QtWidgets import QPushButton, QMainWindow, QApplication, QWidget
+from PySide6.QtCore import QEvent
 
 from modules.serial_communication import SerialCommClass
 from modules.db_functions import DbClass
@@ -142,6 +143,10 @@ class MainMenuWindow(QMainWindow):
             else:
                 button.setEnabled(state)
         
+    def app_config_button_handler(self):
+        self.appConfigModal.show()
+        
+    # event override    
     def closeEvent(self, event):
         modal_list = []
         modal_list.append(QApplication.activeModalWidget())
@@ -150,5 +155,8 @@ class MainMenuWindow(QMainWindow):
                 m.close()
         return super().closeEvent(event)
 
-    def app_config_button_handler(self):
-        self.appConfigModal.show()
+    def changeEvent(self, event):
+        if event.type() == QEvent.Type.LanguageChange:
+            self.ui.retranslateUi(self)
+        return super().changeEvent(event)
+        

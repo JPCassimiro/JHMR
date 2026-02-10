@@ -11,12 +11,11 @@ def init_settings(path, app):
     settings = QSettings(path, QSettings.IniFormat)
     language = settings.value("language")
     print(f"init_settings - language: {language} type: {type(language)}")
-    if language != "None":
-        translation = QTranslator(app)
-        res = translation.load(language)
-        if res:
-            print(f"init_settings res: {res}")
-            app.installTranslator(translation)
+    app.translator = QTranslator()
+    if language and language != "None":
+        if app.translator.load(language):
+            # print(f"init_settings res: {res}")
+            app.installTranslator(app.translator)
         
 
 def main():

@@ -7,7 +7,7 @@ from modules.log_class import logger
 from modules.json_writer import JsonWriterClass
 
 from PySide6.QtWidgets import QWidget, QRadioButton, QMessageBox
-from PySide6.QtCore import QRect, Qt, QCoreApplication
+from PySide6.QtCore import QRect, Qt, QCoreApplication, QEvent
 
 finger_base_value = {
     "repeat_key":False,
@@ -308,3 +308,9 @@ class ConfigWidgetModel(QWidget):
             print(self.nunchuck_info_dict)
         self.key_select_modal.selected_key = None
         self.key_select_modal.z_c_key_mode = 0
+
+    def changeEvent(self, event):
+        if event.type() == QEvent.Type.LanguageChange:
+            self.ui.retranslateUi(self)
+        return super().changeEvent(event)
+        

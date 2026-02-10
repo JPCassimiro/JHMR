@@ -1,8 +1,10 @@
 from ui.views.user_actions_widget_ui import Ui_usersWidgetForm
 from ui.model.dialogs.register_model import RegisterModel
 from ui.model.components.user_item_model import UserItemModel
+
 from PySide6.QtWidgets import QWidget, QListWidgetItem, QMessageBox
-from PySide6.QtCore import Signal, Qt
+from PySide6.QtCore import Signal, Qt, QEvent
+
 import re
 
 class UserActionsModel(QWidget):
@@ -202,6 +204,12 @@ class UserActionsModel(QWidget):
                     item_container.setSizeHint(item.sizeHint())                
                     self.listWidget2.addItem(item_container)
                     self.listWidget2.setItemWidget(item_container,item)
-                
+                    
+    def changeEvent(self, event):
+        if event.type() == QEvent.Type.LanguageChange:
+            self.ui.retranslateUi(self)
+        return super().changeEvent(event)
+        
+
     
         
