@@ -58,6 +58,6 @@ class Ui_AppConfigDialog(object):
 
     def retranslateUi(self, AppConfigDialog):
         AppConfigDialog.setWindowTitle(QCoreApplication.translate("AppConfigDialog", u"Dialog", None))
-        self.languageSelectoLabel.setText(QCoreApplication.translate("AppConfigDialog", u"Lingua (Language)", None))
+        self.languageSelectoLabel.setText(QCoreApplication.translate("AppConfigDialog", u"Lingua", None))
     # retranslateUi
 

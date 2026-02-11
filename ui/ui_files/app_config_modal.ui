@@ -20,7 +20,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="languageSelectoLabel">
         <property name="text">
-         <string>Lingua (Language)</string>
+         <string>Lingua</string>
         </property>
        </widget>
       </item>

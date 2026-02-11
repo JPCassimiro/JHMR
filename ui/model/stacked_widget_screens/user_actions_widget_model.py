@@ -1,8 +1,10 @@
 from ui.views.user_actions_widget_ui import Ui_usersWidgetForm
 from ui.model.dialogs.register_model import RegisterModel
 from ui.model.components.user_item_model import UserItemModel
+
 from PySide6.QtWidgets import QWidget, QListWidgetItem, QMessageBox
-from PySide6.QtCore import Signal, Qt
+from PySide6.QtCore import Signal, Qt, QEvent, QCoreApplication
+
 import re
 
 class UserActionsModel(QWidget):
@@ -128,8 +130,8 @@ class UserActionsModel(QWidget):
   
         else:
             warning = QMessageBox(self)
-            warning.setWindowTitle("Erro")
-            warning.setText("Preencha todos os campos origatórrios")
+            warning.setWindowTitle(QCoreApplication.translate("WarningText", "Erro"))
+            warning.setText(QCoreApplication.translate("WarningText", "Preencha todos os campos obrigatórios"))
             warning.setWindowModality(Qt.ApplicationModal)
             warning.show()
             self.register_modal.reset_values()
@@ -202,6 +204,12 @@ class UserActionsModel(QWidget):
                     item_container.setSizeHint(item.sizeHint())                
                     self.listWidget2.addItem(item_container)
                     self.listWidget2.setItemWidget(item_container,item)
-                
+                    
+    def changeEvent(self, event):
+        if event.type() == QEvent.Type.LanguageChange:
+            self.ui.retranslateUi(self)
+        return super().changeEvent(event)
+        
+
     
         

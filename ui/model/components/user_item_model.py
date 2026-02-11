@@ -1,9 +1,12 @@
 from ui.views.user_item_ui import Ui_userItemForm
 from ui.model.dialogs.register_model import RegisterModel
+
 from modules.log_class import logger
+
 from PySide6.QtWidgets import QWidget, QMessageBox
 from PySide6.QtGui import QPixmap
-from PySide6.QtCore import Signal, Qt
+from PySide6.QtCore import Signal, Qt, QCoreApplication
+
 import re
 
 class UserItemModel(QWidget):
@@ -82,8 +85,9 @@ class UserItemModel(QWidget):
                 self.updateList.emit(self.item_id)
         else:
             warning = QMessageBox(self)
-            warning.setWindowTitle("Erro")
-            warning.setText("Preencha todos os campos obrigatórios")
+            warning.setWindowTitle(QCoreApplication.translate("WarningText", "Erro"))
+            warning.setText(QCoreApplication.translate("WarningText", "Preencha todos os campos obrigatórios"))
+
             warning.setWindowModality(Qt.ApplicationModal)
             warning.show()
             self.register_modal.reset_values()

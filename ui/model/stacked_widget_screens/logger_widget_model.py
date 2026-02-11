@@ -1,8 +1,10 @@
-from modules import bluetooth_comunication
 from PySide6.QtWidgets import QWidget, QPushButton
-from ui.views.logger_widget_ui import Ui_loggerForm
-from PySide6.QtCore import Signal
+from PySide6.QtCore import Signal, QEvent
+
+from modules import bluetooth_comunication
 from modules import log_class
+
+from ui.views.logger_widget_ui import Ui_loggerForm
 
 class LoggerWidgetModel(QWidget):
 
@@ -241,4 +243,9 @@ class LoggerWidgetModel(QWidget):
             self.sideMenuDisableSignal.emit(True)
         else:
             self.sideMenuDisableSignal.emit(False)                
-            
+
+    def changeEvent(self, event):
+        if event.type() == QEvent.Type.LanguageChange:
+            self.ui.retranslateUi(self)
+        return super().changeEvent(event)
+        

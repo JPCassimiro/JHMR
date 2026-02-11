@@ -7,7 +7,7 @@ from modules.log_class import logger
 from modules.json_writer import JsonWriterClass
 
 from PySide6.QtWidgets import QWidget, QRadioButton, QMessageBox
-from PySide6.QtCore import QRect, Qt, QCoreApplication
+from PySide6.QtCore import QRect, Qt, QCoreApplication, QEvent
 
 finger_base_value = {
     "repeat_key":False,
@@ -25,12 +25,12 @@ class ConfigWidgetModel(QWidget):
         super().__init__()
 
         self.string_list_dialog = [
-            QCoreApplication.translate("ConfigJoystickDialogText","Erro"),   
-            QCoreApplication.translate("ConfigJoystickDialogText","Escolha a tecla a ser emulada")            
+            "Erro",   
+            "Escolha a tecla a ser emulada"            
         ]        
 
         self.string_list_components = [
-            QCoreApplication.translate("ConfigJoystickComponents","Clique para selecionar")   
+            "Clique para selecionar"
         ]        
 
         #ui setup
@@ -168,8 +168,8 @@ class ConfigWidgetModel(QWidget):
             logger.debug("Selecione uma combinação de dedos")
         elif self.finger_info_dict["key"] == None:
             warning = QMessageBox(self)
-            warning.setWindowTitle(self.string_list_dialog[0])
-            warning.setText(self.string_list_dialog[1])
+            warning.setWindowTitle(QCoreApplication.translate("ConfigJoystickDialogText",self.string_list_dialog[0]))
+            warning.setText(QCoreApplication.translate("ConfigJoystickDialogText",self.string_list_dialog[1]))
             warning.setWindowModality(Qt.ApplicationModal)
             warning.show()
         else:
@@ -233,7 +233,7 @@ class ConfigWidgetModel(QWidget):
     def reset_screen(self):
         self.repeatOffButton.setChecked(True)
         self.repeatOnButton.setChecked(False)
-        self.pressureButton.setText(self.string_list_components[0])
+        self.pressureButton.setText(QCoreApplication.translate("ConfigJoystickComponents",self.string_list_components[0]))
         self.durationSlider.setValue(finger_base_value["duration"])
         self.ui.optionsContainer.setEnabled(False)
         for radio in self.ui.fingerButtonContainer_2.findChildren(QRadioButton):
@@ -308,3 +308,10 @@ class ConfigWidgetModel(QWidget):
             print(self.nunchuck_info_dict)
         self.key_select_modal.selected_key = None
         self.key_select_modal.z_c_key_mode = 0
+
+
+    def changeEvent(self, event):
+        if event.type() == QEvent.Type.LanguageChange:
+            self.ui.retranslateUi(self)
+        return super().changeEvent(event)
+        
