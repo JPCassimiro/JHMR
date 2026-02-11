@@ -17,30 +17,26 @@
 <context>
     <name>AppConfigDialogText</name>
     <message>
-        <location filename="../ui/model/dialogs/app_config_dialog_model.py" line="13"/>
         <source>Configuração do aplicativo</source>
-        <translation>App configuration</translation>
+        <translation type="vanished">App configuration</translation>
     </message>
 </context>
 <context>
     <name>ConfigJoystickComponents</name>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="33"/>
         <source>Clique para selecionar</source>
-        <translation>Click to select</translation>
+        <translation type="vanished">Click to select</translation>
     </message>
 </context>
 <context>
     <name>ConfigJoystickDialogText</name>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="28"/>
         <source>Erro</source>
-        <translation>Error</translation>
+        <translation type="vanished">Error</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="29"/>
         <source>Escolha a tecla a ser emulada</source>
-        <translation>Choose a key to be emulated</translation>
+        <translation type="vanished">Choose a key to be emulated</translation>
     </message>
 </context>
 <context>
@@ -94,67 +90,67 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>GraphText</name>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="23"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="78"/>
         <source>Mínimo</source>
         <translation>Little</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="24"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="79"/>
         <source>Anelar</source>
         <translation>Ring</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="25"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="80"/>
         <source>Médio</source>
         <translation>Middle</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="26"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="81"/>
         <source>Indicador</source>
         <translation>Index</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="27"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="82"/>
         <source>Estatisticas de pressão</source>
         <translation>Pressure statistics</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="28"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="83"/>
         <source>Média de pressão por dedo</source>
         <translation>Mean pressure by finger</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="29"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="84"/>
         <source>Média</source>
         <translation>Mean</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="30"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="85"/>
         <source>Maxima</source>
         <translation>Max</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="31"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="86"/>
         <source>Mínima</source>
         <translation>Min</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="32"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="87"/>
         <source>Uso por dedo</source>
         <translation>Use by finger</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="33"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="88"/>
         <source>Uso de dedos</source>
         <translation>Finger usage</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="34"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="89"/>
         <source>Sessão</source>
         <translation>Session</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="35"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="90"/>
         <source>Total de uso por dedo</source>
         <translation>Total use by finger</translation>
     </message>
@@ -162,20 +158,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>InstructionText</name>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="17"/>
         <source>Aperte os botões com toda força por 5 segundos</source>
-        <translation>Press as firmly as you can with all your fingers for 5 seconds</translation>
+        <translation type="vanished">Press as firmly as you can with all your fingers for 5 seconds</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="18"/>
         <source>Use seu dedão e indicador com toda força por 5 segundos</source>
-        <translation>Press as firmly as you can with your thumb and index finger for 5 seconds</translation>
+        <translation type="vanished">Press as firmly as you can with your thumb and index finger for 5 seconds</translation>
     </message>
 </context>
 <context>
     <name>KeySelectText</name>
     <message>
-        <location filename="../ui/model/dialogs/key_select_model.py" line="41"/>
+        <location filename="../ui/model/dialogs/key_select_model.py" line="78"/>
         <source>Use o teclado para selecionar</source>
         <translation>Use the keyboard to select a key</translation>
     </message>
@@ -185,12 +179,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <message>
         <location filename="../ui/ui_files/main_window.ui" line="31"/>
         <source>MainWindow</source>
-        <translation type="unfinished"></translation>
+        <translation>JHMR</translation>
     </message>
     <message>
         <location filename="../ui/ui_files/main_window.ui" line="176"/>
         <source>JHMR</source>
-        <translation type="unfinished"></translation>
+        <translation>JHMR</translation>
     </message>
     <message>
         <location filename="../ui/ui_files/main_window.ui" line="198"/>
@@ -227,52 +221,64 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>RegisterDialogText</name>
     <message>
-        <location filename="../ui/model/dialogs/register_model.py" line="18"/>
         <source>Cadastro</source>
-        <translation>Sing up</translation>
+        <translation type="vanished">Sing up</translation>
     </message>
     <message>
-        <location filename="../ui/model/dialogs/register_model.py" line="19"/>
         <source>Confirmar</source>
-        <translation>Confirm</translation>
+        <translation type="vanished">Confirm</translation>
     </message>
     <message>
-        <location filename="../ui/model/dialogs/register_model.py" line="20"/>
         <source>Cancelar</source>
-        <translation>Cancel</translation>
+        <translation type="vanished">Cancel</translation>
     </message>
 </context>
 <context>
     <name>UserStatsDialogText</name>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="40"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="95"/>
         <source>Confirmar</source>
         <translation>Confirm</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="41"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="96"/>
         <source>Cancelar</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="42"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="97"/>
         <source>Deseja excluir a sessão selecionada?</source>
         <translation>Delete selected session?</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="43"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="98"/>
         <source>Aviso</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="44"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="99"/>
         <source>Sucesso</source>
         <translation>Success</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="45"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="100"/>
         <source>Sessão de id {id}, do usuário {user} removida</source>
         <translation>Session of id {id}, from user {user} has been deleted</translation>
+    </message>
+</context>
+<context>
+    <name>WarningText</name>
+    <message>
+        <location filename="../ui/model/components/user_item_model.py" line="88"/>
+        <location filename="../ui/model/stacked_widget_screens/user_actions_widget_model.py" line="133"/>
+        <source>Erro</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/components/user_item_model.py" line="89"/>
+        <location filename="../ui/model/stacked_widget_screens/user_actions_widget_model.py" line="134"/>
+        <source>Preencha todos os campos obrigatórios</source>
+        <translation>Fill all the obligatory fields</translation>
     </message>
 </context>
 <context>
@@ -425,7 +431,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <message>
         <location filename="../ui/ui_files/end_config_modal.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Finished</translation>
     </message>
 </context>
 <context>
@@ -433,7 +439,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <message>
         <location filename="../ui/ui_files/key_select_modal.ui" line="29"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Use the keyboard to select a key</translation>
     </message>
     <message>
         <location filename="../ui/ui_files/key_select_modal.ui" line="43"/>
@@ -451,7 +457,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <message>
         <location filename="../ui/ui_files/log_modal.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -515,7 +521,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <message>
         <location filename="../ui/ui_files/register_dialog.ui" line="17"/>
         <source>Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Registration</translation>
     </message>
     <message>
         <location filename="../ui/ui_files/register_dialog.ui" line="29"/>

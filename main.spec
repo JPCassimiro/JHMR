@@ -8,6 +8,8 @@ a = Analysis(
     datas=[('./ui/qss/*.qss', './ui/qss'),
             ('./_internal/resources/imgs/*.png', './resources/imgs'),
             ('./_internal/resources/icons/*.png', './resources/icons'),
+            ('./_internal/resources/icons/*.ico', './resources/icons'),
+            ('./_internal/resources/icons/logo.ico', '.'),
             ('./_internal/resources/bin/*.exe','./resources/bin'),
             ('./_internal/resources/translations/*.qm','./resources/translations')],
     hiddenimports=[],
@@ -36,6 +38,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon = ('_internal/resources/icons/logo.ico')
 )
 coll = COLLECT(
     exe,

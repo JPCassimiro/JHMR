@@ -38,7 +38,6 @@ class KeySelectModel(QDialog):
         self.ui = Ui_keySelectModalDialog()
         self.ui.setupUi(self)
 
-        self.setWindowTitle(QCoreApplication.translate("KeySelectText","Use o teclado para selecionar"))
         self.setWindowModality(Qt.ApplicationModal)
 
         self.selected_key = None
@@ -73,6 +72,12 @@ class KeySelectModel(QDialog):
         self.accepted.connect(self.accepted_operation_handler)
         
 
+        self.set_ui_text()
+
+    def set_ui_text(self):
+        self.setWindowTitle(QCoreApplication.translate("KeySelectText","Use o teclado para selecionar"))
+        
+
     def showEvent(self, arg__1):
         for b in self.buttonBox.buttons():
             b.clearFocus()
@@ -104,7 +109,13 @@ class KeySelectModel(QDialog):
         
     def accepted_operation_handler(self):
         self.keyDisplayer.clear()
-
+        
+    def changeEvent(self, event):
+        if event.type() == QEvent.Type.LanguageChange:
+            self.ui.retranslateUi(self)
+            self.set_ui_text()
+        return super().changeEvent(event)
+        
 
 class KeyPressHandler(QObject):
     
@@ -133,8 +144,3 @@ class KeyPressHandler(QObject):
         if key_code in key_map:
             return key_map[key_code]
 
-    def changeEvent(self, event):
-        if event.type() == QEvent.Type.LanguageChange:
-            self.ui.retranslateUi(self)
-        return super().changeEvent(event)
-        

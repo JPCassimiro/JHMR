@@ -9,8 +9,9 @@ from ui.model.stacked_widget_screens.user_stats_model import UserStatsModel
 from ui.model.dialogs.log_model import LogModel
 from ui.model.dialogs.app_config_dialog_model import AppConfigModel
 
-from PySide6.QtWidgets import QPushButton, QMainWindow, QApplication, QWidget
-from PySide6.QtCore import QEvent
+from PySide6.QtWidgets import QPushButton, QMainWindow, QApplication
+from PySide6.QtCore import QEvent, QCoreApplication, Qt
+from PySide6.QtGui import QPixmap
 
 from modules.serial_communication import SerialCommClass
 from modules.db_functions import DbClass
@@ -24,10 +25,27 @@ class MainMenuWindow(QMainWindow):
         self.dbHandleClass = DbClass()
         self.logModel = LogModel()
 
+        #setup translatable strings
+        self.string_list_components = [
+            "JHMR"
+        ]
+        
         #set main windows
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.setWindowTitle("JHMR")
+        self.setWindowTitle(QCoreApplication.translate("MainMenuText", self.string_list_components[0]))
+
+        
+        #get logo label
+        self.logoLabel = self.ui.logoLabel
+        self.logoImg = QPixmap()
+        if self.logoImg.load("_internal/resources/icons/main_menu_logo.png"):
+            self.logoLabel.setMaximumHeight(64)
+            self.logoLabel.setMaximumWidth(64)
+            self.logoLabel.setMinimumHeight(64)
+            self.logoLabel.setMinimumWidth(64)
+            self.logoLabel.setPixmap(self.logoImg)
+            self.logoLabel.setScaledContents(True)
         
         #get stackabledWidget
         self.stackedWidget = self.ui.stackedWidget

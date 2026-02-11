@@ -108,11 +108,20 @@ class Ui_MainWindow(object):
 
         self.sideMenu.addItem(self.verticalSpacer_2)
 
-        self.logoLabel = QLabel(self.sideMenu_2)
+        self.logoContainer = QWidget(self.sideMenu_2)
+        self.logoContainer.setObjectName(u"logoContainer")
+        self.horizontalLayout_3 = QHBoxLayout(self.logoContainer)
+        self.horizontalLayout_3.setSpacing(0)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.logoLabel = QLabel(self.logoContainer)
         self.logoLabel.setObjectName(u"logoLabel")
         self.logoLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.sideMenu.addWidget(self.logoLabel)
+        self.horizontalLayout_3.addWidget(self.logoLabel)
+
+
+        self.sideMenu.addWidget(self.logoContainer)
 
         self.connectionMenuButton = QPushButton(self.sideMenu_2)
         self.connectionMenuButton.setObjectName(u"connectionMenuButton")

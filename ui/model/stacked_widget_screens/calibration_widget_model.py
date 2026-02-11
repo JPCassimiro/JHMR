@@ -5,6 +5,7 @@ from modules.log_class import logger
 from PySide6.QtWidgets import QWidget
 from PySide6.QtGui import QPixmap
 from PySide6.QtCore import QTimer, Signal, QCoreApplication, QEvent
+
 class CalibrationWidgetModel(QWidget):
 
     pValuesSignal = Signal(list)
@@ -65,20 +66,18 @@ class CalibrationWidgetModel(QWidget):
         try:
             img = QPixmap()
             if img.load(img_path):
+                self.instructionImage.clear()
+                self.instructionImage.setMinimumHeight(0)
+                self.instructionImage.setMinimumWidth(0)
                 self.instructionImage.setMaximumWidth(width)
                 self.instructionImage.setMaximumHeight(height)
+                if self.calibration_step == 0:
+                    self.instructionImage.setMinimumWidth(width)
+                    self.instructionImage.setMinimumHeight(height)
                 self.instructionImage.radius = radius
-                # self.instructionImage.updateGeometry()
-                # scaled_img = img.scaled(
-                #     width,
-                #     height,
-                #     Qt.AspectRatioMode.KeepAspectRatio,
-                #     Qt.TransformationMode.SmoothTransformation
-                # )
+                self.instructionImage.updateGeometry()
                 self.instructionImage.setPixmap(img)
                 self.instructionImage.setScaledContents(True)
-                self.instructionImage.setSizePolicy()
-                # self.instructionImage.adjustSize()
 
             else:
                 logger.error(f"Erro ao cerregar imagem no caminho: {img_path}")

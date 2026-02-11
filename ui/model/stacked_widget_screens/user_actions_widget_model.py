@@ -3,7 +3,7 @@ from ui.model.dialogs.register_model import RegisterModel
 from ui.model.components.user_item_model import UserItemModel
 
 from PySide6.QtWidgets import QWidget, QListWidgetItem, QMessageBox
-from PySide6.QtCore import Signal, Qt, QEvent
+from PySide6.QtCore import Signal, Qt, QEvent, QCoreApplication
 
 import re
 
@@ -130,8 +130,8 @@ class UserActionsModel(QWidget):
   
         else:
             warning = QMessageBox(self)
-            warning.setWindowTitle("Erro")
-            warning.setText("Preencha todos os campos origatórrios")
+            warning.setWindowTitle(QCoreApplication.translate("WarningText", "Erro"))
+            warning.setText(QCoreApplication.translate("WarningText", "Preencha todos os campos obrigatórios"))
             warning.setWindowModality(Qt.ApplicationModal)
             warning.show()
             self.register_modal.reset_values()

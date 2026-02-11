@@ -15,9 +15,9 @@ class RegisterModel(QDialog):
         super().__init__()
         
         self.string_list_components = [
-            QCoreApplication.translate("RegisterDialogText","Cadastro"),
-            QCoreApplication.translate("RegisterDialogText","Confirmar"),
-            QCoreApplication.translate("RegisterDialogText","Cancelar")
+            "Cadastro",
+            "Confirmar",
+            "Cancelar"
         ]
 
         #ui setup
@@ -26,7 +26,6 @@ class RegisterModel(QDialog):
 
         self.infoDict = infoDictBase.copy()
         
-        self.setWindowTitle(self.string_list_components[0])
         self.setWindowModality(Qt.ApplicationModal)
         
         self.current_mode = 0 #0 = create, 1 = update
@@ -38,9 +37,6 @@ class RegisterModel(QDialog):
         self.descriptionEdit = self.ui.descriptionEdit
         self.imageSelectButton = self.ui.imageSelectButton
 
-        #edit ok and cancel button names
-        self.ui.buttonBox.button(QDialogButtonBox.Ok).setText(self.string_list_components[1])
-        self.ui.buttonBox.button(QDialogButtonBox.Cancel).setText(self.string_list_components[2])
 
         #connections
         self.imageSelectButton.clicked.connect(self.select_image_handler)
@@ -48,6 +44,16 @@ class RegisterModel(QDialog):
         self.descriptionEdit.textChanged.connect(self.description_changed_handler)
         
         self.finished.connect(self.text_normalization)
+
+        self.set_ui_text()
+
+    def set_ui_text(self):
+        self.setWindowTitle(QCoreApplication.translate("RegisterDialogText", "Cadastro"))
+
+        #edit ok and cancel button names
+        self.ui.buttonBox.button(QDialogButtonBox.Ok).setText(QCoreApplication.translate("RegisterDialogText", "Confirmar"))
+        self.ui.buttonBox.button(QDialogButtonBox.Cancel).setText(QCoreApplication.translate("RegisterDialogText", "Cancelar"))
+
 
     def text_normalization(self):
         if self.infoDict["name"] != None and self.infoDict["details"] != None:
@@ -80,5 +86,6 @@ class RegisterModel(QDialog):
     def changeEvent(self, event):
         if event.type() == QEvent.Type.LanguageChange:
             self.ui.retranslateUi(self)
+            self.set_ui_text()
         return super().changeEvent(event)
         
