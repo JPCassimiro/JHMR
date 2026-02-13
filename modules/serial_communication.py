@@ -133,7 +133,6 @@ class SerialCommClass(QObject):
             self.ser.readyRead.connect(self.recieve_message)
         elif op == 1:#use_data_collector
             self.ser.readyRead.connect(self.recieve_use_data_message)
-            
 
     def start_timer(self):
         self.timer.start(1000)

@@ -17,15 +17,19 @@
 <context>
     <name>AppConfigDialogText</name>
     <message>
+        <location filename="../ui/model/dialogs/app_config_dialog_model.py" line="13"/>
+        <location filename="../ui/model/dialogs/app_config_dialog_model.py" line="64"/>
         <source>Configuração do aplicativo</source>
-        <translation type="vanished">App configuration</translation>
+        <translation>App configuration</translation>
     </message>
 </context>
 <context>
     <name>ConfigJoystickComponents</name>
     <message>
+        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="33"/>
+        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="320"/>
         <source>Clique para selecionar</source>
-        <translation type="vanished">Click to select</translation>
+        <translation>Click to select</translation>
     </message>
 </context>
 <context>
@@ -64,6 +68,25 @@
     <message>
         <source>Sessão de id {id}, do usuário {user} removida</source>
         <translation type="vanished">Session of id {id}, from user {user} has been deleted</translation>
+    </message>
+</context>
+<context>
+    <name>EndConfigDialogText</name>
+    <message>
+        <location filename="../ui/model/components/end_config_model.py" line="14"/>
+        <location filename="../ui/model/components/end_config_model.py" line="48"/>
+        <source>Finalizado</source>
+        <translation>Finished</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/components/end_config_model.py" line="31"/>
+        <source>Erro ao configurar atributo</source>
+        <translation>Error while configuring a attribute</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/components/end_config_model.py" line="32"/>
+        <source>Atributo configurado com sucesso</source>
+        <translation>Sucess on configuring a attribute</translation>
     </message>
 </context>
 <context>
@@ -158,12 +181,16 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>InstructionText</name>
     <message>
+        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="18"/>
+        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="213"/>
         <source>Aperte os botões com toda força por 5 segundos</source>
-        <translation type="vanished">Press as firmly as you can with all your fingers for 5 seconds</translation>
+        <translation>Press as firmly as you can with all your fingers for 5 seconds</translation>
     </message>
     <message>
+        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="19"/>
+        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="214"/>
         <source>Use seu dedão e indicador com toda força por 5 segundos</source>
-        <translation type="vanished">Press as firmly as you can with your thumb and index finger for 5 seconds</translation>
+        <translation>Press as firmly as you can with your thumb and index finger for 5 seconds</translation>
     </message>
 </context>
 <context>
@@ -182,38 +209,37 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation>JHMR</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="176"/>
         <source>JHMR</source>
-        <translation>JHMR</translation>
+        <translation type="vanished">JHMR</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="198"/>
+        <location filename="../ui/ui_files/main_window.ui" line="219"/>
         <source>Conexão com joystick</source>
         <translation>Joystick connection</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="211"/>
+        <location filename="../ui/ui_files/main_window.ui" line="232"/>
         <source>Calibração</source>
         <translation>Calibration</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="218"/>
+        <location filename="../ui/ui_files/main_window.ui" line="239"/>
         <source>Configuração de botões</source>
         <translation>Button configuration</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="225"/>
+        <location filename="../ui/ui_files/main_window.ui" line="246"/>
         <source>Ações de usuário</source>
         <translation>User actions</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="232"/>
+        <location filename="../ui/ui_files/main_window.ui" line="253"/>
         <source>Estatísticas de uso</source>
         <translation>Usage statistics</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="293"/>
-        <location filename="../ui/ui_files/main_window.ui" line="303"/>
+        <location filename="../ui/ui_files/main_window.ui" line="314"/>
+        <location filename="../ui/ui_files/main_window.ui" line="324"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -221,16 +247,19 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>RegisterDialogText</name>
     <message>
+        <location filename="../ui/model/dialogs/register_model.py" line="51"/>
         <source>Cadastro</source>
-        <translation type="vanished">Sing up</translation>
+        <translation>Sing up</translation>
     </message>
     <message>
+        <location filename="../ui/model/dialogs/register_model.py" line="54"/>
         <source>Confirmar</source>
-        <translation type="vanished">Confirm</translation>
+        <translation>Confirm</translation>
     </message>
     <message>
+        <location filename="../ui/model/dialogs/register_model.py" line="55"/>
         <source>Cancelar</source>
-        <translation type="vanished">Cancel</translation>
+        <translation>Cancel</translation>
     </message>
 </context>
 <context>

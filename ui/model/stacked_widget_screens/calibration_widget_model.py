@@ -15,8 +15,8 @@ class CalibrationWidgetModel(QWidget):
         super().__init__()
         
         self.string_list_instruction = [
-            "Aperte os botões com toda força por 5 segundos",
-            "Use seu dedão e indicador com toda força por 5 segundos"
+            QCoreApplication.translate("InstructionText","Aperte os botões com toda força por 5 segundos"),
+            QCoreApplication.translate("InstructionText","Use seu dedão e indicador com toda força por 5 segundos")
         ]
         
         #setup ui
@@ -209,11 +209,15 @@ class CalibrationWidgetModel(QWidget):
                 return
 
     def update_instruction_ui(self):
+        self.string_list_instruction = [
+            QCoreApplication.translate("InstructionText","Aperte os botões com toda força por 5 segundos"),
+            QCoreApplication.translate("InstructionText","Use seu dedão e indicador com toda força por 5 segundos")
+        ]
         if self.calibration_step == 0:
-            self.instructionText.setText(QCoreApplication.translate("InstructionText",self.string_list_instruction[0]))
+            self.instructionText.setText(self.string_list_instruction[0])
             self.set_instruction_image(self.image_data[0][0],self.image_data[0][1],self.image_data[0][2],self.image_data[0][3])
         elif self.calibration_step == 1:
-            self.instructionText.setText(QCoreApplication.translate("InstructionText",self.string_list_instruction[1]))
+            self.instructionText.setText(self.string_list_instruction[1])
             self.set_instruction_image(self.image_data[1][0],self.image_data[1][1],self.image_data[1][2],self.image_data[1][3])
 
     def changeEvent(self, event):

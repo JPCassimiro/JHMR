@@ -191,7 +191,7 @@
           <item>
            <widget class="QLabel" name="logoLabel">
             <property name="text">
-             <string>JHMR</string>
+             <string notr="true">JHMR</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignmentFlag::AlignCenter</set>

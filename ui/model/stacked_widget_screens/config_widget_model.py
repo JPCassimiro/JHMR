@@ -30,7 +30,7 @@ class ConfigWidgetModel(QWidget):
         ]        
 
         self.string_list_components = [
-            "Clique para selecionar"
+            QCoreApplication.translate("ConfigJoystickComponents", "Clique para selecionar")
         ]        
 
         #ui setup
@@ -233,7 +233,8 @@ class ConfigWidgetModel(QWidget):
     def reset_screen(self):
         self.repeatOffButton.setChecked(True)
         self.repeatOnButton.setChecked(False)
-        self.pressureButton.setText(QCoreApplication.translate("ConfigJoystickComponents",self.string_list_components[0]))
+        print(f"reset_screen: {self.string_list_components[0]}")
+        self.pressureButton.setText(self.string_list_components[0])
         self.durationSlider.setValue(finger_base_value["duration"])
         self.ui.optionsContainer.setEnabled(False)
         for radio in self.ui.fingerButtonContainer_2.findChildren(QRadioButton):
@@ -285,7 +286,24 @@ class ConfigWidgetModel(QWidget):
     
     def handle_modal_finish(self):#!beter logic maybe?
         key = self.key_select_modal.selected_key
-        key_text = self.key_select_modal.selected_key
+        key_text = self.arrow_text_conversion(key)
+        if self.key_select_modal.z_c_key_mode == 0:
+            self.finger_info_dict.update({"key":key})
+            self.pressureButton.setText(key_text.upper())
+            print(self.finger_info_dict)
+        elif self.key_select_modal.z_c_key_mode == 1:
+            self.nunchuck_info_dict.update({"z_key":key})
+            self.ZKeyButton.setText(key_text.upper())
+            print(self.nunchuck_info_dict)
+        else:
+            self.nunchuck_info_dict.update({"c_key":key})
+            self.CKeyButton.setText(key_text.upper())
+            print(self.nunchuck_info_dict)
+        self.key_select_modal.selected_key = None
+        self.key_select_modal.z_c_key_mode = 0
+
+    def arrow_text_conversion(self,key):#chages literal word for directional arrows to icons
+        key_text = key
         if key == "UP":
             key_text = str("↑")
         elif key == "DOWN":
@@ -294,24 +312,23 @@ class ConfigWidgetModel(QWidget):
             key_text = str("←")
         elif key == "RIGHT":
             key_text = str("→")
-        if self.key_select_modal.z_c_key_mode == 0:
-            self.finger_info_dict.update({"key":key})
-            self.pressureButton.setText(key_text)
-            print(self.finger_info_dict)
-        elif self.key_select_modal.z_c_key_mode == 1:
-            self.nunchuck_info_dict.update({"z_key":key})
-            self.ZKeyButton.setText(key_text)
-            print(self.nunchuck_info_dict)
-        else:
-            self.nunchuck_info_dict.update({"c_key":key})
-            self.CKeyButton.setText(key_text)
-            print(self.nunchuck_info_dict)
-        self.key_select_modal.selected_key = None
-        self.key_select_modal.z_c_key_mode = 0
-
+        return key_text
 
     def changeEvent(self, event):
         if event.type() == QEvent.Type.LanguageChange:
+            self.string_list_components = [
+                QCoreApplication.translate("ConfigJoystickComponents", "Clique para selecionar")
+            ] 
             self.ui.retranslateUi(self)
+            if self.finger_info_dict["key"] != None:
+                key_text = self.arrow_text_conversion(self.finger_info_dict["key"])
+                self.pressureButton.setText(key_text.upper())
+            if self.nunchuck_info_dict["c_key"] != None:
+                key_text = self.arrow_text_conversion(self.nunchuck_info_dict["c_key"])
+                self.CKeyButton.setText(key_text.upper())
+            if self.nunchuck_info_dict["z_key"] != None:
+                key_text = self.arrow_text_conversion(self.nunchuck_info_dict["z_key"])
+                self.ZKeyButton.setText(key_text.upper())
+
         return super().changeEvent(event)
         

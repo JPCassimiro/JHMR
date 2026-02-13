@@ -1,5 +1,6 @@
 from PySide6.QtBluetooth import QBluetoothLocalDevice, QBluetoothServiceDiscoveryAgent, QBluetoothServiceInfo, QBluetoothDeviceDiscoveryAgent, QBluetoothDeviceInfo
 from PySide6.QtCore import QObject, Signal
+
 from modules.process_class import ProcessRunnerClass
 from modules.log_class import logger
 

@@ -10,7 +10,7 @@ class AppConfigModel(QDialog):
         super().__init__()
 
         self.string_list_components = [
-            "Configuração do aplicativo"
+            QCoreApplication.translate("AppConfigDialogText","Configuração do aplicativo")
         ]
 
         #setup ui
@@ -37,7 +37,7 @@ class AppConfigModel(QDialog):
 
 
     def set_ui_text(self):
-        self.setWindowTitle(QCoreApplication.translate("AppConfigDialogText",self.string_list_components[0]))
+        self.setWindowTitle(self.string_list_components[0])
             
 
     def language_comboBox_change_handler(self):
@@ -60,6 +60,9 @@ class AppConfigModel(QDialog):
     def changeEvent(self, event):
         if event.type() == QEvent.Type.LanguageChange:
             self.ui.retranslateUi(self)
+            self.string_list_components = [
+                QCoreApplication.translate("AppConfigDialogText","Configuração do aplicativo")
+            ]
             self.set_ui_text()
         return super().changeEvent(event)
         
