@@ -49,6 +49,7 @@ class BluetoothCommClass(QObject):
     ############################ discovery functions ###############################    
     #tries to get the desired service
     def on_service_found(self, service: QBluetoothServiceInfo):
+        print(f"on_service_found: {service.serviceName().lower()}")
         if(target_service_device_name in str(service.serviceName()).lower()):
             self.desired_service = service
             self.service_discovery.stop()

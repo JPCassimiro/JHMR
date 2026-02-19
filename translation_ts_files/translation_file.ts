@@ -90,67 +90,72 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>GraphText</name>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="78"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="85"/>
         <source>Mínimo</source>
         <translation>Little</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="79"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="86"/>
         <source>Anelar</source>
         <translation>Ring</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="80"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="87"/>
         <source>Médio</source>
         <translation>Middle</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="81"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="88"/>
         <source>Indicador</source>
         <translation>Index</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="82"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="89"/>
         <source>Estatisticas de pressão</source>
         <translation>Pressure statistics</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="83"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="90"/>
         <source>Média de pressão por dedo</source>
         <translation>Mean pressure by finger</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="84"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="91"/>
         <source>Média</source>
         <translation>Mean</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="85"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="92"/>
         <source>Maxima</source>
         <translation>Max</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="86"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="93"/>
         <source>Mínima</source>
         <translation>Min</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="87"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="94"/>
         <source>Uso por dedo</source>
         <translation>Use by finger</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="88"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="95"/>
         <source>Uso de dedos</source>
         <translation>Finger usage</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="89"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="96"/>
         <source>Sessão</source>
         <translation>Session</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="90"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="97"/>
+        <source>Paciente: {user}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="98"/>
         <source>Total de uso por dedo</source>
         <translation>Total use by finger</translation>
     </message>
@@ -236,32 +241,32 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>UserStatsDialogText</name>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="95"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="104"/>
         <source>Confirmar</source>
         <translation>Confirm</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="96"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="105"/>
         <source>Cancelar</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="97"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="106"/>
         <source>Deseja excluir a sessão selecionada?</source>
         <translation>Delete selected session?</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="98"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="107"/>
         <source>Aviso</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="99"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="108"/>
         <source>Sucesso</source>
         <translation>Success</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="100"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="109"/>
         <source>Sessão de id {id}, do usuário {user} removida</source>
         <translation>Session of id {id}, from user {user} has been deleted</translation>
     </message>
@@ -271,6 +276,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <message>
         <location filename="../ui/model/components/user_item_model.py" line="88"/>
         <location filename="../ui/model/stacked_widget_screens/user_actions_widget_model.py" line="133"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="220"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="297"/>
         <source>Erro</source>
         <translation>Error</translation>
     </message>
@@ -279,6 +286,26 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <location filename="../ui/model/stacked_widget_screens/user_actions_widget_model.py" line="134"/>
         <source>Preencha todos os campos obrigatórios</source>
         <translation>Fill all the obligatory fields</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="213"/>
+        <source>Sucesso</source>
+        <translation>Success</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="214"/>
+        <source>Exportação realizada com sucesso</source>
+        <translation>Data export successful</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="221"/>
+        <source>Erro na exportação</source>
+        <translation>Data export error</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="298"/>
+        <source>Selecione uma sessão</source>
+        <translation>Select a session</translation>
     </message>
 </context>
 <context>
@@ -605,9 +632,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation>Duration</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="136"/>
         <source>Use o botão direito do mouse nos gráficos para exportar dados</source>
-        <translation>Use the right mouse button to export data</translation>
+        <translation type="vanished">Use the right mouse button to export data</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/user_stats.ui" line="136"/>
+        <source>Use o botão direito do mouse nos gráficos para exportar na forma de imagem</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/ui_files/user_stats.ui" line="171"/>
@@ -616,37 +647,38 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </message>
     <message>
         <location filename="../ui/ui_files/user_stats.ui" line="178"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="188"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="195"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="205"/>
         <source>Resumo</source>
         <translation>Summary</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="242"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="252"/>
         <source>Tempo médio de sesões</source>
         <translation>Average session duration</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="249"/>
-        <location filename="../ui/ui_files/user_stats.ui" line="263"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="259"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="273"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="256"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="266"/>
         <source>Total de seções</source>
         <translation>Total number of sessions</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="301"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="311"/>
         <source>Mão direita</source>
         <translation>Right hand</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="311"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="321"/>
         <source>Mão esquerda</source>
         <translation>Left hand</translation>
     </message>

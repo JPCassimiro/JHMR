@@ -1,6 +1,8 @@
 from .log_class import logger
 from PySide6.QtCore import QProcess, Signal, QObject
 
+import csv
+
 class ProcessRunnerClass(QObject):
     processFinished = Signal(dict)
     
