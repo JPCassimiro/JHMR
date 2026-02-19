@@ -677,5 +677,7 @@ class UserStatsModel(QWidget):
             self.ui.retranslateUi(self)
             self.delete_charts()
             self.create_charts()
+            self.update_session_chart_value()
+            self.update_summary_charts()
         return super().changeEvent(event)
         

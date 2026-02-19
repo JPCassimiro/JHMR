@@ -152,7 +152,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <message>
         <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="97"/>
         <source>Paciente: {user}</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Patient: {user}</translation>
     </message>
     <message>
         <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="98"/>
