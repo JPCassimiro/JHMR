@@ -59,7 +59,7 @@ class SerialCommClass(QObject):
     def open_port(self):
         if not self.ser.isOpen():
            if not self.ser.open(QIODevice.ReadWrite):
-               print(f"error: {self.ser.errorString()}")
+               logger.error(f"Erro ao abrir porta serial: {self.ser.errorString()}")
 
     #gets message from model class and writes it
     def send_message(self, message):
@@ -85,6 +85,7 @@ class SerialCommClass(QObject):
             self.mesReceivedSignal.emit(m)
             logger.debug(f"Mensagem recebida: {m}")
              
+    #receives sensor readings
     def recieve_use_data_message(self):
         if self.pause_var != True:
             messages = []
@@ -134,7 +135,7 @@ class SerialCommClass(QObject):
         elif op == 1:#use_data_collector
             self.ser.readyRead.connect(self.recieve_use_data_message)
             
-
+    #on sucessfull read stop reading for 1 sec, deals with multiple messages of same value
     def start_timer(self):
         self.timer.start(1000)
         self.pause_var = True

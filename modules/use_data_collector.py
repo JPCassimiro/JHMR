@@ -1,7 +1,11 @@
-from PySide6.QtCore import QObject, QTimer
+from PySide6.QtCore import QObject, QTimer, Signal
+
 from modules.log_class import logger
+
 import time
 class DataCollectorClass(QObject):
+    errorOcurred = Signal(bool)
+
     def __init__(self, dbHandleClass, SerialCommClass,logModel):
         super().__init__()
         
@@ -49,31 +53,27 @@ class DataCollectorClass(QObject):
             self.send_serial_message("*L0")
 
     def generate_query(self,little,ring,middle,index):
-        print(f"generate_query index: {index}")
-        q = "insert into use_data (session_id,finger,pressure,hand) values (?,?,?,?);"
-        if self.current_session_index:
-            data = []
-            #4 same size arrays with x items
-            for i,v in enumerate(index):
-                if int(index[i]) > 0:
-                    data.append((self.current_session_index, 'index', int(index[i]), self.selected_hand))
-                else:
-                    del index[i]
-                if int(middle[i]) > 0:
-                    data.append((self.current_session_index, 'middle', int(middle[i]), self.selected_hand))
-                else:
-                    del middle[i]
-                if int(ring[i]) > 0:
-                    data.append((self.current_session_index, 'ring', int(ring[i]), self.selected_hand))
-                else:
-                    del ring[i]
-                if int(little[i]) > 0:
-                    data.append((self.current_session_index, 'little', int(little[i]), self.selected_hand))
-                else:
-                    del little[i]
-            return q,data
-        else:
-            logger.error(f"Não pode gerar um query para estatisticas de uso, paciente não selecionado")
+        try:
+            q = "insert into use_data (session_id,finger,pressure,hand) values (?,?,?,?);"
+            if self.current_session_index:
+                data = []
+                #4 same size arrays with x items
+                for i,v in enumerate(index):
+                    if int(index[i]) > 0:
+                        data.append((self.current_session_index, 'index', int(index[i]), self.selected_hand))
+                    if int(middle[i]) > 0:
+                        data.append((self.current_session_index, 'middle', int(middle[i]), self.selected_hand))
+                    if int(ring[i]) > 0:
+                        data.append((self.current_session_index, 'ring', int(ring[i]), self.selected_hand))
+                    if int(little[i]) > 0:
+                        data.append((self.current_session_index, 'little', int(little[i]), self.selected_hand))
+                return q,data
+            else:
+                logger.error(f"Não pode gerar um query para estatisticas de uso, paciente não selecionado")
+        except Exception as e:
+            logger.error(f"Erro durante a geração da query para entrada de dados no BD: {e}")
+            self.message_buffer = [[],[],[],[]]
+            self.errorOcurred.emit(True)
             
     def start_data_collection(self,ms):
         self.timer.start(ms)

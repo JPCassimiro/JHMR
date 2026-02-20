@@ -71,12 +71,21 @@ class UserStatsModel(QWidget):
         self.exportSessionCSVButton.clicked.connect(self.export_session_handler)
         self.csvWriter.exportEnd.connect(self.end_export_handle)
         self.csvWriter.exportError.connect(self.error_export_handle)
+        self.dataCollectorHandler.errorOcurred.connect(self.data_collection_error_handle)
 
         #create charts
         self.session_chart_layout_widget = None
         self.summary_chart_layout_widget = None
         self.create_charts()
         
+    def data_collection_error_handle(self):
+        warning = QMessageBox(self)
+        warning.setWindowTitle(QCoreApplication.translate("WarningText", "Erro"))
+        warning.setText(QCoreApplication.translate("WarningText", "Erro na coleta, dados podem ter sido perdidos"))
+        warning.setWindowModality(Qt.ApplicationModal)
+        warning.show()
+        self.stop_button_handler()
+    
     def create_charts(self):
         #setup text to be translated
         
@@ -338,6 +347,8 @@ class UserStatsModel(QWidget):
         self.dataCollectorHandler.stop_data_collection()
         self.button_toggler(self.stopListening)
         self.update_session_chart_value()
+        self.update_summary_charts()
+
         
     def comboBox_change_handler(self):
         current_index = self.sessionComboBox.currentData()
