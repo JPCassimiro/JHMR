@@ -84,7 +84,11 @@ class UserStatsModel(QWidget):
         warning.setText(QCoreApplication.translate("WarningText", "Erro na coleta, dados podem ter sido perdidos"))
         warning.setWindowModality(Qt.ApplicationModal)
         warning.show()
-        self.stop_button_handler()
+        if self.dataCollectorHandler.start_watch == True:
+            self.stop_button_handler()
+        # elif self.dataCollectorHandler.start_watch = False
+            # self.stop_button_handler()
+
     
     def create_charts(self):
         #setup text to be translated

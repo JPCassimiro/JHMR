@@ -39,18 +39,23 @@ class DataCollectorClass(QObject):
         self.start_checker()
         
     def start_checker(self):
-        if self._start_watch != False:
-            self.start_data_collection(2500)
-            self.send_serial_message("*L1")
-            time.sleep(0.5)#attemps to garantee that the response from L1 will be handled on the regular message listner
-            self.serialHandleClass.swap_message_listner(1)
-            self.serialHandleClass.mesReceivedSignal.connect(self.message_received_handler)
-        else:
-            self.timer.stop()
-            self.serialHandleClass.swap_message_listner(0)
-            self.serialHandleClass.mesReceivedSignal.disconnect(self.message_received_handler)
-            self.timeout_handle()
-            self.send_serial_message("*L0")
+        try:
+            if self._start_watch != False:
+                self.start_data_collection(2500)
+                self.send_serial_message("*L1")
+                time.sleep(0.5)#attemps to garantee that the response from L1 will be handled on the regular message listner
+                self.serialHandleClass.swap_message_listner(1)
+                self.serialHandleClass.mesReceivedSignal.connect(self.message_received_handler)
+            else:
+                self.timer.stop()
+                self.serialHandleClass.swap_message_listner(0)
+                self.serialHandleClass.mesReceivedSignal.disconnect(self.message_received_handler)
+                self.timeout_handle()
+                self.send_serial_message("*L0")
+        except Exception as e:
+            logger.error(f"Erro ao alterar o processo de coleta: {e}")
+            self.message_buffer = [[],[],[],[]]
+            self.errorOcurred.emit(True)
 
     def generate_query(self,little,ring,middle,index):
         try:
@@ -80,24 +85,28 @@ class DataCollectorClass(QObject):
         
     # start the process to send messages to the database
     def timeout_handle(self):
-        if any(self.message_buffer):
-            little_array = self.message_buffer[0]
-            ring_array = self.message_buffer[1]
-            middle_array = self.message_buffer[2]
-            index_array = self.message_buffer[3]
-            q,data = self.generate_query(little_array,ring_array,middle_array,index_array)
-            if q != "" and data:
-                self.insert_data(q,data)
-                self.message_buffer = [[],[],[],[]]
-        else:
-            logger.debug(f"Message buffer vazio: {self.message_buffer}")
+        try:
+            if any(self.message_buffer):
+                little_array = self.message_buffer[0]
+                ring_array = self.message_buffer[1]
+                middle_array = self.message_buffer[2]
+                index_array = self.message_buffer[3]
+                q,data = self.generate_query(little_array,ring_array,middle_array,index_array)
+                if q != "" and data:
+                    self.insert_data(q,data)
+                    self.message_buffer = [[],[],[],[]]
+            else:
+                logger.debug(f"Message buffer vazio: {self.message_buffer}")
+        except Exception as e:
+            logger.error(f"Erro ao iniciar o processo de padronização de leituras: {e}")
+            self.message_buffer = [[],[],[],[]]
+            self.errorOcurred.emit(True)
 
     def insert_data(self,q,data):
         res = self.dbHandleClass.execute_multiple_queries(q,data)
         if res:
             logger.debug(f"estatisticas de uso inseridos na tabela: {res[0][0]}")
         
-    
     def stop_data_collection(self):
         self.start_watch = False
 
