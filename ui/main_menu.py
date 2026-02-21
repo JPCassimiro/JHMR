@@ -160,6 +160,7 @@ class MainMenuWindow(QMainWindow):
                 clicked_button.setEnabled(False)
             else:
                 button.setEnabled(state)
+        self.appConfigButton.setEnabled(state)
         
     def app_config_button_handler(self):
         self.appConfigModal.show()

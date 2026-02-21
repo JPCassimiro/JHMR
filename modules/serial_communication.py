@@ -117,16 +117,25 @@ class SerialCommClass(QObject):
         return portName
     
     def find_port(self):
-        if self.device_mac_addr != "":
-            com_devices = self.c.query("SELECT * FROM Win32_PnPEntity WHERE Name LIKE '%(COM%'")
-            for com_device in com_devices:
-                if self.device_mac_addr in str(com_device.deviceID).lower():#found com port 
-                    start =  str(com_device.Name).lower().find("(com")
-                    end =  str(com_device.Name).lower().find(")",start)
-                    self.ser.setPortName(self.port_name_normalization(str(com_device.Name[start+1:end]).lower()))
-                    self.portSignal.emit(f"Porta do ESP32: {self.ser.portName()}")
-        else:
-            logger.error("Encontre o endereço MAC primeiro")
+        try:
+            logger.debug("find_port attempting to find port name")
+            if self.device_mac_addr != "":
+                logger.debug(f"find_port self.device_mac_addr:{self.device_mac_addr}")
+                com_devices = self.c.query("SELECT * FROM Win32_PnPEntity WHERE Name LIKE '%(COM%'")
+                logger.debug(f"find_port com_devices:{com_devices}")
+                for com_device in com_devices:
+                    if self.device_mac_addr in str(com_device.deviceID).lower():#found com port 
+                        logger.debug("find_port found com port")
+                        start =  str(com_device.Name).lower().find("(com")
+                        end =  str(com_device.Name).lower().find(")",start)
+                        self.ser.setPortName(self.port_name_normalization(str(com_device.Name[start+1:end]).lower()))
+                        self.portSignal.emit(f"Porta do ESP32: {self.ser.portName()}")
+                        logger.debug(f"find_port self.ser.portName():{self.ser.portName()}")
+            else:
+                logger.error("Encontre o endereço MAC primeiro")
+        except Exception as e:
+                logger.error("Erro no processo de obter porta COM")
+            
 
     def swap_message_listner(self,op = 0):
         self.ser.readyRead.disconnect()
