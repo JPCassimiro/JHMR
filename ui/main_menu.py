@@ -136,7 +136,7 @@ class MainMenuWindow(QMainWindow):
         self.patient_widget.info_dict = infoDict.copy()
         self.patient_widget.update_fields()
         if "id" in infoDict:
-            self.user_stats_widget.assing_user(infoDict["id"])
+            self.user_stats_widget.assing_user(infoDict["id"],infoDict["name"])
             self.config_widget.current_user = infoDict["id"]
         
     def stats_menu_button_handler(self):
@@ -160,6 +160,7 @@ class MainMenuWindow(QMainWindow):
                 clicked_button.setEnabled(False)
             else:
                 button.setEnabled(state)
+        self.appConfigButton.setEnabled(state)
         
     def app_config_button_handler(self):
         self.appConfigModal.show()

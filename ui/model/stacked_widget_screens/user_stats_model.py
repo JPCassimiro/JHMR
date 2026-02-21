@@ -1,5 +1,6 @@
 from ui.views.user_stats_ui import Ui_useStatisticsForm
 from modules.use_data_collector import DataCollectorClass
+from modules.csv_writer_module import CSVWriterClass
 
 from PySide6.QtWidgets import QWidget, QPushButton, QRadioButton, QMessageBox
 from modules.log_class import logger
@@ -23,11 +24,13 @@ class UserStatsModel(QWidget):
         #modules setup
         self.dataCollectorHandler = DataCollectorClass(dbHandleClass, SerialCommClass, LogModel)
         self.dbHandleClass = dbHandleClass
+        self.csvWriter = CSVWriterClass()
         
         #variables setup
         self.current_user = False
         self.selected_hand = 0
         self.latest_session = False
+        self.current_user_name = ""
 
         #get ui elements
         self.startListening = self.ui.startListening
@@ -41,6 +44,7 @@ class UserStatsModel(QWidget):
         self.rightHandButton = self.ui.rightHandButton
         self.newSessionButton = self.ui.newSessionButton
         self.deleteSessionButton = self.ui.deleteSessionButton
+        self.exportSessionCSVButton = self.ui.exportSessioCSVButton
 
         #ui element setup
         self.timelapse = "00:00:00"
@@ -64,12 +68,28 @@ class UserStatsModel(QWidget):
         self.rightHandButton.toggled.connect(self.hand_selector)
         self.newSessionButton.clicked.connect(self.new_session_button_handler)
         self.deleteSessionButton.clicked.connect(self.delete_session_handler)
+        self.exportSessionCSVButton.clicked.connect(self.export_session_handler)
+        self.csvWriter.exportEnd.connect(self.end_export_handle)
+        self.csvWriter.exportError.connect(self.error_export_handle)
+        self.dataCollectorHandler.errorOcurred.connect(self.data_collection_error_handle)
 
         #create charts
         self.session_chart_layout_widget = None
         self.summary_chart_layout_widget = None
         self.create_charts()
         
+    def data_collection_error_handle(self):
+        warning = QMessageBox(self)
+        warning.setWindowTitle(QCoreApplication.translate("WarningText", "Erro"))
+        warning.setText(QCoreApplication.translate("WarningText", "Erro na coleta, dados podem ter sido perdidos"))
+        warning.setWindowModality(Qt.ApplicationModal)
+        warning.show()
+        if self.dataCollectorHandler.start_watch == True:
+            self.stop_button_handler()
+        # elif self.dataCollectorHandler.start_watch = False
+            # self.stop_button_handler()
+
+    
     def create_charts(self):
         #setup text to be translated
         
@@ -87,7 +107,9 @@ class UserStatsModel(QWidget):
             QCoreApplication.translate("GraphText","Uso por dedo"),
             QCoreApplication.translate("GraphText","Uso de dedos"),
             QCoreApplication.translate("GraphText","Sessão"),
-            QCoreApplication.translate("GraphText","Total de uso por dedo")
+            QCoreApplication.translate("GraphText","Paciente: {user}"),
+            QCoreApplication.translate("GraphText","Total de uso por dedo"),
+            
         ]
 
         #dialog text
@@ -99,6 +121,7 @@ class UserStatsModel(QWidget):
             QCoreApplication.translate("UserStatsDialogText","Sucesso"),
             QCoreApplication.translate("UserStatsDialogText","Sessão de id {id}, do usuário {user} removida")
         ]
+        
         #session chart widget        
         pg.setConfigOption('background', '#F5F5F5')
         pg.setConfigOption('foreground', 'black')
@@ -106,6 +129,12 @@ class UserStatsModel(QWidget):
         self.ui.sessionChartContainer.layout().addWidget(self.session_chart_layout_widget)
         x_range = np.array([0,1,2,3])
         self.finger_name_labels = [(x_range[0],self.string_list_graphs[0]),(x_range[1],self.string_list_graphs[1]),(x_range[2],self.string_list_graphs[2]),(x_range[3],self.string_list_graphs[3])]
+        
+        #create session patient name label       
+        labelText = self.string_list_graphs[12].format(user = self.current_user_name)
+        self.sessionNameLabel = pg.LabelItem(labelText)
+        
+        self.session_chart_layout_widget.addItem(self.sessionNameLabel, col = 1, row = 2)
 
         #avarage pressure by finger chart
         self.avg_pressure = [0,0,0,0]
@@ -150,7 +179,11 @@ class UserStatsModel(QWidget):
         #summary chart widget
         self.summary_chart_layout_widget = pg.GraphicsLayoutWidget()
         self.ui.summaryChartContainer.layout().addWidget(self.summary_chart_layout_widget)
-        
+
+        #add patient name label
+        self.summaryNameLabel = pg.LabelItem(labelText)
+        self.summary_chart_layout_widget.addItem(self.summaryNameLabel, col = 2, row= 2)
+
         #create line charts
         self.little_info_array = [[1,2],[1,2]]
         self.ring_info_array = [[1,2],[1,2]]
@@ -187,12 +220,105 @@ class UserStatsModel(QWidget):
         self.plot_item_total_uses.getAxis('left').setLabel(text=self.string_list_graphs[11])
         self.plot_item_total_uses.setMouseEnabled(x=False, y=False)
         
+
+    def end_export_handle(self):
+        warning = QMessageBox(self)
+        warning.setWindowTitle(QCoreApplication.translate("WarningText", "Sucesso"))
+        warning.setText(QCoreApplication.translate("WarningText", "Exportação realizada com sucesso"))
+        warning.setWindowModality(Qt.ApplicationModal)
+        warning.show()
+
+    def error_export_handle(self):
+        warning = QMessageBox(self)
+        warning.setWindowTitle(QCoreApplication.translate("WarningText", "Erro"))
+        warning.setText(QCoreApplication.translate("WarningText", "Erro na exportação"))
+        warning.setWindowModality(Qt.ApplicationModal)
+        warning.show()
+
+    def export_session_handler(self):
+        #get user session data
+        if self.sessionComboBox.currentIndex() >= 0:
+            q = f""" 
+                    SELECT 
+                        u.finger,
+                        u.pressure,
+                        u.timestamp
+                    FROM use_data u
+                    JOIN session s ON u.session_id = s.id
+                    WHERE s.patient_id = ?
+                    AND s.id = ?
+                    AND u.hand = ?;"""
+            use_data = self.dbHandleClass.execute_single_query(q,[self.current_user,self.sessionComboBox.currentData(),self.selected_hand])
+
+            q = f"""SELECT session_date
+                    FROM session
+                    WHERE id = ?
+                    AND patient_id = ?;"""
+            session_date_string = self.dbHandleClass.execute_single_query(q,[self.sessionComboBox.currentData(),self.current_user])
+
+            q = f"""select name from patient where patient.id = ?;"""
+            patient_name = self.dbHandleClass.execute_single_query(q,[self.current_user])
+            
+            q = f"""
+                SELECT DISTINCT s.id, s.session_date
+                FROM session s
+                JOIN use_data u ON u.session_id = s.id
+                WHERE s.patient_id = ?
+                AND u.hand = ?
+                ORDER BY s.session_date;"""
+            session_by_hand = self.dbHandleClass.execute_single_query(q,[self.current_user,self.selected_hand])
+            session_map = {session_id: timestamp for session_id, timestamp in session_by_hand}
+            
+            ids, values = (self.little_info_array + [[], []])[:2]
+            little_map = [
+                (session_map.get(session_id), value)
+                for session_id, value in zip(ids, values)
+                if session_id in session_map
+            ]
+            ids, values = (self.ring_info_array + [[], []])[:2]
+            ring_map = [
+                (session_map.get(session_id), value)
+                for session_id, value in zip(ids, values)
+                if session_id in session_map
+            ]
+            ids, values = (self.middle_info_array + [[], []])[:2]
+            middle_map = [
+                (session_map.get(session_id), value)
+                for session_id, value in zip(ids, values)
+                if session_id in session_map
+            ]
+            ids, values = (self.index_info_array + [[], []])[:2]
+            index_map = [
+                (session_map.get(session_id), value)
+                for session_id, value in zip(ids, values)
+                if session_id in session_map
+            ]
+            
+            data_dict = {
+                "userId": self.current_user,
+                "userName": patient_name,
+                "userHand": "Esquerda" if self.selected_hand == 1 else "Direita",
+                "sessionDateString": session_date_string,
+                "raw_data": use_data,
+                "session_data": [[self.max_pressure,self.avg_pressure,self.min_pressure,self.times_pressed]],
+                "summary_data": [little_map,ring_map,middle_map,index_map,self.avg_pressure_summary,self.total_uses_summary]
+            }
+            self.csvWriter.export_user_data(data_dict)
+        else:
+            logger.error("Selecione uma sessão")
+            warning = QMessageBox(self)
+            warning.setWindowTitle(QCoreApplication.translate("WarningText", "Erro"))
+            warning.setText(QCoreApplication.translate("WarningText", "Selecione uma sessão"))
+            warning.setWindowModality(Qt.ApplicationModal)
+            warning.show()
+            
+            
+        
     def delete_charts(self):
         self.summary_chart_layout_widget.deleteLater()
         self.session_chart_layout_widget.deleteLater()
         # self.ui.sessionChartContainer.layout().removeWidget(self.session_chart_layout_widget)
         # self.ui.summaryChartContainer.layout().removeWidget(self.summary_chart_layout_widget)
-            
         
     def delete_session_handler(self):
         def on_accept():
@@ -225,6 +351,8 @@ class UserStatsModel(QWidget):
         self.dataCollectorHandler.stop_data_collection()
         self.button_toggler(self.stopListening)
         self.update_session_chart_value()
+        self.update_summary_charts()
+
         
     def comboBox_change_handler(self):
         current_index = self.sessionComboBox.currentData()
@@ -232,7 +360,8 @@ class UserStatsModel(QWidget):
             self.startListening.setEnabled(False)
         else:
             self.startListening.setEnabled(True)
-        self.update_session_chart_value()    
+        self.update_session_chart_value()  
+        self.update_summary_charts()
     
     def start_button_handler(self):
         self.dataCollectorHandler.start_watch = True
@@ -243,9 +372,10 @@ class UserStatsModel(QWidget):
         if session_id:
             self.populate_comboBox()
 
-    def assing_user(self,user_index):
+    def assing_user(self,user_index,user_name):
         self.current_user = user_index
         self.dataCollectorHandler.current_user_index = self.current_user
+        self.current_user_name = user_name
         self.populate_comboBox()
 
     def create_session(self):
@@ -415,8 +545,8 @@ class UserStatsModel(QWidget):
         self.plot_item_avg_line.plot(self.index_info_array[0],self.index_info_array[1],pen ='purple',name=self.string_list_graphs[3])
         self.countSession.setText(str(self.sessionCount))
         self.avgSessionTime.setText(self.avgTimelapse)
-        
-    
+        self.summaryNameLabel.setText(self.string_list_graphs[12].format(user = self.current_user_name))
+
     def get_session_chart_value(self):
         self.sessionComboBox.setEnabled(False)
         qCount = f"select finger, COUNT(*) AS count from use_data where session_id = ? and hand = ? GROUP BY finger;"
@@ -503,6 +633,7 @@ class UserStatsModel(QWidget):
         self.max_chart.setOpts(height = self.max_pressure) 
         self.times_used_chart.setOpts(height = self.times_pressed)
         self.timelapseLabel.setText(self.timelapse)
+        self.sessionNameLabel.setText(self.string_list_graphs[12].format(user = self.current_user_name))
         
     def hand_selector(self):
         if self.sender().objectName() == "rightHandButton":
@@ -561,5 +692,7 @@ class UserStatsModel(QWidget):
             self.ui.retranslateUi(self)
             self.delete_charts()
             self.create_charts()
+            self.update_session_chart_value()
+            self.update_summary_charts()
         return super().changeEvent(event)
         

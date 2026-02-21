@@ -46,10 +46,12 @@ class BluetoothCommClass(QObject):
         self.runner.processFinished.connect(self.process_run_finish)
         
         self.check_current_paired()
-    
+        
+        
     ############################ discovery functions ###############################    
     #tries to get the desired service
     def on_service_found(self, service: QBluetoothServiceInfo):
+        print(f"on_service_found: {service.serviceName().lower()}")
         if(target_service_device_name in str(service.serviceName()).lower()):
             self.desired_service = service
             self.service_discovery.stop()
@@ -65,8 +67,14 @@ class BluetoothCommClass(QObject):
             if device_mode != QBluetoothLocalDevice.HostMode.HostConnectable:
                 self.emit_error("Adaptador Bluetooth esta desligado")
             else:
-                logger.debug("Começar descoberta por serviços")
+                self.service_discovery = None
+                self.service_discovery = QBluetoothServiceDiscoveryAgent()
                 self.desired_service = None
+                self.service_discovery.serviceDiscovered.connect(self.on_service_found)
+                self.service_discovery.finished.connect(lambda: self.emit_error("Dispositivo não encontrado") if not self.desired_service else None)
+                self.service_discovery.canceled.connect(self.end_discovery)
+                self.service_discovery.errorOccurred.connect(self.discovery_error)
+                logger.debug("Começar descoberta por serviços")
                 self.service_discovery.start()
         except Exception as e:
             logger.error(f"Erro ao começar descoberta de serviços bluetooth\nErr: {e}")
@@ -118,8 +126,8 @@ class BluetoothCommClass(QObject):
             self.runner.run(argStr=argStr)
         
     def process_run_finish(self, object):
-        self.emit_result(object)
         logger.debug(f"process_run_finish:{object}")
+        self.emit_result(object)
 
     def unpair_device(self):
         if not self.local_device:
@@ -148,14 +156,18 @@ class BluetoothCommClass(QObject):
                 self.emit_error("Adaptador Bluetooth esta desligado")
             else:
                 logger.debug("Começar descoberta por dispositvos")
-                self.desired_service = None
+                # self.desired_service = None
                 self.discovery_agent.start()
         except Exception as e:
             logger.error(f"Erro ao iniciar a descoberta de dispositivos: {e}")
         
     def on_hid_device_found(self, device = QBluetoothDeviceInfo):
-        if device.name().lower() == target_device_name.lower():
+        if device.name().lower() == target_device_name.lower() and self.local_device.pairingStatus(device.address()) == self.local_device.Pairing.Paired:
             self.desired_device = device
+            self.discovery_agent.stop()
+        elif device.name().lower() == target_device_name.lower():
+            self.desired_device = device
+            logger.debug(f"on_hid_device_found self.desired_device.address():{self.desired_device.address().toString()}")
             self.discovery_agent.stop()
         
     def hid_discovery_end(self):
@@ -170,6 +182,7 @@ class BluetoothCommClass(QObject):
         logger.error(f"Erro durante device_discovery: {err}")
 
     def hid_device_pair(self):
+        logger.debug(f"####hid_device_pair {self.desired_device.name()}")
         if self.desired_device:
             self.local_device.requestPairing(self.desired_device.address(), self.local_device.Pairing.Paired)
         else:
@@ -182,6 +195,8 @@ class BluetoothCommClass(QObject):
             self.emit_error("Adaptador Bluetooth esta desligado")
             return
         
+        logger.debug(f"hid_device_unpair {self.desired_device.name()}")
+        
         if self.desired_device:
             self.local_device.requestPairing(self.desired_device.address(), self.local_device.Pairing.Unpaired)
         else:
@@ -189,11 +204,18 @@ class BluetoothCommClass(QObject):
             
     #returns the proper message for when the device has been paired or unpaired
     def hid_pairEvent_finish(self):
-        if self.local_device.pairingStatus(self.desired_device.address()) == self.local_device.Pairing.Paired:
-            self.emit_result(f"Dispositivo HID {self.desired_device.name()} emparelhado")
+        logger.debug("hid_pairEvent_finish")
+        if self.desired_device:
+            logger.debug(f"hid_pairEvent_finish self.desired_device true - self.local_device.pairingStatus(self.desired_device.address()){self.local_device.pairingStatus(self.desired_device.address())}")
+            if self.local_device.pairingStatus(self.desired_device.address()) == self.local_device.Pairing.AuthorizedPaired:
+                logger.debug("hid_pairEvent_finish self.desired_device DEVICE PAIRED")
+                self.emit_result(f"Dispositivo HID {self.desired_device.name()} emparelhado")
+            else:
+                self.emit_result(f"Dispositivo HID desemparelhado")
+                self.desired_device = None
         else:
-            self.emit_result(f"Dispositivo HID {self.desired_device.name()} desemparelhado")
-            self.desired_device = None
+            self.emit_result(f"Dispositivo HID não encontrado")
+                
         
     #check for currently paired device
     def check_current_paired(self):

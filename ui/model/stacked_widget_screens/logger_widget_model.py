@@ -80,13 +80,12 @@ class LoggerWidgetModel(QWidget):
        
     #gets device addr            
     def end_discovery_handler(self,addr):
+        log_class.logger.debug(f"end_discovery_handler addr:{addr}")
         try:
             self.serialHandleClass.device_mac_addr = addr
             self.serialHandleClass.find_port()
         except Exception as e:
-            log_class.logger.exception(f"Erro ao encontrar dispositivos\nErro: {e}")
-        finally:
-            log_class.logger.debug(f"Sucesso na operação de descoberta, observe a janela do software")
+            log_class.logger.error(f"Erro ao encontrar dispositivos\nErro: {e}")
 
     #attemps to pair the esp32, also sets callbacks for the signals
     def pair_button_handler(self):
@@ -116,8 +115,7 @@ class LoggerWidgetModel(QWidget):
             self.handle_error_message(message)
             
         def on_result(message):
-            self.serialHandleClass.device_mac_addr = None#clear device info from serialHandleClass
-            self.serialHandleClass.ser.port = ''
+            self.clear_serial_info()
             self.button_state_toggle()
             self.append_log(message)
 
@@ -159,6 +157,7 @@ class LoggerWidgetModel(QWidget):
         self.bluetoothHandleclass.hid_device_unpair()
         
     def full_pair_handler(self):
+        log_class.logger.debug(f"full_pair_handler iniciado")
         self.button_state_toggle()
         self.append_log("Processo de conexão com joystick iniciado, este processo pode demorar...")
         self.append_log("Desemparelhando dispositivo HID.")
@@ -177,7 +176,6 @@ class LoggerWidgetModel(QWidget):
             
         self.bluetoothHandleclass.set_callback(on_error=on_error,on_result=on_result)
         self.bluetoothHandleclass.hid_device_unpair()
-        log_class.logger.debug(f"full_pair_handler iniciado")
         
     def full_pair_step_2(self):
         self.append_log("Desemparelhando dispositivo SPP.")
@@ -191,6 +189,8 @@ class LoggerWidgetModel(QWidget):
 
         def on_result(message):
             self.append_log(message["message"])
+            self.bluetoothHandleclass.desired_service = None
+            self.clear_serial_info()
             self.full_pair_step_3()
             
         self.bluetoothHandleclass.set_callback(on_error=on_error,on_result=on_result)
@@ -205,6 +205,7 @@ class LoggerWidgetModel(QWidget):
         def on_result(message):
             if message == True:
                 def f(message):
+                    self.append_log(message)
                     self.full_pair_step_4()
                 self.bluetoothHandleclass.set_callback(on_error=on_error,on_result=f)
                 self.bluetoothHandleclass.hid_device_pair()
@@ -224,16 +225,17 @@ class LoggerWidgetModel(QWidget):
                 self.button_state_toggle()#if a error message appears, break process
             else:
                 self.append_log("Encontrando o endereço MAC e porta serial do dispositivo, aguarde...")
+                # self.full_pair_step_5()
                 self.find_device_handler()
-            
+                # self.end_discovery_handler(addr = self.bluetoothHandleclass.desired_device.address().toString().replace(":","").lower())
+
         self.bluetoothHandleclass.set_callback(on_error=on_error,on_result=on_result)
         self.bluetoothHandleclass.pair_device()
         
-        
     def port_signal_handler(self,message):
+        log_class.logger.debug(f"port_signal_handler {message}")
         self.append_log(message)
         self.button_state_toggle()
-        log_class.logger.debug(f"{message}")
     
     #blocks/unblocks all buttons from this widget    
     def button_state_toggle(self):
@@ -243,6 +245,14 @@ class LoggerWidgetModel(QWidget):
             self.sideMenuDisableSignal.emit(True)
         else:
             self.sideMenuDisableSignal.emit(False)                
+
+    #clears port addr and mac
+    def clear_serial_info(self):
+        self.serialHandleClass.device_mac_addr = None#clear device info from serialHandleClass
+        self.serialHandleClass.ser.port = ''
+        if self.serialHandleClass.ser.isOpen():
+            self.serialHandleClass.ser.close()
+        self.serialHandleClass.ser.setPortName('')
 
     def changeEvent(self, event):
         if event.type() == QEvent.Type.LanguageChange:
