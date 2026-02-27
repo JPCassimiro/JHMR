@@ -1,4 +1,5 @@
 from ui.model.stacked_widget_screens.logger_widget_model import LoggerWidgetModel
+from ui.model.stacked_widget_screens.connection_manager_model import ConnectionManagerModel
 from ui.views.main_window_ui import Ui_MainWindow
 from ui.model.components.patient_widget_model import PatientWidgetModel
 from ui.model.components.title_widget_model import TitleWidgetModel
@@ -55,7 +56,8 @@ class MainMenuWindow(QMainWindow):
         self.titletWidgetContainer = self.ui.titleWidget
         
         #get widgets
-        self.logger_widget = LoggerWidgetModel(self.serialHandleClass, self.logModel)
+        # self.logger_widget = LoggerWidgetModel(self.serialHandleClass, self.logModel)
+        self.connection_manager_widget = ConnectionManagerModel(self.serialHandleClass, self.logModel)
         self.patient_widget = PatientWidgetModel()
         self.title_widget = TitleWidgetModel()
         self.config_widget = ConfigWidgetModel(self.serialHandleClass,self.logModel)
@@ -74,7 +76,7 @@ class MainMenuWindow(QMainWindow):
         self.user_actions_widget.assin_default_user()
         
         #setup stackedWidget
-        self.stackedWidget.insertWidget(0, self.logger_widget)
+        self.stackedWidget.insertWidget(0, self.connection_manager_widget)
         self.stackedWidget.insertWidget(1, self.config_widget)
         self.stackedWidget.insertWidget(2, self.calibration_widget)
         self.stackedWidget.insertWidget(3, self.user_actions_widget)
@@ -93,6 +95,8 @@ class MainMenuWindow(QMainWindow):
         self.logModalButton = self.ui.logModalButton
         self.appConfigButton = self.ui.appConfigButton
         
+        self.connectionMenuButton.setEnabled(False)#screen always starts at this widget
+        
         #setup button connections
         self.connectionMenuButton.clicked.connect(self.connection_menu_button_handler)
         self.configButton.clicked.connect(self.config_menu_button_handler)
@@ -105,7 +109,8 @@ class MainMenuWindow(QMainWindow):
         #button toggling connections
         self.calibration_widget.sideMenuDisableSignal.connect(lambda state: self.side_menu_button_disabler(state, self.calibrationButton))
         self.user_stats_widget.sideMenuDisableSignal.connect(lambda state: self.side_menu_button_disabler(state, self.statsButton))
-        self.logger_widget.sideMenuDisableSignal.connect(lambda state: self.side_menu_button_disabler(state, self.connectionMenuButton))
+        # self.logger_widget.sideMenuDisableSignal.connect(lambda state: self.side_menu_button_disabler(state, self.connectionMenuButton))
+        self.connection_manager_widget.sideMenuDisableSignal.connect(lambda state: self.side_menu_button_disabler(state, self.connectionMenuButton))
 
         self.stackedWidget.setCurrentIndex(0)
 
