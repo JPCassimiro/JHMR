@@ -57,14 +57,18 @@ class UserActionsModel(QWidget):
         self.defautlTherapistButton.clicked.connect(self.select_default_therapist)
         self.defaultPatientButton.clicked.connect(self.select_default_patient)
         
-        self.listWidget1.doubleClicked.connect(self.get_user)
-        self.listWidget2.doubleClicked.connect(self.get_user)
+        self.listWidget1.clicked.connect(self.get_user)
+        self.listWidget2.clicked.connect(self.get_user)
         
         self.populate_lists()
 
         self.default_p_dict, self.default_t_dict = self.get_default_users()
 
         self.register_modal.setWindowModality(Qt.ApplicationModal)
+        
+        #style adjustments
+        self.listWidget1.setSpacing(5)
+        self.listWidget2.setSpacing(5)
 
     def select_default_patient(self):
         signal_dict_p = self.default_p_dict.copy()

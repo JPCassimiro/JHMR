@@ -25,27 +25,27 @@ class Ui_listedDeviceForm(object):
         listedDeviceForm.resize(498, 94)
         self.gridLayout_2 = QGridLayout(listedDeviceForm)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.windowContainer = QWidget(listedDeviceForm)
-        self.windowContainer.setObjectName(u"windowContainer")
-        self.gridLayout = QGridLayout(self.windowContainer)
+        self.listedDeviceWindowContainer = QWidget(listedDeviceForm)
+        self.listedDeviceWindowContainer.setObjectName(u"listedDeviceWindowContainer")
+        self.gridLayout = QGridLayout(self.listedDeviceWindowContainer)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.listedDeviceIconLabel = QLabel(self.windowContainer)
+        self.listedDeviceIconLabel = QLabel(self.listedDeviceWindowContainer)
         self.listedDeviceIconLabel.setObjectName(u"listedDeviceIconLabel")
 
         self.gridLayout.addWidget(self.listedDeviceIconLabel, 0, 1, 1, 1)
 
-        self.listedDeviceNameLabel = QLabel(self.windowContainer)
+        self.listedDeviceNameLabel = QLabel(self.listedDeviceWindowContainer)
         self.listedDeviceNameLabel.setObjectName(u"listedDeviceNameLabel")
 
         self.gridLayout.addWidget(self.listedDeviceNameLabel, 0, 0, 1, 1)
 
-        self.listedDeviceAddressLabel = QLabel(self.windowContainer)
+        self.listedDeviceAddressLabel = QLabel(self.listedDeviceWindowContainer)
         self.listedDeviceAddressLabel.setObjectName(u"listedDeviceAddressLabel")
 
         self.gridLayout.addWidget(self.listedDeviceAddressLabel, 1, 0, 1, 1)
 
 
-        self.gridLayout_2.addWidget(self.windowContainer, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.listedDeviceWindowContainer, 0, 0, 1, 1)
 
 
         self.retranslateUi(listedDeviceForm)

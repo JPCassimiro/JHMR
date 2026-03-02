@@ -6,7 +6,7 @@ from modules.log_class import logger
 from ui.model.components.listed_device_item_model import ListedDeviceItemModel
 from ui.model.components.connected_device_item_model import ConnectedDeviceModel
 
-from PySide6.QtWidgets import QWidget, QListWidgetItem, QPushButton
+from PySide6.QtWidgets import QWidget, QListWidgetItem, QPushButton, QFrame
 from PySide6.QtCore import Qt, Signal
 
 #basic widget funcionalitty
@@ -41,6 +41,7 @@ class ConnectionManagerModel(QWidget):
         self.hidStateButton = self.ui.hidStateButton
         self.deviceListWidget = self.ui.deviceListWidget
         self.deviceContainer = self.ui.deviceContainer
+        self.deviceContainerFrame = self.ui.deviceContainerFrame
         
         #hide 2 buttons
         self.sppStateButton.hide()
@@ -58,7 +59,7 @@ class ConnectionManagerModel(QWidget):
 
         #connection setup_selected_device
         self.reloadListButton.clicked.connect(self.reload_button_handle)
-        self.deviceListWidget.doubleClicked.connect(self.device_select_handle)
+        self.deviceListWidget.clicked.connect(self.device_select_handle)
         self.pairDeviceButton.clicked.connect(self.pair_selected_device)
         self.serialHandleClass.portSignal.connect(self.port_found_signal)
         self.bluetoothHandle.discoveryEnd.connect(self.discovery_end_handler)#recives a dict with type(spp/hid)(string) and res(true/false)
@@ -66,6 +67,13 @@ class ConnectionManagerModel(QWidget):
 
         self.selected_list_item = None
         self.connected_device_watcher = False
+       
+    def device_container_style_change(self):
+        if self._connected_device_watcher == False:
+            logger.debug(f"device_container_style_change _connected_device_watcher:{self._connected_device_watcher}")
+            self.deviceContainerFrame.setStyleSheet("""background-color: #353231;""")
+        else:
+            self.deviceContainerFrame.setStyleSheet("""background-color: #F89E59;""")
 
     @property
     def selected_list_item(self):
@@ -96,7 +104,7 @@ class ConnectionManagerModel(QWidget):
             self.unpairDeviceButton.setEnabled(True)
         else:
             self.unpairDeviceButton.setEnabled(False)
-        
+        self.device_container_style_change()
 
     #clears every relevant variable, releses ui and clears list
     def nuke_screen_on_error(self):
@@ -448,16 +456,22 @@ class ConnectionManagerModel(QWidget):
             logger.debug(f"update_list powered_off_mac_dict:{powered_off_mac_dict}")
             logger.debug(f"update_list self.bluetoothHandle.powered_device_list:{self.bluetoothHandle.powered_device_list}")
 
+            logger.debug(f"update_list self.bluetoothHandle.hid_device_list:{self.bluetoothHandle.hid_device_list}")
+            logger.debug(f"update_list self.bluetoothHandle.spp_service_list:{self.bluetoothHandle.spp_service_list}")
+
             for i, device in enumerate(self.bluetoothHandle.hid_device_list):
                 if self.bluetoothHandle.paired_device == None or self.bluetoothHandle.paired_device.address() != device.address(): 
-                    
                     deviceDict = {
                         "listName": f"Dispositivo {i+1}",
                         "name": device.name(),
                         "mac": device.address().toString(),
-                        "id": i,
-                        "turned_on": False if device.address() in powered_off_mac_dict else True
+                        "id": i
                     }
+                    # if no value exist in powered_off_mac_dict a error is thrown so this stupid bullshit is here 
+                    if any(powered_off_mac_dict):
+                        deviceDict["turned_on"] = False if device.address() in powered_off_mac_dict else True
+                    else:
+                        deviceDict["turned_on"] = True
                     if device.address() == self.bluetoothHandle.spp_service_list[i].device().address():
                         deviceDict["uuid"] = self.bluetoothHandle.spp_service_list[i].serviceUuid().toString()
                         deviceDict["service_id"] = i
@@ -469,7 +483,7 @@ class ConnectionManagerModel(QWidget):
                     self.deviceListWidget.addItem(item_container)
                     self.deviceListWidget.setItemWidget(item_container,item)
         except Exception as e:
-            self.handle_process_ending_error("Erro no processo de paremaneto")
+            self.handle_process_ending_error(f"Erro no processo de busca: {e}")
                 
     def device_power_check(self,device):
         logger.debug(f"device_power_check device:{device}")
@@ -488,8 +502,3 @@ class ConnectionManagerModel(QWidget):
     
         self.bluetoothHandle.set_callback(on_error=on_error,on_result=on_result)
         self.bluetoothHandle.low_energy_check(device)
-        
-        
-        
-                
-        
