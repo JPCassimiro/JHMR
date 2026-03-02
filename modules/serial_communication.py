@@ -14,7 +14,7 @@ baud_rate = 600
 
 class SerialCommClass(QObject):
     
-    portSignal = Signal(str)
+    portSignal = Signal(bool)
     mesReceivedSignal = Signal(object)
     
     def __init__(self, parent=None):
@@ -129,12 +129,16 @@ class SerialCommClass(QObject):
                         start =  str(com_device.Name).lower().find("(com")
                         end =  str(com_device.Name).lower().find(")",start)
                         self.ser.setPortName(self.port_name_normalization(str(com_device.Name[start+1:end]).lower()))
-                        self.portSignal.emit(f"Porta do ESP32: {self.ser.portName()}")
+                        self.portSignal.emit(True)
                         logger.debug(f"find_port self.ser.portName():{self.ser.portName()}")
             else:
                 logger.error("Encontre o endereço MAC primeiro")
+                self.portSignal.emit(False)
+
         except Exception as e:
                 logger.error("Erro no processo de obter porta COM")
+                self.portSignal.emit(False)
+
             
 
     def swap_message_listner(self,op = 0):

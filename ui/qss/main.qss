@@ -271,13 +271,6 @@ QWidget#tabWidget::tab-bar {
    left: 15px;
 }
 
-QListWidget{
-   border: None;
-}
-
-QListWidget::item::hover{
-   background-color: #68cccccc;
-}
 
 /* ############################## UserStats widget ##############################*/
 /* ############################## UserStats widget ##############################*/
@@ -300,4 +293,62 @@ QWidget#handSelectorContainer>QRadioButton::indicator {
 
 QWidget#handSelectorContainer>QRadioButton::indicator:checked {
    background-color: #F89E59;
+}
+
+
+/* ############################## Connection manager widget ##############################*/
+/* ############################## Connection manager widget ##############################*/
+/* ############################## Connection manager widget ##############################*/
+
+/* saddly there are css changes inside the python class for the connection manager, in specific the device container */
+/* check the class for changes */
+
+QWidget#deviceContainerFrame{
+   border: 1px solid black;
+   border-radius: 10%;
+}
+
+QWidget#deviceContainer{
+   background: transparent;
+   border-radius: 10%;
+}
+
+/* ############################## List widgets ##############################*/
+/* ############################## List widgets ##############################*/
+/* ############################## List widgets ##############################*/
+
+QWidget#userItemForm{
+   background: transparent;
+}
+
+QWidget#userItemWidgetContainer{
+   background: transparent;
+}
+
+QWidget#listedDeviceForm{
+   background: transparent;
+}
+
+QWidget#listedDeviceWindowContainer{
+   background: transparent;
+}
+
+QListWidget::item:selected:active {
+   background-color: #F89E59
+}
+
+QListWidget::item {
+   background-color: #dedddd
+}
+
+QListWidget::item{
+   border: 1px solid black;
+   border-radius: 10%;
+}
+
+QListWidget{
+   border: 1px solid black;  
+   border-radius: 10%;
+   padding: 10%;
+   background: transparent;
 }
