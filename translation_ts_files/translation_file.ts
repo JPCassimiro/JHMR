@@ -17,15 +17,19 @@
 <context>
     <name>AppConfigDialogText</name>
     <message>
+        <location filename="../ui/model/dialogs/app_config_dialog_model.py" line="13"/>
+        <location filename="../ui/model/dialogs/app_config_dialog_model.py" line="64"/>
         <source>Configuração do aplicativo</source>
-        <translation type="vanished">App configuration</translation>
+        <translation>App configuration</translation>
     </message>
 </context>
 <context>
     <name>ConfigJoystickComponents</name>
     <message>
+        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="33"/>
+        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="320"/>
         <source>Clique para selecionar</source>
-        <translation type="vanished">Click to select</translation>
+        <translation>Click to select</translation>
     </message>
 </context>
 <context>
@@ -37,6 +41,23 @@
     <message>
         <source>Escolha a tecla a ser emulada</source>
         <translation type="vanished">Choose a key to be emulated</translation>
+    </message>
+</context>
+<context>
+    <name>DeviceText</name>
+    <message>
+        <source>Dispositivo {i+1}</source>
+        <translation type="obsolete">Device {num}</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/stacked_widget_screens/connection_manager_model.py" line="465"/>
+        <source>Dispositivo {num}</source>
+        <translation>Device {num}</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/components/listed_device_item_model.py" line="37"/>
+        <source>Desligado</source>
+        <translation>Off</translation>
     </message>
 </context>
 <context>
@@ -64,6 +85,25 @@
     <message>
         <source>Sessão de id {id}, do usuário {user} removida</source>
         <translation type="vanished">Session of id {id}, from user {user} has been deleted</translation>
+    </message>
+</context>
+<context>
+    <name>EndConfigDialogText</name>
+    <message>
+        <location filename="../ui/model/components/end_config_model.py" line="14"/>
+        <location filename="../ui/model/components/end_config_model.py" line="48"/>
+        <source>Finalizado</source>
+        <translation>Finished</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/components/end_config_model.py" line="31"/>
+        <source>Erro ao configurar atributo</source>
+        <translation>Error while configuring the joystick</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/components/end_config_model.py" line="32"/>
+        <source>Atributo configurado com sucesso</source>
+        <translation>Success configuring the joystick</translation>
     </message>
 </context>
 <context>
@@ -163,12 +203,16 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>InstructionText</name>
     <message>
+        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="18"/>
+        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="213"/>
         <source>Aperte os botões com toda força por 5 segundos</source>
-        <translation type="vanished">Press as firmly as you can with all your fingers for 5 seconds</translation>
+        <translation>Press as firmly as you can with all your fingers for 5 seconds</translation>
     </message>
     <message>
+        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="19"/>
+        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="214"/>
         <source>Use seu dedão e indicador com toda força por 5 segundos</source>
-        <translation type="vanished">Press as firmly as you can with your thumb and index finger for 5 seconds</translation>
+        <translation>Press as firmly as you can with your thumb and index finger for 5 seconds</translation>
     </message>
 </context>
 <context>
@@ -187,9 +231,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation>JHMR</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="194"/>
         <source>JHMR</source>
-        <translation>JHMR</translation>
+        <translation type="vanished">JHMR</translation>
     </message>
     <message>
         <location filename="../ui/ui_files/main_window.ui" line="219"/>
@@ -278,7 +321,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <name>WarningText</name>
     <message>
         <location filename="../ui/model/components/user_item_model.py" line="88"/>
-        <location filename="../ui/model/stacked_widget_screens/user_actions_widget_model.py" line="133"/>
+        <location filename="../ui/model/stacked_widget_screens/user_actions_widget_model.py" line="137"/>
         <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="83"/>
         <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="233"/>
         <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="310"/>
@@ -287,7 +330,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </message>
     <message>
         <location filename="../ui/model/components/user_item_model.py" line="89"/>
-        <location filename="../ui/model/stacked_widget_screens/user_actions_widget_model.py" line="134"/>
+        <location filename="../ui/model/stacked_widget_screens/user_actions_widget_model.py" line="138"/>
         <source>Preencha todos os campos obrigatórios</source>
         <translation>Fill all the obligatory fields</translation>
     </message>
@@ -489,6 +532,29 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </message>
 </context>
 <context>
+    <name>listedDeviceForm</name>
+    <message>
+        <location filename="../ui/ui_files/listed_device_item.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/listed_device_item.ui" line="23"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/listed_device_item.ui" line="30"/>
+        <source>Dispositivo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/listed_device_item.ui" line="37"/>
+        <source>deviceAddr</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>logDialogForm</name>
     <message>
         <location filename="../ui/ui_files/log_modal.ui" line="14"/>
@@ -499,8 +565,34 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>loggerForm</name>
     <message>
+        <location filename="../ui/ui_files/connection_manager.ui" line="26"/>
         <location filename="../ui/ui_files/logger_widget.ui" line="26"/>
         <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/connection_manager.ui" line="77"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/connection_manager.ui" line="87"/>
+        <source>Emparelhar dispositivo</source>
+        <translation>Pair device</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/connection_manager.ui" line="170"/>
+        <source>Desemparelhar dispositvo</source>
+        <translation>Unpair device</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/connection_manager.ui" line="177"/>
+        <source>Conectar/Desconectar SPP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/connection_manager.ui" line="184"/>
+        <source>Conectar/Desconectar HID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -583,6 +675,24 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <location filename="../ui/ui_files/register_dialog.ui" line="70"/>
         <source>Descrição (obrigatório)</source>
         <translation>Description (obligatory)</translation>
+    </message>
+</context>
+<context>
+    <name>selectedDeviceForm</name>
+    <message>
+        <location filename="../ui/ui_files/connected_device_item.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/connected_device_item.ui" line="23"/>
+        <location filename="../ui/ui_files/connected_device_item.ui" line="30"/>
+        <location filename="../ui/ui_files/connected_device_item.ui" line="37"/>
+        <location filename="../ui/ui_files/connected_device_item.ui" line="44"/>
+        <location filename="../ui/ui_files/connected_device_item.ui" line="51"/>
+        <location filename="../ui/ui_files/connected_device_item.ui" line="58"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -7,7 +7,7 @@ from ui.model.components.listed_device_item_model import ListedDeviceItemModel
 from ui.model.components.connected_device_item_model import ConnectedDeviceModel
 
 from PySide6.QtWidgets import QWidget, QListWidgetItem, QPushButton, QFrame
-from PySide6.QtCore import Qt, Signal
+from PySide6.QtCore import Qt, Signal, QEvent, QCoreApplication
 
 #basic widget funcionalitty
     #list all available joysticks
@@ -23,6 +23,7 @@ class ConnectionManagerModel(QWidget):
     def __init__(self, serialHandleClass, logModel):
 
         super().__init__()
+
 
         #modules setup
         self.bluetoothHandle = BluetoothCommClass()
@@ -177,9 +178,9 @@ class ConnectionManagerModel(QWidget):
     def show_connected_device(self):
         #generete device info dict
         deviceInfoDict = {
-            "mac": self.serialHandleClass.device_mac_addr,
+            "mac": self.selected_device[0].address().toString(),
             "name": self.selected_device[0].name(),
-            "port": self.serialHandleClass.ser.portName(),
+            "port": self.serialHandleClass.ser.portName().upper(),
             "hid_device": self.selected_device[0],
             "service": self.selected_device[1]
         }
@@ -462,7 +463,7 @@ class ConnectionManagerModel(QWidget):
             for i, device in enumerate(self.bluetoothHandle.hid_device_list):
                 if self.bluetoothHandle.paired_device == None or self.bluetoothHandle.paired_device.address() != device.address(): 
                     deviceDict = {
-                        "listName": f"Dispositivo {i+1}",
+                        "listName": i+1,
                         "name": device.name(),
                         "mac": device.address().toString(),
                         "id": i
@@ -482,9 +483,21 @@ class ConnectionManagerModel(QWidget):
                         item_container.setFlags(item_container.flags() & ~(Qt.ItemIsSelectable | Qt.ItemIsEnabled))
                     self.deviceListWidget.addItem(item_container)
                     self.deviceListWidget.setItemWidget(item_container,item)
+        except IndexError as e:
+            self.index_out_of_range_handler()
         except Exception as e:
             self.handle_process_ending_error(f"Erro no processo de busca: {e}")
-                
+            
+    def index_out_of_range_handler(self):
+        def on_error(message):
+            self.handle_process_ending_error(f"Erro na busca de dispositivos, é possivel que este erro tenha sido causado pela conexão do serviço SPP, conecte e desconecte o dispostivo SPP manualmente para garantir")
+
+        def on_result(message):
+            self.handle_process_ending_error(f"Erro na busca de dispositivos, é possivel que este erro tenha sido causado pela conexão do serviço SPP, conecte e desconecte o dispostivo SPP manualmente para garantir")
+
+        self.bluetoothHandle.set_callback(on_error=on_error,on_result=on_result)            
+        self.bluetoothHandle.unpair_all_devices()
+
     def device_power_check(self,device):
         logger.debug(f"device_power_check device:{device}")
         def on_error(message):
@@ -502,3 +515,9 @@ class ConnectionManagerModel(QWidget):
     
         self.bluetoothHandle.set_callback(on_error=on_error,on_result=on_result)
         self.bluetoothHandle.low_energy_check(device)
+
+    def changeEvent(self, event):
+        if event.type() == QEvent.Type.LanguageChange:
+            self.ui.retranslateUi(self)
+        return super().changeEvent(event)
+        

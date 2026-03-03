@@ -56,6 +56,11 @@ class Ui_selectedDeviceForm(object):
 
         self.deviceIconLabel = QLabel(self.windowContainer)
         self.deviceIconLabel.setObjectName(u"deviceIconLabel")
+        self.deviceIconLabel.setMinimumSize(QSize(32, 32))
+        self.deviceIconLabel.setMaximumSize(QSize(32, 32))
+        self.deviceIconLabel.setText(u"")
+        self.deviceIconLabel.setPixmap(QPixmap(u"_internal/resources/icons/joystick.png"))
+        self.deviceIconLabel.setScaledContents(True)
 
         self.gridLayout_2.addWidget(self.deviceIconLabel, 0, 1, 1, 1)
 
@@ -75,6 +80,5 @@ class Ui_selectedDeviceForm(object):
         self.hidCheckLabel.setText(QCoreApplication.translate("selectedDeviceForm", u"TextLabel", None))
         self.macLabel.setText(QCoreApplication.translate("selectedDeviceForm", u"TextLabel", None))
         self.deviceNameLabel.setText(QCoreApplication.translate("selectedDeviceForm", u"TextLabel", None))
-        self.deviceIconLabel.setText(QCoreApplication.translate("selectedDeviceForm", u"TextLabel", None))
     # retranslateUi
 

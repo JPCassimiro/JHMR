@@ -27,9 +27,10 @@ class ConnectedDeviceModel(QWidget):
         
         self.hidCheckLabel.hide()
         self.sppCheckLabel.hide()
-        self.deviceIconLabel.hide()
+        # self.deviceIconLabel.hide()
 
         self.update_fields(deviceInfoDict)
+        print(f"ConnectedDeviceModel self.deviceIconLabel:{self.deviceIconLabel.pixmap()}")
 
 
     def update_fields(self,deviceInfoDict):

@@ -56,7 +56,7 @@ class Ui_listedDeviceForm(object):
     def retranslateUi(self, listedDeviceForm):
         listedDeviceForm.setWindowTitle(QCoreApplication.translate("listedDeviceForm", u"Form", None))
         self.listedDeviceIconLabel.setText(QCoreApplication.translate("listedDeviceForm", u"TextLabel", None))
-        self.listedDeviceNameLabel.setText(QCoreApplication.translate("listedDeviceForm", u"deviceName", None))
+        self.listedDeviceNameLabel.setText(QCoreApplication.translate("listedDeviceForm", u"Dispositivo", None))
         self.listedDeviceAddressLabel.setText(QCoreApplication.translate("listedDeviceForm", u"deviceAddr", None))
     # retranslateUi
 

@@ -320,6 +320,23 @@ class BluetoothCommClass(QObject):
         logger.debug(f"low_energy_connect_handle signal")
         self.emit_result("Dispositivo ligado")
         
+    def unpair_all_devices(self):
+        try:
+            if not self.local_device:
+                self.emit_error("Adaptador Bluetooth não encontrado")
+                return
+            
+            device_mode = self.local_device.hostMode() 
+            
+            if device_mode != QBluetoothLocalDevice.HostMode.HostConnectable:
+                self.emit_error("Adaptador Bluetooth esta desligado")
+            else:
+                argumentList = ['-u']
+                argStr = ["_internal/resources/bin/btpair.exe",argumentList]
+                self.runner.run(argStr=argStr)
+        except Exception as e:
+            self.emit_error(f"Erro no processo de conexão: {e}")
+
     #sets the functions that will be used as callback on the model class
     def set_callback(self, on_result = None, on_error = None):
         self.on_error = on_error
