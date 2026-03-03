@@ -38,3 +38,4 @@ Execute o arquivo "main.exe"
 [No connection](https://www.flaticon.com/free-icon/no-connection_5089783?term=connection&page=1&position=30&origin=tag&related_id=5089783) - FlatIcon</br>
 [Group](https://www.flaticon.com/free-icon/group_681443?term=user&page=1&position=28&origin=tag&related_id=681443) - FlatIcon</br>
 [Pie Chart](https://www.flaticon.com/free-icon/pie-chart_2936690?term=stats&page=1&position=19&origin=search&related_id=2936690) - FlatIcon</br>
+[Joystick](https://www.flaticon.com/free-icon/joystick_9645575?term=joystick&page=1&position=4&origin=search&related_id=9645575) - FlatIcon</br>
