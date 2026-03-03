@@ -1,6 +1,6 @@
 from ui.views.user_stats_ui import Ui_useStatisticsForm
 from modules.use_data_collector import DataCollectorClass
-from modules.csv_writer_module import CSVWriterClass
+from modules.csv_writer import CSVWriterClass
 
 from PySide6.QtWidgets import QWidget, QPushButton, QRadioButton, QMessageBox
 from modules.log_class import logger
@@ -242,7 +242,7 @@ class UserStatsModel(QWidget):
                     SELECT 
                         u.finger,
                         u.pressure,
-                        u.timestamp
+                        datetime(u.timestamp,'-03:00')
                     FROM use_data u
                     JOIN session s ON u.session_id = s.id
                     WHERE s.patient_id = ?
@@ -250,7 +250,7 @@ class UserStatsModel(QWidget):
                     AND u.hand = ?;"""
             use_data = self.dbHandleClass.execute_single_query(q,[self.current_user,self.sessionComboBox.currentData(),self.selected_hand])
 
-            q = f"""SELECT session_date
+            q = f"""SELECT datetime(session_date,'-03:00')
                     FROM session
                     WHERE id = ?
                     AND patient_id = ?;"""
@@ -260,7 +260,7 @@ class UserStatsModel(QWidget):
             patient_name = self.dbHandleClass.execute_single_query(q,[self.current_user])
             
             q = f"""
-                SELECT DISTINCT s.id, s.session_date
+                SELECT DISTINCT s.id, datetime(s.session_date,'-03:00')
                 FROM session s
                 JOIN use_data u ON u.session_id = s.id
                 WHERE s.patient_id = ?
@@ -311,8 +311,6 @@ class UserStatsModel(QWidget):
             warning.setText(QCoreApplication.translate("WarningText", "Selecione uma sessão"))
             warning.setWindowModality(Qt.ApplicationModal)
             warning.show()
-            
-            
         
     def delete_charts(self):
         self.summary_chart_layout_widget.deleteLater()

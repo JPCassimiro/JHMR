@@ -30,7 +30,7 @@ class CSVWriterClass(QObject):
                 raw_data = [#list to struct
                     {
                         "finger": row[0],
-                        "pressure": row[1],
+                        "pressure": f"{row[1]:.3f}",
                         "timestamp": row[2]
                     }
                     for row in data["raw_data"]
@@ -45,21 +45,21 @@ class CSVWriterClass(QObject):
 
                 session_data = [#list to struct
                     {
-                        "max_little": row[0][0],
-                        "avg_little": row[1][0],
-                        "min_little": row[2][0],
+                        "max_little": f'{row[0][0]:.3f}',
+                        "avg_little": f'{row[1][0]:.3f}',
+                        "min_little": f'{row[2][0]:.3f}',
                         "total_presses_little": row[3][0],
-                        "max_ring": row[0][1],
-                        "avg_ring": row[1][1],
-                        "min_ring": row[2][1],
+                        "max_ring": f'{row[0][1]:.3f}',
+                        "avg_ring": f'{row[1][1]:.3f}',
+                        "min_ring": f'{row[2][1]:.3f}',
                         "total_presses_ring": row[3][1],
-                        "max_middle": row[0][2],
-                        "avg_middle": row[1][2],
-                        "min_middle": row[2][2],
+                        "max_middle": f'{row[0][2]:.3f}',
+                        "avg_middle": f'{row[1][2]:.3f}',
+                        "min_middle": f'{row[2][2]:.3f}',
                         "total_presses_middle": row[3][2],
-                        "max_index_thumb": row[0][3],
-                        "avg_index_thumb": row[1][3],
-                        "min_index_thumb": row[2][3],
+                        "max_index_thumb": f'{row[0][3]:.3f}',
+                        "avg_index_thumb": f'{row[1][3]:.3f}',
+                        "min_index_thumb": f'{row[2][3]:.3f}',
                         "total_presses_index_thumb": row[3][3],
                     }
                     for row in data["session_data"]
@@ -89,7 +89,7 @@ class CSVWriterClass(QObject):
                     for row in pressure_data[i]:
                         avg_press_summary.append({
                             "finger": finger,
-                            "pressure": row[1],
+                            "pressure": f'{row[1]:.3f}',
                             "timestamp": row[0]
                         })
                 
@@ -111,7 +111,7 @@ class CSVWriterClass(QObject):
                     
                     total_avg_pressure_map.append({
                         "finger": finger,
-                        "total_avg_pressure": press if press is not False else None,
+                        "total_avg_pressure": f"{press:.3f}" if press is not False else None,
                         "total_uses": uses if uses is not False else None
                     })
                 summary_rest_file = summary_statistical_path / "Resumo_dados_media_e_total_de_usos.csv" 
@@ -125,3 +125,8 @@ class CSVWriterClass(QObject):
                 self.exportError.emit(True)
             finally:
                 self.exportEnd.emit(True)
+        else:
+            logger.error(f"Arquivos não encontrados")
+            self.exportError.emit(True)
+
+            

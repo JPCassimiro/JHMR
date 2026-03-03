@@ -216,13 +216,14 @@ class ConnectionManagerModel(QWidget):
     def device_select_handle(self, index):
         item = self.sender().item(index.row())
         widget = self.sender().itemWidget(item)
-        device_id = widget.deviceDict["id"]
-        service_id = widget.deviceDict["service_id"]
-        self.selected_device[0] = self.bluetoothHandle.hid_device_list[device_id]
-        self.selected_device[1] = self.bluetoothHandle.spp_service_list[service_id]
-        self.selected_list_item = index.row()
-        self.logModel.append_log(f"Dispositivo selecionado:{self._selected_list_item}")
-        logger.debug(f"device_select_handle self.selected_device{self.selected_device}")
+        if widget.isEnabled():
+            device_id = widget.deviceDict["id"]
+            service_id = widget.deviceDict["service_id"]
+            self.selected_device[0] = self.bluetoothHandle.hid_device_list[device_id]
+            self.selected_device[1] = self.bluetoothHandle.spp_service_list[service_id]
+            self.selected_list_item = index.row()
+            self.logModel.append_log(f"Dispositivo selecionado:{self._selected_list_item}")
+            logger.debug(f"device_select_handle self.selected_device{self.selected_device}")
 
     #checks for selected devices and starts the full pair
     def pair_selected_device(self):
@@ -238,7 +239,6 @@ class ConnectionManagerModel(QWidget):
         #recieves next function handler that will be used in step 2, ends the unpair_handler but continues the pair 
         #recives errorHandler that appropriately deals with the unpair_handler errors 
         #from step 3 onwards just continues the process as normal
-    #!add main screen but state toggle to start and finish
     def full_pair_handler(self,nextStepOnResult,errorHandler):
         logger.debug(f"full_pair_handler iniciado device:{self.selected_device[0]}")
         # self.button_state_toggle()
@@ -481,6 +481,7 @@ class ConnectionManagerModel(QWidget):
                     item_container.setSizeHint(item.sizeHint())
                     if deviceDict["turned_on"] == False:
                         item_container.setFlags(item_container.flags() & ~(Qt.ItemIsSelectable | Qt.ItemIsEnabled))
+                        item.setEnabled(False)
                     self.deviceListWidget.addItem(item_container)
                     self.deviceListWidget.setItemWidget(item_container,item)
         except IndexError as e:
