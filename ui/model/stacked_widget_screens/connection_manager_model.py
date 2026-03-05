@@ -37,16 +37,10 @@ class ConnectionManagerModel(QWidget):
         #get ui elements
         self.pairDeviceButton = self.ui.pairDeviceButton
         self.reloadListButton = self.ui.reloadListButton
-        self.sppStateButton = self.ui.sppStateButton
         self.unpairDeviceButton = self.ui.unpairDeviceButton
-        self.hidStateButton = self.ui.hidStateButton
         self.deviceListWidget = self.ui.deviceListWidget
         self.deviceContainer = self.ui.deviceContainer
         self.deviceContainerFrame = self.ui.deviceContainerFrame
-        
-        #hide 2 buttons
-        self.sppStateButton.hide()
-        self.hidStateButton.hide()
         
         #variable setup
         self.selected_device = [None,None]#0: device 1: service

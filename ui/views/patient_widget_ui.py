@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'patient_widget.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.9.1
+## Created by: Qt User Interface Compiler version 6.10.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -24,7 +24,12 @@ class Ui_patientWindowContainer(object):
     def setupUi(self, patientWindowContainer):
         if not patientWindowContainer.objectName():
             patientWindowContainer.setObjectName(u"patientWindowContainer")
-        patientWindowContainer.resize(661, 107)
+        patientWindowContainer.resize(661, 90)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(patientWindowContainer.sizePolicy().hasHeightForWidth())
+        patientWindowContainer.setSizePolicy(sizePolicy)
         self.gridLayout = QGridLayout(patientWindowContainer)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(6, 6, 6, 6)
@@ -47,21 +52,21 @@ class Ui_patientWindowContainer(object):
 
         self.patientImageContainer = QWidget(patientWindowContainer)
         self.patientImageContainer.setObjectName(u"patientImageContainer")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.patientImageContainer.sizePolicy().hasHeightForWidth())
-        self.patientImageContainer.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.patientImageContainer.sizePolicy().hasHeightForWidth())
+        self.patientImageContainer.setSizePolicy(sizePolicy1)
         self.gridLayout_2 = QGridLayout(self.patientImageContainer)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.patientImage = RoundedImageLabel(self.patientImageContainer)
         self.patientImage.setObjectName(u"patientImage")
         self.patientImage.setEnabled(True)
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.patientImage.sizePolicy().hasHeightForWidth())
-        self.patientImage.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.patientImage.sizePolicy().hasHeightForWidth())
+        self.patientImage.setSizePolicy(sizePolicy2)
         self.patientImage.setMinimumSize(QSize(0, 0))
         self.patientImage.setMaximumSize(QSize(60, 60))
         self.patientImage.setTextFormat(Qt.TextFormat.RichText)

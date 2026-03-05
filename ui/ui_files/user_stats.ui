@@ -67,7 +67,7 @@
           </item>
           <item row="1" column="0">
            <widget class="QWidget" name="buttonsContainer" native="true">
-            <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,3,0,2">
+            <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,1,1,0,2">
              <property name="spacing">
               <number>6</number>
              </property>
@@ -99,6 +99,9 @@
                <layout class="QGridLayout" name="gridLayout_4">
                 <item row="1" column="0">
                  <widget class="QLabel" name="timelapseLabel">
+                  <property name="toolTip">
+                   <string comment="UserStatsHelper">Duração total da sessão</string>
+                  </property>
                   <property name="text">
                    <string>00:00:00</string>
                   </property>
@@ -106,12 +109,25 @@
                 </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="timelapseDescriptionLabel">
+                  <property name="toolTip">
+                   <string comment="UserStatsHelper">Duração total da sessão</string>
+                  </property>
                   <property name="text">
                    <string>Duração</string>
                   </property>
                  </widget>
                 </item>
                </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="graphLegendHelperLabel">
+               <property name="text">
+                <string comment="UserStatsHelper">Clique nos elementos da legenda para filtrar o gráfico</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
               </widget>
              </item>
              <item>
@@ -128,12 +144,12 @@
               </spacer>
              </item>
              <item>
-              <widget class="QLabel" name="label">
+              <widget class="QLabel" name="graohExportHelperLabel">
                <property name="frameShape">
                 <enum>QFrame::Shape::NoFrame</enum>
                </property>
                <property name="text">
-                <string>Use o botão direito do mouse nos gráficos para exportar na forma de imagem</string>
+                <string comment="UserStatsHelper">Use o botão direito do mouse nos gráficos para exportar na forma de imagem</string>
                </property>
                <property name="textFormat">
                 <enum>Qt::TextFormat::RichText</enum>
@@ -160,6 +176,9 @@
                 </property>
                 <item row="3" column="0">
                  <widget class="QComboBox" name="sessionComboBox">
+                  <property name="toolTip">
+                   <string/>
+                  </property>
                   <property name="sizeAdjustPolicy">
                    <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
                   </property>
@@ -174,6 +193,9 @@
                 </item>
                 <item row="3" column="1">
                  <widget class="QToolButton" name="deleteSessionButton">
+                  <property name="toolTip">
+                   <string comment="UserStatsHelper">Excluir a sessão atual</string>
+                  </property>
                   <property name="text">
                    <string>...</string>
                   </property>
@@ -184,6 +206,9 @@
                 </item>
                 <item row="1" column="1">
                  <widget class="QToolButton" name="exportSessioCSVButton">
+                  <property name="toolTip">
+                   <string comment="UserStatsHelper">Exportação de dados de uso da sessão, arquivos exportados são enviados para a pasta raiz da ferramenta</string>
+                  </property>
                   <property name="text">
                    <string>...</string>
                   </property>
@@ -307,6 +332,9 @@
       </property>
       <item>
        <widget class="QRadioButton" name="rightHandButton">
+        <property name="toolTip">
+         <string comment="UserStatsHelper">Selecione a mão em uso</string>
+        </property>
         <property name="text">
          <string>Mão direita</string>
         </property>
@@ -317,6 +345,9 @@
       </item>
       <item>
        <widget class="QRadioButton" name="leftHandButton">
+        <property name="toolTip">
+         <string comment="UserStatsHelper">Selecione a mão em uso</string>
+        </property>
         <property name="text">
          <string>Mão esquerda</string>
         </property>

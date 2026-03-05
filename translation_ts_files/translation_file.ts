@@ -50,7 +50,7 @@
         <translation type="obsolete">Device {num}</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/connection_manager_model.py" line="465"/>
+        <location filename="../ui/model/components/listed_device_item_model.py" line="38"/>
         <source>Dispositivo {num}</source>
         <translation>Device {num}</translation>
     </message>
@@ -235,33 +235,33 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation type="vanished">JHMR</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="219"/>
+        <location filename="../ui/ui_files/main_window.ui" line="319"/>
         <source>Conexão com joystick</source>
         <translation>Joystick connection</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="232"/>
+        <location filename="../ui/ui_files/main_window.ui" line="332"/>
         <source>Calibração</source>
         <translation>Calibration</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="239"/>
+        <location filename="../ui/ui_files/main_window.ui" line="339"/>
         <source>Configuração de botões</source>
         <translation>Button configuration</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="246"/>
+        <location filename="../ui/ui_files/main_window.ui" line="346"/>
         <source>Ações de usuário</source>
         <translation>User actions</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="253"/>
+        <location filename="../ui/ui_files/main_window.ui" line="353"/>
         <source>Estatísticas de uso</source>
         <translation>Usage statistics</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="314"/>
-        <location filename="../ui/ui_files/main_window.ui" line="324"/>
+        <location filename="../ui/ui_files/main_window.ui" line="414"/>
+        <location filename="../ui/ui_files/main_window.ui" line="424"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -323,8 +323,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <location filename="../ui/model/components/user_item_model.py" line="88"/>
         <location filename="../ui/model/stacked_widget_screens/user_actions_widget_model.py" line="137"/>
         <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="83"/>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="233"/>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="310"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="242"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="319"/>
         <source>Erro</source>
         <translation>Error</translation>
     </message>
@@ -340,22 +340,22 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation>Error during data collection, some data might have been lost</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="226"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="235"/>
         <source>Sucesso</source>
         <translation>Success</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="227"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="236"/>
         <source>Exportação realizada com sucesso</source>
         <translation>Data export successful</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="234"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="243"/>
         <source>Erro na exportação</source>
         <translation>Data export error</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="311"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="320"/>
         <source>Selecione uma sessão</source>
         <translation>Select a session</translation>
     </message>
@@ -409,84 +409,125 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="60"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="74"/>
+        <source>Quando ligado, a entrada configurada será repetida múltiplas vezes enquanto o sensor estiver pressionado</source>
+        <comment>ConfigScreenHelper</comment>
+        <translation>When on, will send multiple inputs for the configured key as long as the sensor is pressed</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_widget.ui" line="170"/>
+        <source>Quantos segundos de pressão contínua são necessários para que o controle registre uma entrada</source>
+        <comment>ConfigScreenHelper</comment>
+        <translation>How many seconds of continuous pressure are needed for a input</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_widget.ui" line="266"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="288"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="310"/>
+        <source>Seleciona a tecla que deseja associar à combinação de dedos, caso já selecionada, apresenta a tecla escolhida</source>
+        <comment>ConfigScreenHelper</comment>
+        <translation>Selects a key to be associated with the finger combination. Displays the key if already selected</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_widget.ui" line="378"/>
         <source>Massa em KG</source>
         <translation>Mass in KG</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="71"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="394"/>
         <source>Mínimo</source>
         <translation>Little</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="81"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="409"/>
         <source>Anelar</source>
         <translation>Ring</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="91"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="424"/>
         <source>Médio</source>
         <translation>Middle</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="101"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="439"/>
         <source>Indicador/Polegar</source>
         <translation>Index/Thumb</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="123"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="58"/>
         <source>Repetir</source>
         <translation>Repeat</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="136"/>
+        <source>Quando liagado, a entrada configurada será repetida multiplas vezes enquanto o sensor estiver pressionado</source>
+        <comment>ConfigScreenHelper</comment>
+        <translation type="vanished">When on, input is repeated multiple times while the sensor is pressed</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_widget.ui" line="83"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="176"/>
+        <source>?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_widget.ui" line="102"/>
         <source>Ligado</source>
         <translation>On</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="149"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="115"/>
         <source>Desligado</source>
         <translation>Off</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="171"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="154"/>
         <source>Duração (s)</source>
         <translation>Duration (s)</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="196"/>
+        <source>Quantos segundos de pressão continua são necessarios para que o controle registre uma entrada</source>
+        <comment>ConfigScreenHelper</comment>
+        <translation type="vanished">Sets how many seconds of continuous pressure are necessary for an input to be registered</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_widget.ui" line="212"/>
         <source>0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="228"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="244"/>
         <source>9</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="238"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="259"/>
         <source>Tecla</source>
         <translation>Key</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="245"/>
-        <location filename="../ui/ui_files/config_widget.ui" line="259"/>
-        <location filename="../ui/ui_files/config_widget.ui" line="273"/>
+        <source>Seleciona a tecla que deseja associar a combinação de dedos, caso já selecionada, apresenta a tecla escolhida</source>
+        <comment>ConfigScreenHelper</comment>
+        <translation type="vanished">Selects the key to associate with a finger combination. Displays the key if already selected</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_widget.ui" line="269"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="291"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="313"/>
         <source>Clique para selecionar</source>
         <translation>Click to select</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="252"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="281"/>
         <source>Botão C</source>
         <translation>C Button</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="266"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="303"/>
         <source>Botão Z</source>
         <translation>Z Button</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/config_widget.ui" line="280"/>
+        <location filename="../ui/ui_files/config_widget.ui" line="323"/>
         <source>Confirmar</source>
         <translation>Confirm</translation>
     </message>
@@ -571,29 +612,40 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/connection_manager.ui" line="77"/>
+        <location filename="../ui/ui_files/connection_manager.ui" line="81"/>
+        <source>Procurar por dispositivos</source>
+        <comment>ConnectionManagerHelper</comment>
+        <translation>Scan for devices</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/connection_manager.ui" line="84"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/connection_manager.ui" line="87"/>
+        <location filename="../ui/ui_files/connection_manager.ui" line="94"/>
         <source>Emparelhar dispositivo</source>
         <translation>Pair device</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/connection_manager.ui" line="170"/>
+        <location filename="../ui/ui_files/connection_manager.ui" line="101"/>
+        <source>Selecione um dispositivo para emparelhar</source>
+        <translation>Select a device to pair</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/connection_manager.ui" line="132"/>
+        <source>Lista de dispositivos encontrados</source>
+        <translation>List of available devices</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/connection_manager.ui" line="153"/>
+        <source>Dispositivo Conectado</source>
+        <translation>Connected device</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/connection_manager.ui" line="217"/>
         <source>Desemparelhar dispositvo</source>
         <translation>Unpair device</translation>
-    </message>
-    <message>
-        <location filename="../ui/ui_files/connection_manager.ui" line="177"/>
-        <source>Conectar/Desconectar SPP</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ui/ui_files/connection_manager.ui" line="184"/>
-        <source>Conectar/Desconectar HID</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ui/ui_files/logger_widget.ui" line="40"/>
@@ -629,17 +681,17 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>patientWindowContainer</name>
     <message>
-        <location filename="../ui/ui_files/patient_widget.ui" line="14"/>
+        <location filename="../ui/ui_files/patient_widget.ui" line="20"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/patient_widget.ui" line="35"/>
+        <location filename="../ui/ui_files/patient_widget.ui" line="41"/>
         <source>PatientName</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/patient_widget.ui" line="42"/>
+        <location filename="../ui/ui_files/patient_widget.ui" line="48"/>
         <source>PatientInfo</source>
         <translation type="unfinished"></translation>
     </message>
@@ -690,7 +742,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <location filename="../ui/ui_files/connected_device_item.ui" line="37"/>
         <location filename="../ui/ui_files/connected_device_item.ui" line="44"/>
         <location filename="../ui/ui_files/connected_device_item.ui" line="51"/>
-        <location filename="../ui/ui_files/connected_device_item.ui" line="58"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -698,22 +749,22 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>titleWindowContainer</name>
     <message>
-        <location filename="../ui/ui_files/title_widget.ui" line="14"/>
+        <location filename="../ui/ui_files/title_widget.ui" line="20"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/title_widget.ui" line="38"/>
+        <location filename="../ui/ui_files/title_widget.ui" line="44"/>
         <source>TherapistName</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/title_widget.ui" line="45"/>
+        <location filename="../ui/ui_files/title_widget.ui" line="51"/>
         <source>TherapistFuntion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/title_widget.ui" line="93"/>
+        <location filename="../ui/ui_files/title_widget.ui" line="99"/>
         <source>Joystick for hand motor rehabilitation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -742,11 +793,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </message>
     <message>
         <location filename="../ui/ui_files/user_stats.ui" line="103"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="113"/>
+        <source>Duração total da sessão</source>
+        <comment>UserStatsHelper</comment>
+        <translation>Total session duration</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/user_stats.ui" line="106"/>
         <source>00:00:00</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="110"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="116"/>
         <source>Duração</source>
         <translation>Duration</translation>
     </message>
@@ -755,49 +813,75 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation type="vanished">Use the right mouse button to export data</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="136"/>
-        <source>Use o botão direito do mouse nos gráficos para exportar na forma de imagem</source>
-        <translation type="unfinished"></translation>
+        <location filename="../ui/ui_files/user_stats.ui" line="126"/>
+        <source>Clique nos elementos da legenda para filtrar o gráfico</source>
+        <comment>UserStatsHelper</comment>
+        <translation>Click on legend elements to filter the graph</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="171"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="152"/>
+        <source>Use o botão direito do mouse nos gráficos para exportar na forma de imagem</source>
+        <comment>UserStatsHelper</comment>
+        <translation>Use the right mouse button on the graphs to export them as an image</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/user_stats.ui" line="190"/>
         <source>Nova sessão</source>
         <translation>New session</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="178"/>
-        <location filename="../ui/ui_files/user_stats.ui" line="188"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="197"/>
+        <source>Excluir a sessão atual</source>
+        <comment>UserStatsHelper</comment>
+        <translation>Delete current session</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/user_stats.ui" line="200"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="213"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="205"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="210"/>
+        <source>Exportação de dados de uso da sessão, arquivos exportados são enviados para a pasta raiz da ferramenta</source>
+        <comment>UserStatsHelper</comment>
+        <translation>Data export. Exported data will be located in the tool&apos;s root folder</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/user_stats.ui" line="230"/>
         <source>Resumo</source>
         <translation>Summary</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="252"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="277"/>
         <source>Tempo médio de sesões</source>
         <translation>Average session duration</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="259"/>
-        <location filename="../ui/ui_files/user_stats.ui" line="273"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="284"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="298"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="266"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="291"/>
         <source>Total de seções</source>
         <translation>Total number of sessions</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="311"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="336"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="349"/>
+        <source>Selecione a mão em uso</source>
+        <comment>UserStatsHelper</comment>
+        <translation>Select the hand in use</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/user_stats.ui" line="339"/>
         <source>Mão direita</source>
         <translation>Right hand</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_stats.ui" line="321"/>
+        <location filename="../ui/ui_files/user_stats.ui" line="352"/>
         <source>Mão esquerda</source>
         <translation>Left hand</translation>
     </message>
@@ -830,28 +914,52 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_actions_widget.ui" line="45"/>
+        <location filename="../ui/ui_files/user_actions_widget.ui" line="38"/>
+        <source>Cadastrar um novo paciente</source>
+        <comment>UserActionsHelper</comment>
+        <translation>Register a new patient</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/user_actions_widget.ui" line="48"/>
         <source>Terapeuta</source>
         <translation>Therapist</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_actions_widget.ui" line="60"/>
-        <location filename="../ui/ui_files/user_actions_widget.ui" line="115"/>
+        <location filename="../ui/ui_files/user_actions_widget.ui" line="63"/>
+        <source>Cadastrar um novo terapeuta</source>
+        <comment>UserActionsHelper</comment>
+        <translation>Register a new terapist</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/user_actions_widget.ui" line="66"/>
+        <location filename="../ui/ui_files/user_actions_widget.ui" line="124"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_actions_widget.ui" line="70"/>
+        <location filename="../ui/ui_files/user_actions_widget.ui" line="76"/>
+        <source>Retornar ao valor de terapeuta padrão</source>
+        <comment>UserActionsHelper</comment>
+        <translation>Return to default terapist</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/user_actions_widget.ui" line="79"/>
         <source>Terapeuta padrão</source>
         <translation>Default therapist</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_actions_widget.ui" line="100"/>
+        <location filename="../ui/ui_files/user_actions_widget.ui" line="109"/>
         <source>Paciente</source>
         <translation>Patient</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/user_actions_widget.ui" line="125"/>
+        <location filename="../ui/ui_files/user_actions_widget.ui" line="134"/>
+        <source>Retornar ao valor de paciente padrão</source>
+        <comment>UserActionsHelper</comment>
+        <translation>Return to default patient</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/user_actions_widget.ui" line="137"/>
         <source>Paciente padrão</source>
         <translation>Default patient</translation>
     </message>

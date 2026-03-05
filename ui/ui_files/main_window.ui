@@ -43,7 +43,7 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0" columnstretch="0,0">
+   <layout class="QGridLayout" name="gridLayout" rowstretch="0,0" columnstretch="0,0">
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -56,51 +56,181 @@
     <property name="bottomMargin">
      <number>0</number>
     </property>
-    <property name="spacing">
+    <property name="horizontalSpacing">
+     <number>0</number>
+    </property>
+    <property name="verticalSpacing">
      <number>2</number>
     </property>
-    <item row="1" column="1">
-     <widget class="QWidget" name="workplaceContainer" native="true">
-      <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0" columnstretch="0,0">
-       <item row="1" column="1">
-        <widget class="QWidget" name="patientWidget" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout"/>
+    <item row="0" column="1">
+     <widget class="QWidget" name="MainScreenContainer" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout" stretch="1,20,1">
+       <property name="spacing">
+        <number>1</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QWidget" name="titleWidgetContainer" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>3</number>
+          </property>
+          <item>
+           <widget class="QWidget" name="titleWidget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="sizeConstraint">
+              <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+            </layout>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QWidget" name="stackedWidgetContainer" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="sizeIncrement">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_2">
+       <item>
+        <widget class="QWidget" name="workplaceContainer" native="true">
+         <layout class="QGridLayout" name="gridLayout_3" rowstretch="0" columnstretch="0,0">
+          <property name="leftMargin">
+           <number>3</number>
+          </property>
+          <property name="topMargin">
+           <number>3</number>
+          </property>
+          <property name="rightMargin">
+           <number>3</number>
+          </property>
+          <property name="bottomMargin">
+           <number>3</number>
+          </property>
+          <property name="spacing">
+           <number>1</number>
+          </property>
+          <item row="0" column="1">
+           <widget class="QWidget" name="stackedWidgetContainer" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="sizeIncrement">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <property name="leftMargin">
+              <number>9</number>
+             </property>
+             <property name="topMargin">
+              <number>9</number>
+             </property>
+             <property name="rightMargin">
+              <number>9</number>
+             </property>
+             <property name="bottomMargin">
+              <number>9</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QStackedWidget" name="stackedWidget">
+               <property name="midLineWidth">
+                <number>5</number>
+               </property>
+               <widget class="QWidget" name="widget_2"/>
+               <widget class="QWidget" name="widget_3"/>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="patientWidgetContainer" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="spacing">
+           <number>0</number>
+          </property>
           <property name="leftMargin">
            <number>9</number>
           </property>
           <property name="topMargin">
-           <number>9</number>
-          </property>
-          <property name="rightMargin">
-           <number>9</number>
+           <number>2</number>
           </property>
           <property name="bottomMargin">
-           <number>9</number>
+           <number>1</number>
           </property>
-          <item row="0" column="0">
-           <widget class="QStackedWidget" name="stackedWidget">
-            <property name="midLineWidth">
-             <number>5</number>
+          <item>
+           <widget class="QWidget" name="patientWidget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <widget class="QWidget" name="widget_2"/>
-            <widget class="QWidget" name="widget_3"/>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>1</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+            </layout>
            </widget>
           </item>
          </layout>
@@ -109,37 +239,7 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="1">
-     <widget class="QWidget" name="titleWidget" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <property name="spacing">
-        <number>6</number>
-       </property>
-       <property name="sizeConstraint">
-        <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
-       </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>3</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>3</number>
-       </property>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="0" rowspan="3">
+    <item row="0" column="0" rowspan="2">
      <widget class="QWidget" name="sideMenu_2" native="true">
       <layout class="QVBoxLayout" name="sideMenu" stretch="0,0,1,0,0,0,0,0,0,0,0">
        <property name="leftMargin">

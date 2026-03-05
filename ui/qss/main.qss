@@ -242,6 +242,10 @@ QWidget#slider > QSlider::handle:disabled {
    border: none;
 }
 
+QWidget#durationHelperLabel,#repeatHelperLabel{
+   color: #0000ff
+}
+
 /* ############################## Calibration widget ##############################*/
 /* ############################## Calibration widget ##############################*/
 /* ############################## Calibration widget ##############################*/

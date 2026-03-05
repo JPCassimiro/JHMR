@@ -89,17 +89,23 @@ class Ui_useStatisticsForm(object):
 
         self.horizontalLayout.addWidget(self.timelapseContainer)
 
+        self.graphLegendHelperLabel = QLabel(self.buttonsContainer)
+        self.graphLegendHelperLabel.setObjectName(u"graphLegendHelperLabel")
+        self.graphLegendHelperLabel.setWordWrap(True)
+
+        self.horizontalLayout.addWidget(self.graphLegendHelperLabel)
+
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.label = QLabel(self.buttonsContainer)
-        self.label.setObjectName(u"label")
-        self.label.setFrameShape(QFrame.Shape.NoFrame)
-        self.label.setTextFormat(Qt.TextFormat.RichText)
-        self.label.setWordWrap(True)
+        self.graohExportHelperLabel = QLabel(self.buttonsContainer)
+        self.graohExportHelperLabel.setObjectName(u"graohExportHelperLabel")
+        self.graohExportHelperLabel.setFrameShape(QFrame.Shape.NoFrame)
+        self.graohExportHelperLabel.setTextFormat(Qt.TextFormat.RichText)
+        self.graohExportHelperLabel.setWordWrap(True)
 
-        self.horizontalLayout.addWidget(self.label)
+        self.horizontalLayout.addWidget(self.graohExportHelperLabel)
 
         self.sessionSelectorContainer = QWidget(self.buttonsContainer)
         self.sessionSelectorContainer.setObjectName(u"sessionSelectorContainer")
@@ -134,8 +140,9 @@ class Ui_useStatisticsForm(object):
 
         self.horizontalLayout.addWidget(self.sessionSelectorContainer)
 
-        self.horizontalLayout.setStretch(2, 3)
-        self.horizontalLayout.setStretch(4, 2)
+        self.horizontalLayout.setStretch(2, 1)
+        self.horizontalLayout.setStretch(3, 1)
+        self.horizontalLayout.setStretch(5, 2)
 
         self.gridLayout_3.addWidget(self.buttonsContainer, 1, 0, 1, 1)
 
@@ -239,11 +246,27 @@ class Ui_useStatisticsForm(object):
         useStatisticsForm.setWindowTitle(QCoreApplication.translate("useStatisticsForm", u"Form", None))
         self.startListening.setText(QCoreApplication.translate("useStatisticsForm", u"Come\u00e7ar coleta", None))
         self.stopListening.setText(QCoreApplication.translate("useStatisticsForm", u"Interromper coleta", None))
+#if QT_CONFIG(tooltip)
+        self.timelapseLabel.setToolTip(QCoreApplication.translate("useStatisticsForm", u"Dura\u00e7\u00e3o total da sess\u00e3o", u"UserStatsHelper"))
+#endif // QT_CONFIG(tooltip)
         self.timelapseLabel.setText(QCoreApplication.translate("useStatisticsForm", u"00:00:00", None))
+#if QT_CONFIG(tooltip)
+        self.timelapseDescriptionLabel.setToolTip(QCoreApplication.translate("useStatisticsForm", u"Dura\u00e7\u00e3o total da sess\u00e3o", u"UserStatsHelper"))
+#endif // QT_CONFIG(tooltip)
         self.timelapseDescriptionLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Dura\u00e7\u00e3o", None))
-        self.label.setText(QCoreApplication.translate("useStatisticsForm", u"Use o bot\u00e3o direito do mouse nos gr\u00e1ficos para exportar na forma de imagem", None))
+        self.graphLegendHelperLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Clique nos elementos da legenda para filtrar o gr\u00e1fico", u"UserStatsHelper"))
+        self.graohExportHelperLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Use o bot\u00e3o direito do mouse nos gr\u00e1ficos para exportar na forma de imagem", u"UserStatsHelper"))
+#if QT_CONFIG(tooltip)
+        self.sessionComboBox.setToolTip("")
+#endif // QT_CONFIG(tooltip)
         self.newSessionButton.setText(QCoreApplication.translate("useStatisticsForm", u"Nova sess\u00e3o", None))
+#if QT_CONFIG(tooltip)
+        self.deleteSessionButton.setToolTip(QCoreApplication.translate("useStatisticsForm", u"Excluir a sess\u00e3o atual", u"UserStatsHelper"))
+#endif // QT_CONFIG(tooltip)
         self.deleteSessionButton.setText(QCoreApplication.translate("useStatisticsForm", u"...", None))
+#if QT_CONFIG(tooltip)
+        self.exportSessioCSVButton.setToolTip(QCoreApplication.translate("useStatisticsForm", u"Exporta\u00e7\u00e3o de dados de uso da sess\u00e3o, arquivos exportados s\u00e3o enviados para a pasta raiz da ferramenta", u"UserStatsHelper"))
+#endif // QT_CONFIG(tooltip)
         self.exportSessioCSVButton.setText(QCoreApplication.translate("useStatisticsForm", u"...", None))
         self.statsTabWidget.setTabText(self.statsTabWidget.indexOf(self.sessionTab), QCoreApplication.translate("useStatisticsForm", u"Sess\u00f5es", None))
         self.sessionTimeLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Tempo m\u00e9dio de ses\u00f5es", None))
@@ -251,7 +274,13 @@ class Ui_useStatisticsForm(object):
         self.countSessionLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Total de se\u00e7\u00f5es", None))
         self.countSession.setText(QCoreApplication.translate("useStatisticsForm", u"TextLabel", None))
         self.statsTabWidget.setTabText(self.statsTabWidget.indexOf(self.summaryTab), QCoreApplication.translate("useStatisticsForm", u"Resumo", None))
+#if QT_CONFIG(tooltip)
+        self.rightHandButton.setToolTip(QCoreApplication.translate("useStatisticsForm", u"Selecione a m\u00e3o em uso", u"UserStatsHelper"))
+#endif // QT_CONFIG(tooltip)
         self.rightHandButton.setText(QCoreApplication.translate("useStatisticsForm", u"M\u00e3o direita", None))
+#if QT_CONFIG(tooltip)
+        self.leftHandButton.setToolTip(QCoreApplication.translate("useStatisticsForm", u"Selecione a m\u00e3o em uso", u"UserStatsHelper"))
+#endif // QT_CONFIG(tooltip)
         self.leftHandButton.setText(QCoreApplication.translate("useStatisticsForm", u"M\u00e3o esquerda", None))
     # retranslateUi
 

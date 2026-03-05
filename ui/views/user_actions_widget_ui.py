@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'user_actions_widget.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.9.3
+## Created by: Qt User Interface Compiler version 6.10.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -142,10 +142,22 @@ class Ui_usersWidgetForm(object):
 
     def retranslateUi(self, usersWidgetForm):
         usersWidgetForm.setWindowTitle(QCoreApplication.translate("usersWidgetForm", u"Form", None))
+#if QT_CONFIG(tooltip)
+        self.tabWidget.setToolTip(QCoreApplication.translate("usersWidgetForm", u"Cadastrar um novo paciente", u"UserActionsHelper"))
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
+        self.toolButton1.setToolTip(QCoreApplication.translate("usersWidgetForm", u"Cadastrar um novo terapeuta", u"UserActionsHelper"))
+#endif // QT_CONFIG(tooltip)
         self.toolButton1.setText(QCoreApplication.translate("usersWidgetForm", u"...", None))
+#if QT_CONFIG(tooltip)
+        self.defautlTherapistButton.setToolTip(QCoreApplication.translate("usersWidgetForm", u"Retornar ao valor de terapeuta padr\u00e3o", u"UserActionsHelper"))
+#endif // QT_CONFIG(tooltip)
         self.defautlTherapistButton.setText(QCoreApplication.translate("usersWidgetForm", u"Terapeuta padr\u00e3o", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.therapistTab), QCoreApplication.translate("usersWidgetForm", u"Terapeuta", None))
         self.toolButton2.setText(QCoreApplication.translate("usersWidgetForm", u"...", None))
+#if QT_CONFIG(tooltip)
+        self.defaultPatientButton.setToolTip(QCoreApplication.translate("usersWidgetForm", u"Retornar ao valor de paciente padr\u00e3o", u"UserActionsHelper"))
+#endif // QT_CONFIG(tooltip)
         self.defaultPatientButton.setText(QCoreApplication.translate("usersWidgetForm", u"Paciente padr\u00e3o", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.patientTab), QCoreApplication.translate("usersWidgetForm", u"Paciente", None))
     # retranslateUi

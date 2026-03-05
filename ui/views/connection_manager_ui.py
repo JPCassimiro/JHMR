@@ -16,8 +16,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
-    QListWidget, QListWidgetItem, QPushButton, QSizePolicy,
-    QSpacerItem, QToolButton, QVBoxLayout, QWidget)
+    QLabel, QListWidget, QListWidgetItem, QPushButton,
+    QSizePolicy, QSpacerItem, QToolButton, QVBoxLayout,
+    QWidget)
 
 class Ui_loggerForm(object):
     def setupUi(self, loggerForm):
@@ -45,8 +46,9 @@ class Ui_loggerForm(object):
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.deviceListWidget = QListWidget(self.deviceListContainer)
         self.deviceListWidget.setObjectName(u"deviceListWidget")
+        self.deviceListWidget.setFrameShadow(QFrame.Shadow.Plain)
 
-        self.gridLayout_3.addWidget(self.deviceListWidget, 0, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.deviceListWidget, 1, 0, 1, 1)
 
         self.deviceListButtonContainer = QWidget(self.deviceListContainer)
         self.deviceListButtonContainer.setObjectName(u"deviceListButtonContainer")
@@ -66,12 +68,27 @@ class Ui_loggerForm(object):
 
         self.horizontalLayout.addWidget(self.pairDeviceButton)
 
+        self.pairButtonInstructionLabel = QLabel(self.deviceListButtonContainer)
+        self.pairButtonInstructionLabel.setObjectName(u"pairButtonInstructionLabel")
+
+        self.horizontalLayout.addWidget(self.pairButtonInstructionLabel)
+
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
 
-        self.gridLayout_3.addWidget(self.deviceListButtonContainer, 1, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.deviceListButtonContainer, 2, 0, 1, 1)
+
+        self.listTitleLabel = QLabel(self.deviceListContainer)
+        self.listTitleLabel.setObjectName(u"listTitleLabel")
+        font = QFont()
+        font.setBold(True)
+        self.listTitleLabel.setFont(font)
+        self.listTitleLabel.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        self.listTitleLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.gridLayout_3.addWidget(self.listTitleLabel, 0, 0, 1, 1)
 
 
         self.gridLayout_2.addWidget(self.deviceListContainer, 0, 0, 1, 1)
@@ -80,6 +97,13 @@ class Ui_loggerForm(object):
         self.selectedDeviceContainer.setObjectName(u"selectedDeviceContainer")
         self.verticalLayout_2 = QVBoxLayout(self.selectedDeviceContainer)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.selectedDeviceTitleLabel = QLabel(self.selectedDeviceContainer)
+        self.selectedDeviceTitleLabel.setObjectName(u"selectedDeviceTitleLabel")
+        self.selectedDeviceTitleLabel.setFont(font)
+        self.selectedDeviceTitleLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_2.addWidget(self.selectedDeviceTitleLabel)
+
         self.deviceContainerFrame = QFrame(self.selectedDeviceContainer)
         self.deviceContainerFrame.setObjectName(u"deviceContainerFrame")
         self.deviceContainerFrame.setFrameShape(QFrame.Shape.StyledPanel)
@@ -107,22 +131,12 @@ class Ui_loggerForm(object):
 
         self.verticalLayout_2.addWidget(self.unpairDeviceButton)
 
-        self.sppStateButton = QPushButton(self.selectedDeviceContainer)
-        self.sppStateButton.setObjectName(u"sppStateButton")
-
-        self.verticalLayout_2.addWidget(self.sppStateButton)
-
-        self.hidStateButton = QPushButton(self.selectedDeviceContainer)
-        self.hidStateButton.setObjectName(u"hidStateButton")
-
-        self.verticalLayout_2.addWidget(self.hidStateButton)
-
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
 
-        self.verticalLayout_2.setStretch(0, 1)
-        self.verticalLayout_2.setStretch(4, 2)
+        self.verticalLayout_2.setStretch(1, 1)
+        self.verticalLayout_2.setStretch(3, 2)
 
         self.gridLayout_2.addWidget(self.selectedDeviceContainer, 0, 1, 1, 1)
 
@@ -139,10 +153,14 @@ class Ui_loggerForm(object):
 
     def retranslateUi(self, loggerForm):
         loggerForm.setWindowTitle(QCoreApplication.translate("loggerForm", u"Form", None))
+#if QT_CONFIG(tooltip)
+        self.reloadListButton.setToolTip(QCoreApplication.translate("loggerForm", u"Procurar por dispositivos", u"ConnectionManagerHelper"))
+#endif // QT_CONFIG(tooltip)
         self.reloadListButton.setText(QCoreApplication.translate("loggerForm", u"...", None))
         self.pairDeviceButton.setText(QCoreApplication.translate("loggerForm", u"Emparelhar dispositivo", None))
+        self.pairButtonInstructionLabel.setText(QCoreApplication.translate("loggerForm", u"Selecione um dispositivo para emparelhar", None))
+        self.listTitleLabel.setText(QCoreApplication.translate("loggerForm", u"Lista de dispositivos encontrados", None))
+        self.selectedDeviceTitleLabel.setText(QCoreApplication.translate("loggerForm", u"Dispositivo Conectado", None))
         self.unpairDeviceButton.setText(QCoreApplication.translate("loggerForm", u"Desemparelhar dispositvo", None))
-        self.sppStateButton.setText(QCoreApplication.translate("loggerForm", u"Conectar/Desconectar SPP", None))
-        self.hidStateButton.setText(QCoreApplication.translate("loggerForm", u"Conectar/Desconectar HID", None))
     # retranslateUi
 

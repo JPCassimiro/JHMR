@@ -134,7 +134,7 @@ class UserStatsModel(QWidget):
         labelText = self.string_list_graphs[12].format(user = self.current_user_name)
         self.sessionNameLabel = pg.LabelItem(labelText)
         
-        self.session_chart_layout_widget.addItem(self.sessionNameLabel, col = 1, row = 2)
+        self.session_chart_layout_widget.addItem(self.sessionNameLabel, col = 2, row = 2)
 
         #avarage pressure by finger chart
         self.avg_pressure = [0,0,0,0]
@@ -153,7 +153,7 @@ class UserStatsModel(QWidget):
         self.times_used_chart = pg.BarGraphItem(x= x_range,height=self.times_pressed,width = 0.3,brush="#F89E59")
 
         #add charts to layout
-        self.plot_item_pressure = self.session_chart_layout_widget.addPlot(title = self.string_list_graphs[4])
+        self.plot_item_pressure = self.session_chart_layout_widget.addPlot(title = self.string_list_graphs[4], col = 1, row = 1)
         self.plot_item_pressure.setMouseEnabled(x=False,y=False)
         self.plot_item_pressure.addItem(self.avg_chart)
         self.plot_item_pressure.addItem(self.min_chart)
@@ -162,14 +162,15 @@ class UserStatsModel(QWidget):
         self.plot_item_pressure.getAxis('left').setLabel(text = self.string_list_graphs[5], units = "G")
         
         #legend pressure chart session
-        self.legendSessionPressure = self.plot_item_pressure.addLegend()
-        self.legendSessionPressure.anchor(itemPos=(1,0), parentPos=(1,0), offset=(0,-10))
+        self.legendSessionPressure = pg.LegendItem(colCount = 3)
         self.legendSessionPressure.addItem(self.avg_chart,self.string_list_graphs[6])
         self.legendSessionPressure.addItem(self.max_chart,self.string_list_graphs[7])
         self.legendSessionPressure.addItem(self.min_chart,self.string_list_graphs[8])
+        self.session_chart_layout_widget.addItem(self.legendSessionPressure, col = 1, row = 2)
+        self.legendSessionPressure.setParentItem(self.session_chart_layout_widget.layout())
         
         #finger use times session
-        self.plot_item_times_used = self.session_chart_layout_widget.addPlot(title = self.string_list_graphs[9])
+        self.plot_item_times_used = self.session_chart_layout_widget.addPlot(title = self.string_list_graphs[9], col = 2, row = 1)
         self.plot_item_times_used.setMouseEnabled(x=False,y=False)
         self.plot_item_times_used.addItem(self.times_used_chart)
         self.plot_item_times_used.getAxis('bottom').setTicks([self.finger_name_labels])
@@ -182,28 +183,36 @@ class UserStatsModel(QWidget):
 
         #add patient name label
         self.summaryNameLabel = pg.LabelItem(labelText)
-        self.summary_chart_layout_widget.addItem(self.summaryNameLabel, col = 2, row= 2)
+        self.summary_chart_layout_widget.addItem(self.summaryNameLabel, col = 2, row = 2)
 
-        #create line charts
+        #create line chart
         self.little_info_array = [[1,2],[1,2]]
         self.ring_info_array = [[1,2],[1,2]]
         self.middle_info_array = [[1,2],[1,2]]
         self.index_info_array = [[1,2],[1,2]]
 
-        self.plot_item_avg_line = self.summary_chart_layout_widget.addPlot()
+        self.plot_item_avg_line = self.summary_chart_layout_widget.addPlot(col = 1, row = 1)
         self.plot_item_avg_line.getAxis('bottom').setLabel(self.string_list_graphs[11])
         self.plot_item_avg_line.getAxis('left').setLabel(self.string_list_graphs[5], units = "G")
         self.plot_item_avg_line.showGrid(y = True,x = True)
-        self.avg_line_legend = self.plot_item_avg_line.addLegend()
-        self.avg_line_legend.anchor(itemPos=(1,0), parentPos=(1,0), offset=(0,-10))
 
-        self.plot_item_avg_line.plot(self.little_info_array[0],self.little_info_array[1],pen ='r',name=self.string_list_graphs[0])
-        self.plot_item_avg_line.plot(self.ring_info_array[0],self.ring_info_array[1],pen ='g',name=self.string_list_graphs[1])
-        self.plot_item_avg_line.plot(self.middle_info_array[0],self.middle_info_array[1],pen ='b',name=self.string_list_graphs[2])
-        self.plot_item_avg_line.plot(self.index_info_array[0],self.index_info_array[1],pen ='purple',name=self.string_list_graphs[3])
+        #create lines
+        self.little_line = self.plot_item_avg_line.plot(self.little_info_array[0],self.little_info_array[1],pen ='r')
+        self.ring_line = self.plot_item_avg_line.plot(self.ring_info_array[0],self.ring_info_array[1],pen ='g')
+        self.middle_line = self.plot_item_avg_line.plot(self.middle_info_array[0],self.middle_info_array[1],pen ='b')
+        self.index_line = self.plot_item_avg_line.plot(self.index_info_array[0],self.index_info_array[1],pen ='purple')
             
+        #line chart legend
+        self.avg_line_legend = pg.LegendItem(colCount = 2)
+        self.avg_line_legend.addItem(self.little_line, name = self.string_list_graphs[0])
+        self.avg_line_legend.addItem(self.ring_line, name = self.string_list_graphs[1])
+        self.avg_line_legend.addItem(self.middle_line, name = self.string_list_graphs[2])
+        self.avg_line_legend.addItem(self.index_line, name = self.string_list_graphs[3])
+        self.summary_chart_layout_widget.addItem(self.avg_line_legend, col = 1, row = 2)
+        self.avg_line_legend.setParentItem(self.summary_chart_layout_widget.layout())
+
         #avg bar chart 
-        self.plot_item_avg_bar = self.summary_chart_layout_widget.addPlot()
+        self.plot_item_avg_bar = self.summary_chart_layout_widget.addPlot(col = 2, row = 1)
         self.avg_pressure_summary = [0,0,0,0]
         self.avg_chart_summary = pg.BarGraphItem(x= x_range,height=self.avg_pressure_summary,width = 0.2,brush="#F89E59")
         self.plot_item_avg_bar.addItem(self.avg_chart_summary)
@@ -212,7 +221,7 @@ class UserStatsModel(QWidget):
         self.plot_item_avg_bar.setMouseEnabled(x=False, y=False)
         
         #total times used chart
-        self.plot_item_total_uses = self.summary_chart_layout_widget.addPlot()
+        self.plot_item_total_uses = self.summary_chart_layout_widget.addPlot(col = 3, row = 1)
         self.total_uses_summary = [0,0,0,0]
         self.uses_chart_summary = pg.BarGraphItem(x= x_range,height=self.total_uses_summary,width = 0.2,brush="#F89E59")
         self.plot_item_total_uses.addItem(self.uses_chart_summary)
@@ -536,11 +545,10 @@ class UserStatsModel(QWidget):
             
         self.avg_chart_summary.setOpts(height = self.avg_pressure_summary) 
         self.uses_chart_summary.setOpts(height = self.total_uses_summary)
-        self.plot_item_avg_line.clear()
-        self.plot_item_avg_line.plot(self.little_info_array[0],self.little_info_array[1],pen ='r',name=self.string_list_graphs[0])
-        self.plot_item_avg_line.plot(self.ring_info_array[0],self.ring_info_array[1],pen ='g',name=self.string_list_graphs[1])
-        self.plot_item_avg_line.plot(self.middle_info_array[0],self.middle_info_array[1],pen ='b',name=self.string_list_graphs[2])
-        self.plot_item_avg_line.plot(self.index_info_array[0],self.index_info_array[1],pen ='purple',name=self.string_list_graphs[3])
+        self.little_line.setData(self.little_info_array[0],self.little_info_array[1])
+        self.ring_line.setData(self.ring_info_array[0],self.ring_info_array[1])
+        self.middle_line.setData(self.middle_info_array[0],self.middle_info_array[1])
+        self.index_line.setData(self.index_info_array[0],self.index_info_array[1])
         self.countSession.setText(str(self.sessionCount))
         self.avgSessionTime.setText(self.avgTimelapse)
         self.summaryNameLabel.setText(self.string_list_graphs[12].format(user = self.current_user_name))
