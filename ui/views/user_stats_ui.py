@@ -15,10 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QButtonGroup, QComboBox, QFrame,
-    QGridLayout, QHBoxLayout, QLabel, QLayout,
-    QPushButton, QRadioButton, QSizePolicy, QSpacerItem,
-    QTabWidget, QToolButton, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QButtonGroup, QComboBox, QGridLayout,
+    QHBoxLayout, QLabel, QLayout, QPushButton,
+    QRadioButton, QSizePolicy, QSpacerItem, QTabWidget,
+    QToolButton, QVBoxLayout, QWidget)
 
 class Ui_useStatisticsForm(object):
     def setupUi(self, useStatisticsForm):
@@ -58,7 +58,9 @@ class Ui_useStatisticsForm(object):
         self.listeningButtonContainer = QWidget(self.buttonsContainer)
         self.listeningButtonContainer.setObjectName(u"listeningButtonContainer")
         self.verticalLayout = QVBoxLayout(self.listeningButtonContainer)
+        self.verticalLayout.setSpacing(5)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(3, 3, 3, 3)
         self.startListening = QPushButton(self.listeningButtonContainer)
         self.startListening.setObjectName(u"startListening")
 
@@ -99,13 +101,28 @@ class Ui_useStatisticsForm(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.graohExportHelperLabel = QLabel(self.buttonsContainer)
-        self.graohExportHelperLabel.setObjectName(u"graohExportHelperLabel")
-        self.graohExportHelperLabel.setFrameShape(QFrame.Shape.NoFrame)
-        self.graohExportHelperLabel.setTextFormat(Qt.TextFormat.RichText)
-        self.graohExportHelperLabel.setWordWrap(True)
+        self.exportControlContainer = QWidget(self.buttonsContainer)
+        self.exportControlContainer.setObjectName(u"exportControlContainer")
+        self.verticalLayout_2 = QVBoxLayout(self.exportControlContainer)
+        self.verticalLayout_2.setSpacing(2)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(3, 3, 3, 3)
+        self.exportSessioCSVButton = QPushButton(self.exportControlContainer)
+        self.exportSessioCSVButton.setObjectName(u"exportSessioCSVButton")
+        icon = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.GoDown))
+        self.exportSessioCSVButton.setIcon(icon)
 
-        self.horizontalLayout.addWidget(self.graohExportHelperLabel)
+        self.verticalLayout_2.addWidget(self.exportSessioCSVButton)
+
+        self.exportSessionImageButton = QPushButton(self.exportControlContainer)
+        self.exportSessionImageButton.setObjectName(u"exportSessionImageButton")
+        icon1 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.CameraPhoto))
+        self.exportSessionImageButton.setIcon(icon1)
+
+        self.verticalLayout_2.addWidget(self.exportSessionImageButton)
+
+
+        self.horizontalLayout.addWidget(self.exportControlContainer)
 
         self.sessionSelectorContainer = QWidget(self.buttonsContainer)
         self.sessionSelectorContainer.setObjectName(u"sessionSelectorContainer")
@@ -125,17 +142,10 @@ class Ui_useStatisticsForm(object):
 
         self.deleteSessionButton = QToolButton(self.sessionSelectorContainer)
         self.deleteSessionButton.setObjectName(u"deleteSessionButton")
-        icon = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.EditDelete))
-        self.deleteSessionButton.setIcon(icon)
+        icon2 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.EditDelete))
+        self.deleteSessionButton.setIcon(icon2)
 
         self.gridLayout_5.addWidget(self.deleteSessionButton, 3, 1, 1, 1)
-
-        self.exportSessioCSVButton = QToolButton(self.sessionSelectorContainer)
-        self.exportSessioCSVButton.setObjectName(u"exportSessioCSVButton")
-        icon1 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.DocumentPageSetup))
-        self.exportSessioCSVButton.setIcon(icon1)
-
-        self.gridLayout_5.addWidget(self.exportSessioCSVButton, 1, 1, 1, 1)
 
 
         self.horizontalLayout.addWidget(self.sessionSelectorContainer)
@@ -255,7 +265,11 @@ class Ui_useStatisticsForm(object):
 #endif // QT_CONFIG(tooltip)
         self.timelapseDescriptionLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Dura\u00e7\u00e3o", None))
         self.graphLegendHelperLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Clique nos elementos da legenda para filtrar o gr\u00e1fico", u"UserStatsHelper"))
-        self.graohExportHelperLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Use o bot\u00e3o direito do mouse nos gr\u00e1ficos para exportar na forma de imagem", u"UserStatsHelper"))
+#if QT_CONFIG(tooltip)
+        self.exportSessioCSVButton.setToolTip(QCoreApplication.translate("useStatisticsForm", u"Exporta\u00e7\u00e3o de dados de uso da sess\u00e3o, arquivos exportados s\u00e3o enviados para a pasta raiz da ferramenta", u"UserStatsHelper"))
+#endif // QT_CONFIG(tooltip)
+        self.exportSessioCSVButton.setText(QCoreApplication.translate("useStatisticsForm", u"Exportar dados brutos", None))
+        self.exportSessionImageButton.setText(QCoreApplication.translate("useStatisticsForm", u"Exportar como imagem", None))
 #if QT_CONFIG(tooltip)
         self.sessionComboBox.setToolTip("")
 #endif // QT_CONFIG(tooltip)
@@ -264,10 +278,6 @@ class Ui_useStatisticsForm(object):
         self.deleteSessionButton.setToolTip(QCoreApplication.translate("useStatisticsForm", u"Excluir a sess\u00e3o atual", u"UserStatsHelper"))
 #endif // QT_CONFIG(tooltip)
         self.deleteSessionButton.setText(QCoreApplication.translate("useStatisticsForm", u"...", None))
-#if QT_CONFIG(tooltip)
-        self.exportSessioCSVButton.setToolTip(QCoreApplication.translate("useStatisticsForm", u"Exporta\u00e7\u00e3o de dados de uso da sess\u00e3o, arquivos exportados s\u00e3o enviados para a pasta raiz da ferramenta", u"UserStatsHelper"))
-#endif // QT_CONFIG(tooltip)
-        self.exportSessioCSVButton.setText(QCoreApplication.translate("useStatisticsForm", u"...", None))
         self.statsTabWidget.setTabText(self.statsTabWidget.indexOf(self.sessionTab), QCoreApplication.translate("useStatisticsForm", u"Sess\u00f5es", None))
         self.sessionTimeLabel.setText(QCoreApplication.translate("useStatisticsForm", u"Tempo m\u00e9dio de ses\u00f5es", None))
         self.avgSessionTime.setText(QCoreApplication.translate("useStatisticsForm", u"TextLabel", None))

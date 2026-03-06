@@ -1,14 +1,17 @@
 from ui.views.user_stats_ui import Ui_useStatisticsForm
 from modules.use_data_collector import DataCollectorClass
 from modules.csv_writer import CSVWriterClass
+from modules.desktop_services import DekstopServicesClass
 
 from PySide6.QtWidgets import QWidget, QPushButton, QRadioButton, QMessageBox
 from modules.log_class import logger
 from PySide6.QtCore import Signal, Qt, QCoreApplication, QEvent
 
 import pyqtgraph as pg
-from pyqtgraph.GraphicsScene import exportDialog
+import pyqtgraph.exporters
 import numpy as np
+from pathlib import Path
+from unidecode import unidecode
 
 class UserStatsModel(QWidget):
 
@@ -45,6 +48,7 @@ class UserStatsModel(QWidget):
         self.newSessionButton = self.ui.newSessionButton
         self.deleteSessionButton = self.ui.deleteSessionButton
         self.exportSessionCSVButton = self.ui.exportSessioCSVButton
+        self.exportSessionImageButton = self.ui.exportSessionImageButton
 
         #ui element setup
         self.timelapse = "00:00:00"
@@ -72,12 +76,58 @@ class UserStatsModel(QWidget):
         self.csvWriter.exportEnd.connect(self.end_export_handle)
         self.csvWriter.exportError.connect(self.error_export_handle)
         self.dataCollectorHandler.errorOcurred.connect(self.data_collection_error_handle)
+        self.exportSessionImageButton.clicked.connect(self.export_as_image_handler)
 
         #create charts
         self.session_chart_layout_widget = None
         self.summary_chart_layout_widget = None
         self.create_charts()
         
+    def export_as_image_handler(self):
+        if self.sessionComboBox.currentIndex() >= 0:
+            try:
+                #exporter for current session
+                exporter = pg.exporters.ImageExporter(self.session_chart_layout_widget.scene())
+
+                #file path
+                #get patient name form db
+                q = f"""select name from patient where patient.id = ?;"""
+                patient_name = self.dbHandleClass.execute_single_query(q,[self.current_user])
+
+                #create folder structure
+                folder_path = Path(f"dados_de_uso/paciente_{self.current_user}_{unidecode(patient_name[0][0].replace(' ','_'))}/{"Esquerda" if self.selected_hand == 1 else "Direita"}")
+                folder_path.mkdir(parents=True, exist_ok=True)
+
+                q = f"""SELECT datetime(session_date,'-03:00')
+                            FROM session
+                            WHERE id = ?
+                            AND patient_id = ?;"""
+                session_date_string = self.dbHandleClass.execute_single_query(q,[self.sessionComboBox.currentData(),self.current_user])
+
+                #save file 1
+                file_path = folder_path / f"sessao_{session_date_string[0][0].replace(':','-')}.png"
+                exporter.export(str(file_path))
+                
+                #file 2, summary
+                exporter = pg.exporters.ImageExporter(self.summary_chart_layout_widget.scene())
+
+                file_path = folder_path /  "resumo.png"
+                
+                exporter.export(str(file_path))
+                
+            except Exception as e:
+                logger.debug(f"Erro na exportação: {e}")
+                self.error_export_handle()
+            else:
+                self.end_export_handle(folder_path)
+        else:
+            logger.error("Selecione uma sessão")
+            warning = QMessageBox(self)
+            warning.setWindowTitle(QCoreApplication.translate("WarningText", "Erro"))
+            warning.setText(QCoreApplication.translate("WarningText", "Selecione uma sessão"))
+            warning.setWindowModality(Qt.ApplicationModal)
+            warning.show()
+
     def data_collection_error_handle(self):
         warning = QMessageBox(self)
         warning.setWindowTitle(QCoreApplication.translate("WarningText", "Erro"))
@@ -230,12 +280,15 @@ class UserStatsModel(QWidget):
         self.plot_item_total_uses.setMouseEnabled(x=False, y=False)
         
 
-    def end_export_handle(self):
+    def end_export_handle(self, folder_path = None):
         warning = QMessageBox(self)
         warning.setWindowTitle(QCoreApplication.translate("WarningText", "Sucesso"))
-        warning.setText(QCoreApplication.translate("WarningText", "Exportação realizada com sucesso"))
+        warning.setText(QCoreApplication.translate("WarningText", "Exportação realizada com sucesso. A pasta criada será aberta."))
         warning.setWindowModality(Qt.ApplicationModal)
         warning.show()
+        if folder_path:
+            DekstopServicesClass().open_folder(folder_path)
+
 
     def error_export_handle(self):
         warning = QMessageBox(self)

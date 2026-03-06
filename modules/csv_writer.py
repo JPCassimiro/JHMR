@@ -5,24 +5,25 @@ from modules.log_class import logger
 
 import csv
 from pathlib import Path
+from unidecode import unidecode
 
 class CSVWriterClass(QObject):
-    exportEnd = Signal(bool)
+    exportEnd = Signal(object)
     exportError = Signal(bool)
     
     def __init__(self, parent = None):
         super().__init__(parent)    
 
-        # self.base_path = ""
+        self.csv_path = None
         
     def export_user_data(self, data):
         if data:
             try:
-                csv_path = Path(f"dados_de_uso/paciente_{data["userId"]}_{data["userName"][0][0]}/{data["userHand"]}")#create folder structure
-                csv_path.mkdir(parents=True, exist_ok=True)
-                raw_data_path = csv_path / "Dados_brutos_por_sessao"
-                statistical_data_path = csv_path / "Dados_estatisticos_por_sessao"
-                summary_statistical_path = csv_path / "Resumo_dados_estatisticos"
+                self.csv_path = Path(f"dados_de_uso/paciente_{data["userId"]}_{unidecode(data["userName"][0][0]).replace(' ','_')}/{data["userHand"]}")#create folder structure
+                self.csv_path.mkdir(parents=True, exist_ok=True)
+                raw_data_path = self.csv_path / "Dados_brutos_por_sessao"
+                statistical_data_path = self.csv_path / "Dados_estatisticos_por_sessao"
+                summary_statistical_path = self.csv_path / "Resumo_dados_estatisticos"
                 raw_data_path.mkdir(parents=True, exist_ok=True)
                 statistical_data_path.mkdir(parents=True, exist_ok=True)
                 summary_statistical_path.mkdir(parents=True, exist_ok=True)
@@ -123,8 +124,8 @@ class CSVWriterClass(QObject):
             except Exception as e:
                 logger.error(f"Erro ao exportar arquivos: {e}")
                 self.exportError.emit(True)
-            finally:
-                self.exportEnd.emit(True)
+            else:
+                self.exportEnd.emit(self.csv_path)
         else:
             logger.error(f"Arquivos não encontrados")
             self.exportError.emit(True)
