@@ -714,12 +714,16 @@ class UserStatsModel(QWidget):
         if self.startListening.isEnabled():
             self.newSessionButton.setDisabled(False)
             self.deleteSessionButton.setDisabled(False)
+            self.exportSessionCSVButton.setDisabled(False)
+            self.exportSessionImageButton.setDisabled(False)
             for radio in self.ui.handSelectorContainer.findChildren(QRadioButton):
                 radio.setDisabled(False)
             self.sideMenuDisableSignal.emit(True)
         else:
             self.newSessionButton.setDisabled(True)
             self.deleteSessionButton.setDisabled(True)
+            self.exportSessionCSVButton.setDisabled(True)
+            self.exportSessionImageButton.setDisabled(True)
             for radio in self.ui.handSelectorContainer.findChildren(QRadioButton):
                 radio.setDisabled(True)
             self.sideMenuDisableSignal.emit(False)                

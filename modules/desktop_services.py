@@ -15,4 +15,4 @@ class DekstopServicesClass(QObject):
             self.deskServ.openUrl(url)
             
         except Exception as e:
-            print(f"Erro ao abrir pasta: {e}")
+            print(f"Erro ao abrir link: {e}")

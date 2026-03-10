@@ -24,6 +24,21 @@
     </message>
 </context>
 <context>
+    <name>AppHelperDialogText</name>
+    <message>
+        <location filename="../ui/model/dialogs/app_helper_model.py" line="16"/>
+        <location filename="../ui/model/dialogs/app_helper_model.py" line="45"/>
+        <source>Ajuda</source>
+        <translation>Help</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/dialogs/app_helper_model.py" line="17"/>
+        <location filename="../ui/model/dialogs/app_helper_model.py" line="46"/>
+        <source>&lt;a href=&apos;manual/manual.html&apos;&gt;Manual de usuário&lt;a/&gt;</source>
+        <translation>&lt;a href=&apos;manual/manual.html&apos;&gt;User manual&lt;a/&gt;</translation>
+    </message>
+</context>
+<context>
     <name>ConfigJoystickComponents</name>
     <message>
         <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="33"/>
@@ -262,6 +277,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <message>
         <location filename="../ui/ui_files/main_window.ui" line="414"/>
         <location filename="../ui/ui_files/main_window.ui" line="424"/>
+        <location filename="../ui/ui_files/main_window.ui" line="434"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -364,6 +380,24 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="373"/>
         <source>Selecione uma sessão</source>
         <translation>Select a session</translation>
+    </message>
+</context>
+<context>
+    <name>appHelpDialog</name>
+    <message>
+        <location filename="../ui/ui_files/app_helper_modal.ui" line="20"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/app_helper_modal.ui" line="84"/>
+        <source>&lt;a href=&quot;file:///manual/manual.html&quot;&gt;Manual de usuário&lt;a/&gt;</source>
+        <translation>&lt;a href=&quot;file:///manual/manual.html&quot;&gt;User manual&lt;a/&gt;</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/app_helper_modal.ui" line="97"/>
+        <source>&lt;a href=&quot;https://github.com/JPCassimiro/JHMR&quot;&gt;Repositório no Github&lt;/a&gt;</source>
+        <translation>&lt;a href=&quot;https://github.com/JPCassimiro/JHMR&quot;&gt;Github repository&lt;/a&gt;</translation>
     </message>
 </context>
 <context>

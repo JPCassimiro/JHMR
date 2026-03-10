@@ -428,6 +428,16 @@
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QToolButton" name="manualButton">
+            <property name="text">
+             <string>...</string>
+            </property>
+            <property name="icon">
+             <iconset theme="QIcon::ThemeIcon::HelpFaq"/>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>

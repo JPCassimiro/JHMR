@@ -234,6 +234,13 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2.addWidget(self.appConfigButton)
 
+        self.manualButton = QToolButton(self.toolButtonContainer)
+        self.manualButton.setObjectName(u"manualButton")
+        icon2 = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.HelpFaq))
+        self.manualButton.setIcon(icon2)
+
+        self.horizontalLayout_2.addWidget(self.manualButton)
+
 
         self.sideMenu.addWidget(self.toolButtonContainer)
 
@@ -261,5 +268,6 @@ class Ui_MainWindow(object):
         self.statsButton.setText(QCoreApplication.translate("MainWindow", u"Estat\u00edsticas de uso", None))
         self.logModalButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
         self.appConfigButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
+        self.manualButton.setText(QCoreApplication.translate("MainWindow", u"...", None))
     # retranslateUi
 

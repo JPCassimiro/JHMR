@@ -9,6 +9,7 @@ from ui.model.stacked_widget_screens.user_actions_widget_model import UserAction
 from ui.model.stacked_widget_screens.user_stats_model import UserStatsModel
 from ui.model.dialogs.log_model import LogModel
 from ui.model.dialogs.app_config_dialog_model import AppConfigModel
+from ui.model.dialogs.app_helper_model import AppHelperModel
 
 from PySide6.QtWidgets import QPushButton, QMainWindow, QApplication
 from PySide6.QtCore import QEvent, QCoreApplication, Qt
@@ -69,6 +70,9 @@ class MainMenuWindow(QMainWindow):
         #setup config modal
         self.appConfigModal = AppConfigModel()
         
+        #setup manual modal
+        self.manual_modal = AppHelperModel()
+        
         #setup signal connections
         self.calibration_widget.pValuesSignal.connect(self.handle_pValues_signal)
         self.user_actions_widget.therapistSelected.connect(self.therapist_select_handler)
@@ -94,7 +98,8 @@ class MainMenuWindow(QMainWindow):
         self.statsButton = self.ui.statsButton
         self.logModalButton = self.ui.logModalButton
         self.appConfigButton = self.ui.appConfigButton
-        
+        self.manualButton = self.ui.manualButton
+
         self.connectionMenuButton.setEnabled(False)#screen always starts at this widget
         
         #setup button connections
@@ -105,6 +110,7 @@ class MainMenuWindow(QMainWindow):
         self.statsButton.clicked.connect(self.stats_menu_button_handler)
         self.logModalButton.clicked.connect(self.log_button_handler)
         self.appConfigButton.clicked.connect(self.app_config_button_handler)
+        self.manualButton.clicked.connect(self.app_manual_button_handler)
 
         #button toggling connections
         self.calibration_widget.sideMenuDisableSignal.connect(lambda state: self.side_menu_button_disabler(state, self.calibrationButton))
@@ -169,6 +175,9 @@ class MainMenuWindow(QMainWindow):
         
     def app_config_button_handler(self):
         self.appConfigModal.show()
+
+    def app_manual_button_handler(self):
+        self.manual_modal.show()
         
     # event override    
     def closeEvent(self, event):

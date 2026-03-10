@@ -3,6 +3,17 @@
 Este é o repositório para o TCC "SOFTWARE PARA CONFIGURAÇÃO DE UM JOYSTICK PARA EXERCÍCIOS DE MÃOS E DEDOS"</br>
 O objetivo da ferramenta é apoiar um joystick baseado em pressão desenvolvido por pesquisadores da UTFPR - CP na terefa de reabilitação de mãos e dedos, permitindo que o joystick seja configurado e que estatiscas de uso do mesmo sejam observadas.</br>
 
+- [JHMR - Joystick for Hand Motor Rehabilitation Software](#jhmr---joystick-for-hand-motor-rehabilitation-software)
+  - [Techstack](#techstack)
+    - [Tecnologias](#tecnologias)
+    - [Principais bibliotecas](#principais-bibliotecas)
+  - [Utilização](#utilização)
+  - [Manual](#manual)
+  - [Dependências](#dependências)
+  - [Créditos](#créditos)
+    - [Imagens](#imagens)
+    - [Ícones](#ícones)
+
 ## Techstack
 
 ### Tecnologias
@@ -24,9 +35,11 @@ Execute o arquivo "main.exe"
 
 É necessario parear o dispositivo através da interface do software mesmo que o dispositivo já esteja pareado.
 
+## Manual
+[Leia o manual de usuário](manual/manual.md)
+
 ## Dependências
 - [Bluetooth Command Line Tools](https://bluetoothinstaller.com/bluetooth-command-line-tools) (já incluso)</br>
-
 
 ## Créditos
 ### Imagens
