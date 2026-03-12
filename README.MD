@@ -36,7 +36,7 @@ Execute o arquivo "main.exe"
 É necessario parear o dispositivo através da interface do software mesmo que o dispositivo já esteja pareado.
 
 ## Manual
-[Leia o manual de usuário](manual/manual.md)
+[Leia o manual de usuário](_internal/manual/manual.md)
 
 ## Dependências
 - [Bluetooth Command Line Tools](https://bluetoothinstaller.com/bluetooth-command-line-tools) (já incluso)</br>

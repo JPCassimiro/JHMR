@@ -1,5 +1,6 @@
 from ui.views.key_select_modal_ui import Ui_keySelectModalDialog
-from PySide6.QtWidgets import QDialog
+
+from PySide6.QtWidgets import QDialog, QDialogButtonBox
 from PySide6.QtCore import QObject, QEvent, Qt, QCoreApplication
 
 key_map = {
@@ -34,7 +35,12 @@ key_map = {
 class KeySelectModel(QDialog):
     def __init__(self):
         super().__init__()
-
+        
+        #translatable text
+        self.string_list_components = [
+            QCoreApplication.translate("RegisterDialogText", "Cancelar")
+        ]
+        
         self.ui = Ui_keySelectModalDialog()
         self.ui.setupUi(self)
 
@@ -50,6 +56,7 @@ class KeySelectModel(QDialog):
         self.buttonBox = self.ui.buttonBox
         self.warningLabel = self.ui.warningLabel
         
+        #ui adjstments
         self.warningLabel.hide()
         
         self.cleanKeyButton.setFocusPolicy(Qt.FocusPolicy.NoFocus)
@@ -70,20 +77,18 @@ class KeySelectModel(QDialog):
         
         self.rejected.connect(self.cancel_operation_handler)
         self.accepted.connect(self.accepted_operation_handler)
-        
 
         self.set_ui_text()
 
     def set_ui_text(self):
         self.setWindowTitle(QCoreApplication.translate("KeySelectText","Use o teclado para selecionar"))
-        
+        self.ui.buttonBox.button(QDialogButtonBox.Cancel).setText(self.string_list_components[0])
 
     def showEvent(self, arg__1):
         for b in self.buttonBox.buttons():
             b.clearFocus()
         return super().showEvent(arg__1)
     
-        
     def confirm_button_handler(self):
         if self.selected_key == None:
             self.warningLabel.show()
@@ -113,10 +118,12 @@ class KeySelectModel(QDialog):
     def changeEvent(self, event):
         if event.type() == QEvent.Type.LanguageChange:
             self.ui.retranslateUi(self)
+            self.string_list_components = [
+                QCoreApplication.translate("RegisterDialogText", "Cancelar")
+            ]
             self.set_ui_text()
         return super().changeEvent(event)
         
-
 class KeyPressHandler(QObject):
     
     def eventFilter(self, widget, event):
@@ -128,15 +135,15 @@ class KeyPressHandler(QObject):
                 widget.selected_key = key
                 widget.keyDisplayer.clear()
                 if key not in ["UP", "DOWN", "LEFT", "RIGHT"]:
-                    widget.keyDisplayer.append(key.upper())
+                    widget.keyDisplayer.setText(key.upper())
                 elif key == "UP":
-                    widget.keyDisplayer.append(str("↑"))
+                    widget.keyDisplayer.setText(str("↑"))
                 elif key == "DOWN":
-                    widget.keyDisplayer.append(str("↓"))
+                    widget.keyDisplayer.setText(str("↓"))
                 elif key == "LEFT":
-                    widget.keyDisplayer.append(str("←"))
+                    widget.keyDisplayer.setText(str("←"))
                 elif key == "RIGHT":
-                    widget.keyDisplayer.append(str("→"))
+                    widget.keyDisplayer.setText(str("→"))
         return False
     
     def key_text_fix(self, key_event):

@@ -176,6 +176,7 @@ class ConfigWidgetModel(QWidget):
             print(f"sender: {self.sender().objectName()} pressed!")
             self.setEnabled(False)
             messages, bindingDict = self.confirm_messages_generator()
+            self.end_modal.sent_message_total = len(messages)  
             for message in messages:
                 self.send_serial_message(message)
             self.jsonWriter.update_config_file(self.current_user, bindingDict)

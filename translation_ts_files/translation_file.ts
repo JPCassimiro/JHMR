@@ -34,15 +34,19 @@
     <message>
         <location filename="../ui/model/dialogs/app_helper_model.py" line="17"/>
         <location filename="../ui/model/dialogs/app_helper_model.py" line="46"/>
+        <source>&lt;a href=&apos;_internal/manual/manual.html&apos;&gt;Manual de usuário&lt;a/&gt;</source>
+        <translation>&lt;a href=&apos;_internal/manual/manual.html&apos;&gt;User manual&lt;a/&gt;</translation>
+    </message>
+    <message>
         <source>&lt;a href=&apos;manual/manual.html&apos;&gt;Manual de usuário&lt;a/&gt;</source>
-        <translation>&lt;a href=&apos;manual/manual.html&apos;&gt;User manual&lt;a/&gt;</translation>
+        <translation type="vanished">&lt;a href=&apos;manual/manual.html&apos;&gt;User manual&lt;a/&gt;</translation>
     </message>
 </context>
 <context>
     <name>ConfigJoystickComponents</name>
     <message>
         <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="33"/>
-        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="320"/>
+        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="321"/>
         <source>Clique para selecionar</source>
         <translation>Click to select</translation>
     </message>
@@ -106,19 +110,27 @@
     <name>EndConfigDialogText</name>
     <message>
         <location filename="../ui/model/components/end_config_model.py" line="14"/>
-        <location filename="../ui/model/components/end_config_model.py" line="48"/>
+        <location filename="../ui/model/components/end_config_model.py" line="76"/>
         <source>Finalizado</source>
         <translation>Finished</translation>
     </message>
     <message>
-        <location filename="../ui/model/components/end_config_model.py" line="31"/>
-        <source>Erro ao configurar atributo</source>
-        <translation>Error while configuring the joystick</translation>
+        <location filename="../ui/model/components/end_config_model.py" line="18"/>
+        <source>Erro ao configurar um atributo, refaça a configuração.</source>
+        <translation>Error while setting atributes, restart the configuring process.</translation>
     </message>
     <message>
-        <location filename="../ui/model/components/end_config_model.py" line="32"/>
+        <location filename="../ui/model/components/end_config_model.py" line="19"/>
+        <source>Atributos configurados com sucesso!</source>
+        <translation>Sucess on atribute setting!</translation>
+    </message>
+    <message>
+        <source>Erro ao configurar atributo</source>
+        <translation type="vanished">Error while configuring the joystick</translation>
+    </message>
+    <message>
         <source>Atributo configurado com sucesso</source>
-        <translation>Success configuring the joystick</translation>
+        <translation type="vanished">Success configuring the joystick</translation>
     </message>
 </context>
 <context>
@@ -233,9 +245,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>KeySelectText</name>
     <message>
-        <location filename="../ui/model/dialogs/key_select_model.py" line="78"/>
+        <location filename="../ui/model/dialogs/key_select_model.py" line="79"/>
         <source>Use o teclado para selecionar</source>
         <translation>Use the keyboard to select a key</translation>
+    </message>
+    <message>
+        <source>Cancelar</source>
+        <translation type="vanished">Cancel</translation>
     </message>
 </context>
 <context>
@@ -290,14 +306,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation>Sing up</translation>
     </message>
     <message>
-        <location filename="../ui/model/dialogs/register_model.py" line="54"/>
         <source>Confirmar</source>
-        <translation>Confirm</translation>
+        <translation type="vanished">Confirm</translation>
     </message>
     <message>
+        <location filename="../ui/model/dialogs/key_select_model.py" line="80"/>
         <location filename="../ui/model/dialogs/register_model.py" line="55"/>
         <source>Cancelar</source>
         <translation>Cancel</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="vanished">Cancel</translation>
     </message>
 </context>
 <context>
@@ -602,12 +622,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation>Use the keyboard to select a key</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/key_select_modal.ui" line="43"/>
+        <location filename="../ui/ui_files/key_select_modal.ui" line="98"/>
         <source>Limpar tecla</source>
         <translation>Clear key</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/key_select_modal.ui" line="86"/>
+        <location filename="../ui/ui_files/key_select_modal.ui" line="183"/>
         <source>Selecione uma tecla</source>
         <translation>Select a keyboard key</translation>
     </message>

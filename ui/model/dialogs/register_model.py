@@ -14,10 +14,9 @@ class RegisterModel(QDialog):
     def __init__(self):
         super().__init__()
         
+        #translatable text
         self.string_list_components = [
-            "Cadastro",
-            "Confirmar",
-            "Cancelar"
+            QCoreApplication.translate("RegisterDialogText", "Cancelar")
         ]
 
         #ui setup
@@ -50,9 +49,9 @@ class RegisterModel(QDialog):
     def set_ui_text(self):
         self.setWindowTitle(QCoreApplication.translate("RegisterDialogText", "Cadastro"))
 
-        #edit ok and cancel button names
-        self.ui.buttonBox.button(QDialogButtonBox.Ok).setText(QCoreApplication.translate("RegisterDialogText", "Confirmar"))
-        self.ui.buttonBox.button(QDialogButtonBox.Cancel).setText(QCoreApplication.translate("RegisterDialogText", "Cancelar"))
+        # #edit ok and cancel button names
+        # self.ui.buttonBox.button(QDialogButtonBox.Ok).setText(QCoreApplication.translate("RegisterDialogText", "Confirmar"))
+        self.ui.buttonBox.button(QDialogButtonBox.Cancel).setText(self.string_list_components[0])
 
 
     def text_normalization(self):
@@ -86,6 +85,9 @@ class RegisterModel(QDialog):
     def changeEvent(self, event):
         if event.type() == QEvent.Type.LanguageChange:
             self.ui.retranslateUi(self)
+            self.string_list_components = [
+                QCoreApplication.translate("RegisterDialogText", "Cancelar")
+            ]
             self.set_ui_text()
         return super().changeEvent(event)
         

@@ -14,7 +14,7 @@ class AppHelperModel(QDialog):
 
         self.string_list_components = [
             QCoreApplication.translate("AppHelperDialogText","Ajuda"),
-            QCoreApplication.translate("AppHelperDialogText","<a href='manual/manual.html'>Manual de usuário<a/>"),
+            QCoreApplication.translate("AppHelperDialogText","<a href='_internal/manual/manual.html'>Manual de usuário<a/>"),#has to be updated on linguist too
         ]
 
         self.ui = Ui_appHelpDialog()
@@ -43,7 +43,7 @@ class AppHelperModel(QDialog):
             self.ui.retranslateUi(self)
             self.string_list_components = [
                 QCoreApplication.translate("AppHelperDialogText","Ajuda"),
-                QCoreApplication.translate("AppHelperDialogText","<a href='manual/manual.html'>Manual de usuário<a/>"),
+                QCoreApplication.translate("AppHelperDialogText","<a href='_internal/manual/manual.html'>Manual de usuário<a/>"),#has to be updated on linguist too
             ]
             self.set_ui_text()
         return super().changeEvent(event)
