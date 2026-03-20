@@ -27,7 +27,7 @@ class ProcessRunnerClass(QObject):
                 self.processFinished.emit("Erro ao receber argumento")
                 logger.error("Erro ao receber um argumento")
             else:
-                logger.debug("QProcess iniciado")
+                logger.debug(f"QProcess iniciado:{argStr}")
                 self.p.start(argStr[0],argStr[1])
         except Exception as e:
             logger.error(f"Erro ao rodar um QProcess\nErr: {e}\nArgStr: {argStr}")

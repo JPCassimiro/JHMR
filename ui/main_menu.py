@@ -1,4 +1,3 @@
-from ui.model.stacked_widget_screens.logger_widget_model import LoggerWidgetModel
 from ui.model.stacked_widget_screens.connection_manager_model import ConnectionManagerModel
 from ui.views.main_window_ui import Ui_MainWindow
 from ui.model.components.patient_widget_model import PatientWidgetModel

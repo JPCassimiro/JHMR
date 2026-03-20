@@ -161,6 +161,6 @@ class Ui_loggerForm(object):
         self.pairButtonInstructionLabel.setText(QCoreApplication.translate("loggerForm", u"Selecione um dispositivo para emparelhar", None))
         self.listTitleLabel.setText(QCoreApplication.translate("loggerForm", u"Lista de dispositivos encontrados", None))
         self.selectedDeviceTitleLabel.setText(QCoreApplication.translate("loggerForm", u"Dispositivo Conectado", None))
-        self.unpairDeviceButton.setText(QCoreApplication.translate("loggerForm", u"Desemparelhar dispositvo", None))
+        self.unpairDeviceButton.setText(QCoreApplication.translate("loggerForm", u"Desemparelhar dispositivo", None))
     # retranslateUi
 

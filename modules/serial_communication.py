@@ -14,7 +14,8 @@ baud_rate = 600
 
 class SerialCommClass(QObject):
     
-    portSignal = Signal(bool)
+    port_finish = Signal()
+    port_error = Signal()
     mesReceivedSignal = Signal(object)
     
     def __init__(self, parent=None):
@@ -129,15 +130,15 @@ class SerialCommClass(QObject):
                         start =  str(com_device.Name).lower().find("(com")
                         end =  str(com_device.Name).lower().find(")",start)
                         self.ser.setPortName(self.port_name_normalization(str(com_device.Name[start+1:end]).lower()))
-                        self.portSignal.emit(True)
+                        self.port_finish.emit()
                         logger.debug(f"find_port self.ser.portName():{self.ser.portName()}")
             else:
                 logger.error("Encontre o endereço MAC primeiro")
-                self.portSignal.emit(False)
+                self.port_error.emit()
 
         except Exception as e:
                 logger.error("Erro no processo de obter porta COM")
-                self.portSignal.emit(False)
+                self.port_error.emit()
 
             
 
@@ -156,3 +157,10 @@ class SerialCommClass(QObject):
     def handle_timeout(self):
         self.pause_var = False
         self.ser.clear(QSerialPort.Input)
+
+    def clear_serial_info(self):
+        self.device_mac_addr = None#clear device info from serialHandleClass
+        self.ser.port = ''
+        if self.ser.isOpen():
+            self.ser.close()
+        self.ser.setPortName('')

@@ -245,7 +245,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>KeySelectText</name>
     <message>
-        <location filename="../ui/model/dialogs/key_select_model.py" line="79"/>
+        <location filename="../ui/model/dialogs/key_select_model.py" line="84"/>
         <source>Use o teclado para selecionar</source>
         <translation>Use the keyboard to select a key</translation>
     </message>
@@ -301,7 +301,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>RegisterDialogText</name>
     <message>
-        <location filename="../ui/model/dialogs/register_model.py" line="51"/>
+        <location filename="../ui/model/dialogs/register_model.py" line="50"/>
         <source>Cadastro</source>
         <translation>Sing up</translation>
     </message>
@@ -310,8 +310,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation type="vanished">Confirm</translation>
     </message>
     <message>
-        <location filename="../ui/model/dialogs/key_select_model.py" line="80"/>
-        <location filename="../ui/model/dialogs/register_model.py" line="55"/>
+        <location filename="../ui/model/dialogs/key_select_model.py" line="41"/>
+        <location filename="../ui/model/dialogs/key_select_model.py" line="122"/>
+        <location filename="../ui/model/dialogs/register_model.py" line="19"/>
+        <location filename="../ui/model/dialogs/register_model.py" line="89"/>
         <source>Cancelar</source>
         <translation>Cancel</translation>
     </message>
@@ -704,8 +706,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </message>
     <message>
         <location filename="../ui/ui_files/connection_manager.ui" line="217"/>
-        <source>Desemparelhar dispositvo</source>
+        <source>Desemparelhar dispositivo</source>
         <translation>Unpair device</translation>
+    </message>
+    <message>
+        <source>Desemparelhar dispositvo</source>
+        <translation type="vanished">Unpair device</translation>
     </message>
     <message>
         <location filename="../ui/ui_files/logger_widget.ui" line="40"/>
