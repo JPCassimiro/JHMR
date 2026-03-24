@@ -183,6 +183,11 @@ class Ui_MainWindow(object):
 
         self.sideMenu.addWidget(self.configButton)
 
+        self.gameProfileButton = QPushButton(self.sideMenu_2)
+        self.gameProfileButton.setObjectName(u"gameProfileButton")
+
+        self.sideMenu.addWidget(self.gameProfileButton)
+
         self.userActionsButton = QPushButton(self.sideMenu_2)
         self.userActionsButton.setObjectName(u"userActionsButton")
 
@@ -264,6 +269,7 @@ class Ui_MainWindow(object):
         self.connectionMenuButton.setText(QCoreApplication.translate("MainWindow", u"Conex\u00e3o com joystick", None))
         self.calibrationButton.setText(QCoreApplication.translate("MainWindow", u"Calibra\u00e7\u00e3o", None))
         self.configButton.setText(QCoreApplication.translate("MainWindow", u"Configura\u00e7\u00e3o de bot\u00f5es", None))
+        self.gameProfileButton.setText(QCoreApplication.translate("MainWindow", u"Perfis de configura\u00e7\u00f5es", None))
         self.userActionsButton.setText(QCoreApplication.translate("MainWindow", u"A\u00e7\u00f5es de usu\u00e1rio", None))
         self.statsButton.setText(QCoreApplication.translate("MainWindow", u"Estat\u00edsticas de uso", None))
         self.logModalButton.setText(QCoreApplication.translate("MainWindow", u"...", None))

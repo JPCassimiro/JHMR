@@ -241,7 +241,7 @@
     </item>
     <item row="0" column="0" rowspan="2">
      <widget class="QWidget" name="sideMenu_2" native="true">
-      <layout class="QVBoxLayout" name="sideMenu" stretch="0,0,1,0,0,0,0,0,0,0,0">
+      <layout class="QVBoxLayout" name="sideMenu" stretch="0,0,1,0,0,0,0,0,0,0,0,0">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -337,6 +337,13 @@
         <widget class="QPushButton" name="configButton">
          <property name="text">
           <string>Configuração de botões</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="gameProfileButton">
+         <property name="text">
+          <string>Perfis de configurações</string>
          </property>
         </widget>
        </item>

@@ -1,4 +1,5 @@
 from ui.views.config_widget_ui import Ui_configForm
+
 from ui.model.dialogs.key_select_model import KeySelectModel
 from ui.model.components.end_config_model import EndConfigModel
 from ui.model.custom_widgets.custom_slider_model import CustomSliderModel
@@ -179,7 +180,7 @@ class ConfigWidgetModel(QWidget):
             self.end_modal.sent_message_total = len(messages)  
             for message in messages:
                 self.send_serial_message(message)
-            self.jsonWriter.update_config_file(self.current_user, bindingDict)
+            self.jsonWriter.write_bindings(self.current_user, bindingDict)
             self._selected_fingers = [False,False,False,False]#this is done this way as to not trigger reset value multiple times
             self.selected_fingers = (0,False)
             self.end_modal.exec()
@@ -274,14 +275,13 @@ class ConfigWidgetModel(QWidget):
         if self.nunchuck_info_dict["c_key"] != None: messages.append(f"*C{self.nunchuck_info_dict["c_key"]}")
         if self.nunchuck_info_dict["z_key"] != None: messages.append(f"*Z{self.nunchuck_info_dict["z_key"]}")
         bindingDict = {
-                "combo": self._selected_fingers,
                 "duration": self.finger_info_dict["duration"],
                 "key": self.finger_info_dict["key"],
                 "repeat": self.finger_info_dict["repeat_key"],
-                "pressure_1": self.p_value_array[0],
-                "pressure_2": self.p_value_array[1],
-                "pressure_3": self.p_value_array[2],
-                "pressure_4": self.p_value_array[3]
+                "little": self.p_value_array[0],
+                "ring": self.p_value_array[1],
+                "middle": self.p_value_array[2],
+                "index": self.p_value_array[3]
         }
         return  messages, bindingDict
     

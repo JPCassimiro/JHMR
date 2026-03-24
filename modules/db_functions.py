@@ -86,6 +86,20 @@ class DbClass():
                 timestamp datetime default current_timestamp,
                 foreign key (session_id) references session(id) on delete cascade
             );""")
+        self.execute_single_query("""
+            create table if not exists game_profile (
+                id integer primary key,
+                patient_id integer not null,
+                name text not null,
+                foreign key (patient_id) references patient(id) on delete cascade
+            );""")
+        self.execute_single_query("""
+            create table if not exists bindings (
+                id integer primary key,
+                game_id integer not null,
+                bindings_json text not null,
+                foreign key (game_id) references game_profile(id) on delete cascade
+            );""")
         self.execute_single_query("""insert into patient (id, name, details, image_path)
             values (1, 'paciente padrão', 'valor padrão', '_internal/resources/imgs/placeholder_profile.png');""")
         self.execute_single_query("""insert into therapist (id, name, details, image_path)
