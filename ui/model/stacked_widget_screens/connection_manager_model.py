@@ -24,7 +24,7 @@ class ConnectionManagerModel(QWidget):
     sideMenuDisableSignal = Signal(bool)
     to_idle = Signal()
 
-    def __init__(self, serialHandleClass, logModel):
+    def __init__(self, serialHandleClass, logModel, serialBtClass):
 
         super().__init__()
 
@@ -32,6 +32,7 @@ class ConnectionManagerModel(QWidget):
         #modules setup
         self.bluetoothHandle = BluetoothCommClass()
         self.serialHandleClass = serialHandleClass
+        self.serialBtClass = serialBtClass
         self.logModel = logModel
         
         #setup ui
@@ -54,7 +55,8 @@ class ConnectionManagerModel(QWidget):
         #connection setup_selected_device
         self.deviceListWidget.clicked.connect(self.device_select_handle)
         self.pairDeviceButton.clicked.connect(self.pair_selected_device)
-        self.serialHandleClass.port_finish.connect(self.successful_pair)
+        # self.serialBtClass.port_finish.connect(self.successful_pair)
+        # self.serialHandleClass.port_finish.connect(self.successful_pair)
         self.unpairDeviceButton.clicked.connect(self.full_unpair)
 
         self.selected_list_item = None
@@ -175,11 +177,13 @@ class ConnectionManagerModel(QWidget):
             self.machine.full_pair = True
             
     #gets device addr            
-    def end_full_pair(self,addr):
+    def end_full_pair(self,addr = None):
         logger.debug(f"end_full_pair addr:{addr}")
         try:
-            self.serialHandleClass.device_mac_addr = addr
-            self.serialHandleClass.find_port()
+            # self.serialHandleClass.device_mac_addr = addr
+            # self.serialHandleClass.find_port()
+            # self.serialBtClass.create_service_socket(self.selected_device[1])
+            self.successful_pair()
         except Exception as e:
             self.handle_process_ending_error(f"Erro ao encontrar dispositivos\nErro: {e}")
 
@@ -194,7 +198,7 @@ class ConnectionManagerModel(QWidget):
         self.show_connected_device()
         item = self.deviceListWidget.takeItem(self._selected_list_item)
         del item
-        self.bluetoothHandle.paired_device = self.selected_device[0]
+        self.bluetoothHandle.paired_device = self.selected_device[1]
         self.selected_device = [None,None]
         self.selected_list_item = None
         self.logModel.append_log("Sucesso no emparelhamento")
@@ -227,7 +231,7 @@ class ConnectionManagerModel(QWidget):
             logger.debug(f"update_list self.bluetoothHandle.spp_service_list:{self.bluetoothHandle.spp_service_list}")
 
             for i, device in enumerate(self.bluetoothHandle.hid_device_list):
-                if self.bluetoothHandle.paired_device == None or self.bluetoothHandle.paired_device.address() != device.address(): 
+                if self.bluetoothHandle.paired_device == None or self.bluetoothHandle.paired_device.device().address() != device.address(): 
                     deviceDict = {
                         "listName": i+1,
                         "name": device.name(),
@@ -274,12 +278,12 @@ class ConnectionManagerModel(QWidget):
             "disable_screen": self.disable_screen
         })
         self.search_state = DeviceSearchState(self.machine, self.bluetoothHandle)
-        self.disconnect_state = DisconnectionState(self.machine, self.bluetoothHandle)
+        self.disconnect_state = DisconnectionState(self.machine, self.bluetoothHandle, self.serialBtClass)
         self.error_state = ErrorState(self.machine, self.bluetoothHandle, functions = {
             "handle_process_ending_error": self.handle_process_ending_error
         })
-        self.connection_state = ConnectionState(self.machine, self.bluetoothHandle)
-        self.find_port_state = FindPortState(self.machine, self.bluetoothHandle)
+        self.connection_state = ConnectionState(self.machine, self.bluetoothHandle, self.serialBtClass)
+        self.find_port_state = FindPortState(self.machine, self.bluetoothHandle, self.serialBtClass)
 
         #idle state transitions
         self.idle_state.addTransition(self.pairDeviceButton.clicked, self.disconnect_state)
@@ -310,8 +314,10 @@ class ConnectionManagerModel(QWidget):
         self.connection_state.addTransition(self.bluetoothHandle.local_error, self.error_state)
 
         #find_port state transitions
-        self.find_port_state.addTransition(self.serialHandleClass.port_finish, self.idle_state)
-        self.find_port_state.addTransition(self.serialHandleClass.port_error, self.error_state)
+        self.find_port_state.addTransition(self.find_port_state.pair_success, self.idle_state)
+        self.find_port_state.addTransition(self.serialBtClass.port_error, self.error_state)
+        # self.find_port_state.addTransition(self.serialHandleClass.port_finish, self.idle_state)
+        # self.find_port_state.addTransition(self.serialHandleClass.port_error, self.error_state)
 
         self.machine.setInitialState(self.idle_state)
         

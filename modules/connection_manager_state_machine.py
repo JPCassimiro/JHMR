@@ -29,10 +29,11 @@ class DisconnectionState(QState):
     disc_finish = Signal()
     conn_start = Signal()
 
-    def __init__(self, machine, bluetoothHandle, functions = None):
+    def __init__(self, machine, bluetoothHandle, btSerialHandle, functions = None):
         super().__init__(machine)
         self.machine = machine
         self.btHandle = bluetoothHandle
+        self.btSerialHandle = btSerialHandle
         self.functions = functions
         self.sp_case = None
         self.spp_counter = 0
@@ -47,17 +48,19 @@ class DisconnectionState(QState):
         logger.debug(f"DisconncetionState onEntry res:{res}")
         match(res):
             case 0:
-                self.btHandle.hid_device_unpair(self.btHandle.paired_device)
-                self.btHandle.unpair_device(self.btHandle.paired_device.address().toString().lower())   
+                self.btHandle.hid_device_unpair(self.btHandle.paired_device.device())
+                self.btHandle.unpair_device(self.btHandle.paired_device.device().address().toString().lower())
+                self.btSerialHandle.clear_socket() 
             case 1:
                 self.btHandle.hid_device_unpair(self.machine.selected_device[0])
                 self.btHandle.unpair_device(self.machine.selected_device[0].address().toString().lower())   
             case 2:
                 self.sp_case = True
-                self.btHandle.hid_device_unpair(self.btHandle.paired_device)
-                self.btHandle.unpair_device(self.btHandle.paired_device.address().toString().lower())
+                self.btHandle.hid_device_unpair(self.btHandle.paired_device.device())
+                self.btHandle.unpair_device(self.btHandle.paired_device.device().address().toString().lower())
                 self.btHandle.hid_device_unpair(self.machine.selected_device[0])
                 self.btHandle.unpair_device(self.machine.selected_device[0].address().toString().lower())  
+                self.btSerialHandle.clear_socket() 
 
         return super().onEntry(event)
 
@@ -122,10 +125,12 @@ class ErrorState(QState):
         self.functions = functions
         
     def onEntry(self, event):
+        logger.debug(f"ErrorState onEntry")
         self.functions["handle_process_ending_error"]("Erro no processo de conexão")
         return super().onEntry(event)
 
     def onExit(self, event):
+        logger.debug(f"ErrorState onExit")
         return super().onExit(event)
 
 class ConnectionState(QState):
@@ -144,7 +149,9 @@ class ConnectionState(QState):
         self.btHandle.hid_finish.connect(self.handle_finish)
         if self.machine.selected_device:
             self.btHandle.hid_device_pair(self.machine.selected_device[0])
-            self.btHandle.pair_device(self.machine.selected_device[1].serviceUuid().toString(),self.machine.selected_device[0].address().toString())
+            # self.btHandle.pair_device(self.machine.selected_device[1].serviceUuid().toString(),self.machine.selected_device[0].address().toString())
+            # self.btHandle.create_service_socket(self.machine.selected_device[1])
+            self.btHandle.spp_finish.emit("spp")
         return super().onEntry(event)
 
     def onExit(self, event):
@@ -228,19 +235,25 @@ class FindPortState(QState):
 
     pair_success = Signal(str)
 
-    def __init__(self, machine, bluetoohHandle, functions = None):
+    def __init__(self, machine, bluetoohHandle, btSerialHandle, functions = None):
         super().__init__(machine)
         self.machine = machine
         self.btHandle = bluetoohHandle
+        self.btSerialHandle = btSerialHandle
         self.functions = functions
 
     def onEntry(self, event):
         if self.machine.addr:
-            self.pair_success.emit(self.machine.addr)
+            self.btSerialHandle.port_finish.connect(self.on_socket_sucess)
+            self.btSerialHandle.create_service_socket(self.machine.selected_device[1])
         return super().onEntry(event)
 
     def onExit(self, event):
-        self.btHandle.paired_device = self.machine.selected_device[0]
+        self.btHandle.paired_device = self.machine.selected_device[1]
         self.machine.selected_device = [None, None]
         self.machine.addr = None
+        self.btSerialHandle.port_finish.disconnect(self.on_socket_sucess)
         return super().onExit(event)
+
+    def on_socket_sucess(self):
+        self.pair_success.emit(self.machine.addr)

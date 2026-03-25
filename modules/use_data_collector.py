@@ -6,7 +6,7 @@ import time
 class DataCollectorClass(QObject):
     errorOcurred = Signal(bool)
 
-    def __init__(self, dbHandleClass, SerialCommClass,logModel):
+    def __init__(self, dbHandleClass, SerialCommClass, btSerialHandle, logModel):
         super().__init__()
         
         #variable setup
@@ -22,6 +22,7 @@ class DataCollectorClass(QObject):
         self.timer = QTimer()
         self.dbHandleClass = dbHandleClass
         self.serialHandleClass = SerialCommClass
+        self.btSerialHandle = btSerialHandle
 
         #connections setup
         self.timer.timeout.connect(self.timeout_handle)
@@ -44,12 +45,16 @@ class DataCollectorClass(QObject):
                 self.start_data_collection(2500)
                 self.send_serial_message("*L1")
                 time.sleep(0.5)#attemps to garantee that the response from L1 will be handled on the regular message listner
-                self.serialHandleClass.swap_message_listner(1)
-                self.serialHandleClass.mesReceivedSignal.connect(self.message_received_handler)
+                self.btSerialHandle.swap_message_listner(1)
+                # self.serialHandleClass.swap_message_listner(1)
+                self.btSerialHandle.mesReceivedSignal.connect(self.message_received_handler)
+                # self.serialHandleClass.mesReceivedSignal.connect(self.message_received_handler)
             else:
                 self.timer.stop()
-                self.serialHandleClass.swap_message_listner(0)
-                self.serialHandleClass.mesReceivedSignal.disconnect(self.message_received_handler)
+                self.btSerialHandle.swap_message_listner(0)
+                # self.serialHandleClass.swap_message_listner(0)
+                self.btSerialHandle.mesReceivedSignal.disconnect(self.message_received_handler)
+                # self.serialHandleClass.mesReceivedSignal.disconnect(self.message_received_handler)
                 self.timeout_handle()
                 self.send_serial_message("*L0")
         except Exception as e:
@@ -124,9 +129,11 @@ class DataCollectorClass(QObject):
                 logger.debug(f"Pressões recebidas - Mínimo: {int(messages[0])/10} - Anelar: {int(messages[1])/10} KG - Médio: {int(messages[2])/10} KG - KG Indicador/Polegar: {int(messages[3])/10} KG")
                 
     def send_serial_message(self,message):
-        self.serialHandleClass.open_port()
+        self.btSerialHandle.open_port()
+        # self.serialHandleClass.open_port()
         logger.debug(f"mensagem enviada: {message}")
-        self.serialHandleClass.send_message(message)
+        self.btSerialHandle.send_message(message)
+        # self.serialHandleClass.send_message(message)
 
 
             

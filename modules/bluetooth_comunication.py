@@ -1,5 +1,5 @@
 from PySide6.QtBluetooth import (QBluetoothLocalDevice, QBluetoothServiceDiscoveryAgent, QBluetoothServiceInfo,
-                                 QBluetoothDeviceDiscoveryAgent, QBluetoothDeviceInfo, QLowEnergyController)
+                                 QBluetoothDeviceDiscoveryAgent, QBluetoothDeviceInfo, QLowEnergyController, QBluetoothSocket)
 from PySide6.QtCore import QObject, Signal
 
 from modules.process_class import ProcessRunnerClass
@@ -52,7 +52,7 @@ class BluetoothCommClass(QObject):
 
         #list of LE controllers for power check
         self.le_controller_list = []
-        
+
         #local device pairing event finished handler 
         self.local_device.pairingFinished.connect(self.hid_pairEvent_finish)
         self.local_device.errorOccurred.connect(self.local_device_error)
@@ -239,7 +239,7 @@ class BluetoothCommClass(QObject):
                     self.hid_finish.emit("hid")
                     # logger.debug("Dispositivo não encontrado")
             elif self.paired_device:
-                self.local_device.requestPairing(self.paired_device.address(), self.local_device.Pairing.Unpaired)
+                self.local_device.requestPairing(self.paired_device.device().address(), self.local_device.Pairing.Unpaired)
             else:
                 logger.debug(f"hid_device_unpair variavel nula")
                 self.hid_error.emit()
@@ -276,7 +276,7 @@ class BluetoothCommClass(QObject):
                     self.hid_finish.emit()
             elif self.paired_device:
                 logger.debug(f"check_device_connection self.paired_device true")
-                if self.local_device.pairingStatus(self.paired_device.address()) != self.local_device.Pairing.AuthorizedPaired:
+                if self.local_device.pairingStatus(self.paired_device.device().address()) != self.local_device.Pairing.AuthorizedPaired:
                     self.hid_finish.emit("hid")
                 else:
                     self.hid_error.emit()
@@ -335,3 +335,5 @@ class BluetoothCommClass(QObject):
         except Exception as e:
             logger.debug(f"Erro no processo de conexão: {e}")
             self.local_error.emit()
+            
+    

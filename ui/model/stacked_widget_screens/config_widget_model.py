@@ -22,7 +22,7 @@ nunchuck_base_value = {
 }
 
 class ConfigWidgetModel(QWidget):
-    def __init__(self,serialHandleClass,LogModel):
+    def __init__(self,serialHandleClass, btSerialHandle, LogModel):
         super().__init__()
 
         self.string_list_dialog = [
@@ -42,6 +42,7 @@ class ConfigWidgetModel(QWidget):
         self.end_modal = EndConfigModel()
         self.serialHandleClass = serialHandleClass
         self.logModel = LogModel
+        self.btSerialHandle = btSerialHandle
         self.jsonWriter = JsonWriterClass()
 
         #variables setup
@@ -129,7 +130,8 @@ class ConfigWidgetModel(QWidget):
         
         self.ui.optionsContainer.setEnabled(False)
 
-        self.serialHandleClass.mesReceivedSignal.connect(self.message_received_handler)
+        self.end_modal.finished.connect(self.finish_modal)
+        # self.serialHandleClass.mesReceivedSignal.connect(self.message_received_handler)
 
     #defines selected_finger getter
     @property
@@ -147,7 +149,10 @@ class ConfigWidgetModel(QWidget):
         for i,slider in enumerate(self.slider_array):
             slider.slider.setMaximum(arry[i])
             slider.maxLabel.setText(str(arry[i]/10))
-
+    
+    def finish_modal(self):
+        self.btSerialHandle.mesReceivedSignal.disconnect(self.message_received_handler)
+    
     def duration_slider_value_change(self):
         print(f"slider: {self.sender().objectName()} - value: {self.sender().value()}")
         self.finger_info_dict.update({"duration":self.sender().value()})
@@ -180,9 +185,10 @@ class ConfigWidgetModel(QWidget):
             self.end_modal.sent_message_total = len(messages)  
             for message in messages:
                 self.send_serial_message(message)
-            self.jsonWriter.write_bindings(self.current_user, bindingDict)
+            self.jsonWriter.write_bindings(bindingDict)
             self._selected_fingers = [False,False,False,False]#this is done this way as to not trigger reset value multiple times
             self.selected_fingers = (0,False)
+            self.btSerialHandle.mesReceivedSignal.connect(self.message_received_handler)
             self.end_modal.exec()
             self.setEnabled(True)
 
@@ -246,9 +252,11 @@ class ConfigWidgetModel(QWidget):
             slider.slider.setValue(0)
 
     def send_serial_message(self,message):
-        self.serialHandleClass.open_port()
+        self.btSerialHandle.open_port()
+        # self.serialHandleClass.open_port()
         logger.debug(f"mensagem enviada: {message}")
-        self.serialHandleClass.send_message(message)
+        self.btSerialHandle.send_message(message)
+        # self.serialHandleClass.send_message(message)
         
     def confirm_messages_generator(self):
         messages = []

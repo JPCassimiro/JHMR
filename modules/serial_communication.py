@@ -140,8 +140,6 @@ class SerialCommClass(QObject):
                 logger.error("Erro no processo de obter porta COM")
                 self.port_error.emit()
 
-            
-
     def swap_message_listner(self,op = 0):
         self.ser.readyRead.disconnect()
         if op == 0:#default

@@ -17,7 +17,7 @@ class UserStatsModel(QWidget):
 
     sideMenuDisableSignal = Signal(bool)
 
-    def __init__(self, dbHandleClass, SerialCommClass, LogModel):
+    def __init__(self, dbHandleClass, SerialCommClass, btSerialHandle, LogModel):
         super().__init__()
 
         #ui setup
@@ -25,7 +25,7 @@ class UserStatsModel(QWidget):
         self.ui.setupUi(self)
         
         #modules setup
-        self.dataCollectorHandler = DataCollectorClass(dbHandleClass, SerialCommClass, LogModel)
+        self.dataCollectorHandler = DataCollectorClass(dbHandleClass, SerialCommClass, btSerialHandle, LogModel)
         self.dbHandleClass = dbHandleClass
         self.csvWriter = CSVWriterClass()
         

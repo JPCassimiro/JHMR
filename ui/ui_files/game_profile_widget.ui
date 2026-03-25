@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>743</width>
-    <height>521</height>
+    <width>739</width>
+    <height>491</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
        <widget class="QWidget" name="controlContainer" native="true">
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="1">
-          <widget class="QListView" name="configListView"/>
+          <widget class="QListView" name="profileListView"/>
          </item>
         </layout>
        </widget>

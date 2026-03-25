@@ -1,9 +1,8 @@
-import json
-
 from modules.log_class import logger
 
 from PySide6.QtCore import QObject
 
+import json
 from pathlib import Path
 
 class JsonWriterClass(QObject):

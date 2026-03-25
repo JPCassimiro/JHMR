@@ -23,7 +23,7 @@ class Ui_gameProfileWidgetForm(object):
     def setupUi(self, gameProfileWidgetForm):
         if not gameProfileWidgetForm.objectName():
             gameProfileWidgetForm.setObjectName(u"gameProfileWidgetForm")
-        gameProfileWidgetForm.resize(743, 521)
+        gameProfileWidgetForm.resize(739, 491)
         self.gridLayout = QGridLayout(gameProfileWidgetForm)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gameProfileContainer = QWidget(gameProfileWidgetForm)
@@ -46,10 +46,10 @@ class Ui_gameProfileWidgetForm(object):
         self.controlContainer.setObjectName(u"controlContainer")
         self.gridLayout_2 = QGridLayout(self.controlContainer)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.configListView = QListView(self.controlContainer)
-        self.configListView.setObjectName(u"configListView")
+        self.profileListView = QListView(self.controlContainer)
+        self.profileListView.setObjectName(u"profileListView")
 
-        self.gridLayout_2.addWidget(self.configListView, 0, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.profileListView, 0, 1, 1, 1)
 
 
         self.horizontalLayout.addWidget(self.controlContainer)

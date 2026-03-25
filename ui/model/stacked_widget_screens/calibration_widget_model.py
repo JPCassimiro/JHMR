@@ -11,7 +11,7 @@ class CalibrationWidgetModel(QWidget):
     pValuesSignal = Signal(list)
     sideMenuDisableSignal = Signal(bool)
     
-    def __init__(self,serialHandleClass,logModel):
+    def __init__(self,serialHandleClass,logModel,btSerialhandle):
         super().__init__()
         
         self.string_list_instruction = [
@@ -27,6 +27,7 @@ class CalibrationWidgetModel(QWidget):
         self.serialHandleClass = serialHandleClass
         self.timer = QTimer()
         self.logModel = logModel
+        self.btSerialhandle = btSerialhandle
         
         #custom ui element setup
         self.resultModel = CalibrationResultModel()
@@ -101,19 +102,21 @@ class CalibrationWidgetModel(QWidget):
     #starts the timer
     #500ms timer for sending the messages
     def start_button_handler(self):
-        print(self.serialHandleClass.ser.portName())
         self.startButton.setEnabled(False)
         self.restartButton.setEnabled(False)
-        self.serialHandleClass.mesReceivedSignal.connect(self.recieve_serial_message)
+        # self.serialHandleClass.mesReceivedSignal.connect(self.recieve_serial_message)
+        self.btSerialhandle.mesReceivedSignal.connect(self.recieve_serial_message)
         self.cancelButton.setEnabled(True)
         self.timer.start(500)
         self.sideMenuDisableSignal.emit(False)
         
     #messages are to be sent in *S1 to *S4 order
     def send_serial_message(self,message):
-        self.serialHandleClass.open_port()
+        # self.serialHandleClass.open_port()
+        self.btSerialhandle.open_port()
         logger.debug(f"mensagem enviada: {message}")
-        self.serialHandleClass.send_message(message)
+        # self.serialHandleClass.send_message(message)
+        self.btSerialhandle.send_message(message)
     
     #messages will be recieved in the same order as they are sent, per serial rules
     def recieve_serial_message(self,recieved):
@@ -189,7 +192,8 @@ class CalibrationWidgetModel(QWidget):
                 self.calibration_step = 1
                 self.update_instruction_ui()
                 self.timer.stop()
-                self.serialHandleClass.mesReceivedSignal.disconnect(self.recieve_serial_message)
+                self.btSerialhandle.mesReceivedSignal.disconnect(self.recieve_serial_message)
+                # self.serialHandleClass.mesReceivedSignal.disconnect(self.recieve_serial_message)
                 return
         elif self.calibration_step == 1:
             if self.timeout_counter < 10:
@@ -200,7 +204,8 @@ class CalibrationWidgetModel(QWidget):
                 self.timeout_counter = 0
                 self.calibration_step = 0
                 self.timer.stop()
-                self.serialHandleClass.mesReceivedSignal.disconnect(self.recieve_serial_message)
+                self.btSerialhandle.mesReceivedSignal.disconnect(self.recieve_serial_message)
+                # self.serialHandleClass.mesReceivedSignal.disconnect(self.recieve_serial_message)
                 self.startButton.setEnabled(True)
                 self.restartButton.setEnabled(True)
                 self.cancelButton.setEnabled(False)

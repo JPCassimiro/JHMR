@@ -18,6 +18,7 @@ from PySide6.QtGui import QPixmap
 
 from modules.serial_communication import SerialCommClass
 from modules.db_functions import DbClass
+from modules.bluetooth_serial_communication import BtSerialComm
 
 class MainMenuWindow(QMainWindow):
     def __init__(self):
@@ -27,6 +28,7 @@ class MainMenuWindow(QMainWindow):
         self.serialHandleClass = SerialCommClass()
         self.dbHandleClass = DbClass()
         self.logModel = LogModel()
+        self.btSerialHandle = BtSerialComm()
 
         #setup translatable strings
         self.string_list_components = [
@@ -59,13 +61,13 @@ class MainMenuWindow(QMainWindow):
         
         #get widgets
         # self.logger_widget = LoggerWidgetModel(self.serialHandleClass, self.logModel)
-        self.connection_manager_widget = ConnectionManagerModel(self.serialHandleClass, self.logModel)
+        self.connection_manager_widget = ConnectionManagerModel(self.serialHandleClass, self.logModel, self.btSerialHandle)
         self.patient_widget = PatientWidgetModel()
         self.title_widget = TitleWidgetModel()
-        self.config_widget = ConfigWidgetModel(self.serialHandleClass,self.logModel)
-        self.calibration_widget = CalibrationWidgetModel(self.serialHandleClass,self.logModel)
+        self.config_widget = ConfigWidgetModel(self.serialHandleClass,self.btSerialHandle, self.logModel)
+        self.calibration_widget = CalibrationWidgetModel(self.serialHandleClass,self.logModel, self.btSerialHandle)
         self.user_actions_widget = UserActionsModel(self.dbHandleClass)
-        self.user_stats_widget = UserStatsModel(self.dbHandleClass,self.serialHandleClass,self.logModel)
+        self.user_stats_widget = UserStatsModel(self.dbHandleClass,self.serialHandleClass, self.btSerialHandle, self.logModel)
         self.side_menu = self.ui.sideMenu_2
         self.game_profile_widget = GameProfileModel(self.logModel,self.dbHandleClass)
 
@@ -103,6 +105,7 @@ class MainMenuWindow(QMainWindow):
         self.appConfigButton = self.ui.appConfigButton
         self.manualButton = self.ui.manualButton
         self.gameProfileButton = self.ui.gameProfileButton
+        self.gameProfileButton.hide()#!for now
 
         self.connectionMenuButton.setEnabled(False)#screen always starts at this widget
         
@@ -162,6 +165,7 @@ class MainMenuWindow(QMainWindow):
         if "id" in infoDict:
             self.user_stats_widget.assing_user(infoDict["id"],infoDict["name"])
             self.config_widget.current_user = infoDict["id"]
+            self.game_profile_widget.assing_user(infoDict["id"])
         
     def log_button_handler(self):
         self.logModel.open()

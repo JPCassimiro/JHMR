@@ -6,6 +6,7 @@ from PySide6.QtCore import QCoreApplication, QEvent
 
 
 class EndConfigModel(QDialog):
+    
     def __init__(self):
         super().__init__()
         
@@ -15,8 +16,8 @@ class EndConfigModel(QDialog):
         ]
 
         self.string_list_messages = [
-                QCoreApplication.translate("EndConfigDialogText","Erro ao configurar um atributo, refaça a configuração."),
-                QCoreApplication.translate("EndConfigDialogText","Atributos configurados com sucesso!")
+            QCoreApplication.translate("EndConfigDialogText","Erro ao configurar um atributo, refaça a configuração."),
+            QCoreApplication.translate("EndConfigDialogText","Atributos configurados com sucesso!")
         ]
         
         self.ui = Ui_endConfigModalDialog()
@@ -39,11 +40,13 @@ class EndConfigModel(QDialog):
     @recieved_messages.setter
     def recieved_messages(self,message):
         self._recieved_messages.append(message)
+        logger.debug(f"EndConfigModel @recieved_messages.setter self._recieved_messages{self._recieved_messages}")
         if self.sent_message_total:
             if len(self._recieved_messages) == self.sent_message_total:
                 self.finish_message()
     
     def finish_message(self):
+        logger.debug(f"EndConfigModel finish_message self.sent_message_total{self.sent_message_total}")
         if self.sent_message_total:
             if sum(self._recieved_messages) != self.sent_message_total:
                 self.messageField.append(self.string_list_messages[0])
