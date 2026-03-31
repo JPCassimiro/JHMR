@@ -71,6 +71,13 @@ class ConfigWidgetModel(QWidget):
             self.verticalSliderMiddle,
             self.verticalSliderIndex
         ]
+        
+        self.finger_radio_array = [
+            self.radioButtonLittle,
+            self.radioButtonRing,
+            self.radioButtonMiddle, 
+            self.radioButtonIndex
+        ]
 
         #optionsContainer elements
         self.repeatOffButton = self.ui.repeatOffButton
@@ -252,11 +259,12 @@ class ConfigWidgetModel(QWidget):
             slider.slider.setValue(0)
 
     def send_serial_message(self,message):
-        self.btSerialHandle.open_port()
-        # self.serialHandleClass.open_port()
-        logger.debug(f"mensagem enviada: {message}")
-        self.btSerialHandle.send_message(message)
-        # self.serialHandleClass.send_message(message)
+        if self.btSerialHandle.bt_socket != None:
+            self.btSerialHandle.open_port()
+            # self.serialHandleClass.open_port()
+            logger.debug(f"mensagem enviada: {message}")
+            self.btSerialHandle.send_message(message)
+            # self.serialHandleClass.send_message(message)
         
     def confirm_messages_generator(self):
         messages = []
@@ -322,6 +330,37 @@ class ConfigWidgetModel(QWidget):
         elif key == "RIGHT":
             key_text = str("→")
         return key_text
+
+    def assing_card_values(self,config):
+        self._selected_fingers = [False,False,False,False]#this is done this way as to not trigger reset value multiple times
+        self.selected_fingers = (0,False)
+        duration = int(config["duration"])
+        repeat = True if config["repeat"] == "True" else False
+        key = config["key"]
+
+        for index, finger in enumerate(["little", "ring", "middle" , "index"]):
+            value = int(config[finger])
+            if int(value) != 0:
+                self.finger_radio_array[index].setChecked(True)
+                self.selected_fingers = (index,True)
+                self.slider_array[index].setEnabled(True)
+                self.slider_array[index].slider.setValue(value)
+                
+        self.durationSlider.setValue(duration)
+
+        logger.debug(f"assing_card_values repeat:{repeat}")
+        
+        if repeat == True:
+            self.repeatOnButton.setChecked(True)
+            self.repeatOffButton.setChecked(False)
+            self.finger_info_dict["repeat_key"] = True
+        else:
+            self.repeatOffButton.setChecked(True)
+            self.repeatOnButton.setChecked(False)
+            self.finger_info_dict["repeat_key"] = False
+            
+        self.key_select_modal.selected_key = key
+        self.handle_modal_finish()
 
     def changeEvent(self, event):
         if event.type() == QEvent.Type.LanguageChange:

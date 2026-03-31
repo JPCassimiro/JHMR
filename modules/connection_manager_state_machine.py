@@ -48,13 +48,16 @@ class DisconnectionState(QState):
         logger.debug(f"DisconncetionState onEntry res:{res}")
         match(res):
             case 0:
+                logger.debug(f"DisconnectionState case 0")
                 self.btHandle.hid_device_unpair(self.btHandle.paired_device.device())
                 self.btHandle.unpair_device(self.btHandle.paired_device.device().address().toString().lower())
                 self.btSerialHandle.clear_socket() 
             case 1:
+                logger.debug(f"DisconnectionState case 1")
                 self.btHandle.hid_device_unpair(self.machine.selected_device[0])
                 self.btHandle.unpair_device(self.machine.selected_device[0].address().toString().lower())   
             case 2:
+                logger.debug(f"DisconnectionState case 2")
                 self.sp_case = True
                 self.btHandle.hid_device_unpair(self.btHandle.paired_device.device())
                 self.btHandle.unpair_device(self.btHandle.paired_device.device().address().toString().lower())

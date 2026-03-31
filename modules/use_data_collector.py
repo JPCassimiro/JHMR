@@ -120,6 +120,7 @@ class DataCollectorClass(QObject):
     #splits message on each array
     #each message has 3 digits
     def message_received_handler(self,message):
+        logger.debug(f"DataCollectorClass message_received_handler message:{message}")
         self.logModel.append_log(message)
         for m in message:
             messages = [m[2:5],m[5:8],m[8:11],m[11:]] 

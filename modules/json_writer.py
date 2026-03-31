@@ -14,11 +14,8 @@ class JsonWriterClass(QObject):
     def write_bindings(self,bindingDict):
         self.base_path.mkdir(parents=True, exist_ok=True)
         json_file = self.base_path / f"user_bindings.json"
-        data = {
-            "bindings": {}
-        }
         
-        data["bindings"] = {
+        data = {
                 "duration":f"{bindingDict["duration"]}",
                 "key": f"{bindingDict["key"]}",
                 "repeat": f"{bindingDict["repeat"]}",

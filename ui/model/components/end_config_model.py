@@ -46,7 +46,7 @@ class EndConfigModel(QDialog):
                 self.finish_message()
     
     def finish_message(self):
-        logger.debug(f"EndConfigModel finish_message self.sent_message_total{self.sent_message_total}")
+        logger.debug(f"EndConfigModel finish_message self.sent_message_total:{self.sent_message_total}")
         if self.sent_message_total:
             if sum(self._recieved_messages) != self.sent_message_total:
                 self.messageField.append(self.string_list_messages[0])

@@ -356,3 +356,11 @@ QListWidget{
    padding: 10%;
    background: transparent;
 }
+
+/* ############################## config profile widget ##############################*/
+/* ############################## config profile widget ##############################*/
+/* ############################## config profile widget ##############################*/
+
+QListWidget#gameProfileList::item:selected:!active{
+   background-color: #F89E59
+}

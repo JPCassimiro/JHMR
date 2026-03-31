@@ -69,7 +69,7 @@ class MainMenuWindow(QMainWindow):
         self.user_actions_widget = UserActionsModel(self.dbHandleClass)
         self.user_stats_widget = UserStatsModel(self.dbHandleClass,self.serialHandleClass, self.btSerialHandle, self.logModel)
         self.side_menu = self.ui.sideMenu_2
-        self.game_profile_widget = GameProfileModel(self.logModel,self.dbHandleClass)
+        self.game_profile_widget = GameProfileModel(self.logModel,self.dbHandleClass, self.btSerialHandle)
 
         #setup config modal
         self.appConfigModal = AppConfigModel()
@@ -82,6 +82,7 @@ class MainMenuWindow(QMainWindow):
         self.user_actions_widget.therapistSelected.connect(self.therapist_select_handler)
         self.user_actions_widget.patientSelected.connect(self.patient_select_handler)
         self.user_actions_widget.assin_default_user()
+        self.game_profile_widget.to_config.connect(self.to_config_signal_handle)
         
         #setup stackedWidget
         self.stackedWidget.insertWidget(0, self.connection_manager_widget)
@@ -105,7 +106,7 @@ class MainMenuWindow(QMainWindow):
         self.appConfigButton = self.ui.appConfigButton
         self.manualButton = self.ui.manualButton
         self.gameProfileButton = self.ui.gameProfileButton
-        self.gameProfileButton.hide()#!for now
+        # self.gameProfileButton.hide()#!for now
 
         self.connectionMenuButton.setEnabled(False)#screen always starts at this widget
         
@@ -191,6 +192,11 @@ class MainMenuWindow(QMainWindow):
 
     def app_manual_button_handler(self):
         self.manual_modal.show()
+
+    def to_config_signal_handle(self,config):
+        self.config_widget.assing_card_values(config)
+        self.stackedWidget.setCurrentIndex(1)
+        self.side_menu_button_toggler(self.configButton)
         
     # event override    
     def closeEvent(self, event):
