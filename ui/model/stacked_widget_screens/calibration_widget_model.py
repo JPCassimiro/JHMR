@@ -114,7 +114,6 @@ class CalibrationWidgetModel(QWidget):
     def send_serial_message(self,message):
         # self.serialHandleClass.open_port()
         self.btSerialhandle.open_port()
-        logger.debug(f"mensagem enviada: {message}")
         # self.serialHandleClass.send_message(message)
         self.btSerialhandle.send_message(message)
     

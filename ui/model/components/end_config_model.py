@@ -40,7 +40,6 @@ class EndConfigModel(QDialog):
     @recieved_messages.setter
     def recieved_messages(self,message):
         self._recieved_messages.append(message)
-        logger.debug(f"EndConfigModel @recieved_messages.setter self._recieved_messages{self._recieved_messages}")
         if self.sent_message_total:
             if len(self._recieved_messages) == self.sent_message_total:
                 self.finish_message()

@@ -63,6 +63,7 @@ class BtSerialComm(QObject):
 
     #gets message from model class and writes it
     def send_message(self, message):
+        logger.debug(f"send_message message:{message}")
         encodedMessage = message.encode('utf-8')
         self.bt_socket.write(encodedMessage)
 
@@ -106,6 +107,7 @@ class BtSerialComm(QObject):
                 self.mesReceivedSignal.emit(messages)
 
     def create_service_socket(self, service = None):
+        try:
             self.clear_socket()
             logger.debug(f"create_service_socket service:{service}")
 
@@ -119,6 +121,8 @@ class BtSerialComm(QObject):
             if service:
                 logger.debug(f"create_service_socket service true")
                 self.bt_socket.connectToService(service.device().address(), service.serviceUuid())
+        except:
+            self.port_error.emit()
 
     def clear_socket(self):
         if self.bt_socket:
@@ -130,6 +134,7 @@ class BtSerialComm(QObject):
 
     def socket_connect_handle(self):
         logger.debug(f"socket_connect_handle")
+        self.open_port()
         self.port_finish.emit()
 
     def socket_deleted(self):

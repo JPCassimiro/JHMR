@@ -132,7 +132,6 @@ class DataCollectorClass(QObject):
     def send_serial_message(self,message):
         self.btSerialHandle.open_port()
         # self.serialHandleClass.open_port()
-        logger.debug(f"mensagem enviada: {message}")
         self.btSerialHandle.send_message(message)
         # self.serialHandleClass.send_message(message)
 

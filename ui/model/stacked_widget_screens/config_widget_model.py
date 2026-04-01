@@ -262,7 +262,6 @@ class ConfigWidgetModel(QWidget):
         if self.btSerialHandle.bt_socket != None:
             self.btSerialHandle.open_port()
             # self.serialHandleClass.open_port()
-            logger.debug(f"mensagem enviada: {message}")
             self.btSerialHandle.send_message(message)
             # self.serialHandleClass.send_message(message)
         
