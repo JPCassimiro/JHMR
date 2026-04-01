@@ -47,6 +47,7 @@ class Ui_configCardWidgetForm(object):
         self.durationIconLabel.setSizePolicy(sizePolicy)
         self.durationIconLabel.setMinimumSize(QSize(16, 16))
         self.durationIconLabel.setMaximumSize(QSize(16, 16))
+        self.durationIconLabel.setText(u"")
         self.durationIconLabel.setPixmap(QPixmap(u"_internal/resources/icons/timer.png"))
         self.durationIconLabel.setScaledContents(True)
 
@@ -54,6 +55,7 @@ class Ui_configCardWidgetForm(object):
 
         self.durationLabel = QLabel(self.otherInfoLabelContainer)
         self.durationLabel.setObjectName(u"durationLabel")
+        self.durationLabel.setText(u"TextLabel")
         self.durationLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout.addWidget(self.durationLabel)
@@ -62,12 +64,14 @@ class Ui_configCardWidgetForm(object):
         self.repeatIconLabel.setObjectName(u"repeatIconLabel")
         self.repeatIconLabel.setMinimumSize(QSize(16, 16))
         self.repeatIconLabel.setMaximumSize(QSize(16, 16))
+        self.repeatIconLabel.setText(u"TextLabel")
         self.repeatIconLabel.setScaledContents(True)
 
         self.horizontalLayout.addWidget(self.repeatIconLabel)
 
         self.keyLabel = QLabel(self.otherInfoLabelContainer)
         self.keyLabel.setObjectName(u"keyLabel")
+        self.keyLabel.setText(u"TextLabel")
 
         self.horizontalLayout.addWidget(self.keyLabel)
 
@@ -117,10 +121,21 @@ class Ui_configCardWidgetForm(object):
 
     def retranslateUi(self, configCardWidgetForm):
         configCardWidgetForm.setWindowTitle(QCoreApplication.translate("configCardWidgetForm", u"Form", None))
-        self.durationIconLabel.setText("")
-        self.durationLabel.setText(QCoreApplication.translate("configCardWidgetForm", u"TextLabel", None))
-        self.repeatIconLabel.setText(QCoreApplication.translate("configCardWidgetForm", u"TextLabel", None))
-        self.keyLabel.setText(QCoreApplication.translate("configCardWidgetForm", u"TextLabel", None))
+#if QT_CONFIG(tooltip)
+        configCardWidgetForm.setToolTip("")
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
+        self.durationIconLabel.setToolTip(QCoreApplication.translate("configCardWidgetForm", u"Tempo de press\u00e3o necessario para ativa\u00e7\u00e3o", u"configCardhelper"))
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
+        self.repeatIconLabel.setToolTip(QCoreApplication.translate("configCardWidgetForm", u"Repeti\u00e7\u00e3o ativada/desativada", u"configCardhelper"))
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
+        self.keyLabel.setToolTip(QCoreApplication.translate("configCardWidgetForm", u"Teclas a ser emulada", u"configCardhelper"))
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(tooltip)
+        self.pressureLabelContainer.setToolTip(QCoreApplication.translate("configCardWidgetForm", u"Press\u00f5es associadas a cada dedo", u"configCardhelper"))
+#endif // QT_CONFIG(tooltip)
         self.ringLabel.setText(QCoreApplication.translate("configCardWidgetForm", u"A:", None))
         self.middleLabel.setText(QCoreApplication.translate("configCardWidgetForm", u"Meio:", None))
         self.indexLabel.setText(QCoreApplication.translate("configCardWidgetForm", u"I:", None))

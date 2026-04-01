@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="toolTip">
+   <string/>
+  </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <property name="leftMargin">
     <number>3</number>
@@ -73,8 +76,11 @@
              <height>16</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string comment="configCardhelper">Tempo de pressão necessario para ativação</string>
+           </property>
            <property name="text">
-            <string/>
+            <string notr="true"/>
            </property>
            <property name="pixmap">
             <pixmap>../../_internal/resources/icons/timer.png</pixmap>
@@ -87,7 +93,7 @@
          <item>
           <widget class="QLabel" name="durationLabel">
            <property name="text">
-            <string>TextLabel</string>
+            <string notr="true">TextLabel</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -108,8 +114,11 @@
              <height>16</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string comment="configCardhelper">Repetição ativada/desativada</string>
+           </property>
            <property name="text">
-            <string>TextLabel</string>
+            <string notr="true">TextLabel</string>
            </property>
            <property name="scaledContents">
             <bool>true</bool>
@@ -118,8 +127,11 @@
          </item>
          <item>
           <widget class="QLabel" name="keyLabel">
+           <property name="toolTip">
+            <string comment="configCardhelper">Teclas a ser emulada</string>
+           </property>
            <property name="text">
-            <string>TextLabel</string>
+            <string notr="true">TextLabel</string>
            </property>
           </widget>
          </item>
@@ -128,6 +140,9 @@
       </item>
       <item row="0" column="2">
        <widget class="QWidget" name="pressureLabelContainer" native="true">
+        <property name="toolTip">
+         <string comment="configCardhelper">Pressões associadas a cada dedo</string>
+        </property>
         <layout class="QGridLayout" name="gridLayout_3">
          <property name="leftMargin">
           <number>0</number>

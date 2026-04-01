@@ -150,6 +150,7 @@
 <li><a href="#conex%C3%A3o-com-joystick">Conexão com joystick</a></li>
 <li><a href="#calibra%C3%A7%C3%A3o">Calibração</a></li>
 <li><a href="#configura%C3%A7%C3%A3o-de-bot%C3%B5es">Configuração de botões</a></li>
+<li><a href="#perfis-de-configura%C3%A7%C3%A3o">Perfis de configuração</a></li>
 <li><a href="#a%C3%A7%C3%B5es-de-usu%C3%A1rios">Ações de usuários</a></li>
 <li><a href="#estatisiticas-de-usu%C3%A1rio">Estatisiticas de usuário</a></li>
 </ul>
@@ -178,7 +179,7 @@
 </li>
 </ol>
 <h2 id="conexão-com-joystick">Conexão com joystick</h2>
-<p>**OBS:**É importante destacar que a conexão do dispositivo deve ser realizada através da ferramenta e não da interface do Windows. A ferramenta só é capaz de detectar o dispositivo caso o mesmo seja conectado através dela.</br></p>
+<p><strong>OBS:</strong> É importante destacar que a conexão do dispositivo deve ser realizada através da ferramenta e não da interface do Windows. A ferramenta só é capaz de detectar o dispositivo caso o mesmo seja conectado através dela.</br></p>
 <p>A conexão com o joystick é a primeira tela apresentada no software. Outras funcionalidades cruciais não podem ser utilizadas caso o joystick não tenha sido conectado de forma correta.</br></p>
 <p align="center">
    <img src="file:///d:\JHMR\source_code\_internal\manual\imgs\connection\connection1.png" alt="connectionImage1" width="75%" height="75%"/>
@@ -376,6 +377,123 @@ A imagem abaixo representa a primeira tela de calibração com os principais ele
    <img src="file:///d:\JHMR\source_code\_internal\manual\imgs\config\config6.png" alt="configImage6" width="75%" height="75%"/>
 </p>
 <p>Nesse ponto, a tela retorna ao estado inicial e é possível configurar outras combinações de dedos.</p>
+<h2 id="perfis-de-configuração">Perfis de configuração</h2>
+<p>Registro de perfis de configuração. Um perfil de configuração é um conjunto de configurações do joystick, separado por paciente, que podem ser aplicadas de forma individual ou em conjunto.</br>
+Esta funcionalidade tem como objetivo acelerar o processo de configuração do joystick para pacientes recorrentes, que realizam o mesmo exercício com o mesmo jogo ou configurações em diversas seções.</p>
+<p align="center">
+   <img src="file:///d:\JHMR\source_code\_internal\manual\imgs\configProfile\configProfile1.png" alt="configProfile1" width="75%" height="75%"/>
+</p>
+<p>A imagem acima apresenta a tela com os principais elementos numerados.</br></p>
+<ol>
+<li>Lista de perfis de configuração
+<ol>
+<li>Perfis armazenados no banco de dados são apresentados nesta lista.</li>
+<li>Perfis são associados a pacientes e não são compartilhados.</li>
+<li>Armazenam as configurações apresentadas na lista de configurações (item 2).</li>
+<li>Configurações podem ser adicionadas digitando um nome no campo de texto (item 4) e clicando no botão 5.</li>
+<li>Podem ser selecionadas ao clicar no perfil desejado.</li>
+</ol>
+</li>
+<li>Lista de configurações
+<ol>
+<li>Configurações adicionadas ao perfil.</li>
+<li>Podem ser selecionadas ao clicar na configuração desejada.</li>
+</ol>
+</li>
+<li>Configuração selecionada
+<ol>
+<li>Tem sua cor alterada.</li>
+<li>As informações contidas são elaboradas abaixo no manual.</li>
+</ol>
+</li>
+<li>Campo de texto
+<ol>
+<li>Use para escolher o nome do perfil</li>
+<li>Limite de 32 caracteres.</li>
+<li>Obrigatório.</li>
+</ol>
+</li>
+<li>Botão &quot;Criar novo perfil&quot;
+<ol>
+<li>Adiciona um perfil vazio com o nome digitado.</li>
+</ol>
+</li>
+<li>Botão &quot;Remover perfil&quot;
+<ol>
+<li>Exclui o perfil selecionado com todas as suas configurações.</li>
+</ol>
+</li>
+<li>Botão &quot;Adicionar configuração&quot;
+<ol>
+<li>Adiciona a última configuração realizada na tela de configurações ao perfil selecionado.</li>
+</ol>
+</li>
+<li>Botão &quot;Remover configuração&quot;
+<ol>
+<li>Exclui a configuração selecionada do perfil.</li>
+</ol>
+</li>
+<li>Botão &quot;Aplicar configuração selecionada&quot;
+<ol>
+<li>Envia a configuração selecionada ao joystick.</li>
+<li>Mesma ação de configurar o joystick através da tela de configuração.</li>
+</ol>
+</li>
+<li>Botão &quot;Aplicar todas as confiuração&quot;
+<ol>
+<li>Aplica todas as configurações do perfil ao joystick.</li>
+</ol>
+</li>
+<li>Botão &quot;Enviar para tela de configuração&quot;
+<ol>
+<li>Envia as informações de configuração selecionada à tela de configuração.</li>
+</ol>
+</li>
+</ol>
+<p>O item de configuração é apresentado na imagem abaixo.</br></p>
+<p align="center">
+   <img src="file:///d:\JHMR\source_code\_internal\manual\imgs\configProfile\configProfile2.png" alt="userActionImage1" width="25%" height="25%"/>
+</p>
+<p>As informações apresentadas, da direita para a esquerda, são:</p>
+<ol>
+<li>Pressões associadas a cada dedo.
+<ol>
+<li>Dedos são indicados pelas letras iniciais.</li>
+</ol>
+</li>
+<li>Duração de pressão necessaria
+<ol>
+<li>Apresentada em segundos</li>
+</ol>
+</li>
+<li>Repetição
+<ol>
+<li>Ícone apresenta a repetição ligada ou desligada.</li>
+</ol>
+</li>
+<li>Tecla selecionada
+<ol>
+<li>Apresenta a tecla associada a combinação de botões.</li>
+</ol>
+</li>
+</ol>
+<p>Uso da funcionalidade:</p>
+<ol>
+<li>Realize uma configuração do joystick na tela de configurações.</li>
+<li>Acesse a tela de perfis de configuração.</li>
+<li>Crie um novo perfil.</li>
+<li>Selecione o perfil criado.</li>
+<li>Use o botão 7 para adicionar a última configuração realizada.</li>
+<li>Repita o processo para adicionar mais configuração ao perfil selecionado.</li>
+</ol>
+<p>Agora temos um perfil com diversas configurações armazenadas.</br>
+Em qualquer outro momento que desejamos aplicar a mesma configuração ao joystick:</p>
+<ol>
+<li>Selecione o perfil desejado.</li>
+<li>Selecione a configuração desejada.</li>
+<li>Utilize o botão 9 para aplicar a configuração desejada.</li>
+<li>Ou utilize o botão 10 para aplicar todas as configurações do perfil.</li>
+</ol>
 <h2 id="ações-de-usuários">Ações de usuários</h2>
 <p>Cadastro e gerenciamento de pacientes e terapeutas.</p>
 <p>Atualmente, da-se atenção especial ao cadastro de pacientes. <strong>Duas características são relevantes.</strong></p>

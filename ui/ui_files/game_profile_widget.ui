@@ -135,7 +135,7 @@
             <enum>QListView::ViewMode::IconMode</enum>
            </property>
            <property name="uniformItemSizes">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -159,6 +159,9 @@
             </property>
             <item>
              <widget class="QPushButton" name="addNewCardButton">
+              <property name="toolTip">
+               <string comment="gameProfileHelper">Adicionar ultima configuração realizada na tela de configurações ao perfil</string>
+              </property>
               <property name="text">
                <string>Adicionar nova
 configuração</string>
@@ -176,6 +179,9 @@ configuração</string>
             </item>
             <item>
              <widget class="QPushButton" name="deleteCardButton">
+              <property name="toolTip">
+               <string comment="gameProfileHelper">Remover configuração selecionada</string>
+              </property>
               <property name="text">
                <string>Remover
 configuração</string>
@@ -184,6 +190,9 @@ configuração</string>
             </item>
             <item>
              <widget class="QPushButton" name="applySelectedCardButton">
+              <property name="toolTip">
+               <string comment="gameProfileHelper">Aplicar confguração selecionada ao joystick</string>
+              </property>
               <property name="text">
                <string>Aplicar configuração
 selecionada</string>
@@ -192,6 +201,9 @@ selecionada</string>
             </item>
             <item>
              <widget class="QPushButton" name="applyAllCardsButton">
+              <property name="toolTip">
+               <string comment="gameProfileHelper">Aplicar todas as configurações do perfil ao joystick</string>
+              </property>
               <property name="text">
                <string>Aplicar todas
 as configurações</string>
@@ -200,6 +212,9 @@ as configurações</string>
             </item>
             <item>
              <widget class="QPushButton" name="sendToConfigScreenButton">
+              <property name="toolTip">
+               <string comment="gameProfileHelper">Enviar conguração selecionada para tela de configurações</string>
+              </property>
               <property name="text">
                <string>Enviar para
 tela de configuração</string>

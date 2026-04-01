@@ -103,6 +103,10 @@ QAbstractButton#statsButton{
    qproperty-icon: url("_internal/resources/icons/pie-chart_orange.png")
 }
 
+QAbstractButton#gameProfileButton{
+   qproperty-icon: url("_internal/resources/icons/game-profile_orange.png")
+}
+
 QWidget#sideMenu_2{
    background-color: #1D1B19;
    border-color: #D5D5D4;
@@ -261,7 +265,6 @@ QWidget#instructionLabel{
    text-align: center;
 }
 
-
 /* ############################## UserActions widget ##############################*/
 /* ############################## UserActions widget ##############################*/
 /* ############################## UserActions widget ##############################*/
@@ -274,7 +277,6 @@ QWidget#tabWidget::pane {
 QWidget#tabWidget::tab-bar {
    left: 15px;
 }
-
 
 /* ############################## UserStats widget ##############################*/
 /* ############################## UserStats widget ##############################*/
@@ -345,6 +347,10 @@ QListWidget::item {
    background-color: #dedddd
 }
 
+QListWidget::item::hover {
+   background-color: #ececec
+}
+
 QListWidget::item{
    border: 1px solid black;
    border-radius: 10%;
@@ -363,4 +369,19 @@ QListWidget{
 
 QListWidget#gameProfileList::item:selected:!active{
    background-color: #F89E59
+}
+
+
+QWidget#gameProfileLineEdit{
+   border: 1px solid black;
+   border-radius: 5%;
+   background: #dedddd;
+}
+
+QWidget#gameProfileLineEdit::focus{
+   background: #F89E59;
+}
+
+QWidget#gameProfileLineEdit::hover{
+   background: #ececec;
 }

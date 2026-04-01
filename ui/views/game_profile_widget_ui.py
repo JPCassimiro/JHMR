@@ -80,7 +80,7 @@ class Ui_gameProfileWidgetForm(object):
         self.cardListWidget.setResizeMode(QListView.ResizeMode.Adjust)
         self.cardListWidget.setSpacing(5)
         self.cardListWidget.setViewMode(QListView.ViewMode.IconMode)
-        self.cardListWidget.setUniformItemSizes(True)
+        self.cardListWidget.setUniformItemSizes(False)
 
         self.horizontalLayout_2.addWidget(self.cardListWidget)
 
@@ -148,14 +148,29 @@ class Ui_gameProfileWidgetForm(object):
         self.gameProfileLineEdit.setPlaceholderText(QCoreApplication.translate("gameProfileWidgetForm", u"Digite o nome do novo perfil", None))
         self.newGameProfileButton.setText(QCoreApplication.translate("gameProfileWidgetForm", u"Criar novo perfil", None))
         self.deleteGameProfileButton.setText(QCoreApplication.translate("gameProfileWidgetForm", u"Remover perfil", None))
+#if QT_CONFIG(tooltip)
+        self.addNewCardButton.setToolTip(QCoreApplication.translate("gameProfileWidgetForm", u"Adicionar ultima configura\u00e7\u00e3o realizada na tela de configura\u00e7\u00f5es ao perfil", u"gameProfileHelper"))
+#endif // QT_CONFIG(tooltip)
         self.addNewCardButton.setText(QCoreApplication.translate("gameProfileWidgetForm", u"Adicionar nova\n"
 "configura\u00e7\u00e3o", None))
+#if QT_CONFIG(tooltip)
+        self.deleteCardButton.setToolTip(QCoreApplication.translate("gameProfileWidgetForm", u"Remover configura\u00e7\u00e3o selecionada", u"gameProfileHelper"))
+#endif // QT_CONFIG(tooltip)
         self.deleteCardButton.setText(QCoreApplication.translate("gameProfileWidgetForm", u"Remover\n"
 "configura\u00e7\u00e3o", None))
+#if QT_CONFIG(tooltip)
+        self.applySelectedCardButton.setToolTip(QCoreApplication.translate("gameProfileWidgetForm", u"Aplicar confgura\u00e7\u00e3o selecionada ao joystick", u"gameProfileHelper"))
+#endif // QT_CONFIG(tooltip)
         self.applySelectedCardButton.setText(QCoreApplication.translate("gameProfileWidgetForm", u"Aplicar configura\u00e7\u00e3o\n"
 "selecionada", None))
+#if QT_CONFIG(tooltip)
+        self.applyAllCardsButton.setToolTip(QCoreApplication.translate("gameProfileWidgetForm", u"Aplicar todas as configura\u00e7\u00f5es do perfil ao joystick", u"gameProfileHelper"))
+#endif // QT_CONFIG(tooltip)
         self.applyAllCardsButton.setText(QCoreApplication.translate("gameProfileWidgetForm", u"Aplicar todas\n"
 "as configura\u00e7\u00f5es", None))
+#if QT_CONFIG(tooltip)
+        self.sendToConfigScreenButton.setToolTip(QCoreApplication.translate("gameProfileWidgetForm", u"Enviar congura\u00e7\u00e3o selecionada para tela de configura\u00e7\u00f5es", u"gameProfileHelper"))
+#endif // QT_CONFIG(tooltip)
         self.sendToConfigScreenButton.setText(QCoreApplication.translate("gameProfileWidgetForm", u"Enviar para\n"
 "tela de configura\u00e7\u00e3o", None))
     # retranslateUi

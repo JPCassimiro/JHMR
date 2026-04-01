@@ -72,5 +72,6 @@ class ConfigCardModel(QWidget):
     def changeEvent(self, event):
         if event.type() == QEvent.Type.LanguageChange:
             self.ui.retranslateUi(self)
+            self.assign_text()
         return super().changeEvent(event)
         

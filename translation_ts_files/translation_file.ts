@@ -45,8 +45,8 @@
 <context>
     <name>ConfigJoystickComponents</name>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="33"/>
-        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="321"/>
+        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="34"/>
+        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="368"/>
         <source>Clique para selecionar</source>
         <translation>Click to select</translation>
     </message>
@@ -109,18 +109,18 @@
 <context>
     <name>EndConfigDialogText</name>
     <message>
-        <location filename="../ui/model/components/end_config_model.py" line="14"/>
-        <location filename="../ui/model/components/end_config_model.py" line="76"/>
+        <location filename="../ui/model/components/end_config_model.py" line="15"/>
+        <location filename="../ui/model/components/end_config_model.py" line="79"/>
         <source>Finalizado</source>
         <translation>Finished</translation>
     </message>
     <message>
-        <location filename="../ui/model/components/end_config_model.py" line="18"/>
+        <location filename="../ui/model/components/end_config_model.py" line="19"/>
         <source>Erro ao configurar um atributo, refaça a configuração.</source>
         <translation>Error while setting atributes, restart the configuring process.</translation>
     </message>
     <message>
-        <location filename="../ui/model/components/end_config_model.py" line="19"/>
+        <location filename="../ui/model/components/end_config_model.py" line="20"/>
         <source>Atributos configurados com sucesso!</source>
         <translation>Sucess on atribute setting!</translation>
     </message>
@@ -231,13 +231,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <name>InstructionText</name>
     <message>
         <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="18"/>
-        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="213"/>
+        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="218"/>
         <source>Aperte os botões com toda força por 5 segundos</source>
         <translation>Press as firmly as you can with all your fingers for 5 seconds</translation>
     </message>
     <message>
         <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="19"/>
-        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="214"/>
+        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="219"/>
         <source>Use seu dedão e indicador com toda força por 5 segundos</source>
         <translation>Press as firmly as you can with your thumb and index finger for 5 seconds</translation>
     </message>
@@ -282,18 +282,23 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </message>
     <message>
         <location filename="../ui/ui_files/main_window.ui" line="346"/>
+        <source>Perfis de configurações</source>
+        <translation>Button config profiles</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/main_window.ui" line="353"/>
         <source>Ações de usuário</source>
         <translation>User actions</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="353"/>
+        <location filename="../ui/ui_files/main_window.ui" line="360"/>
         <source>Estatísticas de uso</source>
         <translation>Usage statistics</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="414"/>
-        <location filename="../ui/ui_files/main_window.ui" line="424"/>
-        <location filename="../ui/ui_files/main_window.ui" line="434"/>
+        <location filename="../ui/ui_files/main_window.ui" line="421"/>
+        <location filename="../ui/ui_files/main_window.ui" line="431"/>
+        <location filename="../ui/ui_files/main_window.ui" line="441"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -358,6 +363,22 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>WarningText</name>
     <message>
+        <location filename="../ui/model/stacked_widget_screens/game_config_profile_model.py" line="147"/>
+        <source>O campo do nome é obrigatório</source>
+        <translation>the name field is obligatory</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/stacked_widget_screens/game_config_profile_model.py" line="237"/>
+        <source>Erro ao tentar criar um perfil</source>
+        <translation>Error while trying to create a profile</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/stacked_widget_screens/game_config_profile_model.py" line="246"/>
+        <source>Erro ao selecionar um perfil</source>
+        <translation>Error while selecting a profile</translation>
+    </message>
+    <message>
+        <location filename="../ui/model/stacked_widget_screens/game_config_profile_model.py" line="347"/>
         <location filename="../ui/model/components/user_item_model.py" line="88"/>
         <location filename="../ui/model/stacked_widget_screens/user_actions_widget_model.py" line="137"/>
         <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="126"/>
@@ -461,6 +482,58 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <location filename="../ui/ui_files/calibration_result_widget.ui" line="14"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>configCardWidgetForm</name>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="80"/>
+        <source>Tempo de pressão necessario para ativação</source>
+        <comment>configCardhelper</comment>
+        <translation>How many seconds of continuous pressure are needed for a input</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="118"/>
+        <source>Repetição ativada/desativada</source>
+        <comment>configCardhelper</comment>
+        <translation>Repeat enabled/disabled</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="131"/>
+        <source>Teclas a ser emulada</source>
+        <comment>configCardhelper</comment>
+        <translation>Emulated key</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="144"/>
+        <source>Pressões associadas a cada dedo</source>
+        <comment>configCardhelper</comment>
+        <translation>Pressure by finger</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="162"/>
+        <source>A:</source>
+        <translation>R:</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="172"/>
+        <source>Meio:</source>
+        <translation>M:</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="182"/>
+        <source>I:</source>
+        <translation>I:</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="192"/>
+        <source>Min:</source>
+        <translation>L:</translation>
     </message>
 </context>
 <context>
@@ -614,6 +687,94 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <location filename="../ui/ui_files/end_config_modal.ui" line="14"/>
         <source>Dialog</source>
         <translation>Finished</translation>
+    </message>
+</context>
+<context>
+    <name>gameProfileWidgetForm</name>
+    <message>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="78"/>
+        <source>Digite o nome do novo perfil</source>
+        <translation>New profile name</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="85"/>
+        <source>Criar novo perfil</source>
+        <translation>Create new profile</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="92"/>
+        <source>Remover perfil</source>
+        <translation>Delete profile</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="163"/>
+        <source>Adicionar ultima configuração realizada na tela de configurações ao perfil</source>
+        <comment>gameProfileHelper</comment>
+        <translation>Adds the last configuration sent to the joystick to the profile</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="166"/>
+        <source>Adicionar nova
+configuração</source>
+        <translation>Add new
+configuration</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="183"/>
+        <source>Remover configuração selecionada</source>
+        <comment>gameProfileHelper</comment>
+        <translation>Deletes the selected configuration</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="186"/>
+        <source>Remover
+configuração</source>
+        <translation>Delete
+configuration</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="194"/>
+        <source>Aplicar confguração selecionada ao joystick</source>
+        <comment>gameProfileHelper</comment>
+        <translation>Apply selected configuration to the joystick</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="197"/>
+        <source>Aplicar configuração
+selecionada</source>
+        <translation>Apply selected
+configuration</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="205"/>
+        <source>Aplicar todas as configurações do perfil ao joystick</source>
+        <comment>gameProfileHelper</comment>
+        <translation>Apply all the profile configurations to the joystick</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="208"/>
+        <source>Aplicar todas
+as configurações</source>
+        <translation>Apply all
+configurations</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="216"/>
+        <source>Enviar conguração selecionada para tela de configurações</source>
+        <comment>gameProfileHelper</comment>
+        <translation>Send the selected configuration to the configuration screen</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="219"/>
+        <source>Enviar para
+tela de configuração</source>
+        <translation>Send to
+configuration screen</translation>
     </message>
 </context>
 <context>
