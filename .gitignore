@@ -10,3 +10,4 @@ _internal/resources/latest_bindings
 _internal/resources/config
 jhmr.db
 dados_de_uso
+_internal/resources/cached_devices

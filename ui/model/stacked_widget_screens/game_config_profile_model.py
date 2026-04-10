@@ -8,8 +8,8 @@ from ui.model.components.end_config_model import EndConfigModel
 from PySide6.QtWidgets import QWidget, QListWidgetItem, QMessageBox, QPushButton
 from PySide6.QtCore import Qt, Signal, QCoreApplication, QEvent, QSize
 
+from modules.json_writer import JsonWriterClass
 import json
-from pathlib import Path
 
 class GameProfileModel(QWidget):
 
@@ -22,6 +22,7 @@ class GameProfileModel(QWidget):
         self.logModel = logModel
         self.dbHandle = dbHandle
         self.btSerialHandle = btSerialHandle
+        self.jsonWriter = JsonWriterClass
 
         #ui setup
         self.ui = Ui_gameProfileWidgetForm()
@@ -82,20 +83,15 @@ class GameProfileModel(QWidget):
     
     @selected_card.setter
     def selected_card(self, item):
-        logger.debug(f"selected_card.setter item:{item}")
         self._selected_card = item
         self.selected_card_button_watcher()
     
     def selected_card_button_watcher(self):
-        logger.debug(f"selected_card_button_watcher len(self.config_list):{self.config_list}")
         if len(self.config_list) > 0:
-            logger.debug(f"selected_card_button_watcher true")
             if self._selected_card:
-                logger.debug(f"selected_card_button_watcher self._selected_card:{self._selected_card}")
                 for button in self.ui.cardButtonContainer.findChildren(QPushButton):
                     button.setEnabled(True)        
         else:
-            logger.debug(f"selected_card_button_watcher false")
             for button in self.ui.cardButtonContainer.findChildren(QPushButton):
                 button.setEnabled(False)  
             self.addNewCardButton.setEnabled(True)
@@ -189,12 +185,7 @@ class GameProfileModel(QWidget):
             logger.error(f"erro ao atualizar lista: {e}")
                 
     def read_json_file(self):
-        path = Path("_internal/resources/latest_bindings")        
-        file = path / f"user_bindings.json"
-
-        with open(file, 'r') as f:
-            data = json.load(f)
-        
+        data = self.jsonWriter.read_json_file("_internal/resources/latest_bindings")
         return data        
 
     def create_new_config(self):

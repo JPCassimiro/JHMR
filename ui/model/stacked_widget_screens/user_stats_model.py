@@ -746,7 +746,6 @@ class UserStatsModel(QWidget):
             self.sessionComboBox.setCurrentIndex(self.sessionComboBox.count()-1)
             
     def assing_latest_session(self,latest_session):
-        print(f"assing_latest_session:{latest_session}")
         self.latest_session = latest_session
         self.dataCollectorHandler.current_session_index = latest_session
 

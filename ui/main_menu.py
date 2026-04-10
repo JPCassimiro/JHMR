@@ -19,11 +19,14 @@ from PySide6.QtGui import QPixmap
 from modules.serial_communication import SerialCommClass
 from modules.db_functions import DbClass
 from modules.bluetooth_serial_communication import BtSerialComm
+from modules.log_class import logger
 
 class MainMenuWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        
+
+        logger.debug(f"JHMR unstable V1.1.4 START")
+
         #setup shared instances
         self.serialHandleClass = SerialCommClass()
         self.dbHandleClass = DbClass()
