@@ -52,3 +52,5 @@ Execute o arquivo "main.exe"
 [Group](https://www.flaticon.com/free-icon/group_681443?term=user&page=1&position=28&origin=tag&related_id=681443) - FlatIcon</br>
 [Pie Chart](https://www.flaticon.com/free-icon/pie-chart_2936690?term=stats&page=1&position=19&origin=search&related_id=2936690) - FlatIcon</br>
 [Joystick](https://www.flaticon.com/free-icon/joystick_9645575?term=joystick&page=1&position=4&origin=search&related_id=9645575) - FlatIcon</br>
+[Loop](https://www.flaticon.com/free-icon/loop_9121695?term=repeat&page=1&position=5&origin=search&related_id=9121695) - FlatIcon</br>
+[Game settings](https://www.flaticon.com/free-icon/game-setting_11915787?term=game+setting&related_id=11915787) - FaltIcon<br>

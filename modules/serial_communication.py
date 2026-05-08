@@ -1,7 +1,7 @@
 import wmi
 import re
 
-from modules.log_class import logger
+from shared_ui_modules.modules.log_class import logger
 
 from PySide6.QtCore import Signal, QObject, QTimer
 from PySide6.QtSerialPort import QSerialPort
@@ -139,8 +139,6 @@ class SerialCommClass(QObject):
         except Exception as e:
                 logger.error("Erro no processo de obter porta COM")
                 self.port_error.emit()
-
-            
 
     def swap_message_listner(self,op = 0):
         self.ser.readyRead.disconnect()

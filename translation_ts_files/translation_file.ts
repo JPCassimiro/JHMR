@@ -4,11 +4,13 @@
 <context>
     <name>AppConfigDialog</name>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/app_config_modal.ui" line="14"/>
         <location filename="../ui/ui_files/app_config_modal.ui" line="14"/>
         <source>Dialog</source>
         <translation>App configuration</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/app_config_modal.ui" line="23"/>
         <location filename="../ui/ui_files/app_config_modal.ui" line="23"/>
         <source>Lingua</source>
         <translation>Language</translation>
@@ -17,8 +19,8 @@
 <context>
     <name>AppConfigDialogText</name>
     <message>
-        <location filename="../ui/model/dialogs/app_config_dialog_model.py" line="13"/>
-        <location filename="../ui/model/dialogs/app_config_dialog_model.py" line="64"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_config_dialog_model.py" line="13"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_config_dialog_model.py" line="64"/>
         <source>Configuração do aplicativo</source>
         <translation>App configuration</translation>
     </message>
@@ -26,14 +28,14 @@
 <context>
     <name>AppHelperDialogText</name>
     <message>
-        <location filename="../ui/model/dialogs/app_helper_model.py" line="16"/>
-        <location filename="../ui/model/dialogs/app_helper_model.py" line="45"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_helper_model.py" line="16"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_helper_model.py" line="56"/>
         <source>Ajuda</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="../ui/model/dialogs/app_helper_model.py" line="17"/>
-        <location filename="../ui/model/dialogs/app_helper_model.py" line="46"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_helper_model.py" line="17"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_helper_model.py" line="57"/>
         <source>&lt;a href=&apos;_internal/manual/manual.html&apos;&gt;Manual de usuário&lt;a/&gt;</source>
         <translation>&lt;a href=&apos;_internal/manual/manual.html&apos;&gt;User manual&lt;a/&gt;</translation>
     </message>
@@ -45,8 +47,8 @@
 <context>
     <name>ConfigJoystickComponents</name>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="33"/>
-        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="321"/>
+        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="35"/>
+        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="340"/>
         <source>Clique para selecionar</source>
         <translation>Click to select</translation>
     </message>
@@ -54,12 +56,16 @@
 <context>
     <name>ConfigJoystickDialogText</name>
     <message>
+        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="30"/>
+        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="344"/>
         <source>Erro</source>
-        <translation type="vanished">Error</translation>
+        <translation>Error</translation>
     </message>
     <message>
+        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="31"/>
+        <location filename="../ui/model/stacked_widget_screens/config_widget_model.py" line="345"/>
         <source>Escolha a tecla a ser emulada</source>
-        <translation type="vanished">Choose a key to be emulated</translation>
+        <translation>Choose a key to be emulated</translation>
     </message>
 </context>
 <context>
@@ -69,12 +75,12 @@
         <translation type="obsolete">Device {num}</translation>
     </message>
     <message>
-        <location filename="../ui/model/components/listed_device_item_model.py" line="38"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/components/listed_device_item_model.py" line="41"/>
         <source>Dispositivo {num}</source>
         <translation>Device {num}</translation>
     </message>
     <message>
-        <location filename="../ui/model/components/listed_device_item_model.py" line="37"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/components/listed_device_item_model.py" line="40"/>
         <source>Desligado</source>
         <translation>Off</translation>
     </message>
@@ -109,18 +115,18 @@
 <context>
     <name>EndConfigDialogText</name>
     <message>
-        <location filename="../ui/model/components/end_config_model.py" line="14"/>
-        <location filename="../ui/model/components/end_config_model.py" line="76"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/components/end_config_model.py" line="15"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/components/end_config_model.py" line="78"/>
         <source>Finalizado</source>
         <translation>Finished</translation>
     </message>
     <message>
-        <location filename="../ui/model/components/end_config_model.py" line="18"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/components/end_config_model.py" line="19"/>
         <source>Erro ao configurar um atributo, refaça a configuração.</source>
         <translation>Error while setting atributes, restart the configuring process.</translation>
     </message>
     <message>
-        <location filename="../ui/model/components/end_config_model.py" line="19"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/components/end_config_model.py" line="20"/>
         <source>Atributos configurados com sucesso!</source>
         <translation>Sucess on atribute setting!</translation>
     </message>
@@ -157,72 +163,72 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>GraphText</name>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="148"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="127"/>
         <source>Mínimo</source>
         <translation>Little</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="149"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="128"/>
         <source>Anelar</source>
         <translation>Ring</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="150"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="129"/>
         <source>Médio</source>
         <translation>Middle</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="151"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="130"/>
         <source>Indicador</source>
         <translation>Index</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="152"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="131"/>
         <source>Estatisticas de pressão</source>
         <translation>Pressure statistics</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="153"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="132"/>
         <source>Média de pressão por dedo</source>
         <translation>Mean pressure by finger</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="154"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="133"/>
         <source>Média</source>
         <translation>Mean</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="155"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="134"/>
         <source>Maxima</source>
         <translation>Max</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="156"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="135"/>
         <source>Mínima</source>
         <translation>Min</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="157"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="136"/>
         <source>Uso por dedo</source>
         <translation>Use by finger</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="158"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="137"/>
         <source>Uso de dedos</source>
         <translation>Finger usage</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="159"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="138"/>
         <source>Sessão</source>
         <translation>Session</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="160"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="139"/>
         <source>Paciente: {user}</source>
         <translation>Patient: {user}</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="161"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="140"/>
         <source>Total de uso por dedo</source>
         <translation>Total use by finger</translation>
     </message>
@@ -230,22 +236,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>InstructionText</name>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="18"/>
-        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="213"/>
         <source>Aperte os botões com toda força por 5 segundos</source>
-        <translation>Press as firmly as you can with all your fingers for 5 seconds</translation>
+        <translation type="vanished">Press as firmly as you can with all your fingers for 5 seconds</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="19"/>
-        <location filename="../ui/model/stacked_widget_screens/calibration_widget_model.py" line="214"/>
         <source>Use seu dedão e indicador com toda força por 5 segundos</source>
-        <translation>Press as firmly as you can with your thumb and index finger for 5 seconds</translation>
+        <translation type="vanished">Press as firmly as you can with your thumb and index finger for 5 seconds</translation>
     </message>
 </context>
 <context>
     <name>KeySelectText</name>
     <message>
-        <location filename="../ui/model/dialogs/key_select_model.py" line="84"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/key_select_model.py" line="84"/>
         <source>Use o teclado para selecionar</source>
         <translation>Use the keyboard to select a key</translation>
     </message>
@@ -255,8 +257,30 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </message>
 </context>
 <context>
+    <name>MainMenuText</name>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="9"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="92"/>
+        <source>Erro de conexão com o joystick</source>
+        <translation>Joystick connection error</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="10"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="93"/>
+        <source>A conexão com o joystick foi perdida, realizando desemparelhamento</source>
+        <translation>Joystick connection lost, unpairing device</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="11"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="94"/>
+        <source>Joystick não está conectado</source>
+        <translation>Joystick is not connected</translation>
+    </message>
+</context>
+<context>
     <name>MainWindow</name>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/main_window.ui" line="31"/>
         <location filename="../ui/ui_files/main_window.ui" line="31"/>
         <source>MainWindow</source>
         <translation>JHMR</translation>
@@ -266,34 +290,48 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation type="vanished">JHMR</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/main_window.ui" line="319"/>
         <location filename="../ui/ui_files/main_window.ui" line="319"/>
         <source>Conexão com joystick</source>
         <translation>Joystick connection</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/main_window.ui" line="332"/>
         <location filename="../ui/ui_files/main_window.ui" line="332"/>
         <source>Calibração</source>
         <translation>Calibration</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/main_window.ui" line="339"/>
         <location filename="../ui/ui_files/main_window.ui" line="339"/>
         <source>Configuração de botões</source>
         <translation>Button configuration</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/main_window.ui" line="346"/>
         <location filename="../ui/ui_files/main_window.ui" line="346"/>
+        <source>Perfis de configurações</source>
+        <translation>Button config profiles</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/main_window.ui" line="353"/>
+        <location filename="../ui/ui_files/main_window.ui" line="353"/>
         <source>Ações de usuário</source>
         <translation>User actions</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="353"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/main_window.ui" line="360"/>
+        <location filename="../ui/ui_files/main_window.ui" line="360"/>
         <source>Estatísticas de uso</source>
         <translation>Usage statistics</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/main_window.ui" line="414"/>
-        <location filename="../ui/ui_files/main_window.ui" line="424"/>
-        <location filename="../ui/ui_files/main_window.ui" line="434"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/main_window.ui" line="421"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/main_window.ui" line="431"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/main_window.ui" line="441"/>
+        <location filename="../ui/ui_files/main_window.ui" line="421"/>
+        <location filename="../ui/ui_files/main_window.ui" line="431"/>
+        <location filename="../ui/ui_files/main_window.ui" line="441"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -301,7 +339,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>RegisterDialogText</name>
     <message>
-        <location filename="../ui/model/dialogs/register_model.py" line="50"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/register_model.py" line="50"/>
         <source>Cadastro</source>
         <translation>Sing up</translation>
     </message>
@@ -310,10 +348,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation type="vanished">Confirm</translation>
     </message>
     <message>
-        <location filename="../ui/model/dialogs/key_select_model.py" line="41"/>
-        <location filename="../ui/model/dialogs/key_select_model.py" line="122"/>
-        <location filename="../ui/model/dialogs/register_model.py" line="19"/>
-        <location filename="../ui/model/dialogs/register_model.py" line="89"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/key_select_model.py" line="41"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/key_select_model.py" line="122"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/register_model.py" line="19"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/register_model.py" line="89"/>
         <source>Cancelar</source>
         <translation>Cancel</translation>
     </message>
@@ -325,32 +363,32 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>UserStatsDialogText</name>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="167"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="154"/>
         <source>Confirmar</source>
         <translation>Confirm</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="168"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="155"/>
         <source>Cancelar</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="169"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="156"/>
         <source>Deseja excluir a sessão selecionada?</source>
         <translation>Delete selected session?</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="170"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="157"/>
         <source>Aviso</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="171"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="158"/>
         <source>Sucesso</source>
         <translation>Success</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="172"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="159"/>
         <source>Sessão de id {id}, do usuário {user} removida</source>
         <translation>Session of id {id}, from user {user} has been deleted</translation>
     </message>
@@ -358,33 +396,47 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>WarningText</name>
     <message>
-        <location filename="../ui/model/components/user_item_model.py" line="88"/>
-        <location filename="../ui/model/stacked_widget_screens/user_actions_widget_model.py" line="137"/>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="126"/>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="133"/>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="295"/>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="372"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="163"/>
+        <source>O campo do nome é obrigatório</source>
+        <translation>the name field is obligatory</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="248"/>
+        <source>Erro ao tentar criar um perfil</source>
+        <translation>Error while trying to create a profile</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="258"/>
+        <source>Erro ao selecionar um perfil</source>
+        <translation>Error while selecting a profile</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/components/user_item_model.py" line="88"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="368"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="137"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="51"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="117"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="326"/>
         <source>Erro</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../ui/model/components/user_item_model.py" line="89"/>
-        <location filename="../ui/model/stacked_widget_screens/user_actions_widget_model.py" line="138"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/components/user_item_model.py" line="89"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="138"/>
         <source>Preencha todos os campos obrigatórios</source>
         <translation>Fill all the obligatory fields</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="134"/>
         <source>Erro na coleta, dados podem ter sido perdidos</source>
-        <translation>Error during data collection, some data might have been lost</translation>
+        <translation type="vanished">Error during data collection, some data might have been lost</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="285"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="42"/>
         <source>Sucesso</source>
         <translation>Success</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="286"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="43"/>
         <source>Exportação realizada com sucesso. A pasta criada será aberta.</source>
         <translation>Data export successful. The created folder will be opened.</translation>
     </message>
@@ -393,13 +445,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation type="vanished">Data export successful</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="296"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="52"/>
         <source>Erro na exportação</source>
         <translation>Data export error</translation>
     </message>
     <message>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="127"/>
-        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="373"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="118"/>
+        <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="327"/>
         <source>Selecione uma sessão</source>
         <translation>Select a session</translation>
     </message>
@@ -407,16 +459,19 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>appHelpDialog</name>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/app_helper_modal.ui" line="20"/>
         <location filename="../ui/ui_files/app_helper_modal.ui" line="20"/>
         <source>Dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/app_helper_modal.ui" line="84"/>
         <location filename="../ui/ui_files/app_helper_modal.ui" line="84"/>
         <source>&lt;a href=&quot;file:///manual/manual.html&quot;&gt;Manual de usuário&lt;a/&gt;</source>
         <translation>&lt;a href=&quot;file:///manual/manual.html&quot;&gt;User manual&lt;a/&gt;</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/app_helper_modal.ui" line="97"/>
         <location filename="../ui/ui_files/app_helper_modal.ui" line="97"/>
         <source>&lt;a href=&quot;https://github.com/JPCassimiro/JHMR&quot;&gt;Repositório no Github&lt;/a&gt;</source>
         <translation>&lt;a href=&quot;https://github.com/JPCassimiro/JHMR&quot;&gt;Github repository&lt;/a&gt;</translation>
@@ -425,32 +480,32 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>calibrationForm</name>
     <message>
-        <location filename="../ui/ui_files/calibration_widget.ui" line="14"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/calibration_widget.ui" line="14"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/calibration_widget.ui" line="56"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/calibration_widget.ui" line="56"/>
         <source>Reiniciar</source>
         <translation>Restart</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/calibration_widget.ui" line="63"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/calibration_widget.ui" line="63"/>
         <source>Cancelar</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/calibration_widget.ui" line="70"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/calibration_widget.ui" line="70"/>
         <source>Iniciar</source>
         <translation>Start</translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/calibration_widget.ui" line="102"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/calibration_widget.ui" line="109"/>
         <source>imageLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/ui_files/calibration_widget.ui" line="109"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/calibration_widget.ui" line="129"/>
         <source>instructionLabel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -461,6 +516,58 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <location filename="../ui/ui_files/calibration_result_widget.ui" line="14"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>configCardWidgetForm</name>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="80"/>
+        <source>Tempo de pressão necessario para ativação</source>
+        <comment>configCardhelper</comment>
+        <translation>How many seconds of continuous pressure are needed for a input</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="118"/>
+        <source>Repetição ativada/desativada</source>
+        <comment>configCardhelper</comment>
+        <translation>Repeat enabled/disabled</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="131"/>
+        <source>Teclas a ser emulada</source>
+        <comment>configCardhelper</comment>
+        <translation>Emulated key</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="144"/>
+        <source>Pressões associadas a cada dedo</source>
+        <comment>configCardhelper</comment>
+        <translation>Pressure by finger</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="162"/>
+        <source>A:</source>
+        <translation>R:</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="172"/>
+        <source>Meio:</source>
+        <translation>M:</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="182"/>
+        <source>I:</source>
+        <translation>I:</translation>
+    </message>
+    <message>
+        <location filename="../ui/ui_files/config_card_widget.ui" line="192"/>
+        <source>Min:</source>
+        <translation>L:</translation>
     </message>
 </context>
 <context>
@@ -611,24 +718,130 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>endConfigModalDialog</name>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/end_config_modal.ui" line="14"/>
         <location filename="../ui/ui_files/end_config_modal.ui" line="14"/>
         <source>Dialog</source>
         <translation>Finished</translation>
     </message>
 </context>
 <context>
+    <name>gameProfileWidgetForm</name>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/game_profile_widget.ui" line="14"/>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/game_profile_widget.ui" line="78"/>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="78"/>
+        <source>Digite o nome do novo perfil</source>
+        <translation>New profile name</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/game_profile_widget.ui" line="85"/>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="85"/>
+        <source>Criar novo perfil</source>
+        <translation>Create new profile</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/game_profile_widget.ui" line="92"/>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="92"/>
+        <source>Remover perfil</source>
+        <translation>Delete profile</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/game_profile_widget.ui" line="163"/>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="163"/>
+        <source>Adicionar ultima configuração realizada na tela de configurações ao perfil</source>
+        <comment>gameProfileHelper</comment>
+        <translation>Adds the last configuration sent to the joystick to the profile</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/game_profile_widget.ui" line="166"/>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="166"/>
+        <source>Adicionar nova
+configuração</source>
+        <translation>Add new
+configuration</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/game_profile_widget.ui" line="183"/>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="183"/>
+        <source>Remover configuração selecionada</source>
+        <comment>gameProfileHelper</comment>
+        <translation>Deletes the selected configuration</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/game_profile_widget.ui" line="186"/>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="186"/>
+        <source>Remover
+configuração</source>
+        <translation>Delete
+configuration</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/game_profile_widget.ui" line="194"/>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="194"/>
+        <source>Aplicar confguração selecionada ao joystick</source>
+        <comment>gameProfileHelper</comment>
+        <translation>Apply selected configuration to the joystick</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/game_profile_widget.ui" line="197"/>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="197"/>
+        <source>Aplicar configuração
+selecionada</source>
+        <translation>Apply selected
+configuration</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/game_profile_widget.ui" line="205"/>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="205"/>
+        <source>Aplicar todas as configurações do perfil ao joystick</source>
+        <comment>gameProfileHelper</comment>
+        <translation>Apply all the profile configurations to the joystick</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/game_profile_widget.ui" line="208"/>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="208"/>
+        <source>Aplicar todas
+as configurações</source>
+        <translation>Apply all
+configurations</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/game_profile_widget.ui" line="216"/>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="216"/>
+        <source>Enviar conguração selecionada para tela de configurações</source>
+        <comment>gameProfileHelper</comment>
+        <translation>Send the selected configuration to the configuration screen</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/game_profile_widget.ui" line="219"/>
+        <location filename="../ui/ui_files/game_profile_widget.ui" line="219"/>
+        <source>Enviar para
+tela de configuração</source>
+        <translation>Send to
+configuration screen</translation>
+    </message>
+</context>
+<context>
     <name>keySelectModalDialog</name>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/key_select_modal.ui" line="29"/>
         <location filename="../ui/ui_files/key_select_modal.ui" line="29"/>
         <source>Dialog</source>
         <translation>Use the keyboard to select a key</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/key_select_modal.ui" line="98"/>
         <location filename="../ui/ui_files/key_select_modal.ui" line="98"/>
         <source>Limpar tecla</source>
         <translation>Clear key</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/key_select_modal.ui" line="183"/>
         <location filename="../ui/ui_files/key_select_modal.ui" line="183"/>
         <source>Selecione uma tecla</source>
         <translation>Select a keyboard key</translation>
@@ -637,21 +850,25 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>listedDeviceForm</name>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/listed_device_item.ui" line="14"/>
         <location filename="../ui/ui_files/listed_device_item.ui" line="14"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/listed_device_item.ui" line="23"/>
         <location filename="../ui/ui_files/listed_device_item.ui" line="23"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/listed_device_item.ui" line="30"/>
         <location filename="../ui/ui_files/listed_device_item.ui" line="30"/>
         <source>Dispositivo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/listed_device_item.ui" line="37"/>
         <location filename="../ui/ui_files/listed_device_item.ui" line="37"/>
         <source>deviceAddr</source>
         <translation type="unfinished"></translation>
@@ -660,6 +877,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>logDialogForm</name>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/log_modal.ui" line="14"/>
         <location filename="../ui/ui_files/log_modal.ui" line="14"/>
         <source>Dialog</source>
         <translation></translation>
@@ -668,43 +886,51 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>loggerForm</name>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="26"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="26"/>
         <location filename="../ui/ui_files/logger_widget.ui" line="26"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="81"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="81"/>
         <source>Procurar por dispositivos</source>
         <comment>ConnectionManagerHelper</comment>
         <translation>Scan for devices</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="84"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="84"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="94"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="94"/>
         <source>Emparelhar dispositivo</source>
         <translation>Pair device</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="101"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="101"/>
         <source>Selecione um dispositivo para emparelhar</source>
         <translation>Select a device to pair</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="132"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="132"/>
         <source>Lista de dispositivos encontrados</source>
         <translation>List of available devices</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="153"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="153"/>
         <source>Dispositivo Conectado</source>
         <translation>Connected device</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="217"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="217"/>
         <source>Desemparelhar dispositivo</source>
         <translation>Unpair device</translation>
@@ -747,16 +973,19 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>patientWindowContainer</name>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/patient_widget.ui" line="20"/>
         <location filename="../ui/ui_files/patient_widget.ui" line="20"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/patient_widget.ui" line="41"/>
         <location filename="../ui/ui_files/patient_widget.ui" line="41"/>
         <source>PatientName</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/patient_widget.ui" line="48"/>
         <location filename="../ui/ui_files/patient_widget.ui" line="48"/>
         <source>PatientInfo</source>
         <translation type="unfinished"></translation>
@@ -765,31 +994,37 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>registerDialog</name>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/register_dialog.ui" line="17"/>
         <location filename="../ui/ui_files/register_dialog.ui" line="17"/>
         <source>Dialog</source>
         <translation>Registration</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/register_dialog.ui" line="29"/>
         <location filename="../ui/ui_files/register_dialog.ui" line="29"/>
         <source>Nome (obrigatório)</source>
         <translation>Name (obligatory)</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/register_dialog.ui" line="36"/>
         <location filename="../ui/ui_files/register_dialog.ui" line="36"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/register_dialog.ui" line="56"/>
         <location filename="../ui/ui_files/register_dialog.ui" line="56"/>
         <source>Selecione uma imagem</source>
         <translation>Select a image</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/register_dialog.ui" line="63"/>
         <location filename="../ui/ui_files/register_dialog.ui" line="63"/>
         <source>Imagem de perfil</source>
         <translation>Profile image</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/register_dialog.ui" line="70"/>
         <location filename="../ui/ui_files/register_dialog.ui" line="70"/>
         <source>Descrição (obrigatório)</source>
         <translation>Description (obligatory)</translation>
@@ -798,11 +1033,17 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>selectedDeviceForm</name>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connected_device_item.ui" line="14"/>
         <location filename="../ui/ui_files/connected_device_item.ui" line="14"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connected_device_item.ui" line="23"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connected_device_item.ui" line="30"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connected_device_item.ui" line="37"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connected_device_item.ui" line="44"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connected_device_item.ui" line="51"/>
         <location filename="../ui/ui_files/connected_device_item.ui" line="23"/>
         <location filename="../ui/ui_files/connected_device_item.ui" line="30"/>
         <location filename="../ui/ui_files/connected_device_item.ui" line="37"/>
@@ -815,21 +1056,25 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>titleWindowContainer</name>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/title_widget.ui" line="20"/>
         <location filename="../ui/ui_files/title_widget.ui" line="20"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/title_widget.ui" line="44"/>
         <location filename="../ui/ui_files/title_widget.ui" line="44"/>
         <source>TherapistName</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/title_widget.ui" line="51"/>
         <location filename="../ui/ui_files/title_widget.ui" line="51"/>
         <source>TherapistFuntion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/title_widget.ui" line="99"/>
         <location filename="../ui/ui_files/title_widget.ui" line="99"/>
         <source>Joystick for hand motor rehabilitation</source>
         <translation type="unfinished"></translation>
@@ -963,17 +1208,22 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>userItemForm</name>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_item.ui" line="14"/>
         <location filename="../ui/ui_files/user_item.ui" line="14"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_item.ui" line="66"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_item.ui" line="73"/>
         <location filename="../ui/ui_files/user_item.ui" line="66"/>
         <location filename="../ui/ui_files/user_item.ui" line="73"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_item.ui" line="86"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_item.ui" line="96"/>
         <location filename="../ui/ui_files/user_item.ui" line="86"/>
         <location filename="../ui/ui_files/user_item.ui" line="96"/>
         <source>...</source>
@@ -983,56 +1233,67 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>usersWidgetForm</name>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_actions_widget.ui" line="14"/>
         <location filename="../ui/ui_files/user_actions_widget.ui" line="14"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_actions_widget.ui" line="38"/>
         <location filename="../ui/ui_files/user_actions_widget.ui" line="38"/>
         <source>Cadastrar um novo paciente</source>
         <comment>UserActionsHelper</comment>
         <translation>Register a new patient</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_actions_widget.ui" line="48"/>
         <location filename="../ui/ui_files/user_actions_widget.ui" line="48"/>
         <source>Terapeuta</source>
         <translation>Therapist</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_actions_widget.ui" line="63"/>
         <location filename="../ui/ui_files/user_actions_widget.ui" line="63"/>
         <source>Cadastrar um novo terapeuta</source>
         <comment>UserActionsHelper</comment>
         <translation>Register a new terapist</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_actions_widget.ui" line="66"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_actions_widget.ui" line="124"/>
         <location filename="../ui/ui_files/user_actions_widget.ui" line="66"/>
         <location filename="../ui/ui_files/user_actions_widget.ui" line="124"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_actions_widget.ui" line="76"/>
         <location filename="../ui/ui_files/user_actions_widget.ui" line="76"/>
         <source>Retornar ao valor de terapeuta padrão</source>
         <comment>UserActionsHelper</comment>
         <translation>Return to default terapist</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_actions_widget.ui" line="79"/>
         <location filename="../ui/ui_files/user_actions_widget.ui" line="79"/>
         <source>Terapeuta padrão</source>
         <translation>Default therapist</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_actions_widget.ui" line="109"/>
         <location filename="../ui/ui_files/user_actions_widget.ui" line="109"/>
         <source>Paciente</source>
         <translation>Patient</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_actions_widget.ui" line="134"/>
         <location filename="../ui/ui_files/user_actions_widget.ui" line="134"/>
         <source>Retornar ao valor de paciente padrão</source>
         <comment>UserActionsHelper</comment>
         <translation>Return to default patient</translation>
     </message>
     <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/user_actions_widget.ui" line="137"/>
         <location filename="../ui/ui_files/user_actions_widget.ui" line="137"/>
         <source>Paciente padrão</source>
         <translation>Default patient</translation>

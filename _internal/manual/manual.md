@@ -10,6 +10,7 @@ Utilize o índice abaixo para navegar entre sessões.</br>
   - [Conexão com joystick](#conexão-com-joystick)
   - [Calibração](#calibração)
   - [Configuração de botões](#configuração-de-botões)
+  - [Perfis de configuração](#perfis-de-configuração)
   - [Ações de usuários](#ações-de-usuários)
   - [Estatisiticas de usuário](#estatisiticas-de-usuário)
 
@@ -36,7 +37,7 @@ Recomenda-se a utilização da ferramenta [7Zip](https://www.7-zip.org), porém 
    2. Aguarde o fim da função sendo realizada para que a ferramenta libere o funcionamento.
 
 ## Conexão com joystick
-**OBS:**É importante destacar que a conexão do dispositivo deve ser realizada através da ferramenta e não da interface do Windows. A ferramenta só é capaz de detectar o dispositivo caso o mesmo seja conectado através dela.</br>
+**OBS:** É importante destacar que a conexão do dispositivo deve ser realizada através da ferramenta e não da interface do Windows. A ferramenta só é capaz de detectar o dispositivo caso o mesmo seja conectado através dela.</br>
 
 A conexão com o joystick é a primeira tela apresentada no software. Outras funcionalidades cruciais não podem ser utilizadas caso o joystick não tenha sido conectado de forma correta.</br>
 
@@ -48,11 +49,11 @@ A imagem acima apresenta a tela com os principais elementos numerados.</br>
 
 1. Lista de dispositivos encontradas
    1.  Atualizada após a utilização do botão de busca de dispositivos.
-   2.   Clique no dispositivo encontrado para selecioná-lo para emparelhamento.
-   3.    Dispositivos desligados podem aparecer na lista, mas recebem o status de desligado, impedindo a sua conexão.
+   2.  Clique no dispositivo encontrado para selecioná-lo para emparelhamento.
+   3.  Dispositivos desligados podem aparecer na lista, mas recebem o status de desligado, impedindo a sua conexão.
 2. Dispositivo conectado
    1.  Quando desconectado, o quadrado fica cinza-escuro.
-   2.   Quando um dispositivo está conectado, suas informações são apresentadas e o quadrado fica laranja.
+   2.  Quando um dispositivo está conectado, suas informações são apresentadas e o quadrado fica laranja.
 3. Botão de desemparelhar dispositivo
    1.  Desconecta e esquece informações do dispositivo atualmente conectado. 
    2.  Só pode ser usado quando um dispositivo está conectado.
@@ -210,6 +211,82 @@ Agora o joystick está configurado.
 </p>
 
 Nesse ponto, a tela retorna ao estado inicial e é possível configurar outras combinações de dedos.
+
+## Perfis de configuração
+Registro de perfis de configuração. Um perfil de configuração é um conjunto de configurações do joystick, separado por paciente, que podem ser aplicadas de forma individual ou em conjunto.</br>
+Esta funcionalidade tem como objetivo acelerar o processo de configuração do joystick para pacientes recorrentes, que realizam o mesmo exercício com o mesmo jogo ou configurações em diversas seções.
+
+<p align="center">
+   <img src="imgs/configProfile/configProfile1.png" alt="configProfile1" width="75%" height="75%"/>
+</p>
+
+A imagem acima apresenta a tela com os principais elementos numerados.</br>
+
+1. Lista de perfis de configuração
+   1. Perfis armazenados no banco de dados são apresentados nesta lista.
+   2. Perfis são associados a pacientes e não são compartilhados.
+   3. Armazenam as configurações apresentadas na lista de configurações (item 2).
+   4. Configurações podem ser adicionadas digitando um nome no campo de texto (item 4) e clicando no botão 5.
+   5. Podem ser selecionadas ao clicar no perfil desejado.
+2. Lista de configurações
+   1. Configurações adicionadas ao perfil.
+   2. Podem ser selecionadas ao clicar na configuração desejada.
+3. Configuração selecionada
+   1. Tem sua cor alterada.
+   2. As informações contidas são elaboradas abaixo no manual.
+4. Campo de texto
+   1. Use para escolher o nome do perfil
+   2. Limite de 32 caracteres.
+   3. Obrigatório.
+5.  Botão "Criar novo perfil"
+    1. Adiciona um perfil vazio com o nome digitado.
+6.  Botão "Remover perfil" 
+    1. Exclui o perfil selecionado com todas as suas configurações.
+7.  Botão "Adicionar configuração"
+    1. Adiciona a última configuração realizada na tela de configurações ao perfil selecionado.
+8.  Botão "Remover configuração"
+    1. Exclui a configuração selecionada do perfil.
+9.  Botão "Aplicar configuração selecionada"
+    1.  Envia a configuração selecionada ao joystick.
+    2.  Mesma ação de configurar o joystick através da tela de configuração.
+10. Botão "Aplicar todas as confiuração"
+    1.  Aplica todas as configurações do perfil ao joystick.
+11. Botão "Enviar para tela de configuração"
+    1.  Envia as informações de configuração selecionada à tela de configuração. 
+
+O item de configuração é apresentado na imagem abaixo.</br>
+
+<p align="center">
+   <img src="imgs/configProfile/configProfile2.png" alt="userActionImage1" width="25%" height="25%"/>
+</p>
+
+As informações apresentadas, da direita para a esquerda, são:
+
+1. Pressões associadas a cada dedo.
+   1. Dedos são indicados pelas letras iniciais.
+2. Duração de pressão necessaria
+   1. Apresentada em segundos
+3. Repetição   
+   1. Ícone apresenta a repetição ligada ou desligada.
+4. Tecla selecionada
+   1. Apresenta a tecla associada a combinação de botões.
+
+Uso da funcionalidade:
+
+1. Realize uma configuração do joystick na tela de configurações.
+2. Acesse a tela de perfis de configuração.
+3. Crie um novo perfil.
+4. Selecione o perfil criado.
+5. Use o botão 7 para adicionar a última configuração realizada.
+6. Repita o processo para adicionar mais configuração ao perfil selecionado.
+
+Agora temos um perfil com diversas configurações armazenadas.</br>
+Em qualquer outro momento que desejamos aplicar a mesma configuração ao joystick:
+
+1. Selecione o perfil desejado.
+2. Selecione a configuração desejada.
+3. Utilize o botão 9 para aplicar a configuração desejada.
+4. Ou utilize o botão 10 para aplicar todas as configurações do perfil.
 
 ## Ações de usuários
 Cadastro e gerenciamento de pacientes e terapeutas.

@@ -2,7 +2,7 @@ from ui.views.calibration_result_widget_ui import Ui_calibrationResultWidget
 from PySide6.QtWidgets import QWidget
 from ui.model.custom_widgets.custom_slider_model import CustomSliderModel
 from PySide6.QtCore import QRect
-from modules.log_class import logger
+from shared_ui_modules.modules.log_class import logger
 
 class CalibrationResultModel(QWidget):
     def __init__(self):
@@ -28,11 +28,8 @@ class CalibrationResultModel(QWidget):
             self.verticalSliderThumb
         ]
         
-        self.verticalSliderLittle.slider.setProperty("index",0)
-        self.verticalSliderRing.slider.setProperty("index",1)
-        self.verticalSliderMiddle.slider.setProperty("index",2)
-        self.verticalSliderIndex.slider.setProperty("index",3)
-        self.verticalSliderThumb.slider.setProperty("index",4)
+        for i, slider in enumerate(self.slider_array):
+            slider.slider.setProperty("index",i)
         
         #add slider on layout
         self.slider_pos_array = [
@@ -51,6 +48,7 @@ class CalibrationResultModel(QWidget):
             slider.slider.setEnabled(False)
 
     def set_pressure_values(self, value_array=None):
+        logger.debug(f"CalibrationResultModel geometry: {self.geometry()}")
         try:
             if value_array:
                 logger.debug(f"Valores de pressão recebidos, mínimo até polegar: ")
