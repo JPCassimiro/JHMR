@@ -1,10 +1,11 @@
 from ui.views.config_widget_ui import Ui_configForm
 
-from ui.model.dialogs.key_select_model import KeySelectModel
-from ui.model.components.end_config_model import EndConfigModel
+from shared_ui_modules.ui.model.dialogs.key_select_model import SharedKeySelectModel
+from shared_ui_modules.ui.model.components.end_config_model import SharedEndConfigModel
+from shared_ui_modules.ui.model.stacked_widget_screens.config_widget_model import SharedConfigWidgetModel
 from ui.model.custom_widgets.custom_slider_model import CustomSliderModel
 
-from modules.log_class import logger
+from shared_ui_modules.modules.log_class import logger
 from modules.json_writer import JsonWriterClass
 
 from PySide6.QtWidgets import QWidget, QRadioButton, QMessageBox
@@ -21,13 +22,13 @@ nunchuck_base_value = {
     "c_key":None
 }
 
-class ConfigWidgetModel(QWidget):
-    def __init__(self,serialHandleClass, btSerialHandle, LogModel):
-        super().__init__()
+class ConfigWidgetModel(SharedConfigWidgetModel):
+    def __init__(self, btSerialHandle, LogModel):
+        super().__init__(btSerialHandle, LogModel)
 
         self.string_list_dialog = [
-            "Erro",   
-            "Escolha a tecla a ser emulada"            
+            QCoreApplication.translate("ConfigJoystickDialogText","Erro"),   
+            QCoreApplication.translate("ConfigJoystickDialogText","Escolha a tecla a ser emulada")            
         ]        
 
         self.string_list_components = [
@@ -38,16 +39,15 @@ class ConfigWidgetModel(QWidget):
         self.ui = Ui_configForm()
         self.ui.setupUi(self)
 
-        self.key_select_modal = KeySelectModel()
-        self.end_modal = EndConfigModel()
-        self.serialHandleClass = serialHandleClass
+        self.key_select_modal = SharedKeySelectModel()
+        self.end_modal = SharedEndConfigModel()
         self.logModel = LogModel
         self.btSerialHandle = btSerialHandle
         self.jsonWriter = JsonWriterClass()
 
         #variables setup
         self._selected_fingers = [False,False,False,False]#radio buttons will populate this, 0 little - 3 index
-        self.finger_info_dict = finger_base_value.copy()
+        self.param_select = finger_base_value.copy()
         self.nunchuck_info_dict = nunchuck_base_value.copy()
         self.p_value_array = [0,0,0,0]
         self.current_user = None
@@ -162,8 +162,8 @@ class ConfigWidgetModel(QWidget):
     
     def duration_slider_value_change(self):
         print(f"slider: {self.sender().objectName()} - value: {self.sender().value()}")
-        self.finger_info_dict.update({"duration":self.sender().value()})
-        print(self.finger_info_dict)
+        self.param_select.update({"duration":self.sender().value()})
+        print(self.param_select)
 
     def zKey_button_handler(self):
         print(f"sender: {self.sender().objectName()} pressed!")
@@ -176,13 +176,16 @@ class ConfigWidgetModel(QWidget):
         self.key_select_modal.exec()
 
     def confirm_button_handler(self):
+        if self.btSerialHandle.socket_none_check():
+            self.reset_screen()
+            return
         selection_check = any(self._selected_fingers)
         if (selection_check == False):
             logger.debug("Selecione uma combinação de dedos")
-        elif self.finger_info_dict["key"] == None:
+        elif self.param_select["key"] == None:
             warning = QMessageBox(self)
-            warning.setWindowTitle(QCoreApplication.translate("ConfigJoystickDialogText",self.string_list_dialog[0]))
-            warning.setText(QCoreApplication.translate("ConfigJoystickDialogText",self.string_list_dialog[1]))
+            warning.setWindowTitle(self.string_list_dialog[0])
+            warning.setText(self.string_list_dialog[1])
             warning.setWindowModality(Qt.ApplicationModal)
             warning.show()
         else:
@@ -203,14 +206,6 @@ class ConfigWidgetModel(QWidget):
         print(f"sender: {self.sender().objectName()} pressed!")
         self.key_select_modal.z_c_key_mode = 0
         self.key_select_modal.exec()
-    
-    def repeat_button_handler(self):
-        print(f"radio: {self.sender().objectName} - state: {self.sender().isChecked()}")
-        if self.sender().objectName() == "repeatOffButton":
-            self.finger_info_dict.update({"repeat_key":False})
-        else:
-            self.finger_info_dict.update({"repeat_key":True})
-        print(self.finger_info_dict)
         
     def pressure_slider_value_change(self):
         print(f"slider: {self.sender().objectName()} - value: {self.sender().value()} - index: {self.sender().property("index")}")
@@ -225,9 +220,6 @@ class ConfigWidgetModel(QWidget):
             self.slider_array[index].slider.setValue(0)
         print(self._selected_fingers)
 
-    def message_received_handler(self,response):
-        self.end_modal.recieve_end_message(response)
-
     #resets info to be transmited via serial
     def value_reset_watcher(self):
         selection_check = any(self._selected_fingers)
@@ -236,12 +228,12 @@ class ConfigWidgetModel(QWidget):
         if selection_check == False:
             self.reset_variables()
             self.reset_screen()
-            print(f"after reset:{self.finger_info_dict}")
+            print(f"after reset:{self.param_select}")
             return True
         return False
     
     def reset_variables(self):
-        self.finger_info_dict = finger_base_value.copy()
+        self.param_select = finger_base_value.copy()
         self.nunchuck_info_dict = nunchuck_base_value.copy()
         self.p_value_array = [0,0,0,0]
 
@@ -258,13 +250,6 @@ class ConfigWidgetModel(QWidget):
             slider.setEnabled(False)
             slider.slider.setValue(0)
 
-    def send_serial_message(self,message):
-        if self.btSerialHandle.bt_socket != None:
-            self.btSerialHandle.open_port()
-            # self.serialHandleClass.open_port()
-            self.btSerialHandle.send_message(message)
-            # self.serialHandleClass.send_message(message)
-        
     def confirm_messages_generator(self):
         messages = []
         for i, v in enumerate(self.p_value_array):#!p_values has to come first as to determine the finger combo
@@ -277,7 +262,7 @@ class ConfigWidgetModel(QWidget):
                     valueStr = f"0{v}"
                 #when sending the serial message, finger indexes start at 1
                 messages.append("*M{}{}".format(i+1,valueStr))
-        pairs = [(k, v) for (k, v) in self.finger_info_dict.items()]
+        pairs = [(k, v) for (k, v) in self.param_select.items()]
         for i, (k,v) in enumerate(pairs):
             if v != None:
                 match i:
@@ -290,9 +275,9 @@ class ConfigWidgetModel(QWidget):
         if self.nunchuck_info_dict["c_key"] != None: messages.append(f"*C{self.nunchuck_info_dict["c_key"]}")
         if self.nunchuck_info_dict["z_key"] != None: messages.append(f"*Z{self.nunchuck_info_dict["z_key"]}")
         bindingDict = {
-                "duration": self.finger_info_dict["duration"],
-                "key": self.finger_info_dict["key"],
-                "repeat": self.finger_info_dict["repeat_key"],
+                "duration": self.param_select["duration"],
+                "key": self.param_select["key"],
+                "repeat": self.param_select["repeat_key"],
                 "little": self.p_value_array[0],
                 "ring": self.p_value_array[1],
                 "middle": self.p_value_array[2],
@@ -304,9 +289,9 @@ class ConfigWidgetModel(QWidget):
         key = self.key_select_modal.selected_key
         key_text = self.arrow_text_conversion(key)
         if self.key_select_modal.z_c_key_mode == 0:
-            self.finger_info_dict.update({"key":key})
+            self.param_select.update({"key":key})
             self.pressureButton.setText(key_text.upper())
-            print(self.finger_info_dict)
+            print(self.param_select)
         elif self.key_select_modal.z_c_key_mode == 1:
             self.nunchuck_info_dict.update({"z_key":key})
             self.ZKeyButton.setText(key_text.upper())
@@ -317,18 +302,6 @@ class ConfigWidgetModel(QWidget):
             print(self.nunchuck_info_dict)
         self.key_select_modal.selected_key = None
         self.key_select_modal.z_c_key_mode = 0
-
-    def arrow_text_conversion(self,key):#chages literal word for directional arrows to icons
-        key_text = key
-        if key == "UP":
-            key_text = str("↑")
-        elif key == "DOWN":
-            key_text = str("↓")
-        elif key == "LEFT":
-            key_text = str("←")
-        elif key == "RIGHT":
-            key_text = str("→")
-        return key_text
 
     def assing_card_values(self,config):
         self._selected_fingers = [False,False,False,False]#this is done this way as to not trigger reset value multiple times
@@ -352,11 +325,11 @@ class ConfigWidgetModel(QWidget):
         if repeat == True:
             self.repeatOnButton.setChecked(True)
             self.repeatOffButton.setChecked(False)
-            self.finger_info_dict["repeat_key"] = True
+            self.param_select["repeat_key"] = True
         else:
             self.repeatOffButton.setChecked(True)
             self.repeatOnButton.setChecked(False)
-            self.finger_info_dict["repeat_key"] = False
+            self.param_select["repeat_key"] = False
             
         self.key_select_modal.selected_key = key
         self.handle_modal_finish()
@@ -366,9 +339,15 @@ class ConfigWidgetModel(QWidget):
             self.string_list_components = [
                 QCoreApplication.translate("ConfigJoystickComponents", "Clique para selecionar")
             ] 
+
+            self.string_list_dialog = [
+                QCoreApplication.translate("ConfigJoystickDialogText","Erro"),   
+                QCoreApplication.translate("ConfigJoystickDialogText","Escolha a tecla a ser emulada")            
+            ]      
+            
             self.ui.retranslateUi(self)
-            if self.finger_info_dict["key"] != None:
-                key_text = self.arrow_text_conversion(self.finger_info_dict["key"])
+            if self.param_select["key"] != None:
+                key_text = self.arrow_text_conversion(self.param_select["key"])
                 self.pressureButton.setText(key_text.upper())
             if self.nunchuck_info_dict["c_key"] != None:
                 key_text = self.arrow_text_conversion(self.nunchuck_info_dict["c_key"])

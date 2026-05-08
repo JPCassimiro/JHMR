@@ -1,7 +1,7 @@
 import wmi
 import re
 
-from modules.log_class import logger
+from shared_ui_modules.modules.log_class import logger
 
 from PySide6.QtCore import Signal, QObject, QTimer
 from PySide6.QtSerialPort import QSerialPort

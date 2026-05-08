@@ -2,7 +2,7 @@ import sys, os
 from pathlib import Path
 
 from ui import main_menu
-from modules import log_class
+from shared_ui_modules.modules import log_class
 
 from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QSettings, QTranslator
