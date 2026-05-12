@@ -9,7 +9,7 @@ from ui.model.stacked_widget_screens.user_actions_widget_model import UserAction
 from ui.model.stacked_widget_screens.user_stats_model import UserStatsModel
 from ui.model.stacked_widget_screens.game_config_profile_model import GameProfileModel
 from shared_ui_modules.ui.model.dialogs.log_model import SharedLogModel
-from shared_ui_modules.ui.model.dialogs.app_config_dialog_model import SharedAppConfigModel
+from ui.model.dialogs.app_config_dialog_model import AppConfigDialogModel
 from ui.model.dialogs.app_helper_model import AppHelperModule
 
 from ui.views.main_window_ui import Ui_MainWindow
@@ -17,16 +17,18 @@ from ui.views.main_window_ui import Ui_MainWindow
 from PySide6.QtCore import QCoreApplication
 from PySide6.QtGui import QPixmap
 
-# from modules.serial_communication import SerialCommClass
 from modules.db_functions import DbClass
-from shared_ui_modules.modules.bluetooth_serial_communication import BtSerialComm
+from modules.bluetooth_serial_communication import BtSerialComm
 from shared_ui_modules.modules.log_class import logger
+
+#!before new release
+    #!change config.init current version on app_config_dialog_model
+    #!change current version on inital log on main.py
+    #!comment fake_data_test on SharedDataCollectorClass
 
 class MainMenuWindow(SharedMainMenuWindow):
     def __init__(self):
         super().__init__()
-
-        logger.debug(f"JHMR unstable V1.1.4 START")
 
         #setup shared instances
         self.dbHandleClass = DbClass()
@@ -68,7 +70,7 @@ class MainMenuWindow(SharedMainMenuWindow):
         self.game_profile_widget = GameProfileModel(self.logModel,self.dbHandleClass, self.btSerialHandle)
 
         #setup config modal
-        self.appConfigModal = SharedAppConfigModel()
+        self.appConfigModal = AppConfigDialogModel()
         
         #setup manual modal
         self.manual_modal = AppHelperModule()

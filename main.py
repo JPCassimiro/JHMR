@@ -42,6 +42,7 @@ def main():
 
         app.setWindowIcon(QIcon("_internal/resources/icons/logo.ico"))
             
+        print(f"-------------JHMR Stable V1.1.2-------------")
         app.exec()
     except Exception as e:
         log_class.logger.exception(f"Erro na execução do Main\nErro: {e}")
