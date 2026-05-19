@@ -19,8 +19,8 @@
 <context>
     <name>AppConfigDialogText</name>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_config_dialog_model.py" line="13"/>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_config_dialog_model.py" line="64"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_config_dialog_model.py" line="20"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_config_dialog_model.py" line="101"/>
         <source>Configuração do aplicativo</source>
         <translation>App configuration</translation>
     </message>
@@ -29,13 +29,13 @@
     <name>AppHelperDialogText</name>
     <message>
         <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_helper_model.py" line="16"/>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_helper_model.py" line="56"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_helper_model.py" line="55"/>
         <source>Ajuda</source>
         <translation>Help</translation>
     </message>
     <message>
         <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_helper_model.py" line="17"/>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_helper_model.py" line="57"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_helper_model.py" line="56"/>
         <source>&lt;a href=&apos;_internal/manual/manual.html&apos;&gt;Manual de usuário&lt;a/&gt;</source>
         <translation>&lt;a href=&apos;_internal/manual/manual.html&apos;&gt;User manual&lt;a/&gt;</translation>
     </message>
@@ -257,31 +257,160 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </message>
 </context>
 <context>
+    <name>LoggerWidgetText</name>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="25"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="410"/>
+        <source>Erro ao adicionar configuração ao perfil</source>
+        <translation>Error while trying to add a configuration to the profile</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="26"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="411"/>
+        <source>Erro ao criar novo perfil</source>
+        <translation>Error while trying to create a new profile</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="27"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="412"/>
+        <source>Novo perfil criado</source>
+        <translation>New profile created</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="28"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="413"/>
+        <source>Configuração adicionada ao perfil selecionado</source>
+        <translation>Configuration added to the selected profile</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="29"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="414"/>
+        <source>Valores aplicados a tela de configuração</source>
+        <translation>Values applied to the configuration screen</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="30"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="415"/>
+        <source>Erro ao adicionar a configuração ao perfil</source>
+        <translation>Error while adding a configuration to the profile</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="31"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="416"/>
+        <source>Erro ao remover uma configuração do perfil selecionado</source>
+        <translation>Error while trying to remove a configuration to the selected profile</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="32"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="417"/>
+        <source>Erro ao excluir um perfil de configurações</source>
+        <translation>Error while trying to remove a profile</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="26"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="261"/>
+        <source>Cadastro realizado com sucesso</source>
+        <translation>Registration success</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="27"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="262"/>
+        <source>Alteração realizada com sucesso</source>
+        <translation>Update success</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="28"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="263"/>
+        <source>Remoção realizada com sucesso</source>
+        <translation>Deletion success</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="29"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="264"/>
+        <source>Paciente selecionado:</source>
+        <translation>Selected patient:</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="30"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="265"/>
+        <source>Terapeuta selecionado:</source>
+        <translation>Selected therapist:</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="31"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="266"/>
+        <source>Paciente padrão selecionado</source>
+        <translation>Default patient selected</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="32"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="267"/>
+        <source>Terapeuta padrão selecionado</source>
+        <translation>Default therapist selected</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="33"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="268"/>
+        <source>Erro no processo de cadastro</source>
+        <translation>Register error</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="34"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="269"/>
+        <source>Erro na alteração</source>
+        <translation>Update error</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="35"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="270"/>
+        <source>Erro na remoção</source>
+        <translation>Deletion error</translation>
+    </message>
+</context>
+<context>
     <name>MainMenuText</name>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="9"/>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="92"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="11"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="94"/>
         <source>Erro de conexão com o joystick</source>
         <translation>Joystick connection error</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="10"/>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="93"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="12"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="95"/>
         <source>A conexão com o joystick foi perdida, realizando desemparelhamento</source>
         <translation>Joystick connection lost, unpairing device</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="11"/>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="94"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="13"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/main_menu.py" line="96"/>
         <source>Joystick não está conectado</source>
         <translation>Joystick is not connected</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_config_dialog_model.py" line="21"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_config_dialog_model.py" line="102"/>
+        <source>Aviso</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_config_dialog_model.py" line="22"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_config_dialog_model.py" line="103"/>
+        <source>Nova versão da ferramenta.
+Use o botão de ajuda para encontrar o repositório!</source>
+        <translation>New software release.\nUse the help button to find the repository!</translation>
+    </message>
+    <message>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_config_dialog_model.py" line="23"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/dialogs/app_config_dialog_model.py" line="104"/>
+        <source>Parar de mostrar essa mensagem</source>
+        <translation>Stop showing this message</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/main_window.ui" line="31"/>
-        <location filename="../ui/ui_files/main_window.ui" line="31"/>
         <source>MainWindow</source>
         <translation>JHMR</translation>
     </message>
@@ -363,32 +492,32 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>UserStatsDialogText</name>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="154"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="200"/>
         <source>Confirmar</source>
         <translation>Confirm</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="155"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="201"/>
         <source>Cancelar</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="156"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="202"/>
         <source>Deseja excluir a sessão selecionada?</source>
         <translation>Delete selected session?</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="157"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="203"/>
         <source>Aviso</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="158"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="204"/>
         <source>Sucesso</source>
         <translation>Success</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="159"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="205"/>
         <source>Sessão de id {id}, do usuário {user} removida</source>
         <translation>Session of id {id}, from user {user} has been deleted</translation>
     </message>
@@ -396,33 +525,33 @@ li.checked::marker { content: &quot;\2612&quot;; }
 <context>
     <name>WarningText</name>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="163"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="178"/>
         <source>O campo do nome é obrigatório</source>
         <translation>the name field is obligatory</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="248"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="267"/>
         <source>Erro ao tentar criar um perfil</source>
         <translation>Error while trying to create a profile</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="258"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="278"/>
         <source>Erro ao selecionar um perfil</source>
         <translation>Error while selecting a profile</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/components/user_item_model.py" line="88"/>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="368"/>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="137"/>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="51"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/components/user_item_model.py" line="99"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/game_config_profile_model.py" line="395"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="162"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="62"/>
         <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="117"/>
         <location filename="../ui/model/stacked_widget_screens/user_stats_model.py" line="326"/>
         <source>Erro</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/components/user_item_model.py" line="89"/>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="138"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/components/user_item_model.py" line="100"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_actions_widget_model.py" line="163"/>
         <source>Preencha todos os campos obrigatórios</source>
         <translation>Fill all the obligatory fields</translation>
     </message>
@@ -431,12 +560,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation type="vanished">Error during data collection, some data might have been lost</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="42"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="50"/>
         <source>Sucesso</source>
         <translation>Success</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="43"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="51"/>
         <source>Exportação realizada com sucesso. A pasta criada será aberta.</source>
         <translation>Data export successful. The created folder will be opened.</translation>
     </message>
@@ -445,7 +574,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <translation type="vanished">Data export successful</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="52"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/model/stacked_widget_screens/user_stats_model.py" line="63"/>
         <source>Erro na exportação</source>
         <translation>Data export error</translation>
     </message>
@@ -893,44 +1022,44 @@ configuration screen</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="81"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="84"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="81"/>
         <source>Procurar por dispositivos</source>
         <comment>ConnectionManagerHelper</comment>
         <translation>Scan for devices</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="84"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="87"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="84"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="94"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="97"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="94"/>
         <source>Emparelhar dispositivo</source>
         <translation>Pair device</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="101"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="104"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="101"/>
         <source>Selecione um dispositivo para emparelhar</source>
         <translation>Select a device to pair</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="132"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="135"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="132"/>
         <source>Lista de dispositivos encontrados</source>
         <translation>List of available devices</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="153"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="156"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="153"/>
         <source>Dispositivo Conectado</source>
         <translation>Connected device</translation>
     </message>
     <message>
-        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="217"/>
+        <location filename="../../shared_ui_modules/src/shared_ui_modules/ui/ui_files/connection_manager.ui" line="220"/>
         <location filename="../ui/ui_files/connection_manager.ui" line="217"/>
         <source>Desemparelhar dispositivo</source>
         <translation>Unpair device</translation>
