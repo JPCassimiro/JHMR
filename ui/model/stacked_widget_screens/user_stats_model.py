@@ -64,8 +64,8 @@ class UserStatsModel(SharedUserStatsModel):
         self.stopListening.setEnabled(False)
         
         #connections setup
-        self.leftHandButton.toggled.connect(self.hand_selector)
-        self.rightHandButton.toggled.connect(self.hand_selector)
+        self.leftHandButton.toggled.connect(self.hand_select_radio_button)
+        self.rightHandButton.toggled.connect(self.hand_select_radio_button)
 
         #create charts
         self.session_chart_layout_widget = None
@@ -74,7 +74,7 @@ class UserStatsModel(SharedUserStatsModel):
 
         self.initialize_modules()
         
-    def export_as_image_handler(self):
+    def export_as_image(self):
         if self.sessionComboBox.currentIndex() >= 0:
             try:
                 #exporter for current session
@@ -105,12 +105,11 @@ class UserStatsModel(SharedUserStatsModel):
                 file_path = folder_path /  "resumo.png"
                 
                 exporter.export(str(file_path))
-                
-            except Exception as e:
-                logger.debug(f"Erro na exportação: {e}")
-                self.error_export_handle()
-            else:
+
                 self.end_export_handle(folder_path)
+            except Exception as e:
+                logger.error(f"UserStatsModel export_as_image error: {e}")
+                self.error_export_handle()
         else:
             logger.error("Selecione uma sessão")
             warning = QMessageBox(self)
@@ -120,492 +119,495 @@ class UserStatsModel(SharedUserStatsModel):
             warning.show()
 
     def create_charts(self):
-        #setup text to be translated
-        
-        #graph text
-        self.string_list_graphs = [
-            QCoreApplication.translate("GraphText","Mínimo"),
-            QCoreApplication.translate("GraphText","Anelar"),
-            QCoreApplication.translate("GraphText","Médio"),
-            QCoreApplication.translate("GraphText","Indicador"),
-            QCoreApplication.translate("GraphText","Estatisticas de pressão"),
-            QCoreApplication.translate("GraphText","Média de pressão por dedo"),
-            QCoreApplication.translate("GraphText","Média"),
-            QCoreApplication.translate("GraphText","Maxima"),
-            QCoreApplication.translate("GraphText","Mínima"),
-            QCoreApplication.translate("GraphText","Uso por dedo"),
-            QCoreApplication.translate("GraphText","Uso de dedos"),
-            QCoreApplication.translate("GraphText","Sessão"),
-            QCoreApplication.translate("GraphText","Paciente: {user}"),
-            QCoreApplication.translate("GraphText","Total de uso por dedo"),
-        ]
-        
-        #session chart widget        
-        pg.setConfigOption('background', '#F5F5F5')
-        pg.setConfigOption('foreground', 'black')
-        self.session_chart_layout_widget =  pg.GraphicsLayoutWidget()
-        self.ui.sessionChartContainer.layout().addWidget(self.session_chart_layout_widget)
-        x_range = np.array([0,1,2,3])
-        self.finger_name_labels = [(x_range[0],self.string_list_graphs[0]),(x_range[1],self.string_list_graphs[1]),(x_range[2],self.string_list_graphs[2]),(x_range[3],self.string_list_graphs[3])]
-        
-        #create session patient name label       
-        labelText = self.string_list_graphs[12].format(user = self.current_user_name)
-        self.sessionNameLabel = pg.LabelItem(labelText)
-        
-        self.session_chart_layout_widget.addItem(self.sessionNameLabel, col = 2, row = 2)
-
-        #avarage pressure by finger chart
-        self.avg_pressure = [0,0,0,0]
-        self.avg_chart = pg.BarGraphItem(x= x_range,height=self.avg_pressure,width = 0.2,brush="#F89E59")
-        
-        #max pressure by finger chart
-        self.max_pressure = [0,0,0,0]
-        self.max_chart = pg.BarGraphItem(x= x_range+0.2,height=self.max_pressure,width = 0.2,brush="#F37F27")
-        
-        #min pressure by finger chart
-        self.min_pressure = [0,0,0,0]
-        self.min_chart = pg.BarGraphItem(x= x_range-0.2,height=self.max_pressure,width = 0.2,brush="#F6E1A4")
-        
-        #times finger has been used
-        self.times_pressed = [0,0,0,0]
-        self.times_used_chart = pg.BarGraphItem(x= x_range,height=self.times_pressed,width = 0.3,brush="#F89E59")
-
-        #add charts to layout
-        self.plot_item_pressure = self.session_chart_layout_widget.addPlot(title = self.string_list_graphs[4], col = 1, row = 1)
-        self.plot_item_pressure.setMouseEnabled(x=False,y=False)
-        self.plot_item_pressure.addItem(self.avg_chart)
-        self.plot_item_pressure.addItem(self.min_chart)
-        self.plot_item_pressure.addItem(self.max_chart)
-        self.plot_item_pressure.getAxis('bottom').setTicks([self.finger_name_labels])
-        self.plot_item_pressure.getAxis('left').setLabel(text = self.string_list_graphs[5], units = "G")
-        
-        #legend pressure chart session
-        self.legendSessionPressure = pg.LegendItem(colCount = 3)
-        self.legendSessionPressure.addItem(self.avg_chart,self.string_list_graphs[6])
-        self.legendSessionPressure.addItem(self.max_chart,self.string_list_graphs[7])
-        self.legendSessionPressure.addItem(self.min_chart,self.string_list_graphs[8])
-        self.session_chart_layout_widget.addItem(self.legendSessionPressure, col = 1, row = 2)
-        self.legendSessionPressure.setParentItem(self.session_chart_layout_widget.layout())
-        
-        #finger use times session
-        self.plot_item_times_used = self.session_chart_layout_widget.addPlot(title = self.string_list_graphs[9], col = 2, row = 1)
-        self.plot_item_times_used.setMouseEnabled(x=False,y=False)
-        self.plot_item_times_used.addItem(self.times_used_chart)
-        self.plot_item_times_used.getAxis('bottom').setTicks([self.finger_name_labels])
-        self.plot_item_times_used.getAxis('left').setLabel(text=self.string_list_graphs[10])
-        self.plot_item_times_used.getAxis('left').setStyle(maxTickLevel=0)
-        
-        #summary chart widget
-        self.summary_chart_layout_widget = pg.GraphicsLayoutWidget()
-        self.ui.summaryChartContainer.layout().addWidget(self.summary_chart_layout_widget)
-
-        #add patient name label
-        self.summaryNameLabel = pg.LabelItem(labelText)
-        self.summary_chart_layout_widget.addItem(self.summaryNameLabel, col = 2, row = 2)
-
-        #create line chart
-        self.little_info_array = [[1,2],[1,2]]
-        self.ring_info_array = [[1,2],[1,2]]
-        self.middle_info_array = [[1,2],[1,2]]
-        self.index_info_array = [[1,2],[1,2]]
-
-        self.plot_item_avg_line = self.summary_chart_layout_widget.addPlot(col = 1, row = 1)
-        self.plot_item_avg_line.getAxis('bottom').setLabel(self.string_list_graphs[11])
-        self.plot_item_avg_line.getAxis('left').setLabel(self.string_list_graphs[5], units = "G")
-        self.plot_item_avg_line.showGrid(y = True,x = True)
-
-        #create lines
-        self.little_line = self.plot_item_avg_line.plot(self.little_info_array[0],self.little_info_array[1],pen ='r')
-        self.ring_line = self.plot_item_avg_line.plot(self.ring_info_array[0],self.ring_info_array[1],pen ='g')
-        self.middle_line = self.plot_item_avg_line.plot(self.middle_info_array[0],self.middle_info_array[1],pen ='b')
-        self.index_line = self.plot_item_avg_line.plot(self.index_info_array[0],self.index_info_array[1],pen ='purple')
+        try:
+            #setup text to be translated
             
-        #line chart legend
-        self.avg_line_legend = pg.LegendItem(colCount = 2)
-        self.avg_line_legend.addItem(self.little_line, name = self.string_list_graphs[0])
-        self.avg_line_legend.addItem(self.ring_line, name = self.string_list_graphs[1])
-        self.avg_line_legend.addItem(self.middle_line, name = self.string_list_graphs[2])
-        self.avg_line_legend.addItem(self.index_line, name = self.string_list_graphs[3])
-        self.summary_chart_layout_widget.addItem(self.avg_line_legend, col = 1, row = 2)
-        self.avg_line_legend.setParentItem(self.summary_chart_layout_widget.layout())
+            #graph text
+            self.string_list_graphs = [
+                QCoreApplication.translate("GraphText","Mínimo"),
+                QCoreApplication.translate("GraphText","Anelar"),
+                QCoreApplication.translate("GraphText","Médio"),
+                QCoreApplication.translate("GraphText","Indicador"),
+                QCoreApplication.translate("GraphText","Estatisticas de pressão"),
+                QCoreApplication.translate("GraphText","Média de pressão por dedo"),
+                QCoreApplication.translate("GraphText","Média"),
+                QCoreApplication.translate("GraphText","Maxima"),
+                QCoreApplication.translate("GraphText","Mínima"),
+                QCoreApplication.translate("GraphText","Uso por dedo"),
+                QCoreApplication.translate("GraphText","Uso de dedos"),
+                QCoreApplication.translate("GraphText","Sessão"),
+                QCoreApplication.translate("GraphText","Paciente: {user}"),
+                QCoreApplication.translate("GraphText","Total de uso por dedo"),
+            ]
+            
+            #session chart widget        
+            pg.setConfigOption('background', '#F5F5F5')
+            pg.setConfigOption('foreground', 'black')
+            self.session_chart_layout_widget =  pg.GraphicsLayoutWidget()
+            self.ui.sessionChartContainer.layout().addWidget(self.session_chart_layout_widget)
+            x_range = np.array([0,1,2,3])
+            self.finger_name_labels = [(x_range[0],self.string_list_graphs[0]),(x_range[1],self.string_list_graphs[1]),(x_range[2],self.string_list_graphs[2]),(x_range[3],self.string_list_graphs[3])]
+            
+            #create session patient name label       
+            labelText = self.string_list_graphs[12].format(user = self.current_user_name)
+            self.sessionNameLabel = pg.LabelItem(labelText)
+            
+            self.session_chart_layout_widget.addItem(self.sessionNameLabel, col = 2, row = 2)
 
-        #avg bar chart 
-        self.plot_item_avg_bar = self.summary_chart_layout_widget.addPlot(col = 2, row = 1)
-        self.avg_pressure_summary = [0,0,0,0]
-        self.avg_chart_summary = pg.BarGraphItem(x= x_range,height=self.avg_pressure_summary,width = 0.2,brush="#F89E59")
-        self.plot_item_avg_bar.addItem(self.avg_chart_summary)
-        self.plot_item_avg_bar.getAxis('bottom').setTicks([self.finger_name_labels])
-        self.plot_item_avg_bar.getAxis('left').setLabel(text=self.string_list_graphs[6], units = "G")
-        self.plot_item_avg_bar.setMouseEnabled(x=False, y=False)
-        
-        #total times used chart
-        self.plot_item_total_uses = self.summary_chart_layout_widget.addPlot(col = 3, row = 1)
-        self.total_uses_summary = [0,0,0,0]
-        self.uses_chart_summary = pg.BarGraphItem(x= x_range,height=self.total_uses_summary,width = 0.2,brush="#F89E59")
-        self.plot_item_total_uses.addItem(self.uses_chart_summary)
-        self.plot_item_total_uses.getAxis('bottom').setTicks([self.finger_name_labels])
-        self.plot_item_total_uses.getAxis('left').setLabel(text=self.string_list_graphs[11])
-        self.plot_item_total_uses.setMouseEnabled(x=False, y=False)
+            #avarage pressure by finger chart
+            self.avg_pressure = [0,0,0,0]
+            self.avg_chart = pg.BarGraphItem(x= x_range,height=self.avg_pressure,width = 0.2,brush="#F89E59")
+            
+            #max pressure by finger chart
+            self.max_pressure = [0,0,0,0]
+            self.max_chart = pg.BarGraphItem(x= x_range+0.2,height=self.max_pressure,width = 0.2,brush="#F37F27")
+            
+            #min pressure by finger chart
+            self.min_pressure = [0,0,0,0]
+            self.min_chart = pg.BarGraphItem(x= x_range-0.2,height=self.max_pressure,width = 0.2,brush="#F6E1A4")
+            
+            #times finger has been used
+            self.times_pressed = [0,0,0,0]
+            self.times_used_chart = pg.BarGraphItem(x= x_range,height=self.times_pressed,width = 0.3,brush="#F89E59")
 
-    def export_session_handler(self):
-        #get user session data
-        if self.sessionComboBox.currentIndex() >= 0:
-            q = f""" 
-                    SELECT 
-                        u.finger,
-                        u.pressure,
-                        datetime(u.timestamp,'-03:00')
-                    FROM use_data u
-                    JOIN session s ON u.session_id = s.id
+            #add charts to layout
+            self.plot_item_pressure = self.session_chart_layout_widget.addPlot(title = self.string_list_graphs[4], col = 1, row = 1)
+            self.plot_item_pressure.setMouseEnabled(x=False,y=False)
+            self.plot_item_pressure.addItem(self.avg_chart)
+            self.plot_item_pressure.addItem(self.min_chart)
+            self.plot_item_pressure.addItem(self.max_chart)
+            self.plot_item_pressure.getAxis('bottom').setTicks([self.finger_name_labels])
+            self.plot_item_pressure.getAxis('left').setLabel(text = self.string_list_graphs[5], units = "G")
+            
+            #legend pressure chart session
+            self.legendSessionPressure = pg.LegendItem(colCount = 3)
+            self.legendSessionPressure.addItem(self.avg_chart,self.string_list_graphs[6])
+            self.legendSessionPressure.addItem(self.max_chart,self.string_list_graphs[7])
+            self.legendSessionPressure.addItem(self.min_chart,self.string_list_graphs[8])
+            self.session_chart_layout_widget.addItem(self.legendSessionPressure, col = 1, row = 2)
+            self.legendSessionPressure.setParentItem(self.session_chart_layout_widget.layout())
+            
+            #finger use times session
+            self.plot_item_times_used = self.session_chart_layout_widget.addPlot(title = self.string_list_graphs[9], col = 2, row = 1)
+            self.plot_item_times_used.setMouseEnabled(x=False,y=False)
+            self.plot_item_times_used.addItem(self.times_used_chart)
+            self.plot_item_times_used.getAxis('bottom').setTicks([self.finger_name_labels])
+            self.plot_item_times_used.getAxis('left').setLabel(text=self.string_list_graphs[10])
+            self.plot_item_times_used.getAxis('left').setStyle(maxTickLevel=0)
+            
+            #summary chart widget
+            self.summary_chart_layout_widget = pg.GraphicsLayoutWidget()
+            self.ui.summaryChartContainer.layout().addWidget(self.summary_chart_layout_widget)
+
+            #add patient name label
+            self.summaryNameLabel = pg.LabelItem(labelText)
+            self.summary_chart_layout_widget.addItem(self.summaryNameLabel, col = 2, row = 2)
+
+            #create line chart
+            self.little_info_array = [[1,2],[1,2]]
+            self.ring_info_array = [[1,2],[1,2]]
+            self.middle_info_array = [[1,2],[1,2]]
+            self.index_info_array = [[1,2],[1,2]]
+
+            self.plot_item_avg_line = self.summary_chart_layout_widget.addPlot(col = 1, row = 1)
+            self.plot_item_avg_line.getAxis('bottom').setLabel(self.string_list_graphs[11])
+            self.plot_item_avg_line.getAxis('left').setLabel(self.string_list_graphs[5], units = "G")
+            self.plot_item_avg_line.showGrid(y = True,x = True)
+
+            #create lines
+            self.little_line = self.plot_item_avg_line.plot(self.little_info_array[0],self.little_info_array[1],pen ='r')
+            self.ring_line = self.plot_item_avg_line.plot(self.ring_info_array[0],self.ring_info_array[1],pen ='g')
+            self.middle_line = self.plot_item_avg_line.plot(self.middle_info_array[0],self.middle_info_array[1],pen ='b')
+            self.index_line = self.plot_item_avg_line.plot(self.index_info_array[0],self.index_info_array[1],pen ='purple')
+                
+            #line chart legend
+            self.avg_line_legend = pg.LegendItem(colCount = 2)
+            self.avg_line_legend.addItem(self.little_line, name = self.string_list_graphs[0])
+            self.avg_line_legend.addItem(self.ring_line, name = self.string_list_graphs[1])
+            self.avg_line_legend.addItem(self.middle_line, name = self.string_list_graphs[2])
+            self.avg_line_legend.addItem(self.index_line, name = self.string_list_graphs[3])
+            self.summary_chart_layout_widget.addItem(self.avg_line_legend, col = 1, row = 2)
+            self.avg_line_legend.setParentItem(self.summary_chart_layout_widget.layout())
+
+            #avg bar chart 
+            self.plot_item_avg_bar = self.summary_chart_layout_widget.addPlot(col = 2, row = 1)
+            self.avg_pressure_summary = [0,0,0,0]
+            self.avg_chart_summary = pg.BarGraphItem(x= x_range,height=self.avg_pressure_summary,width = 0.2,brush="#F89E59")
+            self.plot_item_avg_bar.addItem(self.avg_chart_summary)
+            self.plot_item_avg_bar.getAxis('bottom').setTicks([self.finger_name_labels])
+            self.plot_item_avg_bar.getAxis('left').setLabel(text=self.string_list_graphs[6], units = "G")
+            self.plot_item_avg_bar.setMouseEnabled(x=False, y=False)
+            
+            #total times used chart
+            self.plot_item_total_uses = self.summary_chart_layout_widget.addPlot(col = 3, row = 1)
+            self.total_uses_summary = [0,0,0,0]
+            self.uses_chart_summary = pg.BarGraphItem(x= x_range,height=self.total_uses_summary,width = 0.2,brush="#F89E59")
+            self.plot_item_total_uses.addItem(self.uses_chart_summary)
+            self.plot_item_total_uses.getAxis('bottom').setTicks([self.finger_name_labels])
+            self.plot_item_total_uses.getAxis('left').setLabel(text=self.string_list_graphs[11])
+            self.plot_item_total_uses.setMouseEnabled(x=False, y=False)
+        except Exception as e:
+            logger.error(f"UserStatsModel create_charts error: {e}")
+
+    def export_session(self):
+        try:
+            #get user session data
+            if self.sessionComboBox.currentIndex() >= 0:
+                q = f""" 
+                        SELECT 
+                            u.finger,
+                            u.pressure,
+                            datetime(u.timestamp,'-03:00')
+                        FROM use_data u
+                        JOIN session s ON u.session_id = s.id
+                        WHERE s.patient_id = ?
+                        AND s.id = ?
+                        AND u.hand = ?;"""
+                use_data = self.dbHandleClass.execute_single_query(q,[self.current_user,self.sessionComboBox.currentData(),self.selected_hand])
+
+                q = f"""SELECT datetime(session_date,'-03:00')
+                        FROM session
+                        WHERE id = ?
+                        AND patient_id = ?;"""
+                session_date_string = self.dbHandleClass.execute_single_query(q,[self.sessionComboBox.currentData(),self.current_user])
+
+                q = f"""select name from patient where patient.id = ?;"""
+                patient_name = self.dbHandleClass.execute_single_query(q,[self.current_user])
+                
+                q = f"""
+                    SELECT DISTINCT s.id, datetime(s.session_date,'-03:00')
+                    FROM session s
+                    JOIN use_data u ON u.session_id = s.id
                     WHERE s.patient_id = ?
-                    AND s.id = ?
-                    AND u.hand = ?;"""
-            use_data = self.dbHandleClass.execute_single_query(q,[self.current_user,self.sessionComboBox.currentData(),self.selected_hand])
-
-            q = f"""SELECT datetime(session_date,'-03:00')
-                    FROM session
-                    WHERE id = ?
-                    AND patient_id = ?;"""
-            session_date_string = self.dbHandleClass.execute_single_query(q,[self.sessionComboBox.currentData(),self.current_user])
-
-            q = f"""select name from patient where patient.id = ?;"""
-            patient_name = self.dbHandleClass.execute_single_query(q,[self.current_user])
-            
-            q = f"""
-                SELECT DISTINCT s.id, datetime(s.session_date,'-03:00')
-                FROM session s
-                JOIN use_data u ON u.session_id = s.id
-                WHERE s.patient_id = ?
-                AND u.hand = ?
-                ORDER BY s.session_date;"""
-            session_by_hand = self.dbHandleClass.execute_single_query(q,[self.current_user,self.selected_hand])
-            session_map = {session_id: timestamp for session_id, timestamp in session_by_hand}
-            
-            ids, values = (self.little_info_array + [[], []])[:2]
-            little_map = [
-                (session_map.get(session_id), value)
-                for session_id, value in zip(ids, values)
-                if session_id in session_map
-            ]
-            
-            ids, values = (self.ring_info_array + [[], []])[:2]
-            ring_map = [
-                (session_map.get(session_id), value)
-                for session_id, value in zip(ids, values)
-                if session_id in session_map
-            ]
-            
-            ids, values = (self.middle_info_array + [[], []])[:2]
-            middle_map = [
-                (session_map.get(session_id), value)
-                for session_id, value in zip(ids, values)
-                if session_id in session_map
-            ]
-            
-            ids, values = (self.index_info_array + [[], []])[:2]
-            index_map = [
-                (session_map.get(session_id), value)
-                for session_id, value in zip(ids, values)
-                if session_id in session_map
-            ]
-            
-            data_dict = {
-                "userId": self.current_user,
-                "userName": patient_name,
-                "userHand": "Esquerda" if self.selected_hand == 1 else "Direita",
-                "sessionDateString": session_date_string,
-                "raw_data": use_data,
-                "session_data": [[self.max_pressure,self.avg_pressure,self.min_pressure,self.times_pressed]],
-                "summary_data": [little_map,ring_map,middle_map,index_map,self.avg_pressure_summary,self.total_uses_summary]
-            }
-            
-            self.csvWriter.export_user_data(data_dict)
-        else:
-            logger.error("Selecione uma sessão")
-            warning = QMessageBox(self)
-            warning.setWindowTitle(QCoreApplication.translate("WarningText", "Erro"))
-            warning.setText(QCoreApplication.translate("WarningText", "Selecione uma sessão"))
-            warning.setWindowModality(Qt.ApplicationModal)
-            warning.show()
+                    AND u.hand = ?
+                    ORDER BY s.session_date;"""
+                session_by_hand = self.dbHandleClass.execute_single_query(q,[self.current_user,self.selected_hand])
+                session_map = {session_id: timestamp for session_id, timestamp in session_by_hand}
+                
+                ids, values = (self.little_info_array + [[], []])[:2]
+                little_map = [
+                    (session_map.get(session_id), value)
+                    for session_id, value in zip(ids, values)
+                    if session_id in session_map
+                ]
+                
+                ids, values = (self.ring_info_array + [[], []])[:2]
+                ring_map = [
+                    (session_map.get(session_id), value)
+                    for session_id, value in zip(ids, values)
+                    if session_id in session_map
+                ]
+                
+                ids, values = (self.middle_info_array + [[], []])[:2]
+                middle_map = [
+                    (session_map.get(session_id), value)
+                    for session_id, value in zip(ids, values)
+                    if session_id in session_map
+                ]
+                
+                ids, values = (self.index_info_array + [[], []])[:2]
+                index_map = [
+                    (session_map.get(session_id), value)
+                    for session_id, value in zip(ids, values)
+                    if session_id in session_map
+                ]
+                
+                data_dict = {
+                    "userId": self.current_user,
+                    "userName": patient_name,
+                    "userHand": "Esquerda" if self.selected_hand == 1 else "Direita",
+                    "sessionDateString": session_date_string,
+                    "raw_data": use_data,
+                    "session_data": [[self.max_pressure,self.avg_pressure,self.min_pressure,self.times_pressed]],
+                    "summary_data": [little_map,ring_map,middle_map,index_map,self.avg_pressure_summary,self.total_uses_summary]
+                }
+                
+                self.csvWriter.export_user_data(data_dict)            
+            else:
+                logger.error("Selecione uma sessão")
+                warning = QMessageBox(self)
+                warning.setWindowTitle(QCoreApplication.translate("WarningText", "Erro"))
+                warning.setText(QCoreApplication.translate("WarningText", "Selecione uma sessão"))
+                warning.setWindowModality(Qt.ApplicationModal)
+                warning.show()
+        except Exception as e:
+            logger.error(f"UserStatsModel export_session error: {e}")
         
     def get_summary_chart_value(self):
-        qAvg = f"""SELECT 
-            s.id AS session_id,
-            u.finger,
-            AVG(u.pressure) AS avg_pressure
-        FROM 
-            use_data u
-        JOIN 
-            session s ON u.session_id = s.id
-        JOIN 
-            patient p ON s.patient_id = p.id
-        WHERE 
-            p.id = ? and u.hand = ?
-        GROUP BY 
-            s.session_date, u.finger
-        ORDER BY 
-            s.session_date;"""
-        qAvgTotal = f"""SELECT 
-            u.finger,
-            AVG(u.pressure) AS avg_pressure
-        FROM 
-            use_data u
-        JOIN 
-            session s ON u.session_id = s.id
-        JOIN 
-            patient p ON s.patient_id = p.id
-        WHERE 
-            p.id = ? and u.hand = ?
-        GROUP BY 
-            u.finger
-        ORDER BY 
-            u.finger;"""
-        qTotalCount = f"""SELECT 
-            u.finger,
-            COUNT(*) AS total_finger_uses
-        FROM 
-            use_data u
-        JOIN 
-            session s ON u.session_id = s.id
-        JOIN 
-            patient p ON s.patient_id = p.id
-        WHERE 
-            p.id = ? and u.hand = ?
-        GROUP BY 
-            u.finger
-        ORDER BY 
-            u.finger;"""
-        qSessionCount = f"select count(id) from session where patient_id = ?;"
-        qAvgTimelapse = f"""SELECT
-            printf('%02d:%02d:%02d',
-                AVG(duration_seconds) / 3600,                
-                (AVG(duration_seconds) % 3600) / 60,       
-                AVG(duration_seconds) % 60               
-            ) AS avg_duration_hhmmss
-        FROM (
-            SELECT
-                CAST((JULIANDAY(MAX(use_data.timestamp)) - JULIANDAY(MIN(use_data.timestamp))) * 86400 AS INTEGER) AS duration_seconds
-            FROM
-                session
-            JOIN
-                use_data ON session.id = use_data.session_id
-            WHERE
-                session.patient_id = ?
-            GROUP BY
-                session.id
-        );"""
-        resAvg = self.dbHandleClass.execute_single_query(qAvg,[self.current_user, self.selected_hand])
-        resAvgTotal = self.dbHandleClass.execute_single_query(qAvgTotal,[self.current_user, self.selected_hand])
-        resTotalCount = self.dbHandleClass.execute_single_query(qTotalCount,[self.current_user, self.selected_hand])
-        resSessionCount = self.dbHandleClass.execute_single_query(qSessionCount,[self.current_user])
-        resAvgTimelapse = self.dbHandleClass.execute_single_query(qAvgTimelapse,[self.current_user])
-        
-        if resAvg and resAvgTotal and resTotalCount and resSessionCount and resAvgTimelapse:
-            index_array = [[],[]]
-            little_array = [[],[]]
-            middle_array = [[],[]]
-            ring_array = [[],[]]
-            total_count = [False,False,False,False]
-            avg_total = [False,False,False,False]
-            sessionCount = False
-            avgTimelapse = False
+        try:
+            qAvg = f"""SELECT 
+                s.id AS session_id,
+                u.finger,
+                AVG(u.pressure) AS avg_pressure
+            FROM 
+                use_data u
+            JOIN 
+                session s ON u.session_id = s.id
+            JOIN 
+                patient p ON s.patient_id = p.id
+            WHERE 
+                p.id = ? and u.hand = ?
+            GROUP BY 
+                s.session_date, u.finger
+            ORDER BY 
+                s.session_date;"""
+            qAvgTotal = f"""SELECT 
+                u.finger,
+                AVG(u.pressure) AS avg_pressure
+            FROM 
+                use_data u
+            JOIN 
+                session s ON u.session_id = s.id
+            JOIN 
+                patient p ON s.patient_id = p.id
+            WHERE 
+                p.id = ? and u.hand = ?
+            GROUP BY 
+                u.finger
+            ORDER BY 
+                u.finger;"""
+            qTotalCount = f"""SELECT 
+                u.finger,
+                COUNT(*) AS total_finger_uses
+            FROM 
+                use_data u
+            JOIN 
+                session s ON u.session_id = s.id
+            JOIN 
+                patient p ON s.patient_id = p.id
+            WHERE 
+                p.id = ? and u.hand = ?
+            GROUP BY 
+                u.finger
+            ORDER BY 
+                u.finger;"""
+            qSessionCount = f"select count(id) from session where patient_id = ?;"
+            qAvgTimelapse = f"""SELECT
+                printf('%02d:%02d:%02d',
+                    AVG(duration_seconds) / 3600,                
+                    (AVG(duration_seconds) % 3600) / 60,       
+                    AVG(duration_seconds) % 60               
+                ) AS avg_duration_hhmmss
+            FROM (
+                SELECT
+                    CAST((JULIANDAY(MAX(use_data.timestamp)) - JULIANDAY(MIN(use_data.timestamp))) * 86400 AS INTEGER) AS duration_seconds
+                FROM
+                    session
+                JOIN
+                    use_data ON session.id = use_data.session_id
+                WHERE
+                    session.patient_id = ?
+                GROUP BY
+                    session.id
+            );"""
+            resAvg = self.dbHandleClass.execute_single_query(qAvg,[self.current_user, self.selected_hand])
+            resAvgTotal = self.dbHandleClass.execute_single_query(qAvgTotal,[self.current_user, self.selected_hand])
+            resTotalCount = self.dbHandleClass.execute_single_query(qTotalCount,[self.current_user, self.selected_hand])
+            resSessionCount = self.dbHandleClass.execute_single_query(qSessionCount,[self.current_user])
+            resAvgTimelapse = self.dbHandleClass.execute_single_query(qAvgTimelapse,[self.current_user])
             
-            ocurance_counter = [1,1,1,1]
+            if resAvg and resAvgTotal and resTotalCount and resSessionCount and resAvgTimelapse:
+                index_array = [[],[]]
+                little_array = [[],[]]
+                middle_array = [[],[]]
+                ring_array = [[],[]]
+                total_count = [False,False,False,False]
+                avg_total = [False,False,False,False]
+                sessionCount = False
+                avgTimelapse = False
+                
+                ocurance_counter = [1,1,1,1]
+                
+                for i,t in enumerate(resAvg):
+                    if t[1] == "index":#i,t[2]/10
+                        index_array[0].append(ocurance_counter[0])
+                        index_array[1].append(t[2]/10)
+                        ocurance_counter[0] = ocurance_counter[0]+1
+                    if t[1] == "little":
+                        little_array[0].append(ocurance_counter[1])
+                        little_array[1].append(t[2]/10)
+                        ocurance_counter[1] = ocurance_counter[1]+1
+                    if t[1] == "middle":
+                        middle_array[0].append(ocurance_counter[2])
+                        middle_array[1].append(t[2]/10)
+                        ocurance_counter[2] = ocurance_counter[2]+1
+                    if t[1] == "ring":
+                        ring_array[0].append(ocurance_counter[3])
+                        ring_array[1].append(t[2]/10)
+                        ocurance_counter[3] = ocurance_counter[3]+1
+
+                for t in resAvgTotal:
+                    if t[0] == 'index':
+                        avg_total[3] = t[1]/10
+                    elif t[0] == 'little':
+                        avg_total[0] = t[1]/10
+                    elif t[0] == 'middle':
+                        avg_total[2] = t[1]/10
+                    elif t[0] == 'ring':
+                        avg_total[1] = t[1]/10
+                for t in resTotalCount:
+                    if t[0] == 'index':
+                        total_count[3] = t[1]
+                    elif t[0] == 'little':
+                        total_count[0] = t[1]
+                    elif t[0] == 'middle':
+                        total_count[2] = t[1]
+                    elif t[0] == 'ring':
+                        total_count[1] = t[1]
+                sessionCount = resSessionCount[0][0]
+                avgTimelapse = resAvgTimelapse[0][0]
+
+                return index_array, little_array, middle_array, ring_array, total_count, avg_total, sessionCount, avgTimelapse
             
-            for i,t in enumerate(resAvg):
-                if t[1] == "index":#i,t[2]/10
-                    index_array[0].append(ocurance_counter[0])
-                    index_array[1].append(t[2]/10)
-                    ocurance_counter[0] = ocurance_counter[0]+1
-                if t[1] == "little":
-                    little_array[0].append(ocurance_counter[1])
-                    little_array[1].append(t[2]/10)
-                    ocurance_counter[1] = ocurance_counter[1]+1
-                if t[1] == "middle":
-                    middle_array[0].append(ocurance_counter[2])
-                    middle_array[1].append(t[2]/10)
-                    ocurance_counter[2] = ocurance_counter[2]+1
-                if t[1] == "ring":
-                    ring_array[0].append(ocurance_counter[3])
-                    ring_array[1].append(t[2]/10)
-                    ocurance_counter[3] = ocurance_counter[3]+1
-
-            for t in resAvgTotal:
-                if t[0] == 'index':
-                    avg_total[3] = t[1]/10
-                elif t[0] == 'little':
-                    avg_total[0] = t[1]/10
-                elif t[0] == 'middle':
-                    avg_total[2] = t[1]/10
-                elif t[0] == 'ring':
-                    avg_total[1] = t[1]/10
-            for t in resTotalCount:
-                if t[0] == 'index':
-                    total_count[3] = t[1]
-                elif t[0] == 'little':
-                    total_count[0] = t[1]
-                elif t[0] == 'middle':
-                    total_count[2] = t[1]
-                elif t[0] == 'ring':
-                    total_count[1] = t[1]
-            sessionCount = resSessionCount[0][0]
-            avgTimelapse = resAvgTimelapse[0][0]
-
-            return index_array, little_array, middle_array, ring_array, total_count, avg_total, sessionCount, avgTimelapse
-        
-        else:
-            return False,False,False,False,False,False,False,False          
+            else:
+                return False,False,False,False,False,False,False,False          
+        except Exception as e:
+            logger.error(f"UserStatsModel get_summary_chart_value error: {e}")
                 
     def update_summary_charts(self):
-        index_array, little_array, middle_array, ring_array, total_count, avg_total, sessionCount, avgTimelapse = self.get_summary_chart_value()
-        if index_array and little_array and middle_array and ring_array and total_count and avg_total and sessionCount and avgTimelapse:
-            self.little_info_array = little_array
-            self.ring_info_array = ring_array
-            self.middle_info_array = middle_array
-            self.index_info_array = index_array
-            self.avg_pressure_summary = avg_total
-            self.total_uses_summary = total_count
-            self.sessionCount = sessionCount
-            self.avgTimelapse = avgTimelapse
-        else:
-            self.little_info_array = [[1,2],[1,1]]
-            self.ring_info_array = [[1,2],[1,1]]
-            self.middle_info_array = [[1,2],[1,1]]
-            self.index_info_array = [[1,2],[1,1]]
-            self.avg_pressure_summary = [0,0,0,0]
-            self.total_uses_summary = [0,0,0,0]
-            self.sessionCount = "0"
-            self.avgTimelapse = "00:00:00"
-            
-        self.avg_chart_summary.setOpts(height = self.avg_pressure_summary) 
-        self.uses_chart_summary.setOpts(height = self.total_uses_summary)
-        self.little_line.setData(self.little_info_array[0],self.little_info_array[1])
-        self.ring_line.setData(self.ring_info_array[0],self.ring_info_array[1])
-        self.middle_line.setData(self.middle_info_array[0],self.middle_info_array[1])
-        self.index_line.setData(self.index_info_array[0],self.index_info_array[1])
-        self.countSession.setText(str(self.sessionCount))
-        self.avgSessionTime.setText(self.avgTimelapse)
-        self.summaryNameLabel.setText(self.string_list_graphs[12].format(user = self.current_user_name))
+        try:
+            index_array, little_array, middle_array, ring_array, total_count, avg_total, sessionCount, avgTimelapse = self.get_summary_chart_value()
+            if index_array and little_array and middle_array and ring_array and total_count and avg_total and sessionCount and avgTimelapse:
+                self.little_info_array = little_array
+                self.ring_info_array = ring_array
+                self.middle_info_array = middle_array
+                self.index_info_array = index_array
+                self.avg_pressure_summary = avg_total
+                self.total_uses_summary = total_count
+                self.sessionCount = sessionCount
+                self.avgTimelapse = avgTimelapse
+            else:
+                self.little_info_array = [[1,2],[1,1]]
+                self.ring_info_array = [[1,2],[1,1]]
+                self.middle_info_array = [[1,2],[1,1]]
+                self.index_info_array = [[1,2],[1,1]]
+                self.avg_pressure_summary = [0,0,0,0]
+                self.total_uses_summary = [0,0,0,0]
+                self.sessionCount = "0"
+                self.avgTimelapse = "00:00:00"
+                
+            self.avg_chart_summary.setOpts(height = self.avg_pressure_summary) 
+            self.uses_chart_summary.setOpts(height = self.total_uses_summary)
+            self.little_line.setData(self.little_info_array[0],self.little_info_array[1])
+            self.ring_line.setData(self.ring_info_array[0],self.ring_info_array[1])
+            self.middle_line.setData(self.middle_info_array[0],self.middle_info_array[1])
+            self.index_line.setData(self.index_info_array[0],self.index_info_array[1])
+            self.countSession.setText(str(self.sessionCount))
+            self.avgSessionTime.setText(self.avgTimelapse)
+            self.summaryNameLabel.setText(self.string_list_graphs[12].format(user = self.current_user_name))
+        except Exception as e:
+            logger.error(f"UserStatsModel update_summary_charts error: {e}")
 
     def get_session_chart_value(self):
-        self.sessionComboBox.setEnabled(False)
-        qCount = f"select finger, COUNT(*) AS count from use_data where session_id = ? and hand = ? GROUP BY finger;"
-        qPres = f"SELECT finger, MAX(pressure) AS max_pressure, MIN(pressure) AS min_pressure, AVG(pressure) AS avg_pressure FROM use_data where session_id = ? and hand = ? group by finger;"
-        qTimelapse = f"""SELECT 
-            session_id,
-            printf('%02d:%02d:%02d',
-                duration_seconds / 3600,
-                (duration_seconds % 3600) / 60,
-                duration_seconds % 60
-            ) AS duration_hms
-        FROM (
-            SELECT 
+        try:
+            self.sessionComboBox.setEnabled(False)
+            qCount = f"select finger, COUNT(*) AS count from use_data where session_id = ? and hand = ? GROUP BY finger;"
+            qPres = f"SELECT finger, MAX(pressure) AS max_pressure, MIN(pressure) AS min_pressure, AVG(pressure) AS avg_pressure FROM use_data where session_id = ? and hand = ? group by finger;"
+            qTimelapse = f"""SELECT 
                 session_id,
-                CAST((strftime('%s', MAX(timestamp)) - strftime('%s', MIN(timestamp))) AS INTEGER) AS duration_seconds
-            FROM use_data
-            where session_id = ? and hand = ?
-        );"""
-        presRes = self.dbHandleClass.execute_single_query(qPres,[self.sessionComboBox.currentData(),self.selected_hand])
-        countRes = self.dbHandleClass.execute_single_query(qCount,[self.sessionComboBox.currentData(),self.selected_hand])
-        timelapseRes = self.dbHandleClass.execute_single_query(qTimelapse,[self.sessionComboBox.currentData(),self.selected_hand])
-        if presRes and countRes and timelapseRes:
-            max_press_array = [None,None,None,None]
-            min_press_array = [None,None,None,None]
-            avg_press_array = [None,None,None,None]
-            finger_count_array = [None,None,None,None]
-            for t in presRes:
-                if t[0] == 'index':
-                    max_press_array[3] = t[1]/10
-                    min_press_array[3] = t[2]/10
-                    avg_press_array[3] = t[3]/10
-                elif t[0] == 'little':
-                    max_press_array[0] = t[1]/10
-                    min_press_array[0] = t[2]/10
-                    avg_press_array[0] = t[3]/10
-                elif t[0] == 'middle':
-                    max_press_array[2] = t[1]/10
-                    min_press_array[2] = t[2]/10
-                    avg_press_array[2] = t[3]/10
-                elif t[0] == 'ring':
-                    max_press_array[1] = t[1]/10
-                    min_press_array[1] = t[2]/10
-                    avg_press_array[1] = t[3]/10
-            for t in countRes:
-                if t[0] == 'index':
-                    finger_count_array[3] = t[1]
-                elif t[0] == 'little':
-                    finger_count_array[0] = t[1]
-                elif t[0] == 'middle':
-                    finger_count_array[2] = t[1]
-                elif t[0] == 'ring':
-                    finger_count_array[1] = t[1]
+                printf('%02d:%02d:%02d',
+                    duration_seconds / 3600,
+                    (duration_seconds % 3600) / 60,
+                    duration_seconds % 60
+                ) AS duration_hms
+            FROM (
+                SELECT 
+                    session_id,
+                    CAST((strftime('%s', MAX(timestamp)) - strftime('%s', MIN(timestamp))) AS INTEGER) AS duration_seconds
+                FROM use_data
+                where session_id = ? and hand = ?
+            );"""
+            presRes = self.dbHandleClass.execute_single_query(qPres,[self.sessionComboBox.currentData(),self.selected_hand])
+            countRes = self.dbHandleClass.execute_single_query(qCount,[self.sessionComboBox.currentData(),self.selected_hand])
+            timelapseRes = self.dbHandleClass.execute_single_query(qTimelapse,[self.sessionComboBox.currentData(),self.selected_hand])
+            if presRes and countRes and timelapseRes:
+                max_press_array = [None,None,None,None]
+                min_press_array = [None,None,None,None]
+                avg_press_array = [None,None,None,None]
+                finger_count_array = [None,None,None,None]
+                for t in presRes:
+                    if t[0] == 'index':
+                        max_press_array[3] = t[1]/10
+                        min_press_array[3] = t[2]/10
+                        avg_press_array[3] = t[3]/10
+                    elif t[0] == 'little':
+                        max_press_array[0] = t[1]/10
+                        min_press_array[0] = t[2]/10
+                        avg_press_array[0] = t[3]/10
+                    elif t[0] == 'middle':
+                        max_press_array[2] = t[1]/10
+                        min_press_array[2] = t[2]/10
+                        avg_press_array[2] = t[3]/10
+                    elif t[0] == 'ring':
+                        max_press_array[1] = t[1]/10
+                        min_press_array[1] = t[2]/10
+                        avg_press_array[1] = t[3]/10
+                for t in countRes:
+                    if t[0] == 'index':
+                        finger_count_array[3] = t[1]
+                    elif t[0] == 'little':
+                        finger_count_array[0] = t[1]
+                    elif t[0] == 'middle':
+                        finger_count_array[2] = t[1]
+                    elif t[0] == 'ring':
+                        finger_count_array[1] = t[1]
 
-            self.sessionComboBox.setEnabled(True)
-            return  max_press_array, min_press_array, avg_press_array, finger_count_array, timelapseRes
+                self.sessionComboBox.setEnabled(True)
+                return  max_press_array, min_press_array, avg_press_array, finger_count_array, timelapseRes
 
-        else:
-            self.sessionComboBox.setEnabled(True)
-            return False,False,False,False,False
+            else:
+                self.sessionComboBox.setEnabled(True)
+                return False,False,False,False,False
+        except Exception as e:
+            logger.error(f"UserStatsModel get_session_chart_value error: {e}")
 
     def update_session_chart_value(self):
-        max_press_array, min_press_array, avg_press_array, finger_count_array, timelapse = self.get_session_chart_value()
-        if max_press_array and min_press_array and avg_press_array and finger_count_array and timelapse:
-            self.max_pressure = max_press_array
-            self.avg_pressure = avg_press_array
-            self.min_pressure = min_press_array
-            self.times_pressed = finger_count_array
-            if timelapse[0][1] is None:
-                self.timelapse = 0 
+        try:
+            max_press_array, min_press_array, avg_press_array, finger_count_array, timelapse = self.get_session_chart_value()
+            if max_press_array and min_press_array and avg_press_array and finger_count_array and timelapse:
+                self.max_pressure = max_press_array
+                self.avg_pressure = avg_press_array
+                self.min_pressure = min_press_array
+                self.times_pressed = finger_count_array
+                if timelapse[0][1] is None:
+                    self.timelapse = 0 
+                else:
+                    self.timelapse = timelapse[0][1]
+                self.max_pressure = [0 if x is None else x for x in self.max_pressure]
+                self.avg_pressure = [0 if x is None else x for x in self.avg_pressure]
+                self.min_pressure = [0 if x is None else x for x in self.min_pressure]
+                self.times_pressed = [0 if x is None else x for x in self.times_pressed]
             else:
-                self.timelapse = timelapse[0][1]
-            self.max_pressure = [0 if x is None else x for x in self.max_pressure]
-            self.avg_pressure = [0 if x is None else x for x in self.avg_pressure]
-            self.min_pressure = [0 if x is None else x for x in self.min_pressure]
-            self.times_pressed = [0 if x is None else x for x in self.times_pressed]
-        else:
-            self.max_pressure = [0,0,0,0]
-            self.avg_pressure = [0,0,0,0]
-            self.times_pressed = [0,0,0,0]
-            self.min_pressure = [0,0,0,0]
-            self.timelapse = "00:00:00"
-        self.min_chart.setOpts(height = self.min_pressure)
-        self.avg_chart.setOpts(height = self.avg_pressure)
-        self.max_chart.setOpts(height = self.max_pressure) 
-        self.times_used_chart.setOpts(height = self.times_pressed)
-        self.timelapseLabel.setText(self.timelapse)
-        self.sessionNameLabel.setText(self.string_list_graphs[12].format(user = self.current_user_name))
+                self.max_pressure = [0,0,0,0]
+                self.avg_pressure = [0,0,0,0]
+                self.times_pressed = [0,0,0,0]
+                self.min_pressure = [0,0,0,0]
+                self.timelapse = "00:00:00"
+            self.min_chart.setOpts(height = self.min_pressure)
+            self.avg_chart.setOpts(height = self.avg_pressure)
+            self.max_chart.setOpts(height = self.max_pressure) 
+            self.times_used_chart.setOpts(height = self.times_pressed)
+            self.timelapseLabel.setText(self.timelapse)
+            self.sessionNameLabel.setText(self.string_list_graphs[12].format(user = self.current_user_name))
+        except Exception as e:
+            logger.error(f"UserStatsModel update_session_chart_value error: {e}")
         
-    def hand_selector(self):
-        if self.sender().objectName() == "rightHandButton":
-            self.selected_hand = 0
-            self.dataCollectorHandler.selected_hand = 0
-        else:
-            self.selected_hand = 1
-            self.dataCollectorHandler.selected_hand = 1
-        self.update_session_chart_value()
-        self.update_summary_charts()
-                    
-    def button_toggler(self, clicked_button):
-        for button in self.ui.buttonsContainer.findChildren(QPushButton):
-            if button != clicked_button:
-                button.setEnabled(True)
+    def hand_select_radio_button(self):
+        try:
+            self.hand_selector(self.sender().objectName())
+        except Exception as e:
+            logger.error(f"UserStatsModel hand_select_radio_button error: {e}")
+
+    def hand_selector(self,hand):
+        try:
+            if hand == "rightHandButton":
+                self.selected_hand = 0
+                self.dataCollectorHandler.selected_hand = 0
             else:
-                clicked_button.setEnabled(False)
-        self.sessionComboBox.setEnabled(not self.sessionComboBox.isEnabled())
-        if self.startListening.isEnabled():
-            self.newSessionButton.setDisabled(False)
-            self.deleteSessionButton.setDisabled(False)
-            self.exportSessionCSVButton.setDisabled(False)
-            self.exportSessionImageButton.setDisabled(False)
-            for radio in self.ui.handSelectorContainer.findChildren(QRadioButton):
-                radio.setDisabled(False)
-            self.sideMenuDisableSignal.emit(True)
-        else:
-            self.newSessionButton.setDisabled(True)
-            self.deleteSessionButton.setDisabled(True)
-            self.exportSessionCSVButton.setDisabled(True)
-            self.exportSessionImageButton.setDisabled(True)
-            for radio in self.ui.handSelectorContainer.findChildren(QRadioButton):
-                radio.setDisabled(True)
-            self.sideMenuDisableSignal.emit(False)                
-            
+                self.selected_hand = 1
+                self.dataCollectorHandler.selected_hand = 1
+            self.update_session_chart_value()
+            self.update_summary_charts()
+        except Exception as e:
+            logger.error(f"UserStatsModel hand_selector error: {e}")
+            raise

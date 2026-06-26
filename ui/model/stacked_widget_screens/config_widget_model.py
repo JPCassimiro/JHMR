@@ -126,10 +126,14 @@ class ConfigWidgetModel(SharedConfigWidgetModel):
         for radio in self.ui.repeatButtonContainer.findChildren(QRadioButton):
             radio.clicked.connect(self.repeat_button_handler)
 
+        self.pressureButton.setProperty("index", 0)
+        self.ZKeyButton.setProperty("index", 1)
+        self.CKeyButton.setProperty("index", 2)
+
         self.durationSlider.valueChanged.connect(self.duration_slider_value_change)
-        self.pressureButton.clicked.connect(self.pressure_button_handler)
-        self.ZKeyButton.clicked.connect(self.zKey_button_handler)
-        self.CKeyButton.clicked.connect(self.cKey_button_handler)
+        self.pressureButton.clicked.connect(self.key_select_handler)
+        self.ZKeyButton.clicked.connect(self.key_select_handler)
+        self.CKeyButton.clicked.connect(self.key_select_handler)
         self.confirmButton.clicked.connect(self.confirm_button_handler)
 
         self.key_select_modal.accepted.connect(self.handle_modal_finish)
@@ -158,181 +162,193 @@ class ConfigWidgetModel(SharedConfigWidgetModel):
             slider.maxLabel.setText(str(arry[i]/10))
     
     def finish_modal(self):
-        self.btSerialHandle.mesReceivedSignal.disconnect(self.message_received_handler)
+        try:
+            self.btSerialHandle.mesReceivedSignal.disconnect(self.message_received_handler)
+        except Exception as e:
+            logger.error(f"ConfigWidgetModel finish_modal error: {e}")
     
     def duration_slider_value_change(self):
-        print(f"slider: {self.sender().objectName()} - value: {self.sender().value()}")
-        self.param_select.update({"duration":self.sender().value()})
-        print(self.param_select)
+        try:
+            self.param_select.update({"duration":self.sender().value()})
+        except Exception as e:
+            logger.error(f"ConfigWidgetModel duration_slider_value_change error: {e}")
 
-    def zKey_button_handler(self):
-        print(f"sender: {self.sender().objectName()} pressed!")
-        self.key_select_modal.z_c_key_mode = 1
-        self.key_select_modal.exec()
-    
-    def cKey_button_handler(self):
-        print(f"sender: {self.sender().objectName()} pressed!")
-        self.key_select_modal.z_c_key_mode = 2
-        self.key_select_modal.exec()
+    def key_select_handler(self):
+        try:
+            self.key_select_modal.z_c_key_mode = self.sender().property("index")
+            self.key_select_modal.exec()
+        except Exception as e:
+            logger.error(f"ConfigWidgetModel key_select_handler error: {e}")
 
-    def confirm_button_handler(self):
-        if self.btSerialHandle.socket_none_check():
-            self.reset_screen()
-            return
-        selection_check = any(self._selected_fingers)
-        if (selection_check == False):
-            logger.debug("Selecione uma combinação de dedos")
-        elif self.param_select["key"] == None:
-            warning = QMessageBox(self)
-            warning.setWindowTitle(self.string_list_dialog[0])
-            warning.setText(self.string_list_dialog[1])
-            warning.setWindowModality(Qt.ApplicationModal)
-            warning.show()
-        else:
-            print(f"sender: {self.sender().objectName()} pressed!")
-            self.setEnabled(False)
-            messages, bindingDict = self.confirm_messages_generator()
-            self.end_modal.sent_message_total = len(messages)  
-            for message in messages:
-                self.send_serial_message(message)
-            self.jsonWriter.write_bindings(bindingDict)
-            self._selected_fingers = [False,False,False,False]#this is done this way as to not trigger reset value multiple times
-            self.selected_fingers = (0,False)
-            self.btSerialHandle.mesReceivedSignal.connect(self.message_received_handler)
-            self.end_modal.exec()
-            self.setEnabled(True)
-
-    def pressure_button_handler(self):
-        print(f"sender: {self.sender().objectName()} pressed!")
-        self.key_select_modal.z_c_key_mode = 0
-        self.key_select_modal.exec()
+    def start_config_process(self):
+        try:
+            if self.btSerialHandle.socket_none_check():
+                self.reset_screen()
+                return
+            selection_check = any(self._selected_fingers)
+            if (selection_check == False):
+                logger.debug("Selecione uma combinação de dedos")
+            elif self.param_select["key"] == None:
+                warning = QMessageBox(self)
+                warning.setWindowTitle(self.string_list_dialog[0])
+                warning.setText(self.string_list_dialog[1])
+                warning.setWindowModality(Qt.ApplicationModal)
+                warning.show()
+            else:
+                self.setEnabled(False)
+                messages, bindingDict = self.confirm_messages_generator()
+                self.end_modal.sent_message_total = len(messages)  
+                for message in messages:
+                    self.send_serial_message(message)
+                self.jsonWriter.write_bindings(bindingDict)
+                self._selected_fingers = [False,False,False,False]#this is done this way as to not trigger reset value multiple times
+                self.selected_fingers = (0,False)
+                self.btSerialHandle.mesReceivedSignal.connect(self.message_received_handler)
+                self.end_modal.exec()
+                self.setEnabled(True)
+        except Exception as e:
+            logger.error(f"ConfigWidgetModel start_config_process error: {e}")
+            raise
         
     def pressure_slider_value_change(self):
-        print(f"slider: {self.sender().objectName()} - value: {self.sender().value()} - index: {self.sender().property("index")}")
-        self.p_value_array[self.sender().property("index")] = self.sender().value()
-        self.sender().parent().parent().parent().currentLabel.setText(str(self.sender().value()/10))
+        try:
+            self.p_value_array[self.sender().property("index")] = self.sender().value()
+            self.sender().parent().parent().parent().currentLabel.setText(str(self.sender().value()/10))
+        except Exception as e:
+            logger.error(f"ConfigWidgetModel pressure_slider_value_change error: {e}")
 
     def finger_radio_clicked(self):
-        index = self.sender().property("index")
-        self.selected_fingers = (index, self.sender().isChecked())
-        self.slider_array[index].setEnabled(self._selected_fingers[index])
-        if self._selected_fingers[index] == False:
-            self.slider_array[index].slider.setValue(0)
-        print(self._selected_fingers)
+        try:
+            index = self.sender().property("index")
+            self.selected_fingers = (index, self.sender().isChecked())
+            self.slider_array[index].setEnabled(self._selected_fingers[index])
+            if self._selected_fingers[index] == False:
+                self.slider_array[index].slider.setValue(0)
+        except Exception as e:
+            logger.error(f"ConfigWidgetModel finger_radio_clicked error: {e}")
 
     #resets info to be transmited via serial
     def value_reset_watcher(self):
-        selection_check = any(self._selected_fingers)
-        if self.ui.optionsContainer.isEnabled() == False:
-            self.ui.optionsContainer.setEnabled(True)
-        if selection_check == False:
-            self.reset_variables()
-            self.reset_screen()
-            print(f"after reset:{self.param_select}")
-            return True
-        return False
+        try:
+            selection_check = any(self._selected_fingers)
+            if self.ui.optionsContainer.isEnabled() == False:
+                self.ui.optionsContainer.setEnabled(True)
+            if selection_check == False:
+                self.reset_variables()
+                self.reset_screen()
+                return True
+            return False
+        except Exception as e:
+            logger.error(f"ConfigWidgetModel value_reset_watcher error: {e}")
     
     def reset_variables(self):
-        self.param_select = finger_base_value.copy()
-        self.nunchuck_info_dict = nunchuck_base_value.copy()
-        self.p_value_array = [0,0,0,0]
+        try:
+            self.param_select = finger_base_value.copy()
+            self.nunchuck_info_dict = nunchuck_base_value.copy()
+            self.p_value_array = [0,0,0,0]
+        except Exception as e:
+            logger.error(f"ConfigWidgetModel reset_variables error: {e}")
 
     def reset_screen(self):
-        self.repeatOffButton.setChecked(True)
-        self.repeatOnButton.setChecked(False)
-        print(f"reset_screen: {self.string_list_components[0]}")
-        self.pressureButton.setText(self.string_list_components[0])
-        self.durationSlider.setValue(finger_base_value["duration"])
-        self.ui.optionsContainer.setEnabled(False)
-        for radio in self.ui.fingerButtonContainer_2.findChildren(QRadioButton):
-            radio.setChecked(False)
-        for slider in self.slider_array:
-            slider.setEnabled(False)
-            slider.slider.setValue(0)
-
-    def confirm_messages_generator(self):
-        messages = []
-        for i, v in enumerate(self.p_value_array):#!p_values has to come first as to determine the finger combo
-            print(f"confirm_messages_generator i: {i}")
-            if self._selected_fingers[i] == True:
-                valueStr = v
-                if(v < 10):#value always needs to be sent in a 3 digit format 
-                    valueStr = f"00{v}"
-                elif(v < 100):
-                    valueStr = f"0{v}"
-                #when sending the serial message, finger indexes start at 1
-                messages.append("*M{}{}".format(i+1,valueStr))
-        pairs = [(k, v) for (k, v) in self.param_select.items()]
-        for i, (k,v) in enumerate(pairs):
-            if v != None:
-                match i:
-                    case 0:
-                        messages.append(f"*R{int(v)}")
-                    case 1:
-                        messages.append(f"*K{v}")
-                    case 2:
-                        messages.append(f"*T{v}")
-        if self.nunchuck_info_dict["c_key"] != None: messages.append(f"*C{self.nunchuck_info_dict["c_key"]}")
-        if self.nunchuck_info_dict["z_key"] != None: messages.append(f"*Z{self.nunchuck_info_dict["z_key"]}")
-        bindingDict = {
-                "duration": self.param_select["duration"],
-                "key": self.param_select["key"],
-                "repeat": self.param_select["repeat_key"],
-                "little": self.p_value_array[0],
-                "ring": self.p_value_array[1],
-                "middle": self.p_value_array[2],
-                "index": self.p_value_array[3]
-        }
-        return  messages, bindingDict
-    
-    def handle_modal_finish(self):#!beter logic maybe?
-        key = self.key_select_modal.selected_key
-        key_text = self.arrow_text_conversion(key)
-        if self.key_select_modal.z_c_key_mode == 0:
-            self.param_select.update({"key":key})
-            self.pressureButton.setText(key_text.upper())
-            print(self.param_select)
-        elif self.key_select_modal.z_c_key_mode == 1:
-            self.nunchuck_info_dict.update({"z_key":key})
-            self.ZKeyButton.setText(key_text.upper())
-            print(self.nunchuck_info_dict)
-        else:
-            self.nunchuck_info_dict.update({"c_key":key})
-            self.CKeyButton.setText(key_text.upper())
-            print(self.nunchuck_info_dict)
-        self.key_select_modal.selected_key = None
-        self.key_select_modal.z_c_key_mode = 0
-
-    def assing_card_values(self,config):
-        self._selected_fingers = [False,False,False,False]#this is done this way as to not trigger reset value multiple times
-        self.selected_fingers = (0,False)
-        duration = int(config["duration"])
-        repeat = True if config["repeat"] == "True" else False
-        key = config["key"]
-
-        for index, finger in enumerate(["little", "ring", "middle" , "index"]):
-            value = int(config[finger])
-            if int(value) != 0:
-                self.finger_radio_array[index].setChecked(True)
-                self.selected_fingers = (index,True)
-                self.slider_array[index].setEnabled(True)
-                self.slider_array[index].slider.setValue(value)
-                
-        self.durationSlider.setValue(duration)
-
-        logger.debug(f"assing_card_values repeat:{repeat}")
-        
-        if repeat == True:
-            self.repeatOnButton.setChecked(True)
-            self.repeatOffButton.setChecked(False)
-            self.param_select["repeat_key"] = True
-        else:
+        try:
             self.repeatOffButton.setChecked(True)
             self.repeatOnButton.setChecked(False)
-            self.param_select["repeat_key"] = False
-            
-        self.key_select_modal.selected_key = key
-        self.handle_modal_finish()
+            self.pressureButton.setText(self.string_list_components[0])
+            self.durationSlider.setValue(finger_base_value["duration"])
+            self.ui.optionsContainer.setEnabled(False)
+            for radio in self.ui.fingerButtonContainer_2.findChildren(QRadioButton):
+                radio.setChecked(False)
+            for slider in self.slider_array:
+                slider.setEnabled(False)
+                slider.slider.setValue(0)
+        except Exception as e:
+            logger.error(f"ConfigWidgetModel reset_screen error: {e}")
+
+    def confirm_messages_generator(self):
+        try:
+            messages = []
+            for i, v in enumerate(self.p_value_array):#!p_values has to come first as to determine the finger combo
+                if self._selected_fingers[i] == True:
+                    mes = self.message_normalization(v,i+1)                
+                    messages.append(mes)
+            pairs = [(k, v) for (k, v) in self.param_select.items()]
+            for i, (k,v) in enumerate(pairs):
+                if v != None:
+                    match i:
+                        case 0:
+                            messages.append(f"*R{int(v)}")
+                        case 1:
+                            messages.append(f"*K{v}")
+                        case 2:
+                            messages.append(f"*T{v}")
+            if self.nunchuck_info_dict["c_key"] != None: messages.append(f"*C{self.nunchuck_info_dict["c_key"]}")
+            if self.nunchuck_info_dict["z_key"] != None: messages.append(f"*Z{self.nunchuck_info_dict["z_key"]}")
+            bindingDict = {
+                    "duration": self.param_select["duration"],
+                    "key": self.param_select["key"],
+                    "repeat": self.param_select["repeat_key"],
+                    "little": self.p_value_array[0],
+                    "ring": self.p_value_array[1],
+                    "middle": self.p_value_array[2],
+                    "index": self.p_value_array[3]
+            }
+            return  messages, bindingDict
+        except Exception as e:
+            logger.error(f"ConfigWidgetModel confirm_messages_generator error: {e}")
+            raise     
+
+    def handle_modal_finish(self):#!beter logic maybe?
+        try:
+            key = self.key_select_modal.selected_key
+            key_text = self.arrow_text_conversion(key)
+            if self.key_select_modal.z_c_key_mode == 0:
+                self.param_select.update({"key":key})
+                self.pressureButton.setText(key_text.upper())
+            elif self.key_select_modal.z_c_key_mode == 1:
+                self.nunchuck_info_dict.update({"z_key":key})
+                self.ZKeyButton.setText(key_text.upper())
+            else:
+                self.nunchuck_info_dict.update({"c_key":key})
+                self.CKeyButton.setText(key_text.upper())
+            self.key_select_modal.selected_key = None
+            self.key_select_modal.z_c_key_mode = 0
+        except Exception as e:
+            logger.error(f"ConfigWidgetModel confirm_messages_generator error: {e}")
+
+    def assing_card_values(self,config):
+        try:
+            if config is None:
+                raise Exception(f"null config: {config}")
+                
+            self._selected_fingers = [False,False,False,False]#this is done this way as to not trigger reset value multiple times
+            self.selected_fingers = (0,False)#triggers reset
+            duration = int(config["duration"])
+            repeat = True if config["repeat"] == "True" else False
+            key = config["key"]
+
+            for index, finger in enumerate(["little", "ring", "middle" , "index"]):
+                value = int(config[finger])
+                if int(value) != 0:
+                    self.finger_radio_array[index].setChecked(True)
+                    self.selected_fingers = (index,True)
+                    self.slider_array[index].setEnabled(True)
+                    self.slider_array[index].slider.setValue(value)
+                    
+            self.durationSlider.setValue(duration)
+
+            if repeat == True:
+                self.repeatOnButton.setChecked(True)
+                self.repeatOffButton.setChecked(False)
+                self.param_select["repeat_key"] = True
+            else:
+                self.repeatOffButton.setChecked(True)
+                self.repeatOnButton.setChecked(False)
+                self.param_select["repeat_key"] = False
+                
+            self.key_select_modal.selected_key = key
+            self.handle_modal_finish()
+        except Exception as e:
+            logger.error(f"ConfigWidgetModel assing_card_values error: {e}")
 
     def changeEvent(self, event):
         if event.type() == QEvent.Type.LanguageChange:
