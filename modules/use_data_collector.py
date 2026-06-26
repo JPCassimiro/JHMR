@@ -29,24 +29,24 @@ class DataCollectorClass(SharedDataCollectorClass):
 
     def generate_query(self,little,ring,middle,index):
         try:
+            if self.current_session_index is None:
+                raise Exception(f"null current_session: {self.current_session_index}")
+
             q = "insert into use_data (session_id,finger,pressure,hand) values (?,?,?,?);"
-            if self.current_session_index:
-                data = []
-                #4 same size arrays with x items
-                for i,v in enumerate(index):
-                    if int(index[i]) > 0:
-                        data.append((self.current_session_index, 'index', int(index[i]), self.selected_hand))
-                    if int(middle[i]) > 0:
-                        data.append((self.current_session_index, 'middle', int(middle[i]), self.selected_hand))
-                    if int(ring[i]) > 0:
-                        data.append((self.current_session_index, 'ring', int(ring[i]), self.selected_hand))
-                    if int(little[i]) > 0:
-                        data.append((self.current_session_index, 'little', int(little[i]), self.selected_hand))
-                return q,data
-            else:
-                logger.error(f"Não pode gerar um query para estatisticas de uso, paciente não selecionado")
+            data = []
+            #4 same size arrays with x items
+            for i,v in enumerate(index):
+                if int(index[i]) > 0:
+                    data.append((self.current_session_index, 'index', int(index[i]), self.selected_hand))
+                if int(middle[i]) > 0:
+                    data.append((self.current_session_index, 'middle', int(middle[i]), self.selected_hand))
+                if int(ring[i]) > 0:
+                    data.append((self.current_session_index, 'ring', int(ring[i]), self.selected_hand))
+                if int(little[i]) > 0:
+                    data.append((self.current_session_index, 'little', int(little[i]), self.selected_hand))
+            return q,data
         except Exception as e:
-            logger.error(f"Erro durante a geração da query para entrada de dados no BD: {e}")
+            logger.error(f"DataCollectorClass generate_query error: {e}")
             self.message_buffer = [[],[],[],[]]
             self.errorOcurred.emit(True)
         
@@ -65,7 +65,7 @@ class DataCollectorClass(SharedDataCollectorClass):
             else:
                 logger.debug(f"Message buffer vazio: {self.message_buffer}")
         except Exception as e:
-            logger.error(f"Erro ao iniciar o processo de padronização de leituras: {e}")
+            logger.error(f"DataCollectorClass timeout_handle error: {e}")
             self.message_buffer = [[],[],[],[]]
             self.errorOcurred.emit(True)
 
@@ -74,11 +74,14 @@ class DataCollectorClass(SharedDataCollectorClass):
     #splits message on each array
     #each message has 3 digits
     def message_received_handler(self,message):
-        logger.debug(f"DataCollectorClass message_received_handler message:{message}")
-        self.logModel.append_log(message)
-        for m in message:
-            messages = [m[2:5],m[5:8],m[8:11],m[11:]] 
-            for i, msg in enumerate(messages):
-                self.message_buffer[i].append(messages[i])
-                logger.debug(f"Mensagem adicionada ao buffer no indice {i}: {messages[i]}")
-                logger.debug(f"Pressões recebidas - Mínimo: {int(messages[0])/10} - Anelar: {int(messages[1])/10} KG - Médio: {int(messages[2])/10} KG - KG Indicador/Polegar: {int(messages[3])/10} KG")
+        try:
+            logger.debug(f"DataCollectorClass message_received_handler message:{message}")
+            self.logModel.append_log(message)
+            for m in message:
+                messages = [m[2:5],m[5:8],m[8:11],m[11:]] 
+                for i, msg in enumerate(messages):
+                    self.message_buffer[i].append(messages[i])
+                    logger.debug(f"Mensagem adicionada ao buffer no indice {i}: {messages[i]}")
+                    logger.debug(f"Pressões recebidas - Mínimo: {int(messages[0])/10} - Anelar: {int(messages[1])/10} KG - Médio: {int(messages[2])/10} KG - KG Indicador/Polegar: {int(messages[3])/10} KG")
+        except Exception as e:
+            logger.error(f"DataCollectorClass message_received_handler error: {e}")

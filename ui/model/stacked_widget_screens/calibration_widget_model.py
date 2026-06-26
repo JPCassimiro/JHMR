@@ -44,39 +44,49 @@ class CalibrationWidgetModel(SharedCalibrationModel):
     def get_result_model(self):
         return CalibrationResultModel()
         
-    def cancel_button_handler(self):
-        self.timer.stop()
-        self.timeout_counter = 0
-        self.message_counter = 0
-        self.ui_counter = 0        
-        if self.calibration_step == 0:
-            self.step_1_pressure = [[0],[0],[0],[0]]
-        else:
-            self.step_2_pressure = [0]
-        self.cancelButton.setEnabled(False)
-        self.restartButton.setEnabled(True)
-        self.startButton.setEnabled(True)
-        self.sideMenuDisableSignal.emit(True)
-        self.btSerialhandle.mesReceivedSignal.disconnect(self.recieve_serial_message)
-        self.btSerialhandle.port_error.disconnect(self.port_error_handle)
-        
-    def handle_pressure_message_1(self, pressure):
-        if self.message_counter > 3:
+    def cancel_current_step(self):
+        try:
+            self.timer.stop()
+            self.timeout_counter = 0
             self.message_counter = 0
-        self.step_1_pressure[self.message_counter].append(int(pressure[:3]))
-        self.message_counter += 1
-
+            if self.calibration_step == 0:
+                self.step_1_pressure = self.get_step_1_presusre()
+            else:
+                self.step_2_pressure = [0]
+            self.step_running_watcher = False
+            self.btSerialhandle.mesReceivedSignal.disconnect(self.recieve_serial_message)
+            self.btSerialhandle.port_error.disconnect(self.port_error_handle)
+            self.error_flag = False
+        except Exception as e:
+            logger.error(f"SharedCalibrationModel cancel_current_step error: {e}")
+            raise
+    
+    def handle_pressure_message_1(self, pressure):
+        try:
+            if self.message_counter > 3:
+                self.message_counter = 0
+            self.step_1_pressure[self.message_counter].append(int(pressure[:3]))
+            self.message_counter += 1
+        except Exception as e:
+            logger.error(f"CalibrationWidgetModel handle_pressure_message_1 error: {e}")
+            
     def get_max_pressure_values(self):
-        max_val_array = []
-        if self.step_1_pressure:
-            for array in self.step_1_pressure:
-                max_val_array.append(max(array))
-            max_val_array.append(max(self.step_2_pressure))
-            return max_val_array
+        try:
+            max_val_array = []
+            if self.step_1_pressure:
+                for array in self.step_1_pressure:
+                    max_val_array.append(max(array))
+                max_val_array.append(max(self.step_2_pressure))
+                return max_val_array
+        except Exception as e:
+            logger.error(f"CalibrationWidgetModel get_max_pressure_values error: {e}")
 
     def reset_variables(self):
-        self.step_1_pressure = [[0],[0],[0],[0]]
-        self.step_2_pressure = [0]
-        self.message_counter = 0
-        self.timeout_counter = 0
-        self.calibration_step = 0
+        try:
+            self.step_1_pressure = self.get_step_1_presusre()
+            self.step_2_pressure = [0]
+            self.message_counter = 0
+            self.timeout_counter = 0
+            self.calibration_step = 0
+        except Exception as e:
+            logger.error(f"CalibrationWidgetModel reset_variables error: {e}")

@@ -219,7 +219,7 @@ class Ui_useStatisticsForm(object):
         self.handSelectorContainer = QWidget(useStatisticsForm)
         self.handSelectorContainer.setObjectName(u"handSelectorContainer")
         self.horizontalLayout_3 = QHBoxLayout(self.handSelectorContainer)
-        self.horizontalLayout_3.setSpacing(0)
+        self.horizontalLayout_3.setSpacing(5)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.rightHandButton = QRadioButton(self.handSelectorContainer)
