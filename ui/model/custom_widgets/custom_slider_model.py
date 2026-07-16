@@ -5,23 +5,33 @@ from shared_ui_modules.modules.log_class import logger
 from PySide6.QtWidgets import QWidget, QStyle, QStyleOptionSlider
 
 class CustomSliderModel(QWidget):
-    def __init__(self):
+    def __init__(self,unit):
         super().__init__()
 
         self.ui = Ui_customSliderForm()
         self.ui.setupUi(self)
         
+        self.unit = unit
         self.slider = self.ui.verticalSlider
         self.maxLabel = self.ui.maxLabel
         self.currentLabel = self.ui.currentLabel
         
-        self.setFixedWidth(42)#min
+        self.setFixedWidth(49)#min
+        self.slider.setMaximum(200)
         
-        self.maxLabel.setText(str(self.slider.maximum()/10))
-        self.currentLabel.setText(str(self.slider.value()/10))
+        self.maxLabel.setText(str(self.slider.maximum()/10) + self.unit)
+        self.currentLabel.setText(str(self.slider.value()/10) + self.unit)
 
         self.slider.valueChanged.connect(self.adjust_roundness)
-        
+        self.slider.valueChanged.connect(self.assing_current_label_value)
+        self.slider.rangeChanged.connect(self.adjust_max_label)    
+    
+    def adjust_max_label(self):
+        self.maxLabel.setText(str(self.slider.maximum()/10) + self.unit)
+    
+    def assing_current_label_value(self,val):    
+        self.currentLabel.setText(str(val/10) + self.unit)
+    
     def adjust_roundness(self):
         try:
             # opt = QStyleOptionSlider()
@@ -56,4 +66,4 @@ class CustomSliderModel(QWidget):
                     QWidget#slider>QSlider::add-page{
                     border-radius: 6px;}""")
         except Exception as e:
-            logger.error(f"CustomSliderModel adjust_roundness")    
+            logger.error(f"CustomSliderModel adjust_roundness error: {e}")    

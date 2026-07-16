@@ -19,6 +19,8 @@ from PySide6.QtWidgets import (QApplication, QButtonGroup, QGridLayout, QHBoxLay
     QLabel, QPushButton, QRadioButton, QSizePolicy,
     QSlider, QVBoxLayout, QWidget)
 
+from shared_ui_modules.ui.modified_widgets.duration_slider import duration_slider 
+
 class Ui_configForm(object):
     def setupUi(self, configForm):
         if not configForm.objectName():
@@ -26,15 +28,18 @@ class Ui_configForm(object):
         configForm.resize(697, 539)
         self.gridLayout = QGridLayout(configForm)
         self.gridLayout.setObjectName(u"gridLayout")
+        self.gridLayout.setContentsMargins(-1, 4, -1, 4)
         self.configContainer = QWidget(configForm)
         self.configContainer.setObjectName(u"configContainer")
         self.gridLayout_2 = QGridLayout(self.configContainer)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.gridLayout_2.setContentsMargins(-1, 4, -1, 4)
         self.optionsContainer = QWidget(self.configContainer)
         self.optionsContainer.setObjectName(u"optionsContainer")
         self.verticalLayout = QVBoxLayout(self.optionsContainer)
         self.verticalLayout.setSpacing(3)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(-1, -1, -1, 4)
         self.optionsButtonsContainer = QWidget(self.optionsContainer)
         self.optionsButtonsContainer.setObjectName(u"optionsButtonsContainer")
         self.verticalLayout_2 = QVBoxLayout(self.optionsButtonsContainer)
@@ -130,7 +135,7 @@ class Ui_configForm(object):
 
         self.horizontalLayout_2.addWidget(self.zeroLabel)
 
-        self.durationSlider = QSlider(self.durationSliderContainer)
+        self.durationSlider = duration_slider(self.durationSliderContainer)
         self.durationSlider.setObjectName(u"durationSlider")
         self.durationSlider.setMinimum(0)
         self.durationSlider.setMaximum(9)
@@ -200,19 +205,13 @@ class Ui_configForm(object):
         self.pressureFingerContainer.setObjectName(u"pressureFingerContainer")
         self.verticalLayout_3 = QVBoxLayout(self.pressureFingerContainer)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.verticalLayout_3.setContentsMargins(-1, 4, -1, 4)
         self.slidersContainer = QWidget(self.pressureFingerContainer)
         self.slidersContainer.setObjectName(u"slidersContainer")
-        self.handImageLabel = QLabel(self.slidersContainer)
-        self.handImageLabel.setObjectName(u"handImageLabel")
-        self.handImageLabel.setGeometry(QRect(110, 150, 201, 151))
-        self.handImageLabel.setPixmap(QPixmap(u"_internal/resources/imgs/hand.png"))
-        self.handImageLabel.setScaledContents(True)
-        self.handImageLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.handImageLabel.setWordWrap(False)
-        self.massLabel = QLabel(self.slidersContainer)
-        self.massLabel.setObjectName(u"massLabel")
-        self.massLabel.setGeometry(QRect(270, 10, 81, 31))
-        self.massLabel.setFont(font)
+        self.gridLayout_3 = QGridLayout(self.slidersContainer)
+        self.gridLayout_3.setSpacing(0)
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
 
         self.verticalLayout_3.addWidget(self.slidersContainer)
 
@@ -306,8 +305,6 @@ class Ui_configForm(object):
         self.confirmButton.setToolTip("")
 #endif // QT_CONFIG(tooltip)
         self.confirmButton.setText(QCoreApplication.translate("configForm", u"Confirmar", None))
-        self.handImageLabel.setText("")
-        self.massLabel.setText(QCoreApplication.translate("configForm", u"Massa em KG", None))
         self.radioButtonLittle.setText(QCoreApplication.translate("configForm", u"M\u00ednimo", None))
         self.radioButtonRing.setText(QCoreApplication.translate("configForm", u"Anelar", None))
         self.radioButtonMiddle.setText(QCoreApplication.translate("configForm", u"M\u00e9dio", None))

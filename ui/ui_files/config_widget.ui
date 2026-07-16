@@ -14,14 +14,29 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="topMargin">
+    <number>4</number>
+   </property>
+   <property name="bottomMargin">
+    <number>4</number>
+   </property>
    <item row="1" column="0">
     <widget class="QWidget" name="configContainer" native="true">
      <layout class="QGridLayout" name="gridLayout_2" rowstretch="0" columnstretch="3,0">
+      <property name="topMargin">
+       <number>4</number>
+      </property>
+      <property name="bottomMargin">
+       <number>4</number>
+      </property>
       <item row="0" column="1">
        <widget class="QWidget" name="optionsContainer" native="true">
         <layout class="QVBoxLayout" name="verticalLayout" stretch="3">
          <property name="spacing">
           <number>3</number>
+         </property>
+         <property name="bottomMargin">
+          <number>4</number>
          </property>
          <item>
           <widget class="QWidget" name="optionsButtonsContainer" native="true">
@@ -214,7 +229,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QSlider" name="durationSlider">
+                <widget class="duration_slider" name="durationSlider">
                  <property name="minimum">
                   <number>0</number>
                  </property>
@@ -333,51 +348,31 @@
       <item row="0" column="0">
        <widget class="QWidget" name="pressureFingerContainer" native="true">
         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,0">
+         <property name="topMargin">
+          <number>4</number>
+         </property>
+         <property name="bottomMargin">
+          <number>4</number>
+         </property>
          <item>
           <widget class="QWidget" name="slidersContainer" native="true">
-           <widget class="QLabel" name="handImageLabel">
-            <property name="geometry">
-             <rect>
-              <x>110</x>
-              <y>150</y>
-              <width>201</width>
-              <height>151</height>
-             </rect>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <property name="leftMargin">
+             <number>0</number>
             </property>
-            <property name="text">
-             <string/>
+            <property name="topMargin">
+             <number>0</number>
             </property>
-            <property name="pixmap">
-             <pixmap>../../_internal/resources/imgs/hand.png</pixmap>
+            <property name="rightMargin">
+             <number>0</number>
             </property>
-            <property name="scaledContents">
-             <bool>true</bool>
+            <property name="bottomMargin">
+             <number>0</number>
             </property>
-            <property name="alignment">
-             <set>Qt::AlignmentFlag::AlignCenter</set>
+            <property name="spacing">
+             <number>0</number>
             </property>
-            <property name="wordWrap">
-             <bool>false</bool>
-            </property>
-           </widget>
-           <widget class="QLabel" name="massLabel">
-            <property name="geometry">
-             <rect>
-              <x>270</x>
-              <y>10</y>
-              <width>81</width>
-              <height>31</height>
-             </rect>
-            </property>
-            <property name="font">
-             <font>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>Massa em KG</string>
-            </property>
-           </widget>
+           </layout>
           </widget>
          </item>
          <item>
@@ -454,6 +449,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>duration_slider</class>
+   <extends>QSlider</extends>
+   <header>duration_slider.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
  <buttongroups>

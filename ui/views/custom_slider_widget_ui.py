@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'custom_slider_widget.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.9.1
+## Created by: Qt User Interface Compiler version 6.10.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -18,19 +18,19 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QGridLayout, QLabel, QSizePolicy,
     QVBoxLayout, QWidget)
 
-from ui.modifed_widgets.slider import Slider
+from shared_ui_modules.ui.modified_widgets.pressure_slider import pressure_slider
 
 class Ui_customSliderForm(object):
     def setupUi(self, customSliderForm):
         if not customSliderForm.objectName():
             customSliderForm.setObjectName(u"customSliderForm")
-        customSliderForm.resize(100, 196)
+        customSliderForm.resize(84, 150)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(customSliderForm.sizePolicy().hasHeightForWidth())
         customSliderForm.setSizePolicy(sizePolicy)
-        customSliderForm.setMinimumSize(QSize(100, 196))
+        customSliderForm.setMinimumSize(QSize(40, 150))
         self.gridLayout = QGridLayout(customSliderForm)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(u"gridLayout")
@@ -44,13 +44,18 @@ class Ui_customSliderForm(object):
         self.slider = QWidget(self.customSliderContainer)
         self.slider.setObjectName(u"slider")
         self.verticalLayout = QVBoxLayout(self.slider)
+        self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(2, 2, 2, 2)
         self.maxLabel = QLabel(self.slider)
         self.maxLabel.setObjectName(u"maxLabel")
+        font = QFont()
+        font.setBold(True)
+        self.maxLabel.setFont(font)
 
         self.verticalLayout.addWidget(self.maxLabel, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
 
-        self.verticalSlider = Slider(self.slider)
+        self.verticalSlider = pressure_slider(self.slider)
         self.verticalSlider.setObjectName(u"verticalSlider")
         self.verticalSlider.setMaximum(200)
         self.verticalSlider.setTracking(False)
@@ -60,6 +65,7 @@ class Ui_customSliderForm(object):
 
         self.currentLabel = QLabel(self.slider)
         self.currentLabel.setObjectName(u"currentLabel")
+        self.currentLabel.setFont(font)
 
         self.verticalLayout.addWidget(self.currentLabel, 0, Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignVCenter)
 

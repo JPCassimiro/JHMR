@@ -4,6 +4,7 @@ from shared_ui_modules.ui.model.dialogs.key_select_model import SharedKeySelectM
 from shared_ui_modules.ui.model.components.end_config_model import SharedEndConfigModel
 from shared_ui_modules.ui.model.stacked_widget_screens.config_widget_model import SharedConfigWidgetModel
 from ui.model.custom_widgets.custom_slider_model import CustomSliderModel
+from ui.model.components.hand_slider_widget import HandSliderComponentModel
 
 from shared_ui_modules.modules.log_class import logger
 from modules.json_writer import JsonWriterClass
@@ -51,27 +52,34 @@ class ConfigWidgetModel(SharedConfigWidgetModel):
         self.nunchuck_info_dict = nunchuck_base_value.copy()
         self.p_value_array = [0,0,0,0]
         self.current_user = None
-        
+
         #get ui elements
         #hand radio buttons
         self.radioButtonLittle = self.ui.radioButtonLittle
         self.radioButtonRing = self.ui.radioButtonRing
         self.radioButtonMiddle = self.ui.radioButtonMiddle
         self.radioButtonIndex = self.ui.radioButtonIndex
+
+        #hand component
         
-        #hand sliders
-        self.verticalSliderLittle = CustomSliderModel()
-        self.verticalSliderRing = CustomSliderModel()
-        self.verticalSliderMiddle = CustomSliderModel()
-        self.verticalSliderIndex = CustomSliderModel()
+        self.hand_component = HandSliderComponentModel(parent=self.ui.slidersContainer)
+        self.ui.slidersContainer.layout().addWidget(self.hand_component)
         
-        self.slider_array = [
-            self.verticalSliderLittle,
-            self.verticalSliderRing,
-            self.verticalSliderMiddle,
-            self.verticalSliderIndex
-        ]
+        # #hand sliders
+        # self.verticalSliderLittle = CustomSliderModel()
+        # self.verticalSliderRing = CustomSliderModel()
+        # self.verticalSliderMiddle = CustomSliderModel()
+        # self.verticalSliderIndex = CustomSliderModel()
         
+        # self.slider_array = [
+        #     self.verticalSliderLittle,
+        #     self.verticalSliderRing,
+        #     self.verticalSliderMiddle,
+        #     self.verticalSliderIndex
+        # ]
+        
+        self.slider_array = self.hand_component.slider_array
+
         self.finger_radio_array = [
             self.radioButtonLittle,
             self.radioButtonRing,
@@ -85,7 +93,7 @@ class ConfigWidgetModel(SharedConfigWidgetModel):
 
         #duration slider
         self.durationSlider = self.ui.durationSlider
-
+        
         #buttons
         self.pressureButton = self.ui.pressureButton
         self.CKeyButton = self.ui.CKeyButton
@@ -93,27 +101,33 @@ class ConfigWidgetModel(SharedConfigWidgetModel):
         self.confirmButton = self.ui.confirmButton
 
         #finger indexing
-        self.radioButtonLittle.setProperty("index",0)
-        self.radioButtonRing.setProperty("index",1)
-        self.radioButtonMiddle.setProperty("index",2)
-        self.radioButtonIndex.setProperty("index",3)
+        for i in range(0,4):
+            self.finger_radio_array[i].setProperty("index",i)
+            
+        # self.radioButtonLittle.setProperty("index",0)
+        # self.radioButtonRing.setProperty("index",1)
+        # self.radioButtonMiddle.setProperty("index",2)
+        # self.radioButtonIndex.setProperty("index",3)
 
-        self.verticalSliderLittle.slider.setProperty("index",0)
-        self.verticalSliderRing.slider.setProperty("index",1)
-        self.verticalSliderMiddle.slider.setProperty("index",2)
-        self.verticalSliderIndex.slider.setProperty("index",3)
+        for i in range(0,4):
+            self.slider_array[i].slider.setProperty("index",i)
+
+        # self.verticalSliderLittle.slider.setProperty("index",0)
+        # self.verticalSliderRing.slider.setProperty("index",1)
+        # self.verticalSliderMiddle.slider.setProperty("index",2)
+        # self.verticalSliderIndex.slider.setProperty("index",3)
         
         #add slider on layout
-        self.slider_pos_array = [
-            QRect(143, 20, 70, 170),
-            QRect(176, 12, 70, 170),
-            QRect(205, 11, 70, 170),
-            QRect(240, 14, 70, 170),
-        ]
+        # self.slider_pos_array = [
+        #     QRect(143, 20, 70, 170),
+        #     QRect(176, 12, 70, 170),
+        #     QRect(205, 11, 70, 170),
+        #     QRect(240, 14, 70, 170),
+        # ]
 
-        for i,v in enumerate(self.slider_array):
-            v.setParent(self.ui.configContainer)
-            v.setGeometry(self.slider_pos_array[i])
+        # for i,v in enumerate(self.slider_array):
+        #     v.setParent(self.ui.configContainer)
+        #     v.setGeometry(self.slider_pos_array[i])
 
         #connections
         for slider in self.slider_array:
@@ -159,7 +173,6 @@ class ConfigWidgetModel(SharedConfigWidgetModel):
     def set_slider_max_value(self,arry):
         for i,slider in enumerate(self.slider_array):
             slider.slider.setMaximum(arry[i])
-            slider.maxLabel.setText(str(arry[i]/10))
     
     def finish_modal(self):
         try:
@@ -213,7 +226,6 @@ class ConfigWidgetModel(SharedConfigWidgetModel):
     def pressure_slider_value_change(self):
         try:
             self.p_value_array[self.sender().property("index")] = self.sender().value()
-            self.sender().parent().parent().parent().currentLabel.setText(str(self.sender().value()/10))
         except Exception as e:
             logger.error(f"ConfigWidgetModel pressure_slider_value_change error: {e}")
 

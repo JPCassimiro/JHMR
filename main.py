@@ -18,7 +18,7 @@ except ImportError:
 def init_settings(path, app):
     settings = QSettings(path, QSettings.IniFormat)
     language = settings.value("language")
-    print(f"init_settings - language: {language} type: {type(language)}")
+    print(f"init_settings - language: {language}")
     app.translator = QTranslator()
     if language and language != "None":
         if app.translator.load(language):
@@ -42,7 +42,7 @@ def main():
 
         app.setWindowIcon(QIcon("_internal/resources/icons/logo.ico"))
             
-        print(f"-------------JHMR Stable V1.1.3-------------")
+        print(f"-------------JHMR Stable V1.1.4-------------")
         app.exec()
     except Exception as e:
         log_class.logger.exception(f"Erro na execução do Main\nErro: {e}")

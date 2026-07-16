@@ -7,7 +7,7 @@ class BtSerialComm(SharedBtSerialComm):
         self.initialize_module()
 
     def get_fake_data(self):
-        return ["*I020120320020","*I020120320020"]
+        return ["*I200210320020","*I020120320020"]
 
     def get_use_data_get_regex(self):
         return r"\*I\d{12}"

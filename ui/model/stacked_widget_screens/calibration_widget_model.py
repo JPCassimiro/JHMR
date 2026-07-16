@@ -37,12 +37,18 @@ class CalibrationWidgetModel(SharedCalibrationModel):
     
     def get_str_array(self):
         return [
-                QCoreApplication.translate("InstructionText", text)
-                for text in self.s_list
-                ]
+            QCoreApplication.translate(
+                "InstructionText",
+                "Aperte os botões com toda força por 5 segundos"
+            ),
+            QCoreApplication.translate(
+                "InstructionText",
+                "Use seu dedão e indicador com toda força por 5 segundos"
+            )
+        ]
 
     def get_result_model(self):
-        return CalibrationResultModel()
+        return CalibrationResultModel(parent=self)
         
     def cancel_current_step(self):
         try:

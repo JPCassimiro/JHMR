@@ -6,8 +6,9 @@ class AppHelperModule(SharedAppHelperModel):
     def __init__(self):
         super().__init__()
         
+        QCoreApplication.translate("AppHelperDialogText","<a href='https://github.com/JPCassimiro/jhmr'>Repostório do Github<a/>")
+        
         self.initialize_module()
-
 
     def get_repo_string(self):
         return QCoreApplication.translate("AppHelperDialogText","<a href='https://github.com/JPCassimiro/jhmr'>Repostório do Github<a/>")

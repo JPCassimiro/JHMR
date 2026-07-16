@@ -7,6 +7,7 @@ from modules.csv_writer import CSVWriterClass
 from PySide6.QtWidgets import QWidget, QPushButton, QRadioButton, QMessageBox
 from shared_ui_modules.modules.log_class import logger
 from PySide6.QtCore import Signal, Qt, QCoreApplication, QEvent
+from PySide6.QtGui import QPen, QColor
 
 import pyqtgraph as pg
 import pyqtgraph.exporters
@@ -15,8 +16,6 @@ from pathlib import Path
 from unidecode import unidecode
 
 class UserStatsModel(SharedUserStatsModel):
-
-    sideMenuDisableSignal = Signal(bool)
 
     def __init__(self, dbHandleClass, btSerialHandle, LogModel):
         super().__init__(dbHandleClass, btSerialHandle, LogModel)
@@ -215,10 +214,10 @@ class UserStatsModel(SharedUserStatsModel):
             self.plot_item_avg_line.showGrid(y = True,x = True)
 
             #create lines
-            self.little_line = self.plot_item_avg_line.plot(self.little_info_array[0],self.little_info_array[1],pen ='r')
-            self.ring_line = self.plot_item_avg_line.plot(self.ring_info_array[0],self.ring_info_array[1],pen ='g')
-            self.middle_line = self.plot_item_avg_line.plot(self.middle_info_array[0],self.middle_info_array[1],pen ='b')
-            self.index_line = self.plot_item_avg_line.plot(self.index_info_array[0],self.index_info_array[1],pen ='purple')
+            self.little_line = self.plot_item_avg_line.plot(self.little_info_array[0],self.little_info_array[1],pen = "#f89e59")
+            self.ring_line = self.plot_item_avg_line.plot(self.ring_info_array[0],self.ring_info_array[1],pen = "#63f859")
+            self.middle_line = self.plot_item_avg_line.plot(self.middle_info_array[0],self.middle_info_array[1],pen = "#59b3f8")
+            self.index_line = self.plot_item_avg_line.plot(self.index_info_array[0],self.index_info_array[1],pen = "#ee59f8")
                 
             #line chart legend
             self.avg_line_legend = pg.LegendItem(colCount = 2)
