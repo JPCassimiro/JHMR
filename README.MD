@@ -2,7 +2,7 @@
 
 Este é o repositório para o [TCC "SOFTWARE PARA CONFIGURAÇÃO DE UM JOYSTICK PARA EXERCÍCIOS DE MÃOS E DEDOS"](http://repositorio.utfpr.edu.br/jspui/handle/1/40232)</br>
 O objetivo da ferramenta é apoiar um joystick baseado em pressão desenvolvido por pesquisadores da UTFPR - CP na terefa de reabilitação de mãos e dedos, permitindo que o joystick seja configurado e que estatiscas de uso do mesmo sejam observadas.</br>
-[Este projeto tem um registro no INPI: BR512026003004-8.](https://busca.inpi.gov.br/pePI/servlet/ImagemDocumentoPdfController?CodDiretoria=700&NumeroID=512026003004&certificado=undefined&numeroProcesso=undefined&ipasDoc=undefined&action=CertificadoDocument)</br>
+Este projeto tem um registro no INPI: BR512026003004-8.</br>
 O módulo personalizado [shared_ui_modules](https://github.com/JPCassimiro/shared_ui_modules) é utilizado e compartilhado com o projeto [JRE](https://github.com/JPCassimiro/jre).</br>
 
 - [JHMR - Joystick for Hand Motor Rehabilitation Software](#jhmr---joystick-for-hand-motor-rehabilitation-software)
